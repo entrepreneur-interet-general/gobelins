@@ -32,4 +32,25 @@ class Product extends Model
     {
         return $this->belongsTo(ProductType::class);
     }
+
+    // Fillables
+
+    protected $fillable = [
+        'inventory_id',
+        'inventory_root',
+        'inventory_number',
+        'inventory_suffix',
+        'length_or_diameter',
+        'depth_or_width',
+        'conception_year',
+        'acquisition_origin',
+        'acquisition_date',
+        'listed_as_historic_monument',
+        'listed_on',
+        'category',
+        'denomination',
+        'title_or_designation',
+        'description',
+        'bibliography',
+    ];
 }
