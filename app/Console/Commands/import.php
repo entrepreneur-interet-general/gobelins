@@ -57,6 +57,7 @@ class Import extends Command
 
         // The root request endpoint.
         // All subsequent requests will be crawled from the next page in the response.
+        // products?page=3033
         $next_page = '/api/products';
 
         do {
@@ -69,7 +70,7 @@ class Import extends Command
                     //var_dump($json_resp);
                     collect($json_resp->data)->map(function ($item) {
                         $this->comment('Upserting product: ' . $item->inventory_id);
-                        \App\Models\Product::updateOrCreate(
+                        $product = \App\Models\Product::updateOrCreate(
                             ['inventory_id' => $item->inventory_id],
                             [
                                 'inventory_id' => $item->inventory_id,
@@ -89,9 +90,21 @@ class Import extends Command
                                 'title_or_designation' => $item->title_or_designation,
                                 'description' => $item->description,
                                 'bibliography' => $item->bibliography,
-                                // 'period_id' => $item->period_id,
                             ]
                         );
+                            
+                        // Images
+                        $product->images->map(function ($img) {
+                            $img->delete();
+                        });
+                        $product->images()->createMany(collect($item->images)->map(function ($img_obj) {
+                            return (array) $img_obj;
+                        })->toArray());
+
+                        // TODO: product_type
+                        // TODO: period
+                        // TODO: LegacyInventoryNumbers
+                        // TODO: authors and authorships
                     });
 
                     $next_page = $json_resp->links->next ?: false;

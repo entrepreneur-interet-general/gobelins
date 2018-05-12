@@ -36,7 +36,7 @@ class CreateProductsTable extends Migration
             
             // Classification monuments historiques.
             $table->boolean('listed_as_historic_monument');
-            $table->year('listed_on')->nullable();
+            $table->date('listed_on')->nullable();
             
             // Taxonomies
             $table->string('category')->nullable();
