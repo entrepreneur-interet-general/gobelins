@@ -5,6 +5,11 @@ collections of the Mobilier National, as described <a href="https://entrepreneur
 
 Documentation: coming soon :)
 
+### Development setup
+```shell
+php artisan db:seed --class=ProductTypeSeeder
+```
+
 #### Credits
 
 - Laurie Chapotte, design

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * A ProductType is based on the SCOM 'gracat' (Grandes catégories).
+ */
 class ProductType extends Model
 {
     public function products()
