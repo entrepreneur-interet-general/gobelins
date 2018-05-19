@@ -101,10 +101,25 @@ class Import extends Command
                             return (array) $img_obj;
                         })->toArray());
 
-                        // TODO: product_type
-                        // TODO: period
+                        // ProductType
+                        // We use the legacy SCOM 'gracat' name to map to a ProductType.
+                        if ($item->product_type && $item->product_type->name) {
+                            $product_type = \App\Models\ProductType::legacyType($item->product_type->name)->first();
+                            if ($product_type) {
+                                $product->productType()->associate($product_type);
+                            }
+                        }
+
+                        // Period
+                        // To map product to a period, use, in this order:
+                        // - the 'conception_year' attribute
+                        // - the 'period' related object.
+                        if ($item->conception_year) {
+                        }
                         // TODO: LegacyInventoryNumbers
                         // TODO: authors and authorships
+
+                        $product->save();
                     });
 
                     $next_page = $json_resp->links->next ?: false;

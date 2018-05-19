@@ -44,6 +44,8 @@ class CreateProductsTable extends Migration
             $table->string('title_or_designation')->nullable();
             $table->integer('period_id')->unsigned()->nullable();
             $table->foreign('period_id')->references('id')->on('periods')->onDelete('set null');
+            $table->integer('product_type_id')->unsigned()->nullable();
+            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('set null');
 
             // Content
             $table->text('description')->nullable();

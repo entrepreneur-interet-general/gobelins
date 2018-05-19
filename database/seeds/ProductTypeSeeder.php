@@ -12,7 +12,7 @@ class ProductTypeSeeder extends Seeder
      */
     public function run()
     {
-        $product_types = file(__DIR__ . '/product_types.csv', FILE_IGNORE_NEW_LINES);
+        $product_types = file(__DIR__ . '/product_types.tsv', FILE_IGNORE_NEW_LINES);
         collect($product_types)->map(function ($product_type_key) {
             $types_arr = explode(' > ', $product_type_key);
             if (sizeof($types_arr) === 1) {
