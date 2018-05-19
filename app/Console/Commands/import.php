@@ -110,6 +110,38 @@ class Import extends Command
                             }
                         }
 
+                        // Drop all authorships
+                        $product->authorships->map(function ($as) {
+                            $as->delete();
+                        });
+                        
+                        // Create authors
+                        $authorships = collect($item->authorships);
+                        $authorships->map(function ($as) {
+                            \App\Models\Author::updateOrCreate(
+                                ['legacy_id' => $as->author->id],
+                                [
+                                    'legacy_id' => $as->author->id,
+                                    'name' => $as->author->name,
+                                ]
+                            );
+                        });
+
+                        // Create Authorships
+                        \App\Models\Authorship::unguard();
+                        $product->authorships()->createMany(
+                            $authorships->map(function ($authorship_obj) {
+                                return [
+                                    'nature_code' => \App\Models\Authorship::authorNatureCode($authorship_obj->author_nature),
+                                    'relevant_detail' => $authorship_obj->relevant_detail,
+                                    'author_id' => \App\Models\Author::where('legacy_id', $authorship_obj->author->id)->first()->id,
+                                ];
+                            })->toArray()
+                        );
+                        \App\Models\Authorship::reguard();
+
+
+
                         // Period
                         // To map product to a period, use, in this order:
                         // - the 'conception_year' attribute
@@ -117,7 +149,6 @@ class Import extends Command
                         if ($item->conception_year) {
                         }
                         // TODO: LegacyInventoryNumbers
-                        // TODO: authors and authorships
 
                         $product->save();
                     });

@@ -19,8 +19,8 @@ class CreateAuthorshipsTable extends Migration
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->integer('nature_code');
-            $table->string('relevant_detail');
+            $table->integer('nature_code')->nullable();
+            $table->string('relevant_detail')->nullable();
             $table->timestamps();
         });
     }

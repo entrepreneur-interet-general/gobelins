@@ -13,6 +13,11 @@ class Product extends Model
         return $this->hasMany(Authorship::class);
     }
 
+    public function authors()
+    {
+        return $this->hasManyThrough(Author::class, Authorship::class);
+    }
+
     public function images()
     {
         return $this->hasMany(Image::class);
