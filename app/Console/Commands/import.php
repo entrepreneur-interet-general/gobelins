@@ -67,8 +67,10 @@ class Import extends Command
                     $this->comment('Received page: ' . $next_page);
                     
                     $json_resp = json_decode($response->getBody());
-                    //var_dump($json_resp);
+
                     collect($json_resp->data)->map(function ($item) {
+
+                        // Handle core product data.
                         $this->comment('Upserting product: ' . $item->inventory_id);
                         $product = \App\Models\Product::updateOrCreate(
                             ['inventory_id' => $item->inventory_id],
@@ -101,6 +103,7 @@ class Import extends Command
                             return (array) $img_obj;
                         })->toArray());
 
+
                         // ProductType
                         // We use the legacy SCOM 'gracat' name to map to a ProductType.
                         if ($item->product_type && $item->product_type->name) {
@@ -109,6 +112,7 @@ class Import extends Command
                                 $product->productType()->associate($product_type);
                             }
                         }
+
 
                         // Drop all authorships
                         $product->authorships->map(function ($as) {
@@ -127,6 +131,7 @@ class Import extends Command
                             );
                         });
 
+
                         // Create Authorships
                         \App\Models\Authorship::unguard();
                         $product->authorships()->createMany(
@@ -141,15 +146,38 @@ class Import extends Command
                         \App\Models\Authorship::reguard();
 
 
-
                         // Period
-                        // To map product to a period, use, in this order:
-                        // - the 'conception_year' attribute
-                        // - the 'period' related object.
-                        if ($item->conception_year) {
-                        }
-                        // TODO: LegacyInventoryNumbers
+                        // Periods might be updated in SCOM, so we udpate them based on the legacy_id
+                        if ($item->period && $item->period->id) {
+                            $period = \App\Models\Period::updateOrCreate(
+                                ['legacy_id' => $item->period->id],
+                                [
+                                    'legacy_id' => $item->period->id,
+                                    'name' => $item->period->name,
+                                    'start_year' => $item->period->start_year,
+                                    'end_year' => $item->period->end_year,
+                                ]
+                            );
 
+                            if ($period) {
+                                $product->period()->associate($period);
+                            }
+                        }
+
+
+                        // LegacyInventoryNumbers
+                        $product->legacyInventoryNumbers->map(function ($num) {
+                            $num->delete();
+                        });
+                        $product->legacyInventoryNumbers()->createMany(collect($item->legacy_inventory_numbers)->map(function ($num) {
+                            return [
+                                'number' => $num->number,
+                                'comment' => $num->comment,
+                            ];
+                        })->toArray());
+
+
+                        // Finally, save the product relationships.
                         $product->save();
                     });
 

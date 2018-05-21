@@ -15,6 +15,7 @@ class CreatePeriodsTable extends Migration
     {
         Schema::create('periods', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('legacy_id')->unsigned()->unique();
             $table->string('name');
             $table->year('start_year');
             $table->year('end_year');
