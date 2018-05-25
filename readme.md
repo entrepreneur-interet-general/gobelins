@@ -8,6 +8,8 @@ Documentation: coming soon :)
 ### Development setup
 ```shell
 php artisan db:seed --class=ProductTypeSeeder
+php artisan es:indices:create
+php artisan scout:import "App\Models\Product"
 ```
 
 #### Credits

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
+    use Searchable;
+
     // Eloquent relationships
 
     public function authorships()
@@ -58,4 +61,18 @@ class Product extends Model
         'description',
         'bibliography',
     ];
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'title_or_designation' => $this->title_or_designation,
+            'description' => $this->description,
+            'inventory_id' => $this->inventory_id,
+        ];
+    }
 }
