@@ -31,8 +31,8 @@ return [
             'servers' => [
 
                 [
-                    "host" => env("ELASTIC_HOST", "127.0.0.1"),
-                    "port" => env("ELASTIC_PORT", 9200),
+                    'host' => env('ELASTIC_HOST', '127.0.0.1'),
+                    'port' => env('ELASTIC_PORT', 9200),
                     'user' => env('ELASTIC_USER', ''),
                     'pass' => env('ELASTIC_PASS', ''),
                     'scheme' => env('ELASTIC_SCHEME', 'http'),
@@ -64,29 +64,32 @@ return [
 
         'gobelins_search_1' => [
 
-            "aliases" => [
-                "gobelins_search"
+            'aliases' => [
+                'gobelins_search'
             ],
 
             'settings' => [
-                "number_of_shards" => 1,
-                "number_of_replicas" => 0,
+                'number_of_shards' => 1,
+                'number_of_replicas' => 0,
             ],
 
             'mappings' => [
                 'products' => [
-                    "properties" => [
+                    'properties' => [
                         'title_or_designation' => [
                             'type' => 'text',
-                            // 'analyser' => 'french',
+                            'analyzer' => 'french',
                         ],
                         'description' => [
                             'type' => 'text',
-                            // 'analyser' => 'french',
+                            'analyzer' => 'french',
                         ],
                         'inventory_id' => [
                             'type' => 'text',
-                            // 'analyser' => 'not_analyzed',
+                            'analyzer' => 'standard',
+                        ],
+                        'product_type_ids' => [
+                            'type' => 'long',
                         ],
                     ]
                 ]

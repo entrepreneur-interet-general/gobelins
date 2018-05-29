@@ -61,4 +61,24 @@ class ProductType extends Model
         self::mappings();
         return array_key_exists($legacyProductType, self::$mappings) ? self::$mappings[$legacyProductType] : null;
     }
+
+    public function getParentsAttribute()
+    {
+        $parents = collect([]);
+        $parent = $this->parent;
+
+        while (!is_null($parent)) {
+            $parents->push($parent);
+            $parent = $parent->parent;
+        }
+
+        return $parents;
+    }
+
+    public function getBranchIdsAttribute()
+    {
+        return $this->parents->map(function ($pt) {
+            return $pt->id;
+        })->prepend($this->id)->toArray();
+    }
 }

@@ -38,7 +38,9 @@ class Product extends Model
 
     public function productType()
     {
-        return $this->belongsTo(ProductType::class);
+        return $this->belongsTo(ProductType::class)->withDefault(function ($product) {
+            $product->branchIds = [];
+        });
     }
 
     // Fillables
@@ -73,6 +75,7 @@ class Product extends Model
             'title_or_designation' => $this->title_or_designation,
             'description' => $this->description,
             'inventory_id' => $this->inventory_id,
+            'product_type_ids' => $this->productType->branchIds,
         ];
     }
 }

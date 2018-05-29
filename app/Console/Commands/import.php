@@ -40,7 +40,10 @@ class Import extends Command
      */
     public function handle()
     {
+        // Temporarily deactivate Scout indexing.
+        //\App\Models\Product::withoutSyncingToSearch(function () {
         $this->loadScom();
+        //});
     }
 
     /**
