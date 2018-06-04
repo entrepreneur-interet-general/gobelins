@@ -13,20 +13,31 @@ class SearchController extends Controller
     {
         $query = ES::type("products");
         
+        $filters = [];
+        
         $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
-            $query = $query->whereIn('product_type_ids', $product_type_ids);
+            $filters[] = ['terms' => ['product_type_ids' => $product_type_ids]];
+            //$query = $query->whereIn('product_type_ids', $product_type_ids);
         }
-
+        
         $authors = Author::orderBy('name', 'asc')->get();
         $author_ids = [];
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
-            $query = $query->whereIn('author_ids', $author_ids);
+            $filters[] = ['terms' => ['author_ids' => $author_ids]];
+            // $query = $query->whereIn('author_ids', $author_ids);
         }
         
+        // Filter terms are boolean AND i.e. "should".
+        if (sizeof($filters) > 0) {
+            $query->body([
+                'query' => ['bool' => ['should' => $filters]]
+                ]);
+        }
+            
         if ($request->input('q')) {
             $query = $query->search($request->input('q'));
         }
