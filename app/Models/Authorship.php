@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class Authorship extends Model
+class Authorship extends Pivot
 {
     public const AUTHOR_NATURE = [
         0 => '',
@@ -13,6 +13,8 @@ class Authorship extends Model
         3 => 'auteur_presume_de_l_oeuvre',
         4 => 'concepteur',
     ];
+
+    protected $table = 'authorships';
 
     // Fillables
 

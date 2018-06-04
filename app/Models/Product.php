@@ -18,7 +18,12 @@ class Product extends Model
 
     public function authors()
     {
-        return $this->hasManyThrough(Author::class, Authorship::class);
+        return $this->belongsToMany(Author::class, 'authorships')->using(Authorship::class);
+    }
+
+    public function getAuthorIdsAttribute()
+    {
+        return $this->authors->pluck('id')->all();
     }
 
     public function images()
@@ -76,6 +81,12 @@ class Product extends Model
             'description' => $this->description,
             'inventory_id' => $this->inventory_id,
             'product_type_ids' => $this->productType->branchIds,
+            'author_ids' => $this->authorIds,
         ];
+    }
+
+    public function scopeByInventory($query, $inventory)
+    {
+        $query->where('inventory_id', '=', $inventory);
     }
 }
