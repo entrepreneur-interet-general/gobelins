@@ -82,6 +82,8 @@ class Product extends Model
             'inventory_id' => $this->inventory_id,
             'product_type_ids' => $this->productType->branchIds,
             'author_ids' => $this->authorIds,
+            'period_start_year' => $this->period ? $this->period->start_year : null,
+            'period_end_year' => $this->period ? $this->period->end_year : null,
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProductType;
 use App\Models\Author;
+use App\Models\Period;
 use ES;
 
 class SearchController extends Controller
@@ -20,7 +21,6 @@ class SearchController extends Controller
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
             $filters[] = ['terms' => ['product_type_ids' => $product_type_ids]];
-            //$query = $query->whereIn('product_type_ids', $product_type_ids);
         }
         
         $authors = Author::orderBy('name', 'asc')->get();
@@ -28,13 +28,22 @@ class SearchController extends Controller
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
             $filters[] = ['terms' => ['author_ids' => $author_ids]];
-            // $query = $query->whereIn('author_ids', $author_ids);
         }
         
-        // Filter terms are boolean AND i.e. "should".
+        $periods = Period::orderBy('start_year', 'asc')->get();
+        $period_start_year = false;
+        $period_end_year = false;
+        if (is_numeric($request->input('period_start_year')) && is_numeric($request->input('period_end_year'))) {
+            $period_start_year = (int) $request->input('period_start_year');
+            $period_end_year = (int) $request->input('period_end_year');
+            $filters[] = ['range' => ['period_start_year' => ['lte' => $period_end_year]]];
+            $filters[] = ['range' => ['period_end_year' => ['gte' => $period_start_year]]];
+        }
+        
+        // Filter terms are boolean AND i.e. "must".
         if (sizeof($filters) > 0) {
             $query->body([
-                'query' => ['bool' => ['should' => $filters]]
+                'query' => ['bool' => ['must' => $filters]]
                 ]);
         }
             
@@ -51,6 +60,11 @@ class SearchController extends Controller
 
             'authors' => $authors,
             'author_ids' => $author_ids,
+
+            'periods' => $periods,
+            'period_start_year' => $period_start_year,
+            'period_end_year' => $period_end_year,
+
             
             'results' => $query->take(15)->get(),
         ]);
