@@ -24,6 +24,16 @@ class Import extends Command
     protected $description = 'Import the external data : SCOM, etc.';
 
     /**
+     * HTTP client instance.
+     */
+    protected $client;
+
+    /**
+     * UI: a Symfony Progress Bar instance.
+     */
+    protected $progress_bar;
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -42,8 +52,27 @@ class Import extends Command
     {
         // Temporarily deactivate Scout indexing.
         //\App\Models\Product::withoutSyncingToSearch(function () {
+        $this->initHttpClient();
+        $this->setupProgressBar();
         $this->loadScom();
         //});
+    }
+
+    private function initHttpClient()
+    {
+        $this->client = new Client([
+            'base_uri' => env('DATASOURCE_BASEURI'),
+            'timeout'  => 2.0,
+        ]);
+    }
+
+    private function setupProgressBar()
+    {
+        $response = $this->client->get('/api/products');
+        if ($response->getStatusCode() === 200) {
+            $json_resp = json_decode($response->getBody());
+            $this->progress_bar = $this->output->createProgressBar($json_resp->meta->total);
+        }
     }
 
     /**
@@ -53,11 +82,6 @@ class Import extends Command
     {
         $this->comment('Loading from datasource: ' . env('DATASOURCE_BASEURI'));
 
-        $client = new Client([
-            'base_uri' => env('DATASOURCE_BASEURI'),
-            'timeout'  => 2.0,
-        ]);
-
         // The root request endpoint.
         // All subsequent requests will be crawled from the next page in the response.
         // products?page=3033
@@ -65,16 +89,19 @@ class Import extends Command
 
         do {
             try {
-                $response = $client->get($next_page);
+                $response = $this->client->get($next_page);
                 if ($response->getStatusCode() === 200) {
-                    $this->comment('Received page: ' . $next_page);
+                    // $this->comment('Received page: ' . $next_page);
                     
                     $json_resp = json_decode($response->getBody());
 
                     collect($json_resp->data)->map(function ($item) {
 
                         // Handle core product data.
-                        $this->comment('Upserting product: ' . $item->inventory_id);
+                        // $this->comment('Upserting product: ' . $item->inventory_id);
+                        $this->progress_bar->setMessage('Upserting product: ' . $item->inventory_id);
+                        $this->progress_bar->advance();
+
                         $product = \App\Models\Product::updateOrCreate(
                             ['inventory_id' => $item->inventory_id],
                             [
@@ -193,5 +220,9 @@ class Import extends Command
                 echo Psr7\str($e->getResponse());
             }
         } while ($next_page !== false);
+
+        if ($this->progress_bar) {
+            $this->progress_bar->finish();
+        }
     }
 }

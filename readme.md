@@ -9,9 +9,14 @@ Documentation: coming soon :)
 ```shell
 php artisan db:seed --class=ProductTypeSeeder
 php artisan es:indices:create
-php artisan scout:import "App\Models\Product"
+php artisan gobelins:import -vvv
 ```
 
+To re-index Elasticsearch:
+```shell
+php artisan scout:flush "App\Models\Product"
+php artisan scout:import "App\Models\Product"
+```
 #### Credits
 
 - Laurie Chapotte, design
