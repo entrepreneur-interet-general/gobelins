@@ -84,6 +84,7 @@ class Product extends Model
             'author_ids' => $this->authorIds,
             'period_start_year' => $this->period ? $this->period->start_year : null,
             'period_end_year' => $this->period ? $this->period->end_year : null,
+            'conception_year' => $this->conception_year,
         ];
     }
 

@@ -91,6 +91,19 @@ return [
                         'product_type_ids' => [
                             'type' => 'long',
                         ],
+                        'author_ids' => [
+                            'type' => 'long',
+                        ],
+                        'period_start_year' => [
+                            'type' => 'short',
+                        ],
+                        'period_end_year' => [
+                            'type' => 'short',
+                        ],
+                        'conception_year' => [
+                            'type' => 'short',
+                            'analyzer' => 'standard',
+                        ],
                     ]
                 ]
             ]

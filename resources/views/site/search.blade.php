@@ -97,7 +97,8 @@
             <b>Description :</b> {{ $result->description }}<br>
             <b>Type d’objet :</b> {{ $product_types->filter(function($t) use ($result) { return in_array($t->id, $result->product_type_ids); })->pluck('mapping_key')->implode(', ') }}<br>
             <b>Auteurs :</b> {{ $authors->filter(function($a) use ($result) { return in_array($a->id, $result->author_ids); })->pluck('name')->implode(', ') }}<br>
-            <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}
+            <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
+            <b>Année de création :</b> {{ $result->conception_year }}<br>
         </p>
     @endforeach
     
