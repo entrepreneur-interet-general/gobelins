@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('/rechercher', 'SearchController@index')->name('search');
+
+Route::get('/image/{path}', 'ImageController@show')->where('path', '.*');

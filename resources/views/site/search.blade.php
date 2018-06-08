@@ -91,7 +91,12 @@
 
     <h2>Résultats</h2>
     @foreach($results as $result)
-        <p>
+        <p style="overflow: auto;">
+            <div style="float: right">
+                @foreach($result->images as $img)
+                    <img src="/image/{{ $img['path'] }}?h=100&amp;w=150" style="margin-left: 10px">
+                @endforeach
+            </div>
             <b>Inventaire :</b> {{ $result->inventory_id }}<br>
             <b>Titre ou dénomination :</b> {{ $result->title_or_designation }}<br>
             <b>Description :</b> {{ $result->description }}<br>
@@ -99,7 +104,6 @@
             <b>Auteurs :</b> {{ $authors->filter(function($a) use ($result) { return in_array($a->id, $result->author_ids); })->pluck('name')->implode(', ') }}<br>
             <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
             <b>Année de création :</b> {{ $result->conception_year }}<br>
-            <b>Images :</b> {!! collect($result->images)->map(function($i){ return $i['path']; })->implode('<br>') !!}<br>
         </p>
     @endforeach
     
