@@ -85,6 +85,13 @@ class Product extends Model
             'period_start_year' => $this->period ? $this->period->start_year : null,
             'period_end_year' => $this->period ? $this->period->end_year : null,
             'conception_year' => $this->conception_year,
+            'images' => $this->images->map(function ($img) {
+                return [
+                    'path' => $img->path,
+                    'width' => $img->width,
+                    'height' => $img->height,
+                ];
+            })->toArray(),
         ];
     }
 

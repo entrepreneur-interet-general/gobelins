@@ -8,6 +8,8 @@ class Image extends Model
 {
     protected $fillable = [
         'path',
+        'width',
+        'height',
     ];
     
     public function product()

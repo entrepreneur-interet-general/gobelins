@@ -99,6 +99,7 @@
             <b>Auteurs :</b> {{ $authors->filter(function($a) use ($result) { return in_array($a->id, $result->author_ids); })->pluck('name')->implode(', ') }}<br>
             <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
             <b>Année de création :</b> {{ $result->conception_year }}<br>
+            <b>Images :</b> {!! collect($result->images)->map(function($i){ return $i['path']; })->implode('<br>') !!}<br>
         </p>
     @endforeach
     

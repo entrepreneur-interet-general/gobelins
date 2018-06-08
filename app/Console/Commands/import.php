@@ -130,7 +130,14 @@ class Import extends Command
                             $img->delete();
                         });
                         $product->images()->createMany(collect($item->images)->map(function ($img_obj) {
-                            return (array) $img_obj;
+                            // Store width and height of image, if we have it.
+                            $path = storage_path(env('MEDIA_STORAGE_PATH') . '/' . trim($img_obj->path));
+                            if (file_exists($path)) {
+                                list($width, $height, $type, $attr) = getimagesize($path);
+                                return array_merge((array) $img_obj, ['width' => $width, 'height' => $height]);
+                            } else {
+                                return (array) $img_obj;
+                            }
                         })->toArray());
 
 

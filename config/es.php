@@ -101,9 +101,27 @@ return [
                             'type' => 'short',
                         ],
                         'conception_year' => [
-                            'type' => 'short',
+                            'type' => 'text',
                             'analyzer' => 'standard',
                         ],
+                        # We only store images here for retreival perf reasons.
+                        'images' => [
+                            'type' => 'object',
+                            'properties' =>  [
+                                'path' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'width' => [
+                                    'type' => 'integer',
+                                    'index' => false,
+                                ],
+                                'height' => [
+                                    'type' => 'integer',
+                                    'index' => false,
+                                ],
+                            ]
+                        ]
                     ]
                 ]
             ]
