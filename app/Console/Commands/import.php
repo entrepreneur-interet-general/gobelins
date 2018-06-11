@@ -214,6 +214,23 @@ class Import extends Command
                         })->toArray());
 
 
+                        // Styles
+                        // Also udpated based on the legacy_id
+                        if ($item->product_style && $item->product_style->id) {
+                            $style = \App\Models\style::updateOrCreate(
+                                ['legacy_id' => $item->product_style->id],
+                                [
+                                    'legacy_id' => $item->product_style->id,
+                                    'name' => $item->product_style->name,
+                                ]
+                            );
+
+                            if ($style) {
+                                $product->style()->associate($style);
+                            }
+                        }
+
+
                         // Finally, save the product relationships.
                         $product->save();
                     });

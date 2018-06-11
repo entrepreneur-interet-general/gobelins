@@ -121,7 +121,10 @@ return [
                                     'index' => false,
                                 ],
                             ]
-                        ]
+                        ],
+                        'style_id' => [
+                            'type' => 'integer',
+                        ],
                     ]
                 ]
             ]

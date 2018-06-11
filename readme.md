@@ -7,6 +7,7 @@ Documentation: coming soon :)
 
 ### Development setup
 ```shell
+php artisan migrate
 php artisan db:seed --class=ProductTypeSeeder
 php artisan es:indices:create
 php artisan gobelins:import -vvv

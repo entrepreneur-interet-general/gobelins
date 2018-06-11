@@ -38,6 +38,20 @@
                 </fieldset>
             </details>
             <details class="ProtoNav__criteria">
+                <summary>Styles</summary>
+                <fieldset>
+                    @foreach($styles as $style)
+                        <label>
+                            <input type="checkbox"
+                                name="style_ids[]"
+                                value="{{ $style->id }}"
+                                {{ collect($style_ids)->contains($style->id) ? 'checked' : '' }}
+                                >&nbsp;{{ $style->name }}
+                        </label><br>
+                    @endforeach
+                </fieldset>
+            </details>
+            <details class="ProtoNav__criteria">
                 <summary>Époques</summary>
 
                 <script src="https://unpkg.com/wnumb@1.1.0/wNumb.js"></script>
@@ -104,6 +118,7 @@
             <b>Auteurs :</b> {{ $authors->filter(function($a) use ($result) { return in_array($a->id, $result->author_ids); })->pluck('name')->implode(', ') }}<br>
             <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
             <b>Année de création :</b> {{ $result->conception_year }}<br>
+            <b>Style :</b> {{ $result->style_id ? $styles->firstWhere('id', $result->style_id)->name : '' }}<br>
         </p>
     @endforeach
     

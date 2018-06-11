@@ -47,6 +47,12 @@ class Product extends Model
             $product->branchIds = [];
         });
     }
+    
+    public function style()
+    {
+        return $this->belongsTo(Style::class);
+    }
+
 
     // Fillables
 
@@ -67,6 +73,7 @@ class Product extends Model
         'title_or_designation',
         'description',
         'bibliography',
+        'style_id',
     ];
 
     /**
@@ -92,6 +99,7 @@ class Product extends Model
                     'height' => $img->height,
                 ];
             })->toArray(),
+            'style_id' => $this->style ? $this->style->id : null,
         ];
     }
 
