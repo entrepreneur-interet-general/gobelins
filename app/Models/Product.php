@@ -53,6 +53,22 @@ class Product extends Model
         return $this->belongsTo(Style::class);
     }
 
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class);
+    }
+
+    public function getMaterialIdsAttribute()
+    {
+        if ($this->materials && sizeof($this->materials) > 0) {
+            return $this->materials->map(function ($m) {
+                return $m->ancestors->pluck('id')->prepend($m->id)->all();
+            })->flatten()->all();
+        } else {
+            return [];
+        }
+    }
+
 
     // Fillables
 
@@ -100,6 +116,7 @@ class Product extends Model
                 ];
             })->toArray(),
             'style_id' => $this->style ? $this->style->id : null,
+            'material_ids' => $this->materialIds,
         ];
     }
 

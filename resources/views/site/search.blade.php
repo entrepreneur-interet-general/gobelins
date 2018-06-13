@@ -24,6 +24,20 @@
                 </fieldset>
             </details>
             <details class="ProtoNav__criteria">
+                <summary>Matières</summary>
+                <fieldset>
+                    @foreach($materials as $material)
+                        <label>
+                            <input type="checkbox"
+                                name="material_ids[]"
+                                value="{{ $material->id }}"
+                                {{ collect($material_ids)->contains($material->id) ? 'checked' : '' }}
+                                >&nbsp;{{ $material->mapping_key }}
+                        </label><br>
+                    @endforeach
+                </fieldset>
+            </details>
+            <details class="ProtoNav__criteria">
                 <summary>Auteurs</summary>
                 <fieldset>
                     @foreach($authors as $author)
@@ -119,6 +133,7 @@
             <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
             <b>Année de création :</b> {{ $result->conception_year }}<br>
             <b>Style :</b> {{ $result->style_id ? $styles->firstWhere('id', $result->style_id)->name : '' }}<br>
+            <b>Matières :</b> {{ $materials->filter(function($m) use ($result) { return in_array($m->id, $result->material_ids); })->pluck('mapping_key')->implode(', ') }}<br>
         </p>
     @endforeach
     

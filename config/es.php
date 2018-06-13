@@ -125,6 +125,9 @@ return [
                         'style_id' => [
                             'type' => 'integer',
                         ],
+                        'material_ids' => [
+                            'type' => 'integer',
+                        ]
                     ]
                 ]
             ]

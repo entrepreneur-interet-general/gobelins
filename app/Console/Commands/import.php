@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use Seld\Signal\SignalHandler;
 
 class Import extends Command
 {
@@ -14,7 +15,7 @@ class Import extends Command
      *
      * @var string
      */
-    protected $signature = 'gobelins:import';
+    protected $signature = 'gobelins:import {--from= : Start at given page}';
 
     /**
      * The console command description.
@@ -34,6 +35,18 @@ class Import extends Command
     protected $progress_bar;
 
     /**
+     * Instance of SignalHandler, used to gracefully exit
+     * when sent a SIGINT (ctrl-c).
+     */
+    protected $signal_handle;
+
+    /**
+     * Log of processing error or remarks that should be
+     * displayed in the terminal after exit;
+     */
+    protected $report = [];
+
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -50,6 +63,8 @@ class Import extends Command
      */
     public function handle()
     {
+        $this->signal_handle = SignalHandler::create();
+
         // Temporarily deactivate Scout indexing.
         //\App\Models\Product::withoutSyncingToSearch(function () {
         $this->initHttpClient();
@@ -72,6 +87,7 @@ class Import extends Command
         if ($response->getStatusCode() === 200) {
             $json_resp = json_decode($response->getBody());
             $this->progress_bar = $this->output->createProgressBar($json_resp->meta->total);
+            $this->progress_bar->advance($json_resp->meta->from - 1);
         }
     }
 
@@ -86,6 +102,9 @@ class Import extends Command
         // All subsequent requests will be crawled from the next page in the response.
         // products?page=3033
         $next_page = '/api/products';
+        if ($this->option('from')) {
+            $next_page .= '?page=' . $this->option('from');
+        }
 
         do {
             try {
@@ -94,13 +113,13 @@ class Import extends Command
                     // $this->comment('Received page: ' . $next_page);
                     
                     $json_resp = json_decode($response->getBody());
-
+                    $this->progress_bar->setProgress($json_resp->meta->from - 1);
+                    
                     collect($json_resp->data)->map(function ($item) {
-
+                        
                         // Handle core product data.
                         // $this->comment('Upserting product: ' . $item->inventory_id);
                         $this->progress_bar->setMessage('Upserting product: ' . $item->inventory_id);
-                        $this->progress_bar->advance();
 
                         $product = \App\Models\Product::updateOrCreate(
                             ['inventory_id' => $item->inventory_id],
@@ -133,8 +152,14 @@ class Import extends Command
                             // Store width and height of image, if we have it.
                             $path = storage_path(env('MEDIA_STORAGE_PATH') . '/' . trim($img_obj->path));
                             if (file_exists($path)) {
-                                list($width, $height, $type, $attr) = getimagesize($path);
-                                return array_merge((array) $img_obj, ['width' => $width, 'height' => $height]);
+                                list($width, $height, $type, $attr) = @getimagesize($path);
+                                if ($width && $height) {
+                                    return array_merge((array) $img_obj, ['width' => $width, 'height' => $height]);
+                                } else {
+                                    $this->progress_bar->clear();
+                                    $this->error('Invalid image:' . $path);
+                                    exit();
+                                }
                             } else {
                                 return (array) $img_obj;
                             }
@@ -230,9 +255,32 @@ class Import extends Command
                             }
                         }
 
+                        // Materials
+                        // Mapped from legacy SCOM materials.
+                        // Delete all materials for this product.
+                        $product->materials()->detach();
+                        if (is_array($item->materials) && sizeof($item->materials) > 0) {
+                            $material_ids = collect($item->materials)
+                                ->pluck('name')
+                                ->map(function ($legacy_mat) {
+                                    return \App\Models\Material::mappedFrom($legacy_mat)->get()->all();
+                                })
+                                ->flatten()
+                                ->pluck('id')
+                                ->all();
+                            $product->materials()->attach($material_ids);
+                        }
+
+
 
                         // Finally, save the product relationships.
                         $product->save();
+
+                        $this->progress_bar->advance();
+
+                        if ($this->signal_handle->isTriggered()) {
+                            $this->info(implode("\n", $this->report));
+                        }
                     });
 
                     $next_page = $json_resp->links->next ?: false;

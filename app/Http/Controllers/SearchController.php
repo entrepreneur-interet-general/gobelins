@@ -7,6 +7,7 @@ use App\Models\ProductType;
 use App\Models\Author;
 use App\Models\Period;
 use App\Models\Style;
+use App\Models\Material;
 use ES;
 
 class SearchController extends Controller
@@ -62,6 +63,14 @@ class SearchController extends Controller
                 ]
             ];
         }
+
+        $materials = Material::all();
+        $material_ids = [];
+        if (is_array($request->input('material_ids'))) {
+            $material_ids = $request->input('material_ids');
+            $filters[] = ['terms' => ['material_ids' => $material_ids]];
+        }
+
         
         // Filter terms are boolean AND i.e. "must".
         if (sizeof($filters) > 0) {
@@ -87,6 +96,9 @@ class SearchController extends Controller
             'periods' => $periods,
             'period_start_year' => $period_start_year,
             'period_end_year' => $period_end_year,
+
+            'materials' => $materials,
+            'material_ids' => $material_ids,
 
             'styles' => $styles,
             'style_ids' => $style_ids,
