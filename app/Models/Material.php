@@ -8,7 +8,8 @@ use Kalnoy\Nestedset\NodeTrait;
 
 class Material extends Model
 {
-    use Mappable, NodeTrait;
+    use Mappable;
+    use NodeTrait;
 
     public function products()
     {

@@ -35,6 +35,11 @@ class Import extends Command
     protected $progress_bar;
 
     /**
+     * The API result page that is being analysed.
+     */
+    protected $current_page;
+
+    /**
      * Instance of SignalHandler, used to gracefully exit
      * when sent a SIGINT (ctrl-c).
      */
@@ -114,6 +119,7 @@ class Import extends Command
                     
                     $json_resp = json_decode($response->getBody());
                     $this->progress_bar->setProgress($json_resp->meta->from - 1);
+                    $this->current_page = $json_resp->meta->current_page;
                     
                     collect($json_resp->data)->map(function ($item) {
                         
@@ -148,28 +154,61 @@ class Import extends Command
                         $product->images->map(function ($img) {
                             $img->delete();
                         });
-                        $product->images()->createMany(collect($item->images)->map(function ($img_obj) {
-                            // Store width and height of image, if we have it.
-                            $path = storage_path(env('MEDIA_STORAGE_PATH') . '/' . trim($img_obj->path));
-                            if (file_exists($path)) {
-                                list($width, $height, $type, $attr) = @getimagesize($path);
-                                if ($width && $height) {
-                                    return array_merge((array) $img_obj, ['width' => $width, 'height' => $height]);
+
+                        $images = collect($item->images)
+                            // Store full path of image file.
+                            ->map(function ($img_obj) {
+                                $img_obj->full_path = storage_path(env('MEDIA_STORAGE_PATH') . '/' . trim($img_obj->path));
+                                return $img_obj;
+                            })
+                            // Remove items for which we don't have a file.
+                            ->filter(function ($img_obj) use ($item) {
+                                if (file_exists($img_obj->full_path)) {
+                                    return true;
                                 } else {
                                     $this->progress_bar->clear();
-                                    $this->error('Invalid image:' . $path);
-                                    exit();
+                                    $this->warn('Error on product: ' . $item->inventory_id);
+                                    $this->warn('Missing image file: ' . $img_obj->full_path);
+                                    $this->info('Current page:' . $this->current_page);
+                                    $this->progress_bar->display();
+                                    return false;
                                 }
-                            } else {
+                            })
+                            // Attempt to obtain dimensions of image.
+                            ->map(function ($img_obj) {
+                                list($width, $height) = @getimagesize($img_obj->full_path);
+                                $img_obj->width = $width;
+                                $img_obj->height = $height;
+                                return $img_obj;
+                            })
+                            // Remove items that have corrupted image metatdata.
+                            ->filter(function ($img_obj) use ($item) {
+                                if ($img_obj->width && $img_obj->height) {
+                                    return true;
+                                } else {
+                                    $this->progress_bar->clear();
+                                    $this->warn('Error on product: ' . $item->inventory_id);
+                                    $this->warn('Invalid image:' . $img_obj->full_path);
+                                    $this->info('Current page:' . $this->current_page);
+                                    $this->progress_bar->display();
+                                    return false;
+                                }
+                            })
+                            ->map(function ($img_obj) {
                                 return (array) $img_obj;
-                            }
-                        })->toArray());
+                            })
+                            ->toArray();
+
+                        if (is_array($images) && sizeof($images) > 0) {
+                            $product->images()->createMany($images);
+                        }
 
 
                         // ProductType
                         // We use the legacy SCOM 'gracat' name to map to a ProductType.
                         if ($item->product_type && $item->product_type->name) {
-                            $product_type = \App\Models\ProductType::legacyType($item->product_type->name)->first();
+                            $product_type = \App\Models\ProductType::mappedFrom($item->product_type->name)->first();
+
                             if ($product_type) {
                                 $product->productType()->associate($product_type);
                             }
@@ -277,13 +316,17 @@ class Import extends Command
                         $product->save();
 
                         $this->progress_bar->advance();
-
-                        if ($this->signal_handle->isTriggered()) {
-                            $this->info(implode("\n", $this->report));
-                        }
                     });
 
-                    $next_page = $json_resp->links->next ?: false;
+                    if ($this->signal_handle->isTriggered()) {
+                        $this->progress_bar->clear();
+                        $this->info(implode("\n", $this->report));
+                        $this->warn('Interrupted at page ' . $this->current_page . '. To resume the import, run:');
+                        $this->warn('$ php artisan gobelins:import -vvv --from=' . $this->current_page);
+                        exit;
+                    } else {
+                        $next_page = $json_resp->links->next ?: false;
+                    }
                 } else {
                     $this->comment('Unfulfilled request :(');
                 }
