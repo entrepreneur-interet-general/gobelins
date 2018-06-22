@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\Period;
 use App\Models\Style;
 use App\Models\Material;
+use App\Models\ProductionOrigin;
 use ES;
 
 class SearchController extends Controller
@@ -17,6 +18,10 @@ class SearchController extends Controller
         $query = ES::type("products");
         
         $filters = [];
+
+        if ($request->input('q')) {
+            $filters[] = ['query_string' => ['query' => $request->input('q')]];
+        }
         
         $product_types = ProductType::all();
         $product_type_ids = [];
@@ -71,17 +76,21 @@ class SearchController extends Controller
             $filters[] = ['terms' => ['material_ids' => $material_ids]];
         }
 
+        $production_origins = ProductionOrigin::all();
+        $production_origin_ids = [];
+        if (is_array($request->input('production_origin_ids'))) {
+            $production_origin_ids = $request->input('production_origin_ids');
+            $filters[] = ['terms' => ['production_origin_id' => $production_origin_ids]];
+        }
+
         
         // Filter terms are boolean AND i.e. "must".
         if (sizeof($filters) > 0) {
             $query->body([
                 'query' => ['bool' => ['must' => $filters]]
-                ]);
+            ]);
         }
             
-        if ($request->input('q')) {
-            $query = $query->search($request->input('q'));
-        }
 
 
         return view('site.search', [
@@ -99,6 +108,9 @@ class SearchController extends Controller
 
             'materials' => $materials,
             'material_ids' => $material_ids,
+
+            'production_origins' => $production_origins,
+            'production_origin_ids' => $production_origin_ids,
 
             'styles' => $styles,
             'style_ids' => $style_ids,

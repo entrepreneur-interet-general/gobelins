@@ -127,7 +127,10 @@ return [
                         ],
                         'material_ids' => [
                             'type' => 'integer',
-                        ]
+                        ],
+                        'production_origin_id' => [
+                            'type' => 'integer'
+                        ],
                     ]
                 ]
             ]

@@ -122,6 +122,7 @@ class Product extends Model
             })->toArray(),
             'style_id' => $this->style ? $this->style->id : null,
             'material_ids' => $this->materialIds,
+            'production_origin_id' => $this->productionOrigin ? $this->productionOrigin->id : null,
         ];
     }
 

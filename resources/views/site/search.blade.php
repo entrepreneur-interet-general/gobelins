@@ -115,6 +115,21 @@
                 </fieldset>
             </details>
 
+            <details class="ProtoNav__criteria">
+                <summary>Lieux de production</summary>
+                <fieldset style="column-count: 4">
+                    @foreach($production_origins as $production_origin)
+                        <label>
+                            <input type="checkbox"
+                                name="production_origin_ids[]"
+                                value="{{ $production_origin->id }}"
+                                {{ collect($production_origin_ids)->contains($production_origin->id) ? 'checked' : '' }}
+                                >&nbsp;{{ $production_origin->name }}
+                        </label><br>
+                    @endforeach
+                </fieldset>
+            </details>
+
             <details>
                 <summary>ES query</summary>
                 <pre>{!! json_encode($es_query, JSON_PRETTY_PRINT) !!}</pre>
@@ -139,6 +154,7 @@
             <b>Année de création :</b> {{ $result->conception_year }}<br>
             <b>Style :</b> {{ $result->style_id ? $styles->firstWhere('id', $result->style_id)->name : '' }}<br>
             <b>Matières :</b> {{ $materials->filter(function($m) use ($result) { return in_array($m->id, $result->material_ids); })->pluck('mapping_key')->implode(', ') }}<br>
+            <b>Lieu de production :</b> {{ $result->production_origin_id ? $production_origins->firstWhere('id', $result->production_origin_id)->name : '' }}<br>
         </p>
     @endforeach
     
