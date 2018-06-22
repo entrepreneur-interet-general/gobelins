@@ -205,9 +205,9 @@ class Import extends Command
 
 
                         // ProductType
-                        // We use the legacy SCOM 'gracat' name to map to a ProductType.
+                        // The API is sending a "name" attribute that is from 'gracat.gracat' in SCOM.
                         if ($item->product_type && $item->product_type->name) {
-                            $product_type = \App\Models\ProductType::mappedFrom($item->product_type->name)->first();
+                            $product_type = \App\Models\ProductType::mappedFrom('gracat', $item->product_type->name)->first();
 
                             if ($product_type) {
                                 $product->productType()->associate($product_type);
@@ -295,14 +295,13 @@ class Import extends Command
                         }
 
                         // Materials
-                        // Mapped from legacy SCOM materials.
-                        // Delete all materials for this product.
                         $product->materials()->detach();
                         if (is_array($item->materials) && sizeof($item->materials) > 0) {
                             $material_ids = collect($item->materials)
                                 ->pluck('name')
                                 ->map(function ($legacy_mat) {
-                                    return \App\Models\Material::mappedFrom($legacy_mat)->get()->all();
+                                    // Mapped from legacy SCOM "mat.mat" column.
+                                    return \App\Models\Material::mappedFrom('mat', $legacy_mat)->get()->all();
                                 })
                                 ->flatten()
                                 ->pluck('id')

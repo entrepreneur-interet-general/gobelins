@@ -7,10 +7,19 @@ Documentation: coming soon :)
 
 ### Development setup
 ```shell
-php artisan migrate
-php artisan db:seed --class=ProductTypeSeeder
-php artisan es:indices:create
-php artisan gobelins:import -vvv
+$ php artisan migrate
+$ php artisan db:seed --class=ProductTypeSeeder
+$ php artisan es:indices:create
+```
+
+Importing products from the Gobelin-datasource API
+```shell
+$ php artisan gobelins:import -vvv
+```
+Interrupt process with `Ctrl-C`, it will gracefully exit.
+You may then resume the import starting from a given page:
+```shell
+$ php artisan gobelins:import -vvv --from=58
 ```
 
 To re-index Elasticsearch:
