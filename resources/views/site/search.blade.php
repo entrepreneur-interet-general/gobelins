@@ -9,9 +9,10 @@
             <button type="submit">Rechercher</button>
         </p>
         <div class="ProtoNav">
+
             <details class="ProtoNav__criteria">
                 <summary>Type d’objet</summary>
-                <fieldset>
+                <fieldset style="column-count: 4">
                     @foreach($product_types as $product_type)
                         <label>
                             <input type="checkbox"
@@ -23,23 +24,10 @@
                     @endforeach
                 </fieldset>
             </details>
-            <details class="ProtoNav__criteria">
-                <summary>Matières</summary>
-                <fieldset>
-                    @foreach($materials as $material)
-                        <label>
-                            <input type="checkbox"
-                                name="material_ids[]"
-                                value="{{ $material->id }}"
-                                {{ collect($material_ids)->contains($material->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $material->mapping_key }}
-                        </label><br>
-                    @endforeach
-                </fieldset>
-            </details>
+
             <details class="ProtoNav__criteria">
                 <summary>Auteurs</summary>
-                <fieldset>
+                <fieldset style="column-count: 4">
                     @foreach($authors as $author)
                         <label>
                             <input type="checkbox"
@@ -51,22 +39,9 @@
                     @endforeach
                 </fieldset>
             </details>
+
             <details class="ProtoNav__criteria">
-                <summary>Styles</summary>
-                <fieldset>
-                    @foreach($styles as $style)
-                        <label>
-                            <input type="checkbox"
-                                name="style_ids[]"
-                                value="{{ $style->id }}"
-                                {{ collect($style_ids)->contains($style->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $style->name }}
-                        </label><br>
-                    @endforeach
-                </fieldset>
-            </details>
-            <details class="ProtoNav__criteria">
-                <summary>Époques</summary>
+                <summary>Année de création</summary>
 
                 <script src="https://unpkg.com/wnumb@1.1.0/wNumb.js"></script>
                 <script src="https://unpkg.com/nouislider@11.1.0/distribute/nouislider.min.js"></script>
@@ -108,6 +83,36 @@
 
                     });
                 </script>
+            </details>
+
+            <details class="ProtoNav__criteria">
+                <summary>Styles</summary>
+                <fieldset style="column-count: 4">
+                    @foreach($styles as $style)
+                        <label>
+                            <input type="checkbox"
+                                name="style_ids[]"
+                                value="{{ $style->id }}"
+                                {{ collect($style_ids)->contains($style->id) ? 'checked' : '' }}
+                                >&nbsp;{{ $style->name }}
+                        </label><br>
+                    @endforeach
+                </fieldset>
+            </details>
+
+            <details class="ProtoNav__criteria">
+                <summary>Matières</summary>
+                <fieldset style="column-count: 4">
+                    @foreach($materials as $material)
+                        <label>
+                            <input type="checkbox"
+                                name="material_ids[]"
+                                value="{{ $material->id }}"
+                                {{ collect($material_ids)->contains($material->id) ? 'checked' : '' }}
+                                >&nbsp;{{ $material->mapping_key }}
+                        </label><br>
+                    @endforeach
+                </fieldset>
             </details>
 
             <details>
