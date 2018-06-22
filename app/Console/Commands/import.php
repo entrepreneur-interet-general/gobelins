@@ -309,6 +309,18 @@ class Import extends Command
                             $product->materials()->attach($material_ids);
                         }
 
+                        // ProductionOrigin
+                        // We map multiple sources to set the production origin.
+                        if ($item->product_type &&
+                                $item->product_type->id &&
+                                $origin = \App\Models\ProductionOrigin::mappedFrom('numgraca', (string) $item->product_type->id)->first()) {
+                            $product->productionOrigin()->associate($origin);
+                        } elseif ($item->inventory_root &&
+                                $origin = \App\Models\ProductionOrigin::mappedFrom('inventory_root', $item->inventory_root)->first()) {
+                            $product->productionOrigin()->associate($origin);
+                        }
+
+
 
 
                         // Finally, save the product relationships.

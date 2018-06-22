@@ -58,6 +58,11 @@ class Product extends Model
         return $this->belongsToMany(Material::class);
     }
 
+    public function productionOrigin()
+    {
+        return $this->belongsTo(ProductionOrigin::class);
+    }
+
     public function getMaterialIdsAttribute()
     {
         if ($this->materials && sizeof($this->materials) > 0) {

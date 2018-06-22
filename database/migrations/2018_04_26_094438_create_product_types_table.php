@@ -17,8 +17,8 @@ class CreateProductTypesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('mapping_key');
-            $table->integer('parent_id')->unsigned()->nullable();
-            $table->foreign('parent_id')->references('id')->on('product_types');
+            $table->nestedSet();
+
             $table->timestamps();
         });
     }
