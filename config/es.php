@@ -131,6 +131,18 @@ return [
                         'production_origin_id' => [
                             'type' => 'integer'
                         ],
+                        'length_or_diameter' => [
+                            'type' => 'scaled_float',
+                            'scaling_factor' => 1000,
+                        ],
+                        'depth_or_width' => [
+                            'type' => 'scaled_float',
+                            'scaling_factor' => 1000,
+                        ],
+                        'height_or_thickness' => [
+                            'type' => 'scaled_float',
+                            'scaling_factor' => 1000,
+                        ],
                     ]
                 ]
             ]

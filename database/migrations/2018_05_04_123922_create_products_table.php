@@ -22,10 +22,10 @@ class CreateProductsTable extends Migration
             $table->integer('inventory_number')->unsigned();
             $table->integer('inventory_suffix')->unsigned();
             
-            // Physical properties
-            $table->string('height_or_thickness')->nullable();
-            $table->string('length_or_diameter')->nullable();
-            $table->string('depth_or_width')->nullable();
+            // Physical properties, expressed in meters (millimeter precision).
+            $table->decimal('height_or_thickness', 5, 3)->nullable();
+            $table->decimal('length_or_diameter', 5, 3)->nullable();
+            $table->decimal('depth_or_width', 5, 3)->nullable();
             
             // History
             $table->year('conception_year')->nullable();

@@ -19,10 +19,6 @@ class SearchController extends Controller
         
         $filters = [];
 
-        if ($request->input('q')) {
-            $filters[] = ['query_string' => ['query' => $request->input('q')]];
-        }
-        
         $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
@@ -83,13 +79,44 @@ class SearchController extends Controller
             $filters[] = ['terms' => ['production_origin_id' => $production_origin_ids]];
         }
 
+
+        $dimensions = collect(['length_or_diameter', 'depth_or_width', 'height_or_thickness']);
+        $sanitized_dimensions = [];
+        $dimensions->filter(function ($d) use ($request) {
+            return $request->$d;
+        })->map(function ($d) use ($request, &$filters, &$sanitized_dimensions) {
+            foreach (['gte', 'lte'] as $comparator) {
+                if (isset($request->input($d)[$comparator]) && is_numeric($request->input($d)[$comparator])) {
+                    $filters[] = ['range' => [$d => [$comparator => (float) $request->input($d)[$comparator]]]];
+                    $sanitized_dimensions[$d . '_' . $comparator] = (float) $request->input($d)[$comparator];
+                }
+            }
+        });
+
         
         // Filter terms are boolean AND i.e. "must".
-        if (sizeof($filters) > 0) {
-            $query->body([
-                'query' => ['bool' => ['must' => $filters]]
-            ]);
+        $body = [
+            'query' => [
+                'bool' => []
+            ]
+        ];
+        if ($request->input('q')) {
+            $body['query']['bool']['must'] = [
+                'multi_match' => [
+                    'query' => $request->input('q'),
+                    'fields' => [
+                        'title_or_designation',
+                        'description',
+                        'inventory_id',
+                        'conception_year',
+                    ],
+                ],
+            ];
         }
+        if (sizeof($filters) > 0) {
+            $body['query']['bool']['filter'] = $filters;
+        }
+        $query->body($body);
             
 
 
@@ -111,6 +138,13 @@ class SearchController extends Controller
 
             'production_origins' => $production_origins,
             'production_origin_ids' => $production_origin_ids,
+
+            'length_or_diameter_gte' => isset($sanitized_dimensions['length_or_diameter_gte']) ? $sanitized_dimensions['length_or_diameter_gte'] : null,
+            'length_or_diameter_lte' => isset($sanitized_dimensions['length_or_diameter_lte']) ? $sanitized_dimensions['length_or_diameter_lte'] : null,
+            'depth_or_width_gte' => isset($sanitized_dimensions['depth_or_width_gte']) ? $sanitized_dimensions['depth_or_width_gte'] : null,
+            'depth_or_width_lte' => isset($sanitized_dimensions['depth_or_width_lte']) ? $sanitized_dimensions['depth_or_width_lte'] : null,
+            'height_or_thickness_gte' => isset($sanitized_dimensions['height_or_thickness_gte']) ? $sanitized_dimensions['height_or_thickness_gte'] : null,
+            'height_or_thickness_lte' => isset($sanitized_dimensions['height_or_thickness_lte']) ? $sanitized_dimensions['height_or_thickness_lte'] : null,
 
             'styles' => $styles,
             'style_ids' => $style_ids,

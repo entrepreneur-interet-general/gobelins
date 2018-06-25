@@ -123,6 +123,9 @@ class Product extends Model
             'style_id' => $this->style ? $this->style->id : null,
             'material_ids' => $this->materialIds,
             'production_origin_id' => $this->productionOrigin ? $this->productionOrigin->id : null,
+            'length_or_diameter' => $this->length_or_diameter,
+            'depth_or_width' => $this->depth_or_width,
+            'height_or_thickness' => $this->height_or_thickness,
         ];
     }
 

@@ -130,6 +130,20 @@
                 </fieldset>
             </details>
 
+            <details class="ProtoNav__criteria">
+                <summary>Dimensions</summary>
+                <fieldset>
+                    Longueur : <input type="number" min="0" max="" step="0.1" name="length_or_diameter[gte]" value="{{$length_or_diameter_gte}}"> — <input type="number" min="0" max="" step="0.1" name="length_or_diameter[lte]" value="{{$length_or_diameter_lte}}"> mètres<br>
+                    Largeur : <input type="number" min="0" max="" step="0.1" name="depth_or_width[gte]" value="{{$depth_or_width_gte}}"> — <input type="number" min="0" max="" step="0.1" name="depth_or_width[lte]" value="{{$depth_or_width_lte}}"> mètres<br>
+                    Hauteur : <input type="number" min="0" max="" step="0.1" name="height_or_thickness[gte]" value="{{$height_or_thickness_gte}}"> — <input type="number" min="0" max="" step="0.1" name="height_or_thickness[lte]" value="{{$height_or_thickness_lte}}"> mètres<br>
+                </fieldset>
+                <style type="text/css">
+                    input[type=number] {
+                        width: 4em;
+                    }
+                </style>
+            </details>
+
             <details>
                 <summary>ES query</summary>
                 <pre>{!! json_encode($es_query, JSON_PRETTY_PRINT) !!}</pre>
@@ -155,6 +169,7 @@
             <b>Style :</b> {{ $result->style_id ? $styles->firstWhere('id', $result->style_id)->name : '' }}<br>
             <b>Matières :</b> {{ $materials->filter(function($m) use ($result) { return in_array($m->id, $result->material_ids); })->pluck('mapping_key')->implode(', ') }}<br>
             <b>Lieu de production :</b> {{ $result->production_origin_id ? $production_origins->firstWhere('id', $result->production_origin_id)->name : '' }}<br>
+            <b>Dimensions :</b> Longueur: {{$result->length_or_diameter}} — Largeur: {{$result->depth_or_width}} — Hauteur: {{$result->height_or_thickness}}<br>
         </p>
     @endforeach
     
