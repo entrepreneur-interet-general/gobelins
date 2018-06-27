@@ -295,7 +295,7 @@ class Import extends Command
                         }
 
                         // Materials
-                        $product->materials()->detach();
+                        $material_ids = [];
                         if (is_array($item->materials) && sizeof($item->materials) > 0) {
                             $material_ids = collect($item->materials)
                                 ->pluck('name')
@@ -306,8 +306,8 @@ class Import extends Command
                                 ->flatten()
                                 ->pluck('id')
                                 ->all();
-                            $product->materials()->attach($material_ids);
                         }
+                        $product->materials()->sync($material_ids);
 
                         // ProductionOrigin
                         // We map multiple sources to set the production origin.

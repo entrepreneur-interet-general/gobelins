@@ -19,7 +19,7 @@
                                 name="product_type_ids[]"
                                 value="{{ $product_type->id }}"
                                 {{ collect($product_type_ids)->contains($product_type->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $product_type->mapping_key }}
+                                >&nbsp;{{ $product_type->mapping_key }}&nbsp;{{ isset($aggregations['product_types'][$product_type->id]) ? '(' . $aggregations['product_types'][$product_type->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
@@ -34,7 +34,7 @@
                                 name="author_ids[]"
                                 value="{{ $author->id }}"
                                 {{ collect($author_ids)->contains($author->id) ? 'checked' : '' }}
-                                >&nbsp;<b>{{ $author->lastName }}</b>&nbsp;{{ $author->firstName }}
+                                >&nbsp;<b>{{ $author->lastName }}</b>&nbsp;{{ $author->firstName }}&nbsp;{{ isset($aggregations['authors'][$author->id]) ? '(' . $aggregations['authors'][$author->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
@@ -94,7 +94,7 @@
                                 name="style_ids[]"
                                 value="{{ $style->id }}"
                                 {{ collect($style_ids)->contains($style->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $style->name }}
+                                >&nbsp;{{ $style->name }}&nbsp;{{ isset($aggregations['styles'][$style->id]) ? '(' . $aggregations['styles'][$style->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
@@ -109,7 +109,7 @@
                                 name="material_ids[]"
                                 value="{{ $material->id }}"
                                 {{ collect($material_ids)->contains($material->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $material->mapping_key }}
+                                >&nbsp;{{ $material->mapping_key }}&nbsp;{{ isset($aggregations['materials'][$material->id]) ? '(' . $aggregations['materials'][$material->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
@@ -124,7 +124,7 @@
                                 name="production_origin_ids[]"
                                 value="{{ $production_origin->id }}"
                                 {{ collect($production_origin_ids)->contains($production_origin->id) ? 'checked' : '' }}
-                                >&nbsp;{{ $production_origin->name }}
+                                >&nbsp;{{ $production_origin->name }}&nbsp;{{ isset($aggregations['production_origins'][$production_origin->id]) ? '(' . $aggregations['production_origins'][$production_origin->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
@@ -172,5 +172,5 @@
             <b>Dimensions :</b> Longueur: {{$result->length_or_diameter}} — Largeur: {{$result->depth_or_width}} — Hauteur: {{$result->height_or_thickness}}<br>
         </p>
     @endforeach
-    
+
 @stop

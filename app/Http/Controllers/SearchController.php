@@ -116,9 +116,38 @@ class SearchController extends Controller
         if (sizeof($filters) > 0) {
             $body['query']['bool']['filter'] = $filters;
         }
-        $query->body($body);
-            
 
+        // Aggregations.
+        $aggregated_filters = [
+            'product_types' => 'product_type_ids',
+            'authors' => 'author_ids',
+            'styles' => 'style_id',
+            'materials' => 'material_ids',
+            'production_origins' => 'production_origin_id',
+        ];
+        $body['aggs'] = [
+            'all' => [
+                'global' => (object) null,
+                'aggs' => [],
+            ]
+        ];
+        foreach ($aggregated_filters as $k => $v) {
+            $body['aggs']['all']['aggs'][$k] = [
+                'terms' => [
+                    'field' => $v
+                    ]
+                ];
+        };
+        
+        $query->body($body);
+        
+        $aggs = [];
+        foreach ($aggregated_filters as $k => $v) {
+            $buckets = $query->response()['aggregations']['all'][$k]['buckets'];
+            foreach ($buckets as $b) {
+                $aggs[$k][$b['key']] = $b['doc_count'];
+            }
+        }
 
         return view('site.search', [
             'query' => $request->input('q'),
@@ -150,6 +179,9 @@ class SearchController extends Controller
             'style_ids' => $style_ids,
             
             'results' => $query->take(15)->get(),
+
+            'aggregations' => $aggs,
+
         ]);
     }
 }
