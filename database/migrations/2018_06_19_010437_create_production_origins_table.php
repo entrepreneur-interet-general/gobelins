@@ -16,6 +16,8 @@ class CreateProductionOriginsTable extends Migration
         Schema::create('production_origins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('label')->nullable();
+            $table->string('label_md')->nullable();
             $table->string('mapping_key');
         });
 

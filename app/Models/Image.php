@@ -16,4 +16,18 @@ class Image extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    /**
+     * Data stored in Elasticsearch
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'path' => $this->path,
+            'width' => $this->width,
+            'height' => $this->height,
+        ];
+    }
 }

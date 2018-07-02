@@ -63,15 +63,55 @@ class Product extends Model
         return $this->belongsTo(ProductionOrigin::class);
     }
 
-    public function getMaterialIdsAttribute()
+    // Accessors
+
+    public function getMaterialsWithAncestorsAttribute()
     {
-        if ($this->materials && sizeof($this->materials) > 0) {
-            return $this->materials->map(function ($m) {
-                return $m->ancestors->pluck('id')->prepend($m->id)->all();
-            })->flatten()->all();
-        } else {
-            return [];
-        }
+        return $this->materials->map(function ($m) {
+            return \App\Models\Material::ancestorsAndSelf($m->id)->all();
+        })->flatten()->unique('id');
+    }
+
+    /**
+     * Get all the related Materials in a flat array,
+     * with the directly related items marked as leaves.
+     *
+     * @return array
+     */
+    public function getSearchableMaterialsAttribute()
+    {
+        return $this->materials->map(function ($mat) {
+            return $mat->toSearchableAncestorsAndSelf();
+        })->flatten(1)->unique('id')->all();
+    }
+
+    public function getSearchableProductTypesAttribute()
+    {
+        return $this->productType->toSearchableAncestorsAndSelf();
+    }
+
+    public function getSearchableAuthorsAttribute()
+    {
+        return $this->authors->map(function ($author) {
+            return $author->toSearchableArray();
+        })->all();
+    }
+
+    public function getSearchableImagesAttribute()
+    {
+        return $this->images->map(function ($image) {
+            return $image->toSearchableArray();
+        })->all();
+    }
+
+    public function getSearchableStyleAttribute()
+    {
+        return $this->style ? $this->style->toSearchableArray() : [];
+    }
+
+    public function getSearchableProductionOriginAttribute()
+    {
+        return $this->productionOrigin ? $this->productionOrigin->toSearchableArray() : [];
     }
 
 
@@ -97,8 +137,18 @@ class Product extends Model
         'style_id',
     ];
 
+
+    // Eloquent scopes
+
+    public function scopeByInventory($query, $inventory)
+    {
+        $query->where('inventory_id', '=', $inventory);
+    }
+
+
     /**
      * Get the indexable data array for the model.
+     * This data will be stored in Elasticsearch.
      *
      * @return array
      */
@@ -107,30 +157,20 @@ class Product extends Model
         return [
             'title_or_designation' => $this->title_or_designation,
             'description' => $this->description,
+            'bibliography' => $this->bibliography,
             'inventory_id' => $this->inventory_id,
-            'product_type_ids' => $this->productType->branchIds,
-            'author_ids' => $this->authorIds,
+            'product_types' => $this->searchableProductTypes,
+            'authors' => $this->searchableAuthors,
             'period_start_year' => $this->period ? $this->period->start_year : null,
             'period_end_year' => $this->period ? $this->period->end_year : null,
             'conception_year' => $this->conception_year,
-            'images' => $this->images->map(function ($img) {
-                return [
-                    'path' => $img->path,
-                    'width' => $img->width,
-                    'height' => $img->height,
-                ];
-            })->toArray(),
-            'style_id' => $this->style ? $this->style->id : null,
-            'material_ids' => $this->materialIds,
-            'production_origin_id' => $this->productionOrigin ? $this->productionOrigin->id : null,
+            'images' => $this->searchableImages,
+            'style' => $this->searchableStyle,
+            'materials' => $this->searchableMaterials,
+            'production_origin' => $this->searchableProductionOrigin,
             'length_or_diameter' => $this->length_or_diameter,
             'depth_or_width' => $this->depth_or_width,
             'height_or_thickness' => $this->height_or_thickness,
         ];
-    }
-
-    public function scopeByInventory($query, $inventory)
-    {
-        $query->where('inventory_id', '=', $inventory);
     }
 }

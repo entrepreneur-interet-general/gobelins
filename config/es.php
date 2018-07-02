@@ -84,15 +84,49 @@ return [
                             'type' => 'text',
                             'analyzer' => 'french',
                         ],
+                        'bibliography' => [
+                            'type' => 'text',
+                            'analyzer' => 'french',
+                        ],
                         'inventory_id' => [
                             'type' => 'text',
                             'analyzer' => 'standard',
                         ],
-                        'product_type_ids' => [
-                            'type' => 'long',
+                        'product_types' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'long',
+                                ],
+                                'name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'mapping_key' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'is_leaf' => [
+                                    'type' => 'boolean',
+                                    'index' => false,
+                                ],
+                            ]
                         ],
-                        'author_ids' => [
-                            'type' => 'long',
+                        'authors' => [
+                            'type' => 'object',
+                            'properties' =>  [
+                                'id' => [
+                                    'type' => 'long',
+                                ],
+                                'first_name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'last_name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                            ],
                         ],
                         'period_start_year' => [
                             'type' => 'short',
@@ -104,7 +138,6 @@ return [
                             'type' => 'text',
                             'analyzer' => 'standard',
                         ],
-                        # We only store images here for retreival perf reasons.
                         'images' => [
                             'type' => 'object',
                             'properties' =>  [
@@ -122,14 +155,53 @@ return [
                                 ],
                             ]
                         ],
-                        'style_id' => [
-                            'type' => 'integer',
+                        'style' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'long',
+                                ],
+                                'name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                            ],
                         ],
-                        'material_ids' => [
-                            'type' => 'integer',
+                        'materials' => [
+                            'type' => 'object',
+                            'properties' =>  [
+                                'id' => [
+                                    'type' => 'integer',
+                                ],
+                                'name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'mapping_key' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'is_leaf' => [
+                                    'type' => 'boolean',
+                                    'index' => false,
+                                ],
+                            ]
                         ],
-                        'production_origin_id' => [
-                            'type' => 'integer'
+                        'production_origin' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'long',
+                                ],
+                                'name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                                'label' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                            ],
                         ],
                         'length_or_diameter' => [
                             'type' => 'scaled_float',

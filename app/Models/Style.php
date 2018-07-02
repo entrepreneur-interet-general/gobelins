@@ -17,4 +17,17 @@ class Style extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    /**
+     * To store in Elasticsearch.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }

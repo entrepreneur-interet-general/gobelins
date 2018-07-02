@@ -15,30 +15,41 @@ class SearchController extends Controller
 {
     public function index(Request $request)
     {
+        start_measure('controller_index', 'Total controller time');
+
+
         $query = ES::type("products");
         
         $filters = [];
 
+        
+        start_measure('fetch_product_type', 'fetch_product_type');
         $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
-            $filters[] = ['terms' => ['product_type_ids' => $product_type_ids]];
+            $filters[] = ['terms' => ['product_types.id' => $product_type_ids]];
         }
+        stop_measure('fetch_product_type');
+        
+        start_measure('fetch_style', 'fetch_style');
         
         $styles = Style::all();
         $style_ids = [];
         if (is_array($request->input('style_ids'))) {
             $style_ids = $request->input('style_ids');
-            $filters[] = ['terms' => ['style_id' => $style_ids]];
+            $filters[] = ['terms' => ['style.id' => $style_ids]];
         }
+        stop_measure('fetch_style');
         
-        $authors = Author::orderBy('name', 'asc')->get();
+        start_measure('fetch_authors', 'fetch_authors');
+        $authors = Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get();
         $author_ids = [];
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
-            $filters[] = ['terms' => ['author_ids' => $author_ids]];
+            $filters[] = ['terms' => ['authors.id' => $author_ids]];
         }
+        stop_measure('fetch_authors');
         
         $periods = Period::orderBy('start_year', 'asc')->get();
         $period_start_year = false;
@@ -69,14 +80,14 @@ class SearchController extends Controller
         $material_ids = [];
         if (is_array($request->input('material_ids'))) {
             $material_ids = $request->input('material_ids');
-            $filters[] = ['terms' => ['material_ids' => $material_ids]];
+            $filters[] = ['terms' => ['materials.id' => $material_ids]];
         }
 
         $production_origins = ProductionOrigin::all();
         $production_origin_ids = [];
         if (is_array($request->input('production_origin_ids'))) {
             $production_origin_ids = $request->input('production_origin_ids');
-            $filters[] = ['terms' => ['production_origin_id' => $production_origin_ids]];
+            $filters[] = ['terms' => ['production_origin.id' => $production_origin_ids]];
         }
 
 
@@ -119,11 +130,11 @@ class SearchController extends Controller
 
         // Aggregations.
         $aggregated_filters = [
-            'product_types' => 'product_type_ids',
-            'authors' => 'author_ids',
-            'styles' => 'style_id',
-            'materials' => 'material_ids',
-            'production_origins' => 'production_origin_id',
+            'product_types' => 'product_types.id',
+            'authors' => 'authors.id',
+            'styles' => 'style.id',
+            'materials' => 'materials.id',
+            'production_origins' => 'production_origin.id',
         ];
         $body['aggs'] = [
             'all' => [
@@ -134,22 +145,29 @@ class SearchController extends Controller
         foreach ($aggregated_filters as $k => $v) {
             $body['aggs']['all']['aggs'][$k] = [
                 'terms' => [
-                    'field' => $v
-                    ]
-                ];
+                    'field' => $v,
+                    'size' => 5000,
+                ]
+            ];
         };
         
+        // \Debugbar::measure('ES queryyyyy', function () use (&$query, &$body) {
+        // });
+        
         $query->body($body);
+        $raw_aggs = $query->response()['aggregations']['all'];
         
         $aggs = [];
         foreach ($aggregated_filters as $k => $v) {
-            $buckets = $query->response()['aggregations']['all'][$k]['buckets'];
+            $buckets = $raw_aggs[$k]['buckets'];
             foreach ($buckets as $b) {
                 $aggs[$k][$b['key']] = $b['doc_count'];
             }
         }
+        
 
-        return view('site.search', [
+        // start_measure('render', 'Rendering the view');
+        $view = view('site.search', [
             'query' => $request->input('q'),
             'es_query' => $query->getBody(),
             'product_types' => $product_types,
@@ -183,5 +201,7 @@ class SearchController extends Controller
             'aggregations' => $aggs,
 
         ]);
+        return $view;
+        stop_measure('controller_index');
     }
 }

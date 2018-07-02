@@ -8,6 +8,9 @@
             <input type="text" name="q" value="{{ $query }}" />
             <button type="submit">Rechercher</button>
         </p>
+        @php
+        start_measure('filters', 'Render the filters');
+        @endphp
         <div class="ProtoNav">
 
             <details class="ProtoNav__criteria">
@@ -18,13 +21,16 @@
                             <input type="checkbox"
                                 name="product_type_ids[]"
                                 value="{{ $product_type->id }}"
-                                {{ collect($product_type_ids)->contains($product_type->id) ? 'checked' : '' }}
+                                {{ in_array($product_type->id, $product_type_ids) ? 'checked' : '' }}
                                 >&nbsp;{{ $product_type->mapping_key }}&nbsp;{{ isset($aggregations['product_types'][$product_type->id]) ? '(' . $aggregations['product_types'][$product_type->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
             </details>
 
+            @php
+                start_measure('authors_filter', 'Render the  authors filters');
+            @endphp
             <details class="ProtoNav__criteria">
                 <summary>Auteurs</summary>
                 <fieldset style="column-count: 4">
@@ -33,12 +39,15 @@
                             <input type="checkbox"
                                 name="author_ids[]"
                                 value="{{ $author->id }}"
-                                {{ collect($author_ids)->contains($author->id) ? 'checked' : '' }}
-                                >&nbsp;<b>{{ $author->lastName }}</b>&nbsp;{{ $author->firstName }}&nbsp;{{ isset($aggregations['authors'][$author->id]) ? '(' . $aggregations['authors'][$author->id] . ')' : '' }}
+                                {{ in_array($author->id, $author_ids) ? 'checked' : '' }}
+                                >&nbsp;<b>{{ $author->last_name }}</b>&nbsp;{{ $author->first_name }}&nbsp;{{ isset($aggregations['authors'][$author->id]) ? '(' . $aggregations['authors'][$author->id] . ')' : '' }}
                         </label><br>
                     @endforeach
                 </fieldset>
             </details>
+            @php
+                stop_measure('authors_filter');
+            @endphp
 
             <details class="ProtoNav__criteria">
                 <summary>Année de création</summary>
@@ -150,6 +159,10 @@
             </details>
         </div>
     </form>
+    @php
+        stop_measure('filters');
+        start_measure('results', 'Render the results');
+    @endphp
 
     <h2>Résultats</h2>
     @foreach($results as $result)
@@ -159,18 +172,54 @@
                     <img src="/image/{{ $img['path'] }}?h=100&amp;w=150" style="margin-left: 10px">
                 @endforeach
             </div>
+
             <b>Inventaire :</b> {{ $result->inventory_id }}<br>
+
             <b>Titre ou dénomination :</b> {{ $result->title_or_designation }}<br>
+
             <b>Description :</b> {{ $result->description }}<br>
-            <b>Type d’objet :</b> {{ $product_types->filter(function($t) use ($result) { return in_array($t->id, $result->product_type_ids ?: []); })->pluck('mapping_key')->implode(', ') }}<br>
-            <b>Auteurs :</b> {{ $authors->filter(function($a) use ($result) { return in_array($a->id, $result->author_ids); })->pluck('name')->implode(', ') }}<br>
+
+            <b>Type d’objet :</b>
+            @if($result->product_types && is_array($result->product_types) && sizeof($result->product_types) > 0)
+                {{ implode(', ', array_column($result->product_types, 'mapping_key')) }}
+            @endif
+            <br>
+
+            <b>Auteurs :</b> 
+            @if($result->authors && is_array($result->authors) && sizeof($result->authors) > 0)
+                @foreach($result->authors as $author)
+                    {{ $author['first_name'] }} {{ $author['last_name'] }},
+                @endforeach
+            @endif
+            <br>
+
             <b>Époque de création :</b> {{ $result->period_start_year }} — {{ $result->period_end_year }}<br>
+
             <b>Année de création :</b> {{ $result->conception_year }}<br>
-            <b>Style :</b> {{ $result->style_id ? $styles->firstWhere('id', $result->style_id)->name : '' }}<br>
-            <b>Matières :</b> {{ $materials->filter(function($m) use ($result) { return in_array($m->id, $result->material_ids); })->pluck('mapping_key')->implode(', ') }}<br>
-            <b>Lieu de production :</b> {{ $result->production_origin_id ? $production_origins->firstWhere('id', $result->production_origin_id)->name : '' }}<br>
+
+            <b>Style :</b>
+            @if($result->style && isset($result->style['name']))
+                {{ $result->style['name'] }}
+            @endif
+            <br>
+
+            <b>Matières :</b>
+            @if(is_array($result->materials) && sizeof($result->materials) > 0)
+                {{ implode(', ', array_column($result->materials, 'mapping_key')) }}
+            @endif
+            <br>
+
+            <b>Lieu de production :</b>
+            @if($result->production_origin && isset($result->production_origin['name']))
+                {{ $result->production_origin['name'] }}
+            @endif
+            <br>
+            
             <b>Dimensions :</b> Longueur: {{$result->length_or_diameter}} — Largeur: {{$result->depth_or_width}} — Hauteur: {{$result->height_or_thickness}}<br>
         </p>
     @endforeach
 
+    @php
+        stop_measure('results');
+    @endphp
 @stop
