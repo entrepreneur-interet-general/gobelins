@@ -14,39 +14,39 @@ class ProductionOriginSeeder extends Seeder
         $rows = [
             [
                 'name' => 'Manufacture des Gobelins',
-                'label' => 'Atelier de création de tapisserie technique de la haute-lice',
-                'label_md' => 'Atelier de création de *tapisserie* technique de la *haute-lice*',
-                'mapping_key' => 'gobelins'
+                'label' => 'Création de tapisserie, technique point plat sur métier de haute lice',
+                'label_md' => 'Création de tapisserie, technique *point plat* sur métier de *haute lice*',
+                'mapping_key' => 'gobelins',
             ],
             [
                 'name' => 'Manufacture de Beauvais',
-                'label' => 'Atelier de création de tapisserie technique de la basse-lice',
-                'label_md' => 'Atelier de création de *tapisserie* technique de la *basse-lice*',
-                'mapping_key' => 'beauvais'
+                'label' => 'Création de tapisserie, technique de point plat sur métier de basse lice',
+                'label_md' => 'Création de tapisserie, technique de *point plat* sur métier de *basse lice*',
+                'mapping_key' => 'beauvais',
             ],
             [
                 'name' => 'Manufacture de la Savonnerie',
-                'label' => 'Atelier de création de tapis technique de la haute-lice',
-                'label_md' => 'Atelier de création de *tapis* technique de la *haute-lice*',
-                'mapping_key' => 'savonnerie'
+                'label' => 'Création de tapis, technique point noué sur métier de haute lice',
+                'label_md' => 'Création de tapis, technique *point noué* sur métier de *haute lice*',
+                'mapping_key' => 'savonnerie',
             ],
             [
-                'name' => 'Dentelle Le Puy-en-Velay',
-                'label' => 'Atelier de création de dentelle technique des fuseaux',
-                'label_md' => 'Atelier de création de *dentelle* technique des *fuseaux*',
-                'mapping_key' => 'puy-en-velay'
+                'name' => 'Atelier Le Puy-en-Velay',
+                'label' => 'Création de dentelle technique aux fuseaux',
+                'label_md' => 'Création de *dentelle* technique aux *fuseaux*',
+                'mapping_key' => 'puy-en-velay',
             ],
             [
-                'name' => 'Dentelle Alençon',
-                'label' => 'Atelier de création de dentelle technique de l’aiguille',
-                'label_md' => 'Atelier de création de *dentelle* technique de l’*aiguille*',
-                'mapping_key' => 'alencon'
+                'name' => 'Atelier d’Alençon',
+                'label' => 'Création de dentelle et broderie, technique à l’aiguille',
+                'label_md' => 'Création de *dentelle et broderie*, technique à l’*aiguille*',
+                'mapping_key' => 'alencon',
             ],
             [
                 'name' => 'ARC',
                 'label' => 'Atelier de recherche et création de mobilier',
                 'label_md' => 'Atelier de recherche et création de *mobilier*',
-                'mapping_key' => 'arc'
+                'mapping_key' => 'arc',
             ],
         ];
 
