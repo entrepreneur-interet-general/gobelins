@@ -1,0 +1,76 @@
+.BetaWelcome {
+    background-color: $quasi-black;
+    color: #fff;
+
+    height: 100vh;
+
+    // Temporary
+    position: fixed;
+    width: 100%;
+
+    overflow: auto;
+
+    
+    .BetaWelcome__inner {
+        margin: 0 30px;
+        @include breakpoint($small-plus) {
+            margin-left: 60px;
+            margin-right: 60px;
+        }
+    }
+    
+    .BetaWelcome__intro {
+        padding-top: 85px;
+        padding-bottom: 85px;
+        @include breakpoint($small-plus) {
+            max-width: 730px;
+            margin: 0 auto;
+        }
+        
+        @include f-serif;
+        font-size: rem(20px);
+        line-height: rem(28px);
+        @include breakpoint($small) {
+            font-size: rem(30px);
+            line-height: rem(45px);
+        }
+        @include breakpoint($medium-plus) {
+            font-size: rem(45px);
+            line-height: rem(60px);
+        }
+    }
+
+    .BetaWelcome__logo {
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        @include breakpoint($small-plus) {
+            left: 60px;
+        }
+    }
+    
+    .BetaWelcome__purple {
+        color: $purple;
+    }
+
+    .BetaWelcome__salmon {
+        color: $salmon;
+    }
+
+    .BetaWelcome__aparte {
+        margin-top: rem(20px);
+        @include breakpoint($small-plus) {
+            width: 475px;
+        }
+        
+        @include f-sans;
+        color: $purple;
+        font-size: rem(15px);
+        line-height: rem(22px);
+        
+        @include breakpoint($small-plus) {
+            font-size: rem(20px);
+            line-height: rem(27px);
+        }
+    }
+}

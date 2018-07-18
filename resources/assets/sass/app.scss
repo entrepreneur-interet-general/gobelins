@@ -1,20 +1,22 @@
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+// Vendor (~ is aliased to node_modules)
+@import "~normalize.css";
+@import "~sass-rem";
+@import "~breakpoint-sass";
 
-// Variables
-@import "variables";
+// Shared utilities
+@import "shared/breakpoints";
+@import "shared/grids";
+@import "shared/colors";
+@import "shared/typography";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Blocks
+@import "blocks/BetaWelcome";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+:root {
+  height: 100%;
 }
 
-
 body {
-  max-width: 1000px;
-  margin: 40px auto;
+  height: 100%;
 }

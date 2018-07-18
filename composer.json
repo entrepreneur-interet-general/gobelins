@@ -15,6 +15,7 @@
         "laravel/tinker": "^1.0",
         "league/glide": "^1.3",
         "league/glide-laravel": "^1.0",
+        "nothingworks/blade-svg": "^0.2.2",
         "seld/signal-handler": "^1.1"
     },
     "require-dev": {
