@@ -11,17 +11,24 @@
     },
     "devDependencies": {
         "axios": "^0.18",
+        "babel-preset-react": "^6.24.1",
         "bootstrap": "^4.0.0",
-        "popper.js": "^1.12",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
+        "popper.js": "^1.12",
         "vue": "^2.5.7"
     },
     "dependencies": {
         "breakpoint-sass": "^2.7.1",
+        "hijup-react-masonry-infinite": "^1.2.0",
         "normalize.css": "^8.0.0",
+        "prop-types": "^15.6.2",
+        "react": "^16.4.1",
+        "react-dom": "^16.4.1",
+        "react-virtualized": "^9.20.1",
+        "react-window-size-listener": "^1.2.1",
         "sass-rem": "^2.0.1"
     }
 }

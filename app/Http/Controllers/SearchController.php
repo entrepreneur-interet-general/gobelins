@@ -13,6 +13,13 @@ use ES;
 
 class SearchController extends Controller
 {
+    private static $RESULTS_PER_PAGE = 25;
+    
+    public function collection(Request $request)
+    {
+        return view('site.collection', []);
+    }
+
     public function index(Request $request)
     {
         start_measure('controller_index', 'Total controller time');
@@ -154,7 +161,7 @@ class SearchController extends Controller
         // \Debugbar::measure('ES queryyyyy', function () use (&$query, &$body) {
         // });
         
-        $query->body($body);
+        $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
         $raw_aggs = $query->response()['aggregations']['all'];
         
         $aggs = [];
@@ -166,6 +173,14 @@ class SearchController extends Controller
         }
         
 
+        if ($request->wantsJson()) {
+            return json_encode([
+                'hasMore' => $pagination->hasMorePages(),
+                'nextPageUrl' => $pagination->nextPageUrl(),
+                'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
+            ]);
+        }
+        
         // start_measure('render', 'Rendering the view');
         $view = view('site.search', [
             'query' => $request->input('q'),
@@ -199,6 +214,8 @@ class SearchController extends Controller
             'results' => $query->take(15)->get(),
 
             'aggregations' => $aggs,
+
+            'pagination' => $pagination,
 
         ]);
         return $view;

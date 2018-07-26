@@ -164,6 +164,10 @@
         start_measure('results', 'Render the results');
     @endphp
 
+    <div>
+        {{ $pagination->links() }}
+    </div>
+
     <h2>Résultats</h2>
     @foreach($results as $result)
         <p style="overflow: auto;">

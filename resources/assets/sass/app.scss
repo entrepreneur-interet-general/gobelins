@@ -1,10 +1,11 @@
-
 // Vendor (~ is aliased to node_modules)
 @import "~normalize.css";
 @import "~sass-rem";
 @import "~breakpoint-sass";
+@import "~react-virtualized/styles";
 
 // Shared utilities
+@import "shared/aspect-ratio";
 @import "shared/breakpoints";
 @import "shared/grids";
 @import "shared/colors";
@@ -12,6 +13,7 @@
 
 // Blocks
 @import "blocks/BetaWelcome";
+@import "blocks/Collection";
 
 :root {
   height: 100%;

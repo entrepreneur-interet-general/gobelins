@@ -1,0 +1,64 @@
+.Collection__result {
+  min-height: 100vh;
+  @include breakpoint($xsmall) {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  @include breakpoint($small-up) {
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+  @include breakpoint($medium-up) {
+    margin-left: 288px;
+  }
+}
+.Collection__filters {
+  display: none;
+  @include breakpoint($medium-up) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 288px;
+    height: 100%;
+    background: rgb(231, 165, 165);
+  }
+}
+.Collection__cell {
+  @include breakpoint($xsmall) {
+    width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
+  }
+  @include breakpoint($small) {
+    width: calc((100vw - (40px * 4)) / 3); // 3 columns, 40px gutters
+  }
+  @include breakpoint($medium) {
+    width: calc((100vw - 288px - (40px * 3)) / 3); // 3 columns, 40px gutters
+  }
+  @include breakpoint($large) {
+    width: calc((100vw - 288px - (40px * 4)) / 4); // 4 columns, 40px gutters
+  }
+  @include breakpoint($xlarge) {
+    width: calc((100vw - 288px - (40px * 5)) / 5); // 5 columns, 40px gutters
+  }
+  @include breakpoint($xxlarge) {
+    width: calc((100vw - 288px - (40px * 6)) / 6); // 6 columns, 40px gutters
+  }
+}
+.Collection__image-container {
+}
+.Collection__image-container--empty {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-color: red;
+}
+.Collection__cell img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+}
+.Collection__cell-title {
+}
