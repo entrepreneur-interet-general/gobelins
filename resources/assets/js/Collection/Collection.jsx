@@ -23,7 +23,9 @@ class Collection extends Component {
     } else {
       this.setState.isLoading = true;
       let endpointUrl =
-        this.state.nextPageUrl || process.env.MIX_COLLECTION_DSN;
+        this.state.nextPageUrl ||
+        "http://gobelins.test/rechercher?style_ids[]=1"; //process.env.MIX_COLLECTION_DSN;
+      //"http://gobelins.test/rechercher?author_ids[]=327"; //process.env.MIX_COLLECTION_DSN;
       fetch(endpointUrl, {
         headers: {
           Accept: "application/json"

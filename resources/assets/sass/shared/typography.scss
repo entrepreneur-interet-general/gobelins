@@ -1,33 +1,30 @@
-
 /* 
  * Font loading strategy: none at the moment. Revisit later.
  * Using a <link rel="stylesheet"> to Google Fonts.
  */
 
 @mixin f-sans {
-    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-display: swap;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-display: swap;
 }
 .f-sans {
-    @include f-sans;
+  @include f-sans;
 }
 
 @mixin f-serif {
-    font-family: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
-    font-display: swap;
+  font-family: "Source Serif Pro", Georgia, "Times New Roman", serif;
+  font-display: swap;
 }
 .f-serif {
-    @include f-serif;
+  @include f-serif;
 }
 
-
-
 :root {
-    @include rem-baseline;
+  @include rem-baseline;
 }
 
 @mixin large-serif {
-    @include f-serif;
-    font-size: 20px;
-    line-height: 1;
+  @include f-serif;
+  font-size: 20px;
+  line-height: 1;
 }

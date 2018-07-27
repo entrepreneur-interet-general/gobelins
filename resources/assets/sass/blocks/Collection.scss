@@ -60,5 +60,29 @@
   height: 100%;
   background-color: #f0f0f0;
 }
+.Collection__cell-label {
+  margin-top: 20px;
+  padding-bottom: 25px;
+}
 .Collection__cell-title {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(18px);
+  font-weight: bold;
+  color: $dark-gray;
+
+  &:empty {
+    display: none;
+  }
+}
+.Collection__cell-authors {
+  display: inline;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(20px);
+  font-weight: normal;
+  color: $dark-gray;
 }

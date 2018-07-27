@@ -16,15 +16,16 @@ class CollectionGrid extends Component {
 
   renderGridElements() {
     return this.props.hits.map((datum, index) => {
-      // let imgroot = "/image/" + datum.images[0].path + "?w=";
-      //let srcset = imgroot +
-
-      /*
-      
-      */
+      let hasImages = datum.images && datum.images.length > 0;
+      let imgRoot = hasImages ? "/image/" + datum.images[0].path + "?w=" : "";
+      let display_name =
+        datum.title_or_designation ||
+        (datum.product_types && datum.product_types.length > 0
+          ? datum.product_types.find(t => t.is_leaf).name
+          : "");
       return (
         <div key={index} className="Collection__cell">
-          {datum.images && datum.images.length > 0 ? (
+          {hasImages ? (
             <div
               className="Collection__image-container"
               style={{
@@ -32,28 +33,45 @@ class CollectionGrid extends Component {
                   datum.images[0].width + "/" + datum.images[0].height
               }}
             >
-              <img src={"/image/" + datum.images[0].path + "?w=300"} />
+              <img
+                sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),
+                       (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),
+                       (min-width: 1440px) and (max-width: 1599px) calc((100vw - 288px - (40px * 4)) / 4),
+                       (min-width: 1024px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
+                       (min-width: 800px) and (max-width: 1023px) calc((100vw - (40px * 4)) / 3),
+                       calc(100vw - (3 * 15px) / 2)"
+                srcSet={
+                  imgRoot +
+                  "300 300w,\n" +
+                  imgRoot +
+                  "380 380w,\n" +
+                  imgRoot +
+                  "600 600w,\n" +
+                  imgRoot +
+                  "760 760w"
+                }
+              />
             </div>
           ) : (
             <div className="Collection__image-container--empty" />
           )}
-          <h2 className="Collection__cell-title">
-            {datum.title_or_designation}
-          </h2>
-          <small>
-            {datum.authors
-              .map(a => {
-                a.last_name + " " + a.first_name;
-              })
-              .join(", ")}
-          </small>
+          <div className="Collection__cell-label">
+            <h2 className="Collection__cell-title">
+              {display_name}
+              {datum.authors && datum.authors.length > 0 ? ", " : ""}
+            </h2>
+            <small className="Collection__cell-authors">
+              {datum.authors
+                .map(a => a.last_name + " " + a.first_name)
+                .join(", ")}
+            </small>
+          </div>
         </div>
       );
     });
   }
 
   forceLayout() {
-    console.log("Resizing yo");
     this._masonryInstance.forcePack();
   }
 
