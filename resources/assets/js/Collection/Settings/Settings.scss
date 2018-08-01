@@ -1,0 +1,30 @@
+.Settings {
+  position: fixed;
+  top: 50px;
+  right: 0px;
+}
+.Settings__toggle {
+  position: absolute;
+  top: 10px;
+  right: 19px;
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+.Settings__panel {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: #1b1b1b;
+  color: white;
+  white-space: nowrap;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(15px);
+}
+.Settings.is-visible .Settings__panel {
+  display: block;
+}

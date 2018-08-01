@@ -12,17 +12,12 @@
     margin-left: 288px;
   }
 }
-.Collection__filters {
-  display: none;
-  @include breakpoint($medium-up) {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 288px;
-    height: 100%;
-    background: rgb(231, 165, 165);
-  }
+
+@mixin collection-spacer {
+  content: "";
+  display: block;
+  height: 40px;
+  width: 100%;
 }
 .Collection__cell {
   @include breakpoint($xsmall) {
@@ -30,18 +25,38 @@
   }
   @include breakpoint($small) {
     width: calc((100vw - (40px * 4)) / 3); // 3 columns, 40px gutters
+
+    &:nth-child(2)::before {
+      @include collection-spacer;
+    }
   }
   @include breakpoint($medium) {
     width: calc((100vw - 288px - (40px * 3)) / 3); // 3 columns, 40px gutters
+    &:nth-child(2)::before {
+      @include collection-spacer;
+    }
   }
   @include breakpoint($large) {
     width: calc((100vw - 288px - (40px * 4)) / 4); // 4 columns, 40px gutters
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      @include collection-spacer;
+    }
   }
   @include breakpoint($xlarge) {
     width: calc((100vw - 288px - (40px * 5)) / 5); // 5 columns, 40px gutters
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      @include collection-spacer;
+    }
   }
   @include breakpoint($xxlarge) {
     width: calc((100vw - 288px - (40px * 6)) / 6); // 6 columns, 40px gutters
+    &:nth-child(2)::before,
+    &:nth-child(4)::before,
+    &:nth-child(6)::before {
+      @include collection-spacer;
+    }
   }
 }
 .Collection__image-container {
@@ -50,7 +65,20 @@
   width: 100%;
   height: 0;
   padding-bottom: 100%;
-  background-color: red;
+  background-color: #f1f1f4;
+  position: relative;
+
+  &:before {
+    content: "Objet sans image";
+    @include f-serif;
+    font-size: rem(13px);
+    line-height: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6d6d6d;
+  }
 }
 .Collection__cell img {
   position: absolute;
@@ -58,7 +86,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f0f0f0;
+  background-color: #f1f1f4;
 }
 .Collection__cell-label {
   margin-top: 20px;
@@ -85,4 +113,31 @@
   line-height: rem(20px);
   font-weight: normal;
   color: $dark-gray;
+}
+
+.Collection__scrollToTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: #fff;
+  cursor: pointer;
+
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 1;
+
+  transition: opacity 0.15s ease-in-out;
+  &.scrollToTop-enter {
+    opacity: 0;
+  }
+  &.scrollToTop-enter.scrollToTop-enter-active {
+    opacity: 1;
+  }
 }

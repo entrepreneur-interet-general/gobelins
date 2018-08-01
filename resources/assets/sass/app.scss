@@ -13,7 +13,13 @@
 
 // Blocks
 @import "blocks/BetaWelcome";
-@import "blocks/Collection";
+
+// React components
+@import "../js/Collection/Collection.scss";
+@import "../js/Collection/Filters/FilterPanelDesktop.scss";
+@import "../js/Collection/Filters/FilterPanelMobile.scss";
+@import "../js/Collection/Filters/ProductTypes.scss";
+@import "../js/Collection/Settings/Settings.scss";
 
 :root {
   height: 100%;

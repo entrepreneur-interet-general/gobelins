@@ -1,7 +1,19 @@
 import React, { Component } from "react";
+import ReactBreakpoints from "react-breakpoints";
 import CollectionList from "./CollectionList.jsx";
 import CollectionGrid from "./CollectionGrid.jsx";
-//import "./App.css";
+import ScrollToTop from "./ScrollToTop.jsx";
+import Filters from "./Filters/Filters.jsx";
+import Settings from "./Settings/Settings.jsx";
+
+const breakpoints = {
+  xsmall: 800,
+  small: 1024,
+  medium: 1440,
+  large: 1600,
+  xlarge: 1800,
+  xxlarge: 9999
+};
 
 class Collection extends Component {
   constructor(props) {
@@ -50,20 +62,28 @@ class Collection extends Component {
 
   render() {
     return (
-      <div className="Collection">
-        <div className="Collection__filters">Here go the filters</div>
-        <div className="Collection__result">
-          {true ? (
-            <CollectionGrid
-              hits={this.state.hits}
-              loadMore={this.load}
-              hasMore={this.state.hasMore}
-            />
-          ) : (
-            <CollectionList hits={this.state.hits} />
-          )}
+      <ReactBreakpoints
+        breakpoints={breakpoints}
+        debounceResize={true}
+        debounceDelay={100}
+      >
+        <div className="Collection">
+          <Filters />
+          <div className="Collection__result">
+            {true ? (
+              <CollectionGrid
+                hits={this.state.hits}
+                loadMore={this.load}
+                hasMore={this.state.hasMore}
+              />
+            ) : (
+              <CollectionList hits={this.state.hits} />
+            )}
+          </div>
+          <ScrollToTop />
+          <Settings />
         </div>
-      </div>
+      </ReactBreakpoints>
     );
   }
 }

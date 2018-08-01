@@ -17,7 +17,9 @@ class CollectionGrid extends Component {
   renderGridElements() {
     return this.props.hits.map((datum, index) => {
       let hasImages = datum.images && datum.images.length > 0;
-      let imgRoot = hasImages ? "/image/" + datum.images[0].path + "?w=" : "";
+      let imgRoot = hasImages
+        ? "/image/" + encodeURIComponent(datum.images[0].path) + "?w="
+        : "";
       let display_name =
         datum.title_or_designation ||
         (datum.product_types && datum.product_types.length > 0

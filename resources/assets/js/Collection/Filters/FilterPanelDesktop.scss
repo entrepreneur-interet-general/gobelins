@@ -1,0 +1,142 @@
+.FilterPanelDesktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 288px;
+  height: 100%;
+}
+.FilterPanelDesktop__scrollable {
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.FilterPanelDesktop__top-area {
+  flex: 0 auto;
+  padding: 40px;
+}
+.FilterPanelDesktop__filters-block {
+  flex: 2 auto;
+  & ul {
+    display: block;
+    margin: 0;
+    padding: 3px 40px 40px;
+  }
+  & li {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  & button {
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: center;
+    justify-content: center;
+    height: 50px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid $lines;
+    background-color: transparent;
+    cursor: pointer;
+
+    @include f-serif;
+    font-size: rem(18px);
+    line-height: rem(20px);
+    text-align: left;
+
+    &:hover {
+      border-bottom-color: $pink-light;
+    }
+  }
+}
+
+.FilterPanelDesktop__filters-label {
+  padding-left: 40px;
+  @include f-sans;
+  font-size: rem(11px);
+  line-height: rem(17px);
+}
+.FilterPanelDesktop__bottom-row {
+  padding: 40px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+.FilterPanelDesktop__mn-logo {
+}
+
+.FilterPanelDesktop__info-link {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  text-decoration: none;
+  background-color: $lines;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: 1;
+  position: relative;
+  top: -10px;
+  margin-left: 36px;
+
+  & > span {
+    display: block;
+  }
+}
+.FilterPanelDesktop__autocomplete {
+  border-bottom: 1px solid $gray-min;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+}
+.FilterPanelDesktop__input {
+  flex: 1 1 auto;
+  position: relative;
+
+  & > input {
+    padding: 0;
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: 35px;
+    background-color: transparent;
+    border: 0;
+
+    @include f-sans;
+    font-size: rem(11px); // FIXME too small.
+    line-height: rem(35px);
+  }
+}
+.FilterPanelDesktop__search {
+  flex: 0 0 auto;
+  & > button[type="submit"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    text-align: right;
+    & > svg {
+      position: relative;
+      right: -1px;
+      top: 1px;
+    }
+  }
+}
+.FilterPanelDesktop__criteria-phrase {
+  margin-top: 10px; // Keep 32px gap between baseline and autocomplete bottom border.
+  @include f-serif;
+  font-size: rem(18px);
+  line-height: rem(32px);
+  & > strong {
+    font-weight: 600;
+  }
+}
