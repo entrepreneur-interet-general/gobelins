@@ -4,7 +4,11 @@
 @section('content')
     
     <div id="root">
-        Here goes the React root
+        Chargement…
     </div>
+
+    <script>
+        var __INITIAL_STATE__ = {!! json_encode($filters) !!};
+    </script>
 
 @stop

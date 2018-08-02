@@ -10,6 +10,7 @@ use App\Models\Style;
 use App\Models\Material;
 use App\Models\ProductionOrigin;
 use ES;
+use Illuminate\Support\Facades\Cache;
 
 class SearchController extends Controller
 {
@@ -17,7 +18,20 @@ class SearchController extends Controller
     
     public function collection(Request $request)
     {
-        return view('site.collection', []);
+        $filters = Cache::rememberForever('collection_filters', function () {
+            return [
+                'productTypes' => ProductType::all()->toArray(),
+                'styles' => Style::all()->toArray(),
+                'authors' => Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get()->toArray(),
+                'periods' => Period::orderBy('start_year', 'asc')->get()->toArray(),
+                'materials' => Material::all()->toArray(),
+                'productionOrigins' => ProductionOrigin::all()->toArray(),
+            ];
+        });
+
+        return view('site.collection', [
+            'filters' => $filters
+        ]);
     }
 
     public function index(Request $request)

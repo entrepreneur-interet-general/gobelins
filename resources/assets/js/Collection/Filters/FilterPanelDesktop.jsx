@@ -8,7 +8,14 @@ import ProductTypes from "./ProductTypes.jsx";
 class FilterPanelDesktop extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      productTypes: window.__INITIAL_STATE__.productTypes,
+      styles: window.__INITIAL_STATE__.styles,
+      authors: window.__INITIAL_STATE__.authors,
+      periods: window.__INITIAL_STATE__.periods,
+      materials: window.__INITIAL_STATE__.materials,
+      productionOrigins: window.__INITIAL_STATE__.productionOrigins
+    };
     this.openPanel = this.openPanel.bind(this);
   }
 
@@ -86,7 +93,7 @@ class FilterPanelDesktop extends Component {
             </a>
           </div>
         </div>
-        {<ProductTypes />}
+        {<ProductTypes productTypes={this.state.product_types} />}
       </div>
     );
   }
