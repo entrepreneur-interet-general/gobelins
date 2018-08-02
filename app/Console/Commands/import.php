@@ -292,6 +292,33 @@ class Import extends Command
                             if ($style) {
                                 $product->style()->associate($style);
                             }
+                        } else {
+                            // Objects created in the modern age usually won't have a 'style',
+                            // so we map the year of conception to a list of
+                            // seeded styles.
+                            if ($item->conception_year) {
+                                if ($item->conception_year >= 1940 && $item->conception_year <= 1949) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 40']));
+                                }
+                                if ($item->conception_year >= 1950 && $item->conception_year <= 1959) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 50']));
+                                }
+                                if ($item->conception_year >= 1960 && $item->conception_year <= 1969) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 60']));
+                                }
+                                if ($item->conception_year >= 1970 && $item->conception_year <= 1979) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 70']));
+                                }
+                                if ($item->conception_year >= 1980 && $item->conception_year <= 1989) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 80']));
+                                }
+                                if ($item->conception_year >= 1990 && $item->conception_year <= 1999) {
+                                    $product->style()->associate(Style::find(['name' => 'Années 90']));
+                                }
+                                if ($item->conception_year >= 2000) {
+                                    $product->style()->associate(Style::find(['name' => 'Contemporain (après 2000)']));
+                                }
+                            }
                         }
 
                         // Materials

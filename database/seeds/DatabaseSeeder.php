@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ProductTypeSeeder::class,
             MaterialSeeder::class,
             ProductionOriginSeeder::class,
+            StyleSeeder::class,
         ]);
     }
 }
