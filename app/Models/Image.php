@@ -11,6 +11,8 @@ class Image extends Model
         'width',
         'height',
     ];
+
+    protected $touches = ['product'];
     
     public function product()
     {

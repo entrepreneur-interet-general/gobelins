@@ -11,6 +11,8 @@ class Material extends Model
     use Mappable;
     use NodeTrait;
 
+    protected $touches = ['products'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

@@ -17,6 +17,7 @@ class CreateMaterialsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('mapping_key');
+            $table->boolean('is_textile_technique');
             $table->nestedSet();
 
             $table->timestamps();

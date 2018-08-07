@@ -11,6 +11,8 @@ class LegacyInventoryNumber extends Model
         'comment',
     ];
 
+    protected $touches = ['product'];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

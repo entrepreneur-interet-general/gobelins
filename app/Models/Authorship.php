@@ -16,6 +16,8 @@ class Authorship extends Pivot
 
     protected $table = 'authorships';
 
+    protected $touches = ['product'];
+
     // Fillables
 
     protected $fillable = [

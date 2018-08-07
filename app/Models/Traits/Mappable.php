@@ -24,7 +24,7 @@ trait Mappable
      *
      * @var array
      */
-    private static $mappings = [];
+    public static $mappings = [];
 
     /**
      * Memoize the mappings for a given source
@@ -32,10 +32,10 @@ trait Mappable
      * @param string $legacySource
      * @return array
      */
-    private static function mappings(string $legacySource)
+    private static function buildMappings(string $legacySource)
     {
-        if (sizeof(self::$mappings) > 0) {
-            return self::$mappings;
+        if (array_key_exists($legacySource, self::$mappings) && sizeof(self::$mappings[$legacySource]) > 0) {
+            return self::$mappings[$legacySource];
         }
         $filename = snake_case(str_plural((new \ReflectionClass(self::class))->getShortName()));
         $sheet = file(base_path() . '/database/mappings/' . $filename . '_' . $legacySource . '.tsv', FILE_IGNORE_NEW_LINES);
@@ -45,7 +45,7 @@ trait Mappable
         })->filter(function ($val, $key) {
             return $val !== '';
         })->toArray();
-        self::$mappings = $mappings;
+        self::$mappings[$legacySource] = $mappings;
         return $mappings;
     }
     
@@ -59,8 +59,8 @@ trait Mappable
      */
     public static function mappingKeyFor(string $legacySource, string $legacyName)
     {
-        self::mappings($legacySource);
-        return array_key_exists($legacyName, self::$mappings) ? self::$mappings[$legacyName] : null;
+        self::buildMappings($legacySource);
+        return array_key_exists($legacyName, self::$mappings[$legacySource]) ? self::$mappings[$legacySource][$legacyName] : null;
     }
 
     /**

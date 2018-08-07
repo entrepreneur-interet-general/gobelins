@@ -3,7 +3,7 @@ Bois	Bois
 Bois Acajou	Bois > Acajou
 Bois Amarante	Bois > Amarante
 Bois Amboine	Bois > Amboine
-Bois blanc	Bois > Blanc
+Bois blanc	Bois > Bois blanc
 Bois Bouleau	Bois > Bouleau
 Bois Cerisier	Bois > Cerisier
 Bois Châtaignier	Bois > Châtaignier
@@ -25,11 +25,11 @@ Bois Louro Preto	Bois > Louro Preto
 Bois Marqueterie	Bois > Marqueterie
 Bois Médium	Bois > Médium
 Bois Merisier	Bois > Merisier
-Bois noir	Bois > Noir
+Bois noir	Bois > Bois noir
 Bois Noyer	Bois > Noyer
 Bois Orme	Bois > Orme
 Bois Palissandre	Bois > Palissandre
-Bois peint	Bois > Peint
+Bois peint	Bois > Bois peint
 Bois Pin	Bois > Pin
 Bois Platane	Bois > Platane
 Bois Poirier	Bois > Poirier
@@ -45,7 +45,7 @@ Céramique Faïence	Céramique > Faïence
 Céramique Grès	Céramique > Grès
 Céramique Grès de Sèvres	Céramique > Grès > de Sèvres
 Céramique Porcelaine	Céramique > Porcelaine
-Céramique Porcelaine d'Asie	Céramique > Porcelaine > d'Asie
+Céramique Porcelaine d'Asie	Céramique > Porcelaine > d’Asie
 Céramique Porcelaine de Sèvres	Céramique > Porcelaine > de Sèvres
 Céramique Terre cuite	Céramique > Terre cuite
 Composite Béton	
@@ -83,10 +83,10 @@ Métal précieux	Métal > Précieux
 Métal précieux Argent	Métal > Précieux > Argent
 Métal précieux Vermeil	Métal > Précieux > Vermeil
 Métal Tôle peinte	Métal > Tôle peinte
-Peau	
-Peau Cheval	
-Peau Cuir	Cuir
-Peau Galuchat	
+Peau	Cuir et skaï > Peau
+Peau Cheval	Cuir et skaï > Peau
+Peau Cuir	Cuir et skaï > Cuir
+Peau Galuchat	Cuir et skaï > Peau
 Peinture Acrylique	
 Peinture Huile	
 Photographie	

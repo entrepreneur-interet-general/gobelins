@@ -12,6 +12,8 @@ class Period extends Model
         'start_year',
         'end_year',
     ];
+
+    protected $touches = ['products'];
     
     public function products()
     {

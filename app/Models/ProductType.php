@@ -14,6 +14,8 @@ class ProductType extends Model
     use Mappable;
     use NodeTrait;
 
+    protected $touches = ['products'];
+
     /* Relations */
 
     public function products()

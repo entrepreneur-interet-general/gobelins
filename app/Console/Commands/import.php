@@ -127,28 +127,33 @@ class Import extends Command
                         // $this->comment('Upserting product: ' . $item->inventory_id);
                         $this->progress_bar->setMessage('Upserting product: ' . $item->inventory_id);
 
-                        $product = \App\Models\Product::updateOrCreate(
-                            ['inventory_id' => $item->inventory_id],
-                            [
-                                'inventory_id' => $item->inventory_id,
-                                'inventory_root' => $item->inventory_root,
-                                'inventory_number' => $item->inventory_number,
-                                'inventory_suffix' => $item->inventory_suffix,
-                                'height_or_thickness' => $item->height_or_thickness,
-                                'length_or_diameter' => $item->length_or_diameter,
-                                'depth_or_width' => $item->depth_or_width,
-                                'conception_year' => $item->conception_year,
-                                'acquisition_origin' => $item->acquisition_origin,
-                                'acquisition_date' => $item->acquisition_date,
-                                'listed_as_historic_monument' => $item->listed_as_historic_monument,
-                                'listed_on' => $item->listed_on,
-                                'category' => $item->category,
-                                'denomination' => $item->denomination,
-                                'title_or_designation' => $item->title_or_designation,
-                                'description' => $item->description,
-                                'bibliography' => $item->bibliography,
-                            ]
-                        );
+                        // First save the Product object, without posting to ES.
+                        // We only post to ES once we have all the relationships saved (see below).
+                        $product = null;
+                        \App\Models\Product::withoutSyncingToSearch(function () use (&$product, $item) {
+                            $product = \App\Models\Product::updateOrCreate(
+                                ['inventory_id' => $item->inventory_id],
+                                [
+                                    'inventory_id' => $item->inventory_id,
+                                    'inventory_root' => $item->inventory_root,
+                                    'inventory_number' => $item->inventory_number,
+                                    'inventory_suffix' => $item->inventory_suffix,
+                                    'height_or_thickness' => $item->height_or_thickness,
+                                    'length_or_diameter' => $item->length_or_diameter,
+                                    'depth_or_width' => $item->depth_or_width,
+                                    'conception_year' => $item->conception_year,
+                                    'acquisition_origin' => $item->acquisition_origin,
+                                    'acquisition_date' => $item->acquisition_date,
+                                    'listed_as_historic_monument' => $item->listed_as_historic_monument,
+                                    'listed_on' => $item->listed_on,
+                                    'category' => $item->category,
+                                    'denomination' => $item->denomination,
+                                    'title_or_designation' => $item->title_or_designation,
+                                    'description' => $item->description,
+                                    'bibliography' => $item->bibliography,
+                                ]
+                            );
+                        });
                             
                         // Images
                         $product->images->map(function ($img) {
@@ -294,29 +299,28 @@ class Import extends Command
                             }
                         } else {
                             // Objects created in the modern age usually won't have a 'style',
-                            // so we map the year of conception to a list of
-                            // seeded styles.
+                            // so we map the year of conception to a list of seeded styles.
                             if ($item->conception_year) {
                                 if ($item->conception_year >= 1940 && $item->conception_year <= 1949) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 40']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 40')->first());
                                 }
                                 if ($item->conception_year >= 1950 && $item->conception_year <= 1959) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 50']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 50')->first());
                                 }
                                 if ($item->conception_year >= 1960 && $item->conception_year <= 1969) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 60']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 60')->first());
                                 }
                                 if ($item->conception_year >= 1970 && $item->conception_year <= 1979) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 70']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 70')->first());
                                 }
                                 if ($item->conception_year >= 1980 && $item->conception_year <= 1989) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 80']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 80')->first());
                                 }
                                 if ($item->conception_year >= 1990 && $item->conception_year <= 1999) {
-                                    $product->style()->associate(Style::find(['name' => 'Années 90']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 90')->first());
                                 }
                                 if ($item->conception_year >= 2000) {
-                                    $product->style()->associate(Style::find(['name' => 'Contemporain (après 2000)']));
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Contemporain (après 2000)')->first());
                                 }
                             }
                         }
@@ -334,7 +338,20 @@ class Import extends Command
                                 ->pluck('id')
                                 ->all();
                         }
-                        $product->materials()->sync($material_ids);
+                        // We consider upholstery as just another material.
+                        $upholstery_ids = [];
+                        if (is_array($item->upholstery) && sizeof($item->upholstery) > 0) {
+                            $upholstery_ids = collect($item->upholstery)
+                            ->pluck('name')
+                            ->map(function ($legacy_gar) {
+                                // Mapped from legacy SCOM "gar.gar" column.
+                                return \App\Models\Material::mappedFrom('gar', $legacy_gar)->get()->all();
+                            })
+                            ->flatten()
+                            ->pluck('id')
+                            ->all();
+                        }
+                        $product->materials()->sync(array_merge($material_ids, $upholstery_ids));
 
                         // ProductionOrigin
                         // We map multiple sources to set the production origin.
@@ -350,7 +367,7 @@ class Import extends Command
 
 
 
-                        // Finally, save the product relationships.
+                        // Finally, save the product relationships, and sync data to ES.
                         $product->save();
 
                         $this->progress_bar->advance();

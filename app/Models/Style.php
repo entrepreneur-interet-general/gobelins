@@ -11,6 +11,8 @@ class Style extends Model
         'legacy_id',
     ];
 
+    protected $touches = ['products'];
+
     /* Relations */
 
     public function products()

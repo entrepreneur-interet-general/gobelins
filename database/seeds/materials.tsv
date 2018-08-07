@@ -1,109 +1,113 @@
-Bois
-Bois > Acajou
-Bois > Amarante
-Bois > Amboine
-Bois > Bambou
-Bois > Blanc
-Bois > Bouleau
-Bois > Cerisier
-Bois > Châtaignier
-Bois > Chêne
-Bois > Citronnier
-Bois > Contreplaqué
-Bois > Doré
-Bois > Ebène
-Bois > Erable
-Bois > Frêne
-Bois > Gaïac
-Bois > Hêtre
-Bois > If
-Bois > Isorel
-Bois > Louro Faia
-Bois > Louro Preto
-Bois > Marqueterie
-Bois > Médium
-Bois > Merisier
-Bois > Noir
-Bois > Noyer
-Bois > Orme
-Bois > Palissandre
-Bois > Peint
-Bois > Pin
-Bois > Platane
-Bois > Poirier
-Bois > Rose
-Bois > Rotin
-Bois > Satine
-Bois > Stratifié / Lamifié / Formica
-Bois > Sycomore
-Bois > Teck
-Bois > Violette
-Bois > Wengé
-Céramique
-Céramique > Biscuit
-Céramique > Biscuit > de Sèvres
-Céramique > Faïence
-Céramique > Grès
-Céramique > Grès > de Sèvres
-Céramique > Porcelaine
-Céramique > Porcelaine > d’Asie
-Céramique > Porcelaine > de Sèvres
-Céramique > Terre cuite
-Cuir
-Laque
-Métal
-Métal > Acier
-Métal > Aluminium
-Métal > Bronze
-Métal > Cuivre
-Métal > Étain
-Métal > Fer
-Métal > Fer forgé
-Métal > Fonte
-Métal > Graphite
-Métal > Inox
-Métal > Laiton
-Métal > Laqué
-Métal > Précieux
-Métal > Précieux > Argent
-Métal > Précieux > Vermeil
-Métal > Tôle peinte
-Pierre
-Pierre > Albâtre
-Pierre > Granit
-Pierre > Malachite
-Pierre > Marbre
-Pierre > Onyx
-Pierre > Opaline
-Pierre > Porphyre
-Plastique
-Plastique > Altuglas
-Plastique > Plexiglas
-Plastique > Polycarbonate
-Plastique > Polyester
-Plastique > Polypropylène
-Plastique > Résine
-Plâtre et stuc
-Skaï
-Textile
-Textile > Brocatelle
-Textile > Coton
-Textile > Damas
-Textile > Feutre et feutrine
-Textile > Fils d’or et d’argent
-Textile > Jersey
-Textile > Laine
-Textile > Lampas
-Textile > Lin
-Textile > Moleskine
-Textile > Percale
-Textile > Reps
-Textile > Satin
-Textile > Soie
-Textile > Tissu
-Textile > Toile
-Textile > Velours
-Verre
-Verre > Blanc
-Verre > Cristal
-Verre > de Venise
+Bois	
+Bois > Acajou	
+Bois > Amarante	
+Bois > Amboine	
+Bois > Bambou	
+Bois > Bois blanc	
+Bois > Bouleau	
+Bois > Cerisier	
+Bois > Châtaignier	
+Bois > Chêne	
+Bois > Citronnier	
+Bois > Contreplaqué	
+Bois > Doré	
+Bois > Ebène	
+Bois > Erable	
+Bois > Frêne	
+Bois > Gaïac	
+Bois > Hêtre	
+Bois > If	
+Bois > Isorel	
+Bois > Louro Faia	
+Bois > Louro Preto	
+Bois > Marqueterie	
+Bois > Médium	
+Bois > Merisier	
+Bois > Bois noir	
+Bois > Noyer	
+Bois > Orme	
+Bois > Palissandre	
+Bois > Bois peint	
+Bois > Pin	
+Bois > Platane	
+Bois > Poirier	
+Bois > Rose	
+Bois > Rotin	
+Bois > Satine	
+Bois > Stratifié / Lamifié / Formica	
+Bois > Sycomore	
+Bois > Teck	
+Bois > Violette	
+Bois > Wengé	
+Céramique	
+Céramique > Biscuit	
+Céramique > Biscuit > de Sèvres	
+Céramique > Faïence	
+Céramique > Grès	
+Céramique > Grès > de Sèvres	
+Céramique > Porcelaine	
+Céramique > Porcelaine > d’Asie	
+Céramique > Porcelaine > de Sèvres	
+Céramique > Terre cuite	
+Cuir et skaï	
+Cuir et skaï > Cuir	
+Cuir et skaï > Daim	
+Cuir et skaï > Peau	
+Cuir et skaï > Skaï	
+Laque	
+Métal	
+Métal > Acier	
+Métal > Aluminium	
+Métal > Bronze	
+Métal > Cuivre	
+Métal > Étain	
+Métal > Fer	
+Métal > Fer forgé	
+Métal > Fonte	
+Métal > Graphite	
+Métal > Inox	
+Métal > Laiton	
+Métal > Laqué	
+Métal > Précieux	
+Métal > Précieux > Argent	
+Métal > Précieux > Vermeil	
+Métal > Tôle peinte	
+Pierre	
+Pierre > Albâtre	
+Pierre > Granit	
+Pierre > Malachite	
+Pierre > Marbre	
+Pierre > Onyx	
+Pierre > Opaline	
+Pierre > Porphyre	
+Plastique	
+Plastique > Altuglas	
+Plastique > Plexiglas	
+Plastique > Polycarbonate	
+Plastique > Polyester	
+Plastique > Polypropylène	
+Plastique > Résine	
+Plâtre et stuc	
+Textile	
+Textile > Coton	
+Textile > Fils d’or et d’argent	
+Textile > Laine	
+Textile > Lin	
+Textile > Soie	
+Textile > Brocatelle	TECHNIQUE TISSAGE
+Textile > Damas	TECHNIQUE TISSAGE
+Textile > Feutre et feutrine	TECHNIQUE TISSAGE
+Textile > Flanelle	TECHNIQUE TISSAGE
+Textile > Indienne	TECHNIQUE TISSAGE
+Textile > Jersey	TECHNIQUE TISSAGE
+Textile > Lampas	TECHNIQUE TISSAGE
+Textile > Moleskine	TECHNIQUE TISSAGE
+Textile > Reps	TECHNIQUE TISSAGE
+Textile > Satin	TECHNIQUE TISSAGE
+Textile > Toile	TECHNIQUE TISSAGE
+Textile > Velours	TECHNIQUE TISSAGE
+Textile > Percale	TECHNIQUE TISSAGE
+Verre	
+Verre > Blanc	
+Verre > Cristal	
+Verre > de Venise	

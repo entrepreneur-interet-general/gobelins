@@ -1,2 +1,2 @@
 
-@dd($product->toJSON())
+@dd($product->materials()->get())

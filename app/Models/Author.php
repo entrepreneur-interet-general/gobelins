@@ -13,6 +13,8 @@ class Author extends Model
         'last_name',
     ];
 
+    protected $touches = ['products'];
+
     public function authorships()
     {
         return $this->hasMany(Authorship::class);

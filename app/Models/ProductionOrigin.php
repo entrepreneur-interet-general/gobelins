@@ -8,6 +8,8 @@ use App\Models\Traits\Mappable;
 class ProductionOrigin extends Model
 {
     use Mappable;
+
+    protected $touches = ['products'];
     
     public function products()
     {
