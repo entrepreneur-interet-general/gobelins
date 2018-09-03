@@ -9,22 +9,23 @@ Siège > Fauteuil > Fauteuil de veille
 Siège > Fauteuil > Fauteuil cabriolet
 Siège > Fauteuil > Fauteuil de jardin
 Siège > Fauteuil > Fauteuil à la reine
+Siège > Fauteuil > Marquise
 Siège > Chaise
 Siège > Chaise > Chaise à grille
 Siège > Chaise > Chaise longue
 Siège > Chaise > Chaise confortable
 Siège > Chaise > Chaise dactylo
 Siège > Chaise > Chaise cabriolet
+Siège > Chaise > Chaise lyre
 Siège > Canapé
 Siège > Canapé > Causeuse
 Siège > Canapé > Chauffeuse
 Siège > Canapé > Méridienne
-Siège > Tabouret et banquette
-Siège > Tabouret et banquette > Banquette
-Siège > Tabouret et banquette > Tabouret
-Siège > Tabouret et banquette > Tabouret de pieds
-Siège > Tabouret et banquette > Banc
-Siège > Tabouret et banquette > Pouf
+Siège > Banquette et tabouret
+Siège > Banquette et tabouret > Banquette
+Siège > Banquette et tabouret > Tabouret
+Siège > Banquette et tabouret > Banc
+Siège > Banquette et tabouret > Pouf
 Meuble
 Meuble > Rangement
 Meuble > Rangement > Commode
@@ -47,7 +48,7 @@ Meuble > Table > Console
 Meuble > Table > Guéridon
 Meuble > Table > Table basse
 Meuble > Table > Table de chevet
-Meuble > Table > Table de décharge
+Meuble > Table > Table d’appoint
 Meuble > Table > Table à jeux
 Meuble > Table > Table de téléphone
 Meuble > Table > Table de salon
@@ -61,7 +62,6 @@ Meuble > Miroir > Psyché
 Meuble > Paravent et écran
 Meuble > Paravent et écran > Paravent
 Meuble > Paravent et écran > Écran à feu
-Meuble > Autre
 Luminaire
 Luminaire > Applique
 Luminaire > Lampadaire
@@ -89,14 +89,13 @@ Textile > Tapis > Tapis tufté
 Textile > Tapis > Tapis d’orient
 Textile > Tapisserie
 Textile > Tapisserie > Tapisserie de lice
-Textile > Tapisserie > Garniture de mobilier
+Textile > Tapisserie > Tapisserie pour mobilier
 Textile > Dentelle
 Textile > Broderie
 Textile > Tissu précieux
 Textile > Vêtement et accessoire
 Textile > Vêtement et accessoire > Vêtement
 Textile > Vêtement et accessoire > Accessoire
-Textile > Autre
 Textile > Autre > Rideau
 Textile > Autre > Tenture
 Beaux arts
@@ -111,7 +110,6 @@ Beaux arts > Modèle pour tissage > Modèle pour tapis
 Beaux arts > Modèle pour tissage > Modèle pour tapisserie
 Beaux arts > Modèle pour tissage > Modèle pour garniture de siège
 Beaux arts > Modèle pour tissage > Modèle pour garniture de meuble
-Beaux arts > Modèle pour tissage > Autre
 Beaux arts > Sculpture
 Beaux arts > Sculpture > Statue
 Beaux arts > Sculpture > Statuette
