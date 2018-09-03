@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { CSSTransitionGroup } from "react-transition-group";
 // import MagnifyingGlassIcon from "react-svg-loader!./magnifying_glass.svg";
 // import MagnifyingGlassIcon from "@svgr/webpack!./magnifying_glass.svg";
 import MagnifyingGlass from "./MagnifyingGlass.jsx";
@@ -14,18 +15,27 @@ class FilterPanelDesktop extends Component {
       authors: window.__INITIAL_STATE__.authors,
       periods: window.__INITIAL_STATE__.periods,
       materials: window.__INITIAL_STATE__.materials,
-      productionOrigins: window.__INITIAL_STATE__.productionOrigins
+      productionOrigins: window.__INITIAL_STATE__.productionOrigins,
+      filterPanelOpen: false
     };
     this.openPanel = this.openPanel.bind(this);
+    this.closeFilterPanels = this.closeFilterPanels.bind(this);
   }
 
-  openPanel(panel) {
-    console.log("bal bla bla", panel);
+  openPanel(panel, ev) {
+    ev.stopPropagation();
+    this.setState({ filterPanelOpen: true, openPanel: panel });
+    document.documentElement.classList.add("prevent-scroll");
+  }
+
+  closeFilterPanels() {
+    this.setState({ filterPanelOpen: false });
+    document.documentElement.classList.remove("prevent-scroll");
   }
 
   render() {
     return (
-      <div className="FilterPanelDesktop">
+      <div className="FilterPanelDesktop" onClick={this.closeFilterPanels}>
         <div className="FilterPanelDesktop__scrollable">
           <div className="FilterPanelDesktop__top-area">
             <div className="FilterPanelDesktop__autocomplete">
@@ -48,35 +58,37 @@ class FilterPanelDesktop extends Component {
             </div>
             <ul>
               <li>
-                <button onClick={ev => this.openPanel("ProductTypes")}>
+                <button onClick={ev => this.openPanel("ProductTypes", ev)}>
                   Types d’objet
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Authors")}>
+                <button onClick={ev => this.openPanel("Authors", ev)}>
                   Auteur
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Periods")}>
+                <button onClick={ev => this.openPanel("Periods", ev)}>
                   Année de création
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Styles")}>Style</button>
+                <button onClick={ev => this.openPanel("Styles", ev)}>
+                  Style
+                </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Materials")}>
+                <button onClick={ev => this.openPanel("Materials", ev)}>
                   Matière
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("ProductionOrigins")}>
+                <button onClick={ev => this.openPanel("ProductionOrigins", ev)}>
                   Lieu de production
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Dimensions")}>
+                <button onClick={ev => this.openPanel("Dimensions", ev)}>
                   Dimensions
                 </button>
               </li>
@@ -93,7 +105,25 @@ class FilterPanelDesktop extends Component {
             </a>
           </div>
         </div>
-        {<ProductTypes productTypes={this.state.product_types} />}
+        <CSSTransitionGroup
+          transitionName="desktopFiltersOverlay"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.state.filterPanelOpen ? (
+            <div className="FilterPanelDesktop__overlay" />
+          ) : null}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
+          transitionName="desktopFilterPanel"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.state.filterPanelOpen &&
+          this.state.openPanel === "ProductTypes" ? (
+            <ProductTypes productTypes={this.state.productTypes} />
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

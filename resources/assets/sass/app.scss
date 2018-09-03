@@ -2,13 +2,14 @@
 @import "~normalize.css";
 @import "~sass-rem";
 @import "~breakpoint-sass";
-@import "~react-virtualized/styles";
+//@import "~react-virtualized/styles";
 
 // Shared utilities
 @import "shared/aspect-ratio";
 @import "shared/breakpoints";
-@import "shared/grids";
 @import "shared/colors";
+@import "shared/global";
+@import "shared/grids";
 @import "shared/typography";
 
 // Blocks

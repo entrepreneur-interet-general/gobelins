@@ -8,7 +8,7 @@
     </div>
 
     <script>
-        var __INITIAL_STATE__ = {!! json_encode($filters) !!};
+        var __INITIAL_STATE__ = {!! $filters->toJson() !!};
     </script>
 
 @stop

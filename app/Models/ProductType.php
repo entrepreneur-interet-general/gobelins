@@ -16,6 +16,8 @@ class ProductType extends Model
 
     protected $touches = ['products'];
 
+    protected $visible = ['name', 'id', 'children'];
+
     /* Relations */
 
     public function products()

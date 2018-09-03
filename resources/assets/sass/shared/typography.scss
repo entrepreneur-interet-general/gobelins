@@ -1,11 +1,37 @@
 /* 
- * Font loading strategy: none at the moment. Revisit later.
- * Using a <link rel="stylesheet"> to Google Fonts.
+ * Font loading strategy: use locally hosted font files,
+ * use font-display: swap, and let MSIE and Edge fallback to FOUT.
  */
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(/fonts/SourceSansPro-Regular.otf.woff2) format("woff2"),
+    url(/fonts/SourceSansPro-Regular.otf.woff) format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url(/fonts/SourceSansPro-Bold.otf.woff2) format("woff2"),
+    url(/fonts/SourceSansPro-Bold.otf.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  src: url(/fonts/SourceSerifPro-Regular.otf.woff2) format("woff2"),
+    url(/fonts/SourceSerifPro-Regular.otf.woff) format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @mixin f-sans {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-display: swap;
 }
 .f-sans {
   @include f-sans;

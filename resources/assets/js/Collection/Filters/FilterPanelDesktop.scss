@@ -4,6 +4,7 @@
   left: 0;
   width: 288px;
   height: 100%;
+  z-index: 2;
 }
 .FilterPanelDesktop__scrollable {
   display: flex;
@@ -138,5 +139,22 @@
   line-height: rem(32px);
   & > strong {
     font-weight: 600;
+  }
+}
+
+.FilterPanelDesktop__overlay {
+  position: fixed;
+  top: 0;
+  left: 288px;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFiltersOverlay-enter {
+    opacity: 0;
+  }
+  &.desktopFiltersOverlay-enter.desktopFiltersOverlay-enter-active {
+    opacity: 1;
   }
 }

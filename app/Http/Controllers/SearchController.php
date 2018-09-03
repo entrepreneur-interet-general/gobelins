@@ -19,14 +19,14 @@ class SearchController extends Controller
     public function collection(Request $request)
     {
         $filters = Cache::rememberForever('collection_filters', function () {
-            return [
-                'productTypes' => ProductType::all()->toArray(),
-                'styles' => Style::all()->toArray(),
-                'authors' => Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get()->toArray(),
-                'periods' => Period::orderBy('start_year', 'asc')->get()->toArray(),
-                'materials' => Material::all()->toArray(),
-                'productionOrigins' => ProductionOrigin::all()->toArray(),
-            ];
+            return collect([
+                'productTypes' => ProductType::get()->toTree(),
+                'styles' => Style::all(),
+                'authors' => Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get(),
+                'periods' => Period::orderBy('start_year', 'asc')->get(),
+                'materials' => Material::all(),
+                'productionOrigins' => ProductionOrigin::all(),
+            ]);
         });
 
         return view('site.collection', [
@@ -174,7 +174,10 @@ class SearchController extends Controller
         
         // \Debugbar::measure('ES queryyyyy', function () use (&$query, &$body) {
         // });
-        
+        if (sizeof($filters) === 0) {
+            $body["query"] = ["match_all" => (object) null]; // TODO: randomize the default results.
+        }
+
         $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
         $raw_aggs = $query->response()['aggregations']['all'];
         

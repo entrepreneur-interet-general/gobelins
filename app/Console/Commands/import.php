@@ -233,6 +233,8 @@ class Import extends Command
                                 [
                                     'legacy_id' => $as->author->id,
                                     'name' => $as->author->name,
+                                    'first_name' => $as->author->first_name,
+                                    'last_name' => $as->author->last_name,
                                 ]
                             );
                         });
