@@ -14,9 +14,9 @@ class FilterPanel extends Component {
       <Media>
         {({ breakpoints, currentBreakpoint }) =>
           breakpoints[currentBreakpoint] < breakpoints.small ? (
-            <FilterPanelMobile />
+            <FilterPanelMobile onFilterChange={this.props.onFilterChange} />
           ) : (
-            <FilterPanelDesktop />
+            <FilterPanelDesktop onFilterChange={this.props.onFilterChange} />
           )
         }
       </Media>

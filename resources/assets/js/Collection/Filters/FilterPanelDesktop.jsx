@@ -121,7 +121,10 @@ class FilterPanelDesktop extends Component {
         >
           {this.state.filterPanelOpen &&
           this.state.openPanel === "ProductTypes" ? (
-            <ProductTypes productTypes={this.state.productTypes} />
+            <ProductTypes
+              productTypes={this.state.productTypes}
+              onFilterChange={this.props.onFilterChange}
+            />
           ) : null}
         </CSSTransitionGroup>
       </div>

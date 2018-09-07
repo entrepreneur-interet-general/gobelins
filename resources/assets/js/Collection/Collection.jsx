@@ -5,6 +5,8 @@ import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
+import qs from "qs";
+import { isEqual } from "lodash";
 
 const breakpoints = {
   xsmall: 800,
@@ -21,43 +23,64 @@ class Collection extends Component {
 
     this.state = {
       hits: [],
-      currentPage: 0,
+      currentPage: 1,
       isLoading: false,
-      hasMore: false
+      hasMore: false,
+      filterObj: {}
     };
 
     this.load = this.load.bind(this);
+    this.loadNextPage = this.loadNextPage.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.buildEndpointUrl = this.buildEndpointUrl.bind(this);
+    this.handleLoading = this.handleLoading.bind(this);
   }
 
-  load(page) {
+  load(filterObj, page) {
     if (this.state.isLoading) {
       return false;
     } else {
-      this.setState.isLoading = true;
-      let endpointUrl =
-        this.state.nextPageUrl ||
-        "http://gobelins.test/rechercher?style_ids[]=1"; //process.env.MIX_COLLECTION_DSN;
-      //"http://gobelins.test/rechercher?author_ids[]=327"; //process.env.MIX_COLLECTION_DSN;
-      fetch(endpointUrl, {
-        headers: {
-          Accept: "application/json"
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            hits: this.state.hits.concat(data.hits),
-            currentPage: page,
-            hasMore: data.hasMore,
-            nextPageUrl: data.nextPageUrl,
-            isLoading: false
+      this.setState({ isLoading: true }, () => {
+        fetch(this.buildEndpointUrl(filterObj, page), {
+          headers: {
+            Accept: "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            this.setState({
+              hits: page === 1 ? data.hits : this.state.hits.concat(data.hits),
+              hasMore: data.hasMore,
+              isLoading: false
+            });
           });
-        });
+      });
     }
   }
 
+  buildEndpointUrl(filterObj, page) {
+    return (
+      process.env.MIX_COLLECTION_DSN +
+      "?" +
+      qs.stringify({ ...filterObj, page: page }, { arrayFormat: "brackets" })
+    );
+  }
+
+  loadNextPage(page) {
+    this.load(this.state.filterObj, page);
+  }
+
+  handleFilterChange(filterObj) {
+    this.setState({ filterObj: filterObj, currentPage: 1 });
+    this.load(filterObj, 1);
+  }
+
+  handleLoading() {
+    this.setState({ isLoading: true });
+  }
+
   componentDidMount() {
-    this.load();
+    this.load({}, 1);
   }
 
   render() {
@@ -68,13 +91,13 @@ class Collection extends Component {
         debounceDelay={100}
       >
         <div className="Collection">
-          <Filters />
+          <Filters onFilterChange={this.handleFilterChange} />
           <div className="Collection__result">
             {true ? (
               <CollectionGrid
                 hits={this.state.hits}
-                loadMore={this.load}
-                hasMore={this.state.hasMore}
+                loadMore={this.loadNextPage}
+                hasMore={!this.state.isLoading && this.state.hasMore}
               />
             ) : (
               <CollectionList hits={this.state.hits} />

@@ -1,18 +1,12 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
-import MasonryInfiniteScroller from "hijup-react-masonry-infinite";
+import TirelessMason from "./TirelessMason.jsx";
 
 class CollectionGrid extends Component {
   constructor(props) {
     super(props);
     this.forceLayout = this.forceLayout.bind(this);
   }
-  // componentDidMount() {
-  //   //window.addEventListener("resize", this.forceLayout);
-  // }
-  // componentWillUnmount() {
-  //   //window.removeEventListener("resize", this.forceLayout);
-  // }
 
   renderGridElements() {
     return this.props.hits.map((datum, index) => {
@@ -81,7 +75,7 @@ class CollectionGrid extends Component {
     return (
       <div>
         <WindowSizeListener onResize={this.forceLayout} />
-        <MasonryInfiniteScroller
+        <TirelessMason
           hasMore={this.props.hasMore}
           loadMore={this.props.loadMore}
           useWindow={true}
@@ -99,7 +93,7 @@ class CollectionGrid extends Component {
           }}
         >
           {this.renderGridElements()}
-        </MasonryInfiniteScroller>
+        </TirelessMason>
       </div>
     );
   }

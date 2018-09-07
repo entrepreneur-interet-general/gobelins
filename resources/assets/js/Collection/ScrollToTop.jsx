@@ -15,7 +15,7 @@ class ScrollToTop extends Component {
     window.addEventListener("scroll", this.onScroll);
   }
 
-  componentDidUnMount() {
+  componentWillUnMount() {
     window.removeEventListener("scroll", this.onScroll);
   }
 
