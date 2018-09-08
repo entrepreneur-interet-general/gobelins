@@ -5,7 +5,18 @@ import TirelessMason from "./TirelessMason.jsx";
 class CollectionGrid extends Component {
   constructor(props) {
     super(props);
+    this.infiniteScroll = React.createRef();
     this.forceLayout = this.forceLayout.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.hits.length > 0 &&
+      this.props.hits.length > 0 &&
+      prevProps.hits[0]["_id"] !== this.props.hits[0]["_id"]
+    ) {
+      this.infiniteScroll.current.forcePack();
+    }
   }
 
   renderGridElements() {
@@ -20,7 +31,7 @@ class CollectionGrid extends Component {
           ? datum.product_types.find(t => t.is_leaf).name
           : "");
       return (
-        <div key={index} className="Collection__cell">
+        <div key={datum["_id"]} className="Collection__cell">
           {hasImages ? (
             <div
               className="Collection__image-container"
@@ -68,7 +79,7 @@ class CollectionGrid extends Component {
   }
 
   forceLayout() {
-    this._masonryInstance.forcePack();
+    this.infiniteScroll.current.forcePack();
   }
 
   render() {
@@ -79,6 +90,7 @@ class CollectionGrid extends Component {
           hasMore={this.props.hasMore}
           loadMore={this.props.loadMore}
           pageStart={1}
+          alwaysRepack={false}
           useWindow={true}
           threshold={500}
           sizes={[
@@ -89,9 +101,7 @@ class CollectionGrid extends Component {
             { mq: "1600px", columns: 5, gutter: 40 },
             { mq: "1800px", columns: 6, gutter: 40 }
           ]}
-          ref={masonryInstance => {
-            this._masonryInstance = masonryInstance;
-          }}
+          ref={this.infiniteScroll}
         >
           {this.renderGridElements()}
         </TirelessMason>
