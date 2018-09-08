@@ -210,13 +210,23 @@ class Import extends Command
 
 
                         // ProductType
-                        // The API is sending a "name" attribute that is from 'gracat.gracat' in SCOM.
-                        if ($item->product_type && $item->product_type->name) {
-                            $product_type = \App\Models\ProductType::mappedFrom('gracat', $item->product_type->name)->first();
-
-                            if ($product_type) {
-                                $product->productType()->associate($product_type);
-                            }
+                        // We map 3 different pieces of data, in order (first one wins):
+                        // - the Title or Designation (Titre ou Appellation)
+                        // - the Denomination (Dénomination)
+                        // - the product_type (gracat.gracat in SCOM).
+                        $product_type = null;
+                        collect([
+                            'titapp' => $item->title_or_designation,
+                            'den' => $item->denomination,
+                            'gracat' => $item->product_type ? $item->product_type->name : null,
+                        ])->filter(function ($value) {
+                            return $value;
+                        })->first(function ($value, $scom_col) use (&$product_type) {
+                            $product_type = \App\Models\ProductType::mappedFrom($scom_col, $value)->first();
+                            return $product_type;
+                        });
+                        if ($product_type) {
+                            $product->productType()->associate($product_type);
                         }
 
 

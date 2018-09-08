@@ -78,6 +78,7 @@ class CollectionGrid extends Component {
         <TirelessMason
           hasMore={this.props.hasMore}
           loadMore={this.props.loadMore}
+          pageStart={1}
           useWindow={true}
           threshold={500}
           sizes={[
