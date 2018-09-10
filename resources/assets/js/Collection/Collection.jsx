@@ -36,43 +36,69 @@ class Collection extends Component {
     this.handleLoading = this.handleLoading.bind(this);
   }
 
-  load(filterObj, page) {
+  load() {
     if (this.state.isLoading) {
       return false;
     } else {
       this.setState({ isLoading: true }, () => {
-        fetch(this.buildEndpointUrl(filterObj, page), {
+        fetch(this.buildEndpointUrl(), {
           headers: {
             Accept: "application/json"
           }
         })
           .then(response => response.json())
           .then(data => {
-            this.setState({
-              hits: page === 1 ? data.hits : this.state.hits.concat(data.hits),
+            this.isLoading = false;
+            this.setState(state => ({
+              hits:
+                state.currentPage === 1
+                  ? data.hits
+                  : state.hits.concat(data.hits),
               hasMore: data.hasMore,
               isLoading: false
-            });
+            }));
           });
       });
     }
   }
 
-  buildEndpointUrl(filterObj, page) {
+  buildEndpointUrl() {
     return (
       process.env.MIX_COLLECTION_DSN +
       "?" +
-      qs.stringify({ ...filterObj, page: page }, { arrayFormat: "brackets" })
+      qs.stringify(
+        { ...this.state.filterObj, page: this.state.currentPage },
+        { arrayFormat: "brackets" }
+      )
     );
   }
 
-  loadNextPage(page) {
-    this.load(this.state.filterObj, page);
+  loadNextPage() {
+    // We need a synchronous isLoading property, because
+    // this method is being called outside of the React lifecycle.
+    // Keeping the state.isLoading to handle normal cases.
+    if (this.isLoading === true) {
+      return;
+    }
+    this.isLoading = true;
+    this.setState(state => {
+      return { currentPage: state.currentPage + 1 };
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      !isEqual(prevState.filterObj, this.state.filterObj) ||
+      prevState.currentPage != this.state.currentPage
+    ) {
+      console.log("filters or current page has changed, calling load()");
+      // TODO: handle history.pushState()
+      this.load();
+    }
   }
 
   handleFilterChange(filterObj) {
     this.setState({ filterObj: filterObj, currentPage: 1 });
-    this.load(filterObj, 1);
   }
 
   handleLoading() {

@@ -48,7 +48,6 @@ export default class TirelessMason extends Component {
     }
 
     if (prevProps.children.length !== children.length) {
-      // this.state.instance.pageLoaded = 0;
       if (this.props.alwaysRepack) {
         return this.state.instance.pack();
       } else {
