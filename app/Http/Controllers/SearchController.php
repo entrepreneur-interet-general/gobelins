@@ -174,7 +174,7 @@ class SearchController extends Controller
         
         // \Debugbar::measure('ES queryyyyy', function () use (&$query, &$body) {
         // });
-        if (sizeof($filters) === 0) {
+        if (sizeof($filters) === 0 && empty($request->input('q'))) {
             $body["query"] = ["match_all" => (object) null]; // TODO: randomize the default results.
         }
 

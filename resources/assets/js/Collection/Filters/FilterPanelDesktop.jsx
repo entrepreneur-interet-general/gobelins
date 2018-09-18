@@ -20,6 +20,8 @@ class FilterPanelDesktop extends Component {
     };
     this.openPanel = this.openPanel.bind(this);
     this.closeFilterPanels = this.closeFilterPanels.bind(this);
+    this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
+    this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
   }
 
   openPanel(panel, ev) {
@@ -33,21 +35,39 @@ class FilterPanelDesktop extends Component {
     document.documentElement.classList.remove("prevent-scroll");
   }
 
+  handleSearchFieldChange(ev) {
+    this.setState({ searchFieldValue: ev.target.value });
+  }
+
+  handleFullTextSearch(ev) {
+    this.props.onFilterChange({ q: this.state.searchFieldValue });
+    this.setState({ searchFieldValue: "" });
+    ev.preventDefault();
+  }
+
   render() {
     return (
       <div className="FilterPanelDesktop" onClick={this.closeFilterPanels}>
         <div className="FilterPanelDesktop__scrollable">
           <div className="FilterPanelDesktop__top-area">
-            <div className="FilterPanelDesktop__autocomplete">
+            <form
+              className="FilterPanelDesktop__autocomplete"
+              onSubmit={this.handleFullTextSearch}
+            >
               <div className="FilterPanelDesktop__input">
-                <input placeholder="Rechercher" type="text" />
+                <input
+                  placeholder="Rechercher"
+                  type="text"
+                  value={this.state.searchFieldValue}
+                  onChange={this.handleSearchFieldChange}
+                />
               </div>
               <div className="FilterPanelDesktop__search">
                 <button type="submit">
                   <MagnifyingGlass />
                 </button>
               </div>
-            </div>
+            </form>
             <div className="FilterPanelDesktop__criteria-phrase">
               dans les collections du <strong>Mobilier national</strong>
             </div>

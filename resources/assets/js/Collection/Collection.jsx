@@ -236,7 +236,10 @@ class Collection extends Component {
               hasMore: data.hasMore,
               currentPage: 1,
               isLoading: false,
-              filterObj: filterObj
+              filterObj: {
+                ...state.filterObj,
+                ...filterObj
+              }
             }),
             () => {
               this.historyPushState();
