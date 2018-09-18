@@ -37,8 +37,6 @@ class Collection extends Component {
 
     //
 
-    this.load = this.load.bind(this);
-    this.loadNextPage = this.loadNextPage.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.buildEndpointUrl = this.buildEndpointUrl.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
@@ -284,6 +282,7 @@ class Collection extends Component {
               this,
               this.buildSearchParamsFromState()
             )}
+            isLoading={this.state.isLoading}
           />
           <div className="Collection__result">
             {true ? (

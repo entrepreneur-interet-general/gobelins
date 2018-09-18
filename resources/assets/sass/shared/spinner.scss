@@ -1,0 +1,72 @@
+.Spinner__pgloading {
+  position: relative;
+}
+
+.Spinner__pgloading:after {
+  content: "";
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.Spinner__pgloading .Spinner__loadingwrap {
+  position: absolute;
+  top: 45%;
+  bottom: 45%;
+  left: 25%;
+  right: 25%;
+}
+.Spinner__pgloading .Spinner__bokeh {
+  font-size: 50px;
+  width: 1em;
+  height: 1em;
+  position: relative;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.Spinner__pgloading .Spinner__bokeh li {
+  position: absolute;
+  width: 0.2em;
+  height: 0.2em;
+  border-radius: 50%;
+}
+
+.Spinner__pgloading .Spinner__bokeh li:nth-child(1) {
+  left: 50%;
+  top: 0;
+  margin: 0 0 0 -0.1em;
+  background: #ffc9c6;
+  transform-origin: 50% 250%;
+  animation: Spinner__rota 1.3s linear infinite;
+}
+
+.Spinner__pgloading .Spinner__bokeh li:nth-child(2) {
+  top: 50%;
+  right: 0;
+  margin: -0.1em 0 0 0;
+  background: #a92e2e;
+  transform-origin: -150% 50%;
+  animation: Spinner__rota 2.14s linear infinite;
+}
+
+.Spinner__pgloading .Spinner__bokeh li:nth-child(3) {
+  left: 50%;
+  bottom: 0;
+  margin: 0 0 0 -0.1em;
+  background: #ff4747;
+  transform-origin: 50% -150%;
+  animation: Spinner__rota 1.67s linear infinite;
+}
+
+@keyframes Spinner__rota {
+  from {
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

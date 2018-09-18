@@ -158,3 +158,10 @@
     opacity: 1;
   }
 }
+
+.FilterPanelDesktop__spinner {
+  position: fixed;
+  bottom: 80px;
+  right: 80px;
+  z-index: 9;
+}

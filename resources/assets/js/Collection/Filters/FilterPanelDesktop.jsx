@@ -115,6 +115,24 @@ class FilterPanelDesktop extends Component {
           ) : null}
         </CSSTransitionGroup>
         <CSSTransitionGroup
+          transitionName="desktopSpinnerLoader"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.isLoading ? (
+            <div className="FilterPanelDesktop__spinner Spinner__pgloading">
+              <div className="Spinner__loadingwrap">
+                <ul className="Spinner__bokeh">
+                  <li />
+                  <li />
+                  <li />
+                  <li />
+                </ul>
+              </div>
+            </div>
+          ) : null}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
           transitionName="desktopFilterPanel"
           transitionEnterTimeout={150}
           transitionLeaveTimeout={150}
