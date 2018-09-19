@@ -3,6 +3,7 @@ import { CSSTransitionGroup } from "react-transition-group";
 // import MagnifyingGlassIcon from "react-svg-loader!./magnifying_glass.svg";
 // import MagnifyingGlassIcon from "@svgr/webpack!./magnifying_glass.svg";
 import MagnifyingGlass from "./MagnifyingGlass.jsx";
+import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
 import ProductTypes from "./ProductTypes.jsx";
 
@@ -71,7 +72,7 @@ class FilterPanelDesktop extends Component {
               </div>
             </form>
             <div className="FilterPanelDesktop__criteria-phrase">
-              dans les collections du <strong>Mobilier national</strong>
+              <CriteriaPhrase filterObj={this.props.filterObj} />
             </div>
           </div>
           <div className="FilterPanelDesktop__filters-block">
