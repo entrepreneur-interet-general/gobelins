@@ -22,12 +22,14 @@ class Collection extends Component {
     super(props);
 
     const stateFromURL = this.extractStateFromURL();
+    console.log("state from URL", stateFromURL);
 
     this.state = {
       hits: [],
       currentPage: stateFromURL.currentPage || 1,
       isLoading: false,
       hasMore: false,
+      totalHits: 0,
       filterObj: stateFromURL.filterObj || {}
     };
 
@@ -147,6 +149,7 @@ class Collection extends Component {
       this.setState(state => ({
         hits: this.searches[searchUrl].data.hits,
         hasMore: this.searches[searchUrl].data.hasMore,
+        totalHits: this.searches[searchUrl].data.totalHits,
         currentPage: ev.state.page,
         isLoading: false
       }));
@@ -165,12 +168,14 @@ class Collection extends Component {
       this.setState({
         hits: data.hits,
         hasMore: data.hasMore,
-        currentPage: 1
+        totalHits: data.totalHits
       });
     });
   }
 
   handleNextPageCallback() {
+    console.log("handleNextPageCallback", this.state.isLoading);
+
     // FIXME: this flag isn't stopping the page 2+3 problem…
     if (this.isLoadingNextPage || !this.state.hasMore) {
       return;
@@ -186,18 +191,18 @@ class Collection extends Component {
         data: {}
       };
       this.isLoadingNextPage = true;
+      this.setState({ isLoading: true });
 
       this.loadFromRemote(nextPageUrl).then(data => {
         this.searches[nextPageUrl].data = data;
         this.searches[nextPageUrl].isLoading = false;
         this.setState(
           state => ({
-            hits:
-              state.currentPage === 1
-                ? data.hits
-                : state.hits.concat(data.hits),
+            hits: state.hits.concat(data.hits),
             hasMore: data.hasMore,
-            currentPage: pageToLoad
+            totalHits: data.totalHits,
+            currentPage: pageToLoad,
+            isLoading: false
           }),
           () => {
             this.historyPushState();
@@ -236,6 +241,7 @@ class Collection extends Component {
               hasMore: data.hasMore,
               currentPage: 1,
               isLoading: false,
+              totalHits: data.totalHits,
               filterObj: {
                 ...state.filterObj,
                 ...filterObj
@@ -286,13 +292,16 @@ class Collection extends Component {
               this.buildSearchParamsFromState()
             )}
             isLoading={this.state.isLoading}
+            totalHits={this.state.totalHits}
+            filterObj={this.state.filterObj}
           />
           <div className="Collection__result">
             {true ? (
               <CollectionGrid
                 hits={this.state.hits}
                 loadMore={this.handleNextPageCallback}
-                hasMore={this.state.hasMore}
+                hasMore={!this.state.isLoading && this.state.hasMore}
+                currentPage={this.state.currentPage}
               />
             ) : (
               <CollectionList hits={this.state.hits} />

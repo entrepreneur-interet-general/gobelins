@@ -19,6 +19,8 @@ class FilterPanel extends Component {
             <FilterPanelDesktop
               onFilterChange={this.props.onFilterChange}
               isLoading={this.props.isLoading}
+              totalHits={this.props.totalHits}
+              filterObj={this.props.filterObj}
             />
           )
         }

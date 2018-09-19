@@ -16,7 +16,9 @@ class FilterPanelDesktop extends Component {
       periods: window.__INITIAL_STATE__.periods,
       materials: window.__INITIAL_STATE__.materials,
       productionOrigins: window.__INITIAL_STATE__.productionOrigins,
-      filterPanelOpen: false
+      filterPanelOpen: false,
+      searchFieldValue:
+        props.filterObj && props.filterObj.q ? props.filterObj.q : ""
     };
     this.openPanel = this.openPanel.bind(this);
     this.closeFilterPanels = this.closeFilterPanels.bind(this);
@@ -134,24 +136,24 @@ class FilterPanelDesktop extends Component {
             <div className="FilterPanelDesktop__overlay" />
           ) : null}
         </CSSTransitionGroup>
-        <CSSTransitionGroup
-          transitionName="desktopSpinnerLoader"
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        >
-          {this.props.isLoading ? (
-            <div className="FilterPanelDesktop__spinner Spinner__pgloading">
-              <div className="Spinner__loadingwrap">
-                <ul className="Spinner__bokeh">
-                  <li />
-                  <li />
-                  <li />
-                  <li />
-                </ul>
-              </div>
+        {this.state.filterPanelOpen && !this.props.isLoading ? (
+          <div className="FilterPanelDesktop__total-hits">
+            {this.props.totalHits}{" "}
+            {this.props.totalHits > 1 ? "résultats" : "résultat"}
+          </div>
+        ) : null}
+        {this.props.isLoading ? (
+          <div className="FilterPanelDesktop__spinner Spinner__pgloading">
+            <div className="Spinner__loadingwrap">
+              <ul className="Spinner__bokeh">
+                <li />
+                <li />
+                <li />
+                <li />
+              </ul>
             </div>
-          ) : null}
-        </CSSTransitionGroup>
+          </div>
+        ) : null}
         <CSSTransitionGroup
           transitionName="desktopFilterPanel"
           transitionEnterTimeout={150}
@@ -162,6 +164,7 @@ class FilterPanelDesktop extends Component {
             <ProductTypes
               productTypes={this.state.productTypes}
               onFilterChange={this.props.onFilterChange}
+              selectedIds={this.props.filterObj.product_type_ids || []}
             />
           ) : null}
         </CSSTransitionGroup>

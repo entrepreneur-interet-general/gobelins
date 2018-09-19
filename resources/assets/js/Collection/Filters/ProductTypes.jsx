@@ -39,11 +39,14 @@ class ProductTypes extends Component {
           type="button"
           onClick={ev => this.handleClick(productType, ev)}
           className={
-            this.state.expandedType.id === productType.id ? "is-selected" : null
+            this.props.selectedIds.includes(productType.id) ||
+            this.state.expandedType.id === productType.id
+              ? "is-selected"
+              : null
           }
         >
           {productType.name}
-          <span className="ProductTypes__objcount">15340</span>
+          {/* <span className="ProductTypes__objcount">15340</span> */}
         </button>
         {productType.children.length > 0
           ? this.renderList(productType, depth)

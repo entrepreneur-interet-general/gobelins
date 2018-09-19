@@ -194,6 +194,7 @@ class SearchController extends Controller
             return json_encode([
                 'hasMore' => $pagination->hasMorePages(),
                 'nextPageUrl' => $pagination->nextPageUrl(),
+                'totalHits' => $pagination->total(),
                 'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
             ]);
         }
