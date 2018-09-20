@@ -25,6 +25,7 @@
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
     "bricks.js": "^1.8.0",
+    "deepmerge": "^2.1.1",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",

@@ -7,6 +7,7 @@ import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
 import qs from "qs";
 import { isEqual } from "lodash";
+import merge from "deepmerge";
 
 const breakpoints = {
   xsmall: 800,
@@ -221,7 +222,8 @@ class Collection extends Component {
   }
 
   handleFilterChangeCallback(filterObj) {
-    let filters = { ...this.state.filterObj, ...filterObj };
+    let filters = merge(this.state.filterObj, filterObj);
+
     let searchUrl = this.buildSearchParamsFromParams({
       ...filters,
       page: 1
@@ -242,10 +244,7 @@ class Collection extends Component {
               currentPage: 1,
               isLoading: false,
               totalHits: data.totalHits,
-              filterObj: {
-                ...state.filterObj,
-                ...filterObj
-              }
+              filterObj: filters
             }),
             () => {
               this.historyPushState();
