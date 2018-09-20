@@ -6,7 +6,7 @@ import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
 import qs from "qs";
-import { isEqual } from "lodash";
+import { uniq } from "lodash";
 import merge from "deepmerge";
 
 const breakpoints = {
@@ -47,9 +47,9 @@ class Collection extends Component {
     this.handlePopState = this.handlePopState.bind(this);
     this.loadFromRemote = this.loadFromRemote.bind(this);
     this.handleNextPageCallback = this.handleNextPageCallback.bind(this);
-    this.handleFilterChangeCallback = this.handleFilterChangeCallback.bind(
-      this
-    );
+    this.handleAddFilter = this.handleAddFilter.bind(this);
+    this.handleRemoveFilter = this.handleRemoveFilter.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
     this.buildSearchParamsFromParams = this.buildSearchParamsFromParams.bind(
       this
     );
@@ -221,11 +221,14 @@ class Collection extends Component {
     }
   }
 
-  handleFilterChangeCallback(filterObj) {
-    let filters = merge(this.state.filterObj, filterObj);
+  handleAddFilter(filterObj) {
+    const filters = merge(this.state.filterObj, filterObj);
+    this.handleFilterChange(filters);
+  }
 
+  handleFilterChange(filterObj) {
     let searchUrl = this.buildSearchParamsFromParams({
-      ...filters,
+      ...filterObj,
       page: 1
     });
     if (!this.searches.hasOwnProperty(searchUrl)) {
@@ -244,7 +247,7 @@ class Collection extends Component {
               currentPage: 1,
               isLoading: false,
               totalHits: data.totalHits,
-              filterObj: filters
+              filterObj: filterObj
             }),
             () => {
               this.historyPushState();
@@ -276,6 +279,19 @@ class Collection extends Component {
     );
   }
 
+  handleRemoveFilter(filterToRemove) {
+    let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
+    if (filterValueToAmend instanceof Array) {
+      filterValueToAmend.splice(
+        filterValueToAmend.indexOf(filterToRemove.id),
+        1
+      );
+    }
+    let filterObjAmended = {};
+    filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
+    this.handleFilterChange(filterObjAmended);
+  }
+
   render() {
     return (
       <ReactBreakpoints
@@ -285,7 +301,8 @@ class Collection extends Component {
       >
         <div className="Collection">
           <Filters
-            onFilterChange={this.handleFilterChangeCallback}
+            onFilterAdd={this.handleAddFilter}
+            onFilterRemove={this.handleRemoveFilter}
             isLoadingURL={this.isLoadingSearch.bind(
               this,
               this.buildSearchParamsFromState()

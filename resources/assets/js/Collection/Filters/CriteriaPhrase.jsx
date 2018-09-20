@@ -11,6 +11,11 @@ class Criterion extends Component {
       <button
         type="button"
         className={"CriteriaPhrase__button is-" + this.props.type}
+        onClick={this.props.onFilterRemove.bind(this.props.onFilterRemove, {
+          type: this.props.type,
+          id: this.props.id,
+          paramName: this.props.paramName
+        })}
       >
         {this.props.label}
       </button>
@@ -41,8 +46,11 @@ class CriteriaPhrase extends Component {
     return this.props.filterObj.hasOwnProperty("q") ? (
       <Criterion
         type="query"
+        paramName="q"
         label={"« " + this.props.filterObj.q + " »"}
+        id={this.props.filterObj.q}
         key={"query_string"}
+        onFilterRemove={this.props.onFilterRemove}
       />
     ) : null;
   }
@@ -57,8 +65,11 @@ class CriteriaPhrase extends Component {
           .map(pt => (
             <Criterion
               type="product_type"
+              paramName="product_type_ids"
               label={pt.name}
+              id={pt.id}
               key={"product_type_" + pt.id}
+              onFilterRemove={this.props.onFilterRemove}
             />
           ))
       );

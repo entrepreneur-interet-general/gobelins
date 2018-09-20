@@ -43,7 +43,7 @@ class FilterPanelDesktop extends Component {
   }
 
   handleFullTextSearch(ev) {
-    this.props.onFilterChange({ q: this.state.searchFieldValue });
+    this.props.onFilterAdd({ q: this.state.searchFieldValue });
     this.setState({ searchFieldValue: "" });
     ev.preventDefault();
   }
@@ -72,7 +72,10 @@ class FilterPanelDesktop extends Component {
               </div>
             </form>
             <div className="FilterPanelDesktop__criteria-phrase">
-              <CriteriaPhrase filterObj={this.props.filterObj} />
+              <CriteriaPhrase
+                filterObj={this.props.filterObj}
+                onFilterRemove={this.props.onFilterRemove}
+              />
             </div>
           </div>
           <div className="FilterPanelDesktop__filters-block">
@@ -164,7 +167,7 @@ class FilterPanelDesktop extends Component {
           this.state.openPanel === "ProductTypes" ? (
             <ProductTypes
               productTypes={this.state.productTypes}
-              onFilterChange={this.props.onFilterChange}
+              onFilterAdd={this.props.onFilterAdd}
               selectedIds={this.props.filterObj.product_type_ids || []}
             />
           ) : null}

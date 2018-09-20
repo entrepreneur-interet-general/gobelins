@@ -18,7 +18,7 @@ class ProductTypes extends Component {
 
   handleClick(productType, ev) {
     ev.stopPropagation(); // To not close the filter panel.
-    this.props.onFilterChange({ product_type_ids: [productType.id] });
+    this.props.onFilterAdd({ product_type_ids: [productType.id] });
     if (
       // Have you clicked on a leaf node?
       find(this.state.expandedType.children, el => el.id === productType.id)
