@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { flatMap } from "lodash";
+import { flatMap, compact } from "lodash";
 const treeFlatten = require("tree-flatten");
 
 class Criterion extends Component {
@@ -8,7 +8,10 @@ class Criterion extends Component {
   }
   render() {
     return (
-      <button type="button" style={{ color: this.props.color }}>
+      <button
+        type="button"
+        className={"CriteriaPhrase__button is-" + this.props.type}
+      >
         {this.props.label}
       </button>
     );
@@ -37,9 +40,8 @@ class CriteriaPhrase extends Component {
   extractQueryString() {
     return this.props.filterObj.hasOwnProperty("q") ? (
       <Criterion
-        type="Query"
+        type="query"
         label={"« " + this.props.filterObj.q + " »"}
-        color="green"
         key={"query_string"}
       />
     ) : null;
@@ -54,9 +56,8 @@ class CriteriaPhrase extends Component {
           .filter(pt => this.props.filterObj.product_type_ids.includes(pt.id))
           .map(pt => (
             <Criterion
-              type="ProductType"
+              type="product_type"
               label={pt.name}
-              color="red"
               key={"product_type_" + pt.id}
             />
           ))
@@ -71,21 +72,24 @@ class CriteriaPhrase extends Component {
     if (arr.length >= 2) {
       last = arr.pop();
       arr = arr.reduce((r, a, idx) => r.concat(a, ", "), []);
-      arr.push("ou");
+      arr.push(" ou ");
       arr.push(last);
     }
     return arr;
   }
 
   allCriteria() {
-    return [this.extractQueryString(), ...this.extractProductTypes()];
+    return compact([this.extractQueryString(), ...this.extractProductTypes()]);
   }
 
   render() {
     return (
       <div className="CriteriaPhrase">
         {this.sentencize(this.allCriteria())}
-        dans les collections du <strong>Mobilier National</strong>
+        <span>
+          {" "}
+          dans les collections du <strong>Mobilier National</strong>
+        </span>
       </div>
     );
   }

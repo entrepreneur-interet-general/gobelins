@@ -1,0 +1,30 @@
+.CriteriaPhrase {
+}
+
+.CriteriaPhrase__button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 1px;
+  padding: 0 2px;
+
+  &:hover {
+    text-decoration: line-through;
+  }
+
+  &.is-product_type {
+    background-color: $pink-light;
+  }
+  &.is-author {
+    background-color: $green-light;
+  }
+  &.is-style {
+    background-color: $yellow-light;
+  }
+
+  &.is-query {
+    background-color: #f1f1f1;
+  }
+}
