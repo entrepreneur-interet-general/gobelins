@@ -155,6 +155,9 @@ return [
                                 ],
                             ]
                         ],
+                        'image_quality_score' => [
+                            'type' => 'integer',
+                        ],
                         'style' => [
                             'type' => 'object',
                             'properties' => [

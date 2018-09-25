@@ -125,6 +125,15 @@ class SearchController extends Controller
             }
         });
 
+        // Temporary: give a large boost to products with images.
+        $filters[] = [
+            'range' => [
+                'image_quality_score' => [
+                    'gt' => 0,
+                    'boost' => 2.0
+                ]
+            ]
+        ];
         
         // Filter terms are boolean AND i.e. "must".
         $body = [
@@ -177,6 +186,8 @@ class SearchController extends Controller
         if (sizeof($filters) === 0 && empty($request->input('q'))) {
             $body["query"] = ["match_all" => (object) null]; // TODO: randomize the default results.
         }
+
+
 
         $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
         $raw_aggs = $query->response()['aggregations']['all'];

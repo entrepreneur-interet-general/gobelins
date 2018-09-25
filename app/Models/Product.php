@@ -145,6 +145,22 @@ class Product extends Model
         $query->where('inventory_id', '=', $inventory);
     }
 
+    // Temporary addition for demo purposes.
+    // Todo: get score from source data (SCOM), or
+    // fine tune the image quality criteria.
+    public function getImageQualityScoreAttribute()
+    {
+        if ($this->images && sizeof($this->images) > 0) {
+            if (strstr($this->images[0]->path, 'BIDEAU')) {
+                return 3;
+            } else {
+                return 2;
+            }
+        } else {
+            return 0;
+        }
+    }
+
 
     /**
      * Get the indexable data array for the model.
@@ -165,6 +181,7 @@ class Product extends Model
             'period_end_year' => $this->period ? $this->period->end_year : null,
             'conception_year' => $this->conception_year,
             'images' => $this->searchableImages,
+            'image_quality_score' => $this->imageQualityScore,
             'style' => $this->searchableStyle,
             'materials' => $this->searchableMaterials,
             'production_origin' => $this->searchableProductionOrigin,
