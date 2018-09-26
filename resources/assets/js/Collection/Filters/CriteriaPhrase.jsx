@@ -40,6 +40,7 @@ class CriteriaPhrase extends Component {
     };
 
     this.extractProductTypes = this.extractProductTypes.bind(this);
+    this.extractStyles = this.extractStyles.bind(this);
   }
 
   extractQueryString() {
@@ -78,6 +79,29 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  extractStyles() {
+    let out = [];
+
+    if (this.props.filterObj.hasOwnProperty("style_ids")) {
+      out = out.concat(
+        this.state.styles
+          .filter(s => this.props.filterObj.style_ids.includes(s.id))
+          .map(s => (
+            <Criterion
+              type="style"
+              paramName="style_ids"
+              label={s.name}
+              id={s.id}
+              key={"style_" + s.id}
+              onFilterRemove={this.props.onFilterRemove}
+            />
+          ))
+      );
+    }
+
+    return out;
+  }
+
   sentencize(arr) {
     let last = null;
     if (arr.length >= 2) {
@@ -90,7 +114,11 @@ class CriteriaPhrase extends Component {
   }
 
   allCriteria() {
-    return compact([this.extractQueryString(), ...this.extractProductTypes()]);
+    return compact([
+      this.extractQueryString(),
+      ...this.extractProductTypes(),
+      ...this.extractStyles()
+    ]);
   }
 
   render() {

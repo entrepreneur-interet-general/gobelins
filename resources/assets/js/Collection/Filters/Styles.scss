@@ -1,0 +1,63 @@
+.Styles {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  z-index: 1;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $yellow-medium;
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFilterPanel-enter {
+    opacity: 0;
+  }
+  &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
+    opacity: 1;
+  }
+}
+.Styles__container {
+}
+.Styles__double-col {
+  display: block;
+  box-sizing: border-box;
+  columns: 2;
+  width: 450px;
+  padding: 47px 0 40px 30px;
+  margin: 0;
+
+  color: black;
+  list-style: none;
+}
+.Styles__col-item {
+  padding: 4px 0 0 10px;
+  margin: 0;
+  list-style: none;
+}
+
+.Styles__double-col button {
+  padding: 10px;
+  margin: 0;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(18px);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:hover,
+  &.is-selected {
+    color: $yellow-dark;
+  }
+}
+.Styles__double-col ul ul button {
+  &:hover,
+  &.is-selected {
+    color: white;
+  }
+}
+.Styles__objcount {
+  margin-left: 5px;
+  font-size: rem(10px);
+}

@@ -287,7 +287,7 @@ class Collection extends Component {
         1
       );
     }
-    let filterObjAmended = {};
+    let filterObjAmended = this.state.filterObj;
     filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
     this.handleFilterChange(filterObjAmended);
   }

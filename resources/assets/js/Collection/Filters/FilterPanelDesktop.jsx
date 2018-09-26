@@ -6,6 +6,7 @@ import MagnifyingGlass from "./MagnifyingGlass.jsx";
 import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
 import ProductTypes from "./ProductTypes.jsx";
+import Styles from "./Styles.jsx";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -169,6 +170,19 @@ class FilterPanelDesktop extends Component {
               productTypes={this.state.productTypes}
               onFilterAdd={this.props.onFilterAdd}
               selectedIds={this.props.filterObj.product_type_ids || []}
+            />
+          ) : null}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
+          transitionName="desktopFilterPanel"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.state.filterPanelOpen && this.state.openPanel === "Styles" ? (
+            <Styles
+              styles={this.state.styles}
+              onFilterAdd={this.props.onFilterAdd}
+              selectedIds={this.props.filterObj.style_ids || []}
             />
           ) : null}
         </CSSTransitionGroup>
