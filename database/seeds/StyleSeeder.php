@@ -18,7 +18,8 @@ class StyleSeeder extends Seeder
             ['name' => 'Années 70'],
             ['name' => 'Années 80'],
             ['name' => 'Années 90'],
-            ['name' => 'Contemporain (après 2000)'],
+            ['name' => 'Années 2000'],
+            ['name' => 'Contemporain'],
         ];
 
         DB::table('styles')->insert($rows);

@@ -331,8 +331,11 @@ class Import extends Command
                                 if ($item->conception_year >= 1990 && $item->conception_year <= 1999) {
                                     $product->style()->associate(\App\Models\Style::where('name', 'Années 90')->first());
                                 }
-                                if ($item->conception_year >= 2000) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Contemporain (après 2000)')->first());
+                                if ($item->conception_year >= 2000 && $item->conception_year <= 2009) {
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 2000')->first());
+                                }
+                                if ($item->conception_year >= 2010) {
+                                    $product->style()->associate(\App\Models\Style::where('name', 'Contemporain')->first());
                                 }
                             }
                         }
