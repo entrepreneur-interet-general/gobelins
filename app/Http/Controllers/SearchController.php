@@ -21,7 +21,7 @@ class SearchController extends Controller
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
                 'productTypes' => ProductType::get()->toTree(),
-                'styles' => Style::orderBy('name', 'asc')->get(),
+                'styles' => Style::orderBy('name', 'asc')->select('id', 'name')->get(),
                 'authors' => Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get(),
                 'periods' => Period::orderBy('start_year', 'asc')->get(),
                 'materials' => Material::all(),
@@ -124,21 +124,16 @@ class SearchController extends Controller
                 }
             }
         });
-
-        // Temporary: give a large boost to products with images.
-        $filters[] = [
-            'range' => [
-                'image_quality_score' => [
-                    'gt' => 0,
-                    'boost' => 2.0
-                ]
-            ]
-        ];
         
-        // Filter terms are boolean AND i.e. "must".
         $body = [
             'query' => [
+                // Filter terms are boolean AND i.e. "must".
                 'bool' => []
+            ],
+            'sort' => [
+                // Display products with good images first, then bad images, then those without images.
+                ['image_quality_score' => 'desc'],
+                '_score'
             ]
         ];
         if ($request->input('q')) {
