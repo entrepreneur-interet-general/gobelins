@@ -25,6 +25,17 @@ class Styles extends Component {
         >
           {style.name}
           {/* <span className="Styles__objcount">15340</span> */}
+          <div className="Styles__illustrations">
+            {style.illustration_paths.map((s, i) => {
+              return (
+                <img
+                  src={style.illustration_paths[i]}
+                  alt=""
+                  key={"illustration-" + s.id + "-" + i}
+                />
+              );
+            })}
+          </div>
         </button>
       </li>
     );

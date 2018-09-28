@@ -13,11 +13,31 @@ class Style extends Model
 
     protected $touches = ['products'];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['illustration_paths'];
+
     /* Relations */
 
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    public function getIllustrationPathsAttribute()
+    {
+        $paths = [];
+        $dir_path = storage_path(env('MEDIA_STORAGE_PATH') . '/_images-didactiques/styles/' . $this->name);
+        if (file_exists($dir_path)) {
+            for ($i=1; $i < 4; $i++) {
+                $name = rawurlencode($this->name);
+                $paths[] = "/image/_images-didactiques/styles/$name/$i.jpg";
+            }
+        }
+        return $paths;
     }
 
     /**

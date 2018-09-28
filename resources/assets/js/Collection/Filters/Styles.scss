@@ -61,3 +61,22 @@
   margin-left: 5px;
   font-size: rem(10px);
 }
+
+.Styles__illustrations {
+  position: fixed;
+  top: 0;
+  left: calc(288px + 450px);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  background-color: $yellow-medium;
+
+  img {
+    display: block;
+    width: 130px;
+    mix-blend-mode: multiply;
+  }
+}
+.Styles__col-item:hover .Styles__illustrations {
+  opacity: 1;
+}
