@@ -8,7 +8,9 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 1px;
-  padding: 0 2px;
+  padding: 0 3px;
+  text-align: left;
+  box-decoration-break: clone;
 
   &:hover {
     text-decoration: line-through;
@@ -16,6 +18,9 @@
 
   &.is-product_type {
     background-color: $pink-light;
+  }
+  &.is-production_origin {
+    background-color: $purple-medium;
   }
   &.is-author {
     background-color: $green-light;

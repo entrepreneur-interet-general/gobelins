@@ -8,8 +8,12 @@ class Criterion extends Component {
   }
   render() {
     return (
-      <button
-        type="button"
+      // Using a <span>, because <button> is a replaced element,
+      // and can't be properly displayed as inline when wrapping
+      // multiple lines.
+      <span
+        tabIndex="0"
+        role="button"
         className={"CriteriaPhrase__button is-" + this.props.type}
         onClick={this.props.onFilterRemove.bind(this.props.onFilterRemove, {
           type: this.props.type,
@@ -18,7 +22,7 @@ class Criterion extends Component {
         })}
       >
         {this.props.label}
-      </button>
+      </span>
     );
   }
 }
@@ -41,6 +45,7 @@ class CriteriaPhrase extends Component {
 
     this.extractProductTypes = this.extractProductTypes.bind(this);
     this.extractStyles = this.extractStyles.bind(this);
+    this.extractProductionOrigins = this.extractProductionOrigins.bind(this);
   }
 
   extractQueryString() {
@@ -102,6 +107,31 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  extractProductionOrigins() {
+    let out = [];
+
+    if (this.props.filterObj.hasOwnProperty("production_origin_ids")) {
+      out = out.concat(
+        this.state.productionOrigins
+          .filter(s =>
+            this.props.filterObj.production_origin_ids.includes(s.id)
+          )
+          .map(s => (
+            <Criterion
+              type="production_origin"
+              paramName="production_origin_ids"
+              label={s.name}
+              id={s.id}
+              key={"production_origin_" + s.id}
+              onFilterRemove={this.props.onFilterRemove}
+            />
+          ))
+      );
+    }
+
+    return out;
+  }
+
   sentencize(arr) {
     let last = null;
     if (arr.length >= 2) {
@@ -117,7 +147,8 @@ class CriteriaPhrase extends Component {
     return compact([
       this.extractQueryString(),
       ...this.extractProductTypes(),
-      ...this.extractStyles()
+      ...this.extractStyles(),
+      ...this.extractProductionOrigins()
     ]);
   }
 

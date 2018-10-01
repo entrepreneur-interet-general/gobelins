@@ -48,8 +48,26 @@
     line-height: rem(20px);
     text-align: left;
 
-    &:hover {
+    &.is-product_type:hover {
       border-bottom-color: $pink-light;
+    }
+    &.is-author:hover {
+      border-bottom-color: $green-light;
+    }
+    &.is-period:hover {
+      border-bottom-color: $red-light;
+    }
+    &.is-style:hover {
+      border-bottom-color: $yellow-light;
+    }
+    &.is-material:hover {
+      border-bottom-color: $blue-light;
+    }
+    &.is-production_origin:hover {
+      border-bottom-color: $purple-medium;
+    }
+    &.is-dimension:hover {
+      border-bottom-color: $petrol-light;
     }
   }
 }

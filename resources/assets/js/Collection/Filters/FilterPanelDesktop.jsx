@@ -7,6 +7,7 @@ import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
 import ProductTypes from "./ProductTypes.jsx";
 import Styles from "./Styles.jsx";
+import ProductionOrigins from "./ProductionOrigins.jsx";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -85,37 +86,58 @@ class FilterPanelDesktop extends Component {
             </div>
             <ul>
               <li>
-                <button onClick={ev => this.openPanel("ProductTypes", ev)}>
+                <button
+                  className="is-product_type"
+                  onClick={ev => this.openPanel("ProductTypes", ev)}
+                >
                   Types d’objet
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Authors", ev)}>
+                <button
+                  className="is-author"
+                  onClick={ev => this.openPanel("Authors", ev)}
+                >
                   Auteur
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Periods", ev)}>
+                <button
+                  className="is-period"
+                  onClick={ev => this.openPanel("Periods", ev)}
+                >
                   Année de création
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Styles", ev)}>
+                <button
+                  className="is-style"
+                  onClick={ev => this.openPanel("Styles", ev)}
+                >
                   Style
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Materials", ev)}>
+                <button
+                  className="is-material"
+                  onClick={ev => this.openPanel("Materials", ev)}
+                >
                   Matière
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("ProductionOrigins", ev)}>
+                <button
+                  className="is-production_origin"
+                  onClick={ev => this.openPanel("ProductionOrigins", ev)}
+                >
                   Lieu de production
                 </button>
               </li>
               <li>
-                <button onClick={ev => this.openPanel("Dimensions", ev)}>
+                <button
+                  className="is-dimension"
+                  onClick={ev => this.openPanel("Dimensions", ev)}
+                >
                   Dimensions
                 </button>
               </li>
@@ -183,6 +205,20 @@ class FilterPanelDesktop extends Component {
               styles={this.state.styles}
               onFilterAdd={this.props.onFilterAdd}
               selectedIds={this.props.filterObj.style_ids || []}
+            />
+          ) : null}
+        </CSSTransitionGroup>
+        <CSSTransitionGroup
+          transitionName="desktopFilterPanel"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.state.filterPanelOpen &&
+          this.state.openPanel === "ProductionOrigins" ? (
+            <ProductionOrigins
+              productionOrigins={this.state.productionOrigins}
+              onFilterAdd={this.props.onFilterAdd}
+              selectedIds={this.props.filterObj.production_origin_ids || []}
             />
           ) : null}
         </CSSTransitionGroup>
