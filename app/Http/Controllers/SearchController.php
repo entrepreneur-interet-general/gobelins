@@ -22,7 +22,18 @@ class SearchController extends Controller
             return collect([
                 'productTypes' => ProductType::get()->toTree(),
                 'styles' => Style::orderBy('name', 'asc')->select('id', 'name')->get(),
-                'authors' => Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get(),
+                'authors' => Author::orderBy('last_name', 'asc')
+                                ->select('id', 'first_name', 'last_name')->get()
+                                ->map(function ($item) {
+                                    $item->last_name = ucwords(strtolower($item->last_name));
+                                    return $item;
+                                })
+                                ->groupBy(function ($item, $key) {
+                                    return strtoupper($item->last_name[0]);
+                                })
+                                ->sortBy(function ($item, $key) {
+                                    return $key;
+                                }),
                 'periods' => Period::orderBy('start_year', 'asc')->get(),
                 'materials' => Material::all(),
                 'productionOrigins' => ProductionOrigin::all(),

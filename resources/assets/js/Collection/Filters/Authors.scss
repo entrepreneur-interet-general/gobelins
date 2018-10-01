@@ -1,0 +1,130 @@
+.Authors {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  z-index: 1;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $green-medium;
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFilterPanel-enter {
+    opacity: 0;
+  }
+  &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
+    opacity: 1;
+  }
+}
+.Authors__alphabet {
+  height: 100vh;
+  width: 80px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.Authors__alphabet-button {
+  flex: 1 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  border: 0;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  @include f-sans;
+  font-size: rem(11px);
+  color: #0a3630;
+  cursor: pointer;
+}
+.Authors__double-col {
+  display: block;
+  box-sizing: border-box;
+  width: 450px;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  padding: 47px 30px 40px 50px;
+  margin: 0 0 0 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  list-style: none;
+  background-color: $green-dark;
+}
+.Authors__letter-container {
+  display: block;
+  columns: 2;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid $green-medium;
+
+  &:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+.Authors__col-item {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.Authors__double-col button {
+  padding: 10px;
+  margin: 0 -10px;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(23px);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+
+  strong {
+    font-weight: 600;
+  }
+
+  &:hover,
+  &.is-selected {
+    color: $green-medium;
+  }
+}
+.Authors__double-col ul ul button {
+  &:hover,
+  &.is-selected {
+    color: white;
+  }
+}
+.Authors__objcount {
+  margin-left: 5px;
+  font-size: rem(10px);
+}
+
+.Authors__illustrations {
+  position: fixed;
+  top: 0;
+  left: calc(288px + 450px);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
+  background-color: $green-medium;
+
+  img {
+    display: block;
+    width: 130px;
+    mix-blend-mode: multiply;
+  }
+}
+.Authors__col-item:hover .Authors__illustrations {
+  opacity: 1;
+}

@@ -175,8 +175,6 @@ class Collection extends Component {
   }
 
   handleNextPageCallback() {
-    console.log("handleNextPageCallback", this.state.isLoading);
-
     // FIXME: this flag isn't stopping the page 2+3 problem…
     if (this.isLoadingNextPage || !this.state.hasMore) {
       return;

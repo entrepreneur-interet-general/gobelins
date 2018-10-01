@@ -132,6 +132,31 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  extractAuthors() {
+    let out = [];
+
+    if (this.props.filterObj.hasOwnProperty("author_ids")) {
+      Object.keys(this.state.authors).forEach(letter => {
+        out = out.concat(
+          this.state.authors[letter]
+            .filter(s => this.props.filterObj.author_ids.includes(s.id))
+            .map(s => (
+              <Criterion
+                type="author"
+                paramName="author_ids"
+                label={s.last_name + " " + s.first_name}
+                id={s.id}
+                key={"author_" + s.id}
+                onFilterRemove={this.props.onFilterRemove}
+              />
+            ))
+        );
+      });
+    }
+
+    return out;
+  }
+
   sentencize(arr) {
     let last = null;
     if (arr.length >= 2) {
@@ -148,7 +173,8 @@ class CriteriaPhrase extends Component {
       this.extractQueryString(),
       ...this.extractProductTypes(),
       ...this.extractStyles(),
-      ...this.extractProductionOrigins()
+      ...this.extractProductionOrigins(),
+      ...this.extractAuthors()
     ]);
   }
 

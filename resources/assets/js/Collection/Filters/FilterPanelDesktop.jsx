@@ -8,6 +8,7 @@ import MnLogo from "./MnLogo.jsx";
 import ProductTypes from "./ProductTypes.jsx";
 import Styles from "./Styles.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
+import Authors from "./Authors.jsx";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -194,12 +195,7 @@ class FilterPanelDesktop extends Component {
               selectedIds={this.props.filterObj.product_type_ids || []}
             />
           ) : null}
-        </CSSTransitionGroup>
-        <CSSTransitionGroup
-          transitionName="desktopFilterPanel"
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        >
+
           {this.state.filterPanelOpen && this.state.openPanel === "Styles" ? (
             <Styles
               styles={this.state.styles}
@@ -207,18 +203,21 @@ class FilterPanelDesktop extends Component {
               selectedIds={this.props.filterObj.style_ids || []}
             />
           ) : null}
-        </CSSTransitionGroup>
-        <CSSTransitionGroup
-          transitionName="desktopFilterPanel"
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        >
+
           {this.state.filterPanelOpen &&
           this.state.openPanel === "ProductionOrigins" ? (
             <ProductionOrigins
               productionOrigins={this.state.productionOrigins}
               onFilterAdd={this.props.onFilterAdd}
               selectedIds={this.props.filterObj.production_origin_ids || []}
+            />
+          ) : null}
+
+          {this.state.filterPanelOpen && this.state.openPanel === "Authors" ? (
+            <Authors
+              authors={this.state.authors}
+              onFilterAdd={this.props.onFilterAdd}
+              selectedIds={this.props.filterObj.author_ids || []}
             />
           ) : null}
         </CSSTransitionGroup>
