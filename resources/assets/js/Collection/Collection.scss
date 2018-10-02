@@ -12,6 +12,9 @@
     margin-left: 288px;
   }
 }
+.FilterPanelDesktop.is-open ~ .Collection__result {
+  filter: grayscale(1);
+}
 
 @mixin collection-spacer {
   content: "";

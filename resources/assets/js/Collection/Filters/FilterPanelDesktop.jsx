@@ -53,7 +53,12 @@ class FilterPanelDesktop extends Component {
 
   render() {
     return (
-      <div className="FilterPanelDesktop" onClick={this.closeFilterPanels}>
+      <div
+        className={
+          "FilterPanelDesktop " + (this.state.filterPanelOpen ? "is-open" : "")
+        }
+        onClick={this.closeFilterPanels}
+      >
         <div className="FilterPanelDesktop__scrollable">
           <div className="FilterPanelDesktop__top-area">
             <form
