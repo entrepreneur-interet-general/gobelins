@@ -80,6 +80,10 @@ return [
                             'type' => 'text',
                             'analyzer' => 'french',
                         ],
+                        'denomination' => [
+                            'type' => 'text',
+                            'analyzer' => 'french',
+                        ],
                         'description' => [
                             'type' => 'text',
                             'analyzer' => 'french',
@@ -127,6 +131,10 @@ return [
                                     'index' => false,
                                 ],
                             ],
+                        ],
+                        'period_name' => [
+                            'type' => 'text',
+                            'analyzer' => 'standard',
                         ],
                         'period_start_year' => [
                             'type' => 'short',

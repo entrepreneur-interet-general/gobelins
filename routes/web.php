@@ -21,6 +21,6 @@ Route::get('/rechercher', 'SearchController@index')->name('search');
 
 Route::get('/collection', 'SearchController@collection')->name('collection');
 
-Route::get('/objet/{inventory_id}', 'ProductController@show')->name('product')->where('inventory_id', '.*');
+Route::get('/collection/objet/{inventory_id}', 'ProductController@show')->name('product')->where('inventory_id', '.*');
 
 Route::get('/image/{path}', 'ImageController@show')->where('path', '.*');

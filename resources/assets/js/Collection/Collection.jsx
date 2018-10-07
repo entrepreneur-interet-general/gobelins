@@ -5,6 +5,7 @@ import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
+import Detail from "./Detail/Detail.jsx";
 import qs from "qs";
 import { uniq } from "lodash";
 import merge from "deepmerge";
@@ -23,7 +24,6 @@ class Collection extends Component {
     super(props);
 
     const stateFromURL = this.extractStateFromURL();
-    console.log("state from URL", stateFromURL);
 
     this.state = {
       hits: [],
@@ -31,7 +31,8 @@ class Collection extends Component {
       isLoading: false,
       hasMore: false,
       totalHits: 0,
-      filterObj: stateFromURL.filterObj || {}
+      filterObj: stateFromURL.filterObj || {},
+      productDetail: false // When in detail mode, hold the product data.
     };
 
     this.cache = {};
@@ -56,6 +57,8 @@ class Collection extends Component {
     this.buildSearchParamsFromState = this.buildSearchParamsFromState.bind(
       this
     );
+    this.handleDisplayProduct = this.handleDisplayProduct.bind(this);
+    this.handleBackToCollection = this.handleBackToCollection.bind(this);
   }
 
   extractStateFromURL() {
@@ -290,6 +293,17 @@ class Collection extends Component {
     this.handleFilterChange(filterObjAmended);
   }
 
+  handleDisplayProduct(prod, event) {
+    event.preventDefault();
+    this.setState({ productDetail: prod });
+    console.log("Product is", prod);
+  }
+
+  handleBackToCollection(event) {
+    event.preventDefault();
+    this.setState({ productDetail: null });
+  }
+
   render() {
     return (
       <ReactBreakpoints
@@ -297,33 +311,41 @@ class Collection extends Component {
         debounceResize={true}
         debounceDelay={100}
       >
-        <div className="Collection">
-          <Filters
-            onFilterAdd={this.handleAddFilter}
-            onFilterRemove={this.handleRemoveFilter}
-            isLoadingURL={this.isLoadingSearch.bind(
-              this,
-              this.buildSearchParamsFromState()
-            )}
-            isLoading={this.state.isLoading}
-            totalHits={this.state.totalHits}
-            filterObj={this.state.filterObj}
+        {this.state.productDetail ? (
+          <Detail
+            product={this.state.productDetail}
+            onBackToCollection={this.handleBackToCollection}
           />
-          <div className="Collection__result">
-            {true ? (
-              <CollectionGrid
-                hits={this.state.hits}
-                loadMore={this.handleNextPageCallback}
-                hasMore={!this.state.isLoading && this.state.hasMore}
-                currentPage={this.state.currentPage}
-              />
-            ) : (
-              <CollectionList hits={this.state.hits} />
-            )}
+        ) : (
+          <div className="Collection">
+            <Filters
+              onFilterAdd={this.handleAddFilter}
+              onFilterRemove={this.handleRemoveFilter}
+              isLoadingURL={this.isLoadingSearch.bind(
+                this,
+                this.buildSearchParamsFromState()
+              )}
+              isLoading={this.state.isLoading}
+              totalHits={this.state.totalHits}
+              filterObj={this.state.filterObj}
+            />
+            <div className="Collection__result">
+              {true ? (
+                <CollectionGrid
+                  hits={this.state.hits}
+                  loadMore={this.handleNextPageCallback}
+                  hasMore={!this.state.isLoading && this.state.hasMore}
+                  currentPage={this.state.currentPage}
+                  onDisplayProduct={this.handleDisplayProduct}
+                />
+              ) : (
+                <CollectionList hits={this.state.hits} />
+              )}
+            </div>
+            <ScrollToTop />
+            <Settings />
           </div>
-          <ScrollToTop />
-          <Settings />
-        </div>
+        )}
       </ReactBreakpoints>
     );
   }

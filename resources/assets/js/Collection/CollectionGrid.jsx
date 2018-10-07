@@ -31,7 +31,15 @@ class CollectionGrid extends Component {
           ? datum.product_types.find(t => t.is_leaf).name
           : "");
       return (
-        <div key={datum["_id"]} className="Collection__cell">
+        <a
+          href={"/collection/objet/" + datum.inventory_id}
+          onClick={this.props.onDisplayProduct.bind(
+            this.props.onDisplayProduct,
+            datum
+          )}
+          key={datum["_id"]}
+          className="Collection__cell"
+        >
           {hasImages ? (
             <div
               className="Collection__image-container"
@@ -73,7 +81,7 @@ class CollectionGrid extends Component {
                 .join(", ")}
             </small>
           </div>
-        </div>
+        </a>
       );
     });
   }

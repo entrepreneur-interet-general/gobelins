@@ -172,11 +172,13 @@ class Product extends Model
     {
         return [
             'title_or_designation' => $this->title_or_designation,
+            'denomination' => $this->denomination,
             'description' => $this->description,
             'bibliography' => $this->bibliography,
             'inventory_id' => $this->inventory_id,
             'product_types' => $this->searchableProductTypes,
             'authors' => $this->searchableAuthors,
+            'period_name' => $this->period ? $this->period->name : null,
             'period_start_year' => $this->period ? $this->period->start_year : null,
             'period_end_year' => $this->period ? $this->period->end_year : null,
             'conception_year' => $this->conception_year,

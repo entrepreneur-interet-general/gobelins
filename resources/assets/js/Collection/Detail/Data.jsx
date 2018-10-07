@@ -1,0 +1,131 @@
+import React from "react";
+
+function DataUnitTemplate(props) {
+  return (
+    <div className="DetailData__unit">
+      <span className="DetailData__label">{props.label}</span>
+      <span className="DetailData__datum">{props.value}</span>
+    </div>
+  );
+}
+
+function InventoryId(props) {
+  return props.inventoryId ? (
+    <DataUnitTemplate label="Numéro d’inventaire" value={props.inventoryId} />
+  ) : null;
+}
+
+function Authors(props) {
+  const label_singular = "Auteur";
+  const label_plural = "Auteurs";
+  if (props.authors && props.authors instanceof Array) {
+    const label = props.authors.length > 1 ? label_plural : label_singular;
+    return (
+      <DataUnitTemplate
+        label={label}
+        value={props.authors
+          .map(a => a.first_name + " " + a.last_name)
+          .join(", ")}
+      />
+    );
+  } else {
+    return null;
+  }
+}
+
+function ConceptionYear(props) {
+  return props.conceptionYear ? (
+    <DataUnitTemplate
+      label="Année de conception"
+      value={props.conceptionYear}
+    />
+  ) : null;
+}
+
+function Style(props) {
+  return props.style && props.style.name ? (
+    <DataUnitTemplate label="Style" value={props.style.name} />
+  ) : null;
+}
+
+function Types(props) {
+  const label_singular = "Type";
+  const label_plural = "Types";
+  if (props.types && props.types instanceof Array) {
+    const label = props.types.length > 1 ? label_plural : label_singular;
+    return (
+      <DataUnitTemplate
+        label={label}
+        value={props.types.map(t => t.name).join(", ")}
+      />
+    );
+  } else {
+    return null;
+  }
+}
+
+function Period(props) {
+  return props.period && props.period.name ? (
+    <DataUnitTemplate label="Époque de conception" value={props.period.name} />
+  ) : null;
+}
+
+function Materials(props) {
+  const label_singular = "Matière";
+  const label_plural = "Matières";
+  if (props.materials && props.materials instanceof Array) {
+    const label = props.materials.length > 1 ? label_plural : label_singular;
+    return (
+      <DataUnitTemplate
+        label={label}
+        value={props.materials.map(m => m.name).join(", ")}
+      />
+    );
+  } else {
+    return null;
+  }
+}
+
+function ProductionOrigin(props) {
+  return props.productionOrigin && props.productionOrigin.name ? (
+    <DataUnitTemplate
+      label="Lieu de production"
+      value={props.productionOrigin.name}
+    />
+  ) : null;
+}
+
+function Dimensions(props) {
+  const dims = [props.l, props.w, props.h];
+  return props.dimensions ? (
+    <DataUnitTemplate label="Dimensions" value={dims.join("×") + " cm"} />
+  ) : null;
+}
+
+function Data(props) {
+  return (
+    <section className="DetailData">
+      <InventoryId inventoryId={props.product.inventory_id} />
+      <Authors authors={props.product.authors} />
+      <ConceptionYear conceptionYear={props.product.conception_year} />
+      <Style style={props.product.style} />
+      <Types types={props.product.product_types} />
+      <Period
+        period={{
+          name: props.product.period_name,
+          startYear: props.product.period_start_year,
+          endYear: props.product.period_end_year
+        }}
+      />
+      <Materials materials={props.product.materials} />
+      <ProductionOrigin productionOrigin={props.product.production_origin} />
+      <Dimensions
+        l={props.product.length_or_diameter}
+        w={props.product.depth_or_width}
+        h={props.product.height_or_thickness}
+      />
+    </section>
+  );
+}
+
+export default Data;

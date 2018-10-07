@@ -14,3 +14,9 @@ let mix = require("laravel-mix");
 mix
   .react("resources/assets/js/app.jsx", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css");
+// .options({
+//   hmrOptions: {
+//     host: "gobelins.test",
+//     port: 8080
+//   }
+// });

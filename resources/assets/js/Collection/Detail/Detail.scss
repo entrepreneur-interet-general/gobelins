@@ -1,0 +1,251 @@
+.Detail {
+  padding: 0 40px;
+}
+
+.BackToCollection {
+  display: block;
+
+  .BackToCollection__button {
+    display: inline-block;
+    padding: 10px;
+    margin-left: -10px;
+    color: inherit;
+    text-decoration: none;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  svg {
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+  }
+  .BackToCollection__label {
+    @include f-serif;
+    font-size: rem(15px);
+    b {
+      font-weight: 600;
+    }
+  }
+}
+
+.DetailMainImage {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+}
+.DetailMainImage__fig {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+.DetailMainImage__img {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-position: right top;
+}
+.DetailMainImage__toolbar {
+  position: absolute;
+  top: 20px;
+  right: -25px;
+  z-index: 1;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.DetailMainImage__button {
+  height: 50px;
+  width: 50px;
+  margin: 0 0 15px 0;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid $lines;
+  background-color: #fff;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    flex: 0 0 auto;
+  }
+}
+
+.DetailImageList {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  img {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+.DetailTitle {
+  margin: 0;
+  padding: 0;
+  @include f-serif;
+  font-weight: normal;
+  font-size: rem(30px);
+  line-height: rem(50px);
+}
+
+.DetailData {
+}
+.DetailData__unit,
+.DetailData__label,
+.DetailData__datum,
+.DetailInfo__unit,
+.DetailInfo__label,
+.DetailInfo__datum {
+  display: block;
+}
+.DetailData__unit,
+.DetailInfo__unit {
+  padding-bottom: 15px;
+  border-bottom: 1px solid $lines;
+  margin-bottom: 11px;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(22px);
+
+  &:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+.DetailData__label,
+.DetailInfo__label {
+  font-size: rem(13px);
+  color: #828282;
+}
+
+////////////////////////////////////
+// Desktop versions of the layout //
+////////////////////////////////////
+
+.DetailDesktop__left-zone {
+  position: fixed;
+  top: 0;
+  left: 40px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  .DetailMainImage {
+  }
+}
+.DetailDesktop__right-zone {
+  margin-top: 70px;
+  .DetailTitle {
+    margin-bottom: 30px;
+  }
+}
+.DetailDesktop__right-zone-dblcol {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  .DetailData {
+    flex: 0 0 auto;
+    width: calc((((100% - (40px * 5)) / 6) * 2) + (1 * 40px));
+    margin-right: 40px;
+  }
+  .DetailInfo {
+    flex: 1 1 auto;
+  }
+}
+
+.DetailDesktop {
+  .DetailDesktop__left-zone {
+    height: 100vh;
+    display: flex;
+    .BackToCollection {
+      flex: 0 0 45px;
+    }
+    .DetailMainImage {
+      flex: 1 1 auto;
+    }
+    .DetailImageList {
+      flex: 0 0 80px;
+      display: flex;
+    }
+  }
+}
+
+.DetailDesktop.has-landscape-poster {
+  .DetailDesktop__left-zone {
+    width: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+    flex-flow: column nowrap;
+    .BackToCollection {
+      flex: 0 0 45px;
+    }
+    .DetailMainImage {
+      flex: 1 1 auto;
+      margin-top: 20px;
+    }
+    .DetailImageList {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex-flow: row nowrap;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+      margin-top: 30px;
+      li {
+        margin-left: 10px;
+      }
+    }
+  }
+  .DetailDesktop__right-zone {
+    margin-left: calc((((100% - (40px * 11)) / 12) * 7) + (7 * 40px));
+  }
+}
+
+.DetailDesktop.has-portrait-poster {
+  .DetailDesktop__left-zone {
+    width: calc((((100% - (40px * 11)) / 12) * 6) + (5 * 40px));
+    flex-flow: row nowrap;
+    padding-top: calc(45px + 20px);
+    .BackToCollection {
+      position: absolute;
+      top: 10px;
+      left: 0;
+    }
+    .DetailMainImage {
+      flex: 1 1 auto;
+    }
+    .DetailImageList {
+      width: calc((((100% - (40px * 6)) / 6) * 2) + (1 * 40px));
+      flex: 0 0 auto;
+      overflow-x: hidden;
+      overflow-y: auto;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      margin-left: 40px;
+      margin-right: 40px;
+      align-items: center;
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .DetailDesktop__right-zone {
+    // margin-left: calc((100% / 12) * 7);
+    margin-left: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+  }
+}

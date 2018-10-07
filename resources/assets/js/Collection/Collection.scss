@@ -23,6 +23,9 @@
   width: 100%;
 }
 .Collection__cell {
+  display: block;
+  text-decoration: none;
+  color: inherit;
   @include breakpoint($xsmall) {
     width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
   }
