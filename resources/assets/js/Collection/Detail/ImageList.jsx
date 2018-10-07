@@ -4,17 +4,25 @@ class ImageList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.renderListItem = this.renderListItem.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(index, event) {
+    this.props.onChangeMainImageIndex(index);
   }
 
   renderListItem(img, index) {
     return (
       <li key={index}>
-        <img
-          src={"/image/" + encodeURIComponent(img.path) + "?w=160"}
-          alt=""
-          width="80"
-          height="80"
-        />
+        <button type="button" onClick={this.handleClick.bind(null, index)}>
+          <img
+            src={"/image/" + encodeURIComponent(img.path) + "?w=160"}
+            alt=""
+            width="80"
+            height="80"
+          />
+        </button>
       </li>
     );
   }

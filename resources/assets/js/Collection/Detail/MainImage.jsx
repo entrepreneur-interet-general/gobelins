@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import ImageLoader from "react-loading-image";
 import MagnifyingGlass from "./MagnifyingGlass";
 import Download from "./Download";
+import Loader from "../Loader.jsx";
 
 class MainImage extends Component {
   constructor(props) {
@@ -12,11 +14,24 @@ class MainImage extends Component {
     return (
       <section className="DetailMainImage">
         <figure className="DetailMainImage__fig">
-          <img
+          <ImageLoader
             src={
               "/image/" + encodeURIComponent(this.props.image.path) + "?w=800"
             }
             alt=""
+            image={props => (
+              <img
+                src={
+                  "/image/" +
+                  encodeURIComponent(this.props.image.path) +
+                  "?w=800"
+                }
+                alt=""
+                className="DetailMainImage__img"
+              />
+            )}
+            loading={() => <Loader className="DetailMainImage__spinner" />}
+            error={() => <div>Error</div>}
             className="DetailMainImage__img"
           />
 

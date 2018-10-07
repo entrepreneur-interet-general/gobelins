@@ -15,6 +15,7 @@ class DetailDesktop extends Component {
       layoutOrientation: this.computeLayoutOrientation()
     };
     this.computeLayoutOrientation = this.computeLayoutOrientation.bind(this);
+    this.handleMainImageIndex = this.handleMainImageIndex.bind(this);
   }
 
   computeLayoutOrientation() {
@@ -31,6 +32,10 @@ class DetailDesktop extends Component {
     }
   }
 
+  handleMainImageIndex(index) {
+    this.setState({ mainImageIndex: index });
+  }
+
   render() {
     return (
       <article className="Detail">
@@ -44,7 +49,10 @@ class DetailDesktop extends Component {
             <MainImage
               image={this.props.product.images[this.state.mainImageIndex]}
             />
-            <ImageList images={this.props.product.images} />
+            <ImageList
+              images={this.props.product.images}
+              onChangeMainImageIndex={this.handleMainImageIndex}
+            />
           </div>
 
           <div className="DetailDesktop__right-zone">
