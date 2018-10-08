@@ -24,9 +24,10 @@
 
   &.is-product_type {
     background-color: $pink-light;
+    text-transform: lowercase;
   }
   &.is-production_origin {
-    background-color: $purple-medium;
+    background-color: $purple-light;
   }
   &.is-author {
     background-color: $green-light;

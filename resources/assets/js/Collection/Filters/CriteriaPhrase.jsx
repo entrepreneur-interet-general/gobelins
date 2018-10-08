@@ -66,10 +66,10 @@ class CriteriaPhrase extends Component {
   }
 
   extractProductTypes() {
-    let out = [];
+    let out;
 
     if (this.props.filterObj.hasOwnProperty("product_type_ids")) {
-      out = out.concat(
+      out = [].concat(
         this.state.flatProductTypes
           .filter(pt => this.props.filterObj.product_type_ids.includes(pt.id))
           .map(pt => (
@@ -83,16 +83,18 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
+      out = this.sentencize(out, "ou");
+      out.unshift(" de type ");
     }
 
     return out;
   }
 
   extractStyles() {
-    let out = [];
+    let out;
 
     if (this.props.filterObj.hasOwnProperty("style_ids")) {
-      out = out.concat(
+      out = [].concat(
         this.state.styles
           .filter(s => this.props.filterObj.style_ids.includes(s.id))
           .map(s => (
@@ -106,16 +108,18 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
+      out = this.sentencize(out, "ou");
+      out.unshift(" de style ");
     }
 
     return out;
   }
 
   extractProductionOrigins() {
-    let out = [];
+    let out;
 
     if (this.props.filterObj.hasOwnProperty("production_origin_ids")) {
-      out = out.concat(
+      out = [].concat(
         this.state.productionOrigins
           .filter(s =>
             this.props.filterObj.production_origin_ids.includes(s.id)
@@ -124,22 +128,25 @@ class CriteriaPhrase extends Component {
             <Criterion
               type="production_origin"
               paramName="production_origin_ids"
-              label={s.name}
+              label={s.name.charAt(0) === "A" ? "l’" + s.name : "la " + s.name}
               id={s.id}
               key={"production_origin_" + s.id}
               onFilterRemove={this.props.onFilterRemove}
             />
           ))
       );
+      out = this.sentencize(out, "ou de");
+      out.unshift(" de ");
     }
 
     return out;
   }
 
   extractAuthors() {
-    let out = [];
+    let out;
 
     if (this.props.filterObj.hasOwnProperty("author_ids")) {
+      out = [];
       Object.keys(this.state.authors).forEach(letter => {
         out = out.concat(
           this.state.authors[letter]
@@ -148,7 +155,7 @@ class CriteriaPhrase extends Component {
               <Criterion
                 type="author"
                 paramName="author_ids"
-                label={s.last_name + " " + s.first_name}
+                label={s.first_name + " " + s.last_name}
                 id={s.id}
                 key={"author_" + s.id}
                 onFilterRemove={this.props.onFilterRemove}
@@ -156,36 +163,43 @@ class CriteriaPhrase extends Component {
             ))
         );
       });
+      out = this.sentencize(out, "ou");
+      out.unshift(" par ");
     }
 
     return out;
   }
 
-  sentencize(arr) {
+  sentencize(arr, op) {
     let last = null;
     if (arr.length >= 2) {
       last = arr.pop();
       arr = arr.reduce((r, a, idx) => r.concat(a, ", "), []);
-      arr.push(" ou ");
+      arr.push(" " + op + " ");
       arr.push(last);
     }
     return arr;
   }
 
   allCriteria() {
-    return compact([
-      this.extractQueryString(),
-      ...this.extractProductTypes(),
-      ...this.extractStyles(),
-      ...this.extractProductionOrigins(),
-      ...this.extractAuthors()
-    ]);
+    let out = this.sentencize(
+      compact([
+        this.extractQueryString(),
+        this.extractProductTypes(),
+        this.extractStyles(),
+        this.extractProductionOrigins(),
+        this.extractAuthors()
+      ]),
+      "et"
+    );
+    out.unshift("Objets ");
+    return out;
   }
 
   render() {
     return (
       <div className="CriteriaPhrase">
-        {this.sentencize(this.allCriteria())}
+        {this.allCriteria()}
         <span>
           {" "}
           dans les collections du <strong>Mobilier National</strong>
