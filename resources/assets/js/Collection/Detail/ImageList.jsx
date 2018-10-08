@@ -19,8 +19,6 @@ class ImageList extends Component {
           <img
             src={"/image/" + encodeURIComponent(img.path) + "?w=160"}
             alt=""
-            width="80"
-            height="80"
           />
         </button>
       </li>

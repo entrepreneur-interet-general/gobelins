@@ -2,16 +2,18 @@
   background-color: $quasi-black;
   color: #fff;
 
-  height: 100vh;
-
-  // Temporary
   position: fixed;
   width: 100%;
-
-  overflow: auto;
+  height: 100vh;
+  z-index: -1;
 
   .BetaWelcome__inner {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    align-items: stretch;
     margin: 0 30px;
+    height: 100%;
     @include breakpoint($small-up) {
       margin-left: 60px;
       margin-right: 60px;
@@ -19,8 +21,15 @@
   }
 
   .BetaWelcome__intro {
-    padding-top: 85px;
-    padding-bottom: 85px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin: 0;
+      padding: 0;
+    }
     @include breakpoint($small-up) {
       max-width: 730px;
       margin: 0 auto;
@@ -40,11 +49,9 @@
   }
 
   .BetaWelcome__logo {
-    position: fixed;
-    top: 30px;
-    left: 30px;
+    flex: 0 0 auto;
+    margin-top: 30px;
     @include breakpoint($small-up) {
-      left: 60px;
     }
   }
 
@@ -57,10 +64,8 @@
   }
 
   .BetaWelcome__aparte {
-    margin-top: rem(20px);
-    @include breakpoint($small-up) {
-      width: 475px;
-    }
+    flex: 0 0 auto;
+    margin-bottom: rem(30px);
 
     @include f-sans;
     color: $purple;
@@ -68,6 +73,8 @@
     line-height: rem(22px);
 
     @include breakpoint($small-up) {
+      width: 475px;
+      margin-bottom: rem(60px);
       font-size: rem(20px);
       line-height: rem(27px);
     }
