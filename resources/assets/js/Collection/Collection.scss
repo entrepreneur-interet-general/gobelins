@@ -1,3 +1,12 @@
+.has-uninitialized-BetaWelcome .Collection {
+  position: relative;
+  top: 100vh;
+  background-color: #fff;
+}
+.has-initialized-BetaWelcome .Collection {
+  background-color: #fff;
+}
+
 .Collection__result {
   min-height: 100vh;
   @include breakpoint($xsmall) {
@@ -63,6 +72,11 @@
     &:nth-child(6)::before {
       @include collection-spacer;
     }
+  }
+
+  &:hover .Collection__cell-title,
+  &:hover .Collection__cell-authors {
+    color: #888;
   }
 }
 .Collection__image-container {

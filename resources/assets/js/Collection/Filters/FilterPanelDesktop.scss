@@ -1,10 +1,17 @@
 .FilterPanelDesktop {
-  position: absolute;
   top: 0;
   left: 0;
   width: 288px;
   height: 100%;
   z-index: 2;
+  // border-right: 1px solid $lines;
+
+  .has-uninitialized-BetaWelcome & {
+    position: absolute;
+  }
+  .has-initialized-BetaWelcome & {
+    position: fixed;
+  }
 }
 .FilterPanelDesktop__scrollable {
   display: flex;
@@ -49,25 +56,25 @@
     text-align: left;
 
     &.is-product_type:hover {
-      border-bottom-color: $pink-light;
+      border-bottom-color: $pink-medium;
     }
     &.is-author:hover {
-      border-bottom-color: $green-light;
+      border-bottom-color: $green-medium;
     }
     &.is-period:hover {
-      border-bottom-color: $red-light;
+      border-bottom-color: $red-medium;
     }
     &.is-style:hover {
-      border-bottom-color: $yellow-light;
+      border-bottom-color: $yellow-medium;
     }
     &.is-material:hover {
-      border-bottom-color: $blue-light;
+      border-bottom-color: $blue-medium;
     }
     &.is-production_origin:hover {
       border-bottom-color: $purple-medium;
     }
     &.is-dimension:hover {
-      border-bottom-color: $petrol-light;
+      border-bottom-color: $petrol-medium;
     }
   }
 }

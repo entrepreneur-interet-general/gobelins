@@ -14,6 +14,10 @@
     background-color: transparent;
     border: 0;
     cursor: pointer;
+
+    &:hover {
+      color: #767676;
+    }
   }
   svg {
     position: relative;
@@ -44,6 +48,17 @@
   padding: 0;
   margin: 0;
   position: relative;
+
+  &.has-no-image {
+    background-color: #f1f1f4;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    @include f-sans;
+    font-size: rem(13px);
+    color: rgb(109, 109, 109);
+  }
 }
 .DetailMainImage__spinner {
   position: absolute;
@@ -81,6 +96,15 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  &.DetailMainImage__button--magnifying-glass:hover {
+    color: $blue-medium;
+    border-color: $blue-medium;
+  }
+  &.DetailMainImage__button--download:hover {
+    color: $green-medium;
+    border-color: $green-medium;
+  }
 
   svg {
     display: block;
@@ -220,7 +244,7 @@
       overflow-y: hidden;
       flex-flow: row nowrap;
       justify-content: flex-end;
-      margin-bottom: 30px;
+      margin-bottom: 60px;
       margin-top: 30px;
       li {
         margin-left: 10px;

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { flatMap, compact } from "lodash";
 const treeFlatten = require("tree-flatten");
+import Cross from "./Cross";
 
 class Criterion extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    // Using a <span>, because <button> is a replaced element,
+    // and can't be properly displayed as inline when wrapping
+    // multiple lines.
     return (
-      // Using a <span>, because <button> is a replaced element,
-      // and can't be properly displayed as inline when wrapping
-      // multiple lines.
       <span
         tabIndex="0"
         role="button"
@@ -21,7 +22,10 @@ class Criterion extends Component {
           paramName: this.props.paramName
         })}
       >
-        {this.props.label}
+        <span className="CriteriaPhrase__button-text">{this.props.label}</span>
+        <span className="CriteriaPhrase__button-cross">
+          <Cross />
+        </span>
       </span>
     );
   }

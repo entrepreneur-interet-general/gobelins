@@ -1,6 +1,8 @@
 
 @extends('layouts.default')
 
+@section('html_classes') has-uninitialized-BetaWelcome @endsection
+
 @section('content')
     <section class="BetaWelcome">
         <div class="BetaWelcome__inner">
@@ -23,28 +25,36 @@
             </aside>
         </div>
     </section>
-    <section id="rootWrapper" style="position: relative; top: 100vh; background-color: #fff;">
-        <div id="root">
-            Chargement…
-        </div>
-    </section>
+    <div id="root">
+        Chargement…
+    </div>
 
     <script>
         var __INITIAL_STATE__ = {!! $filters->toJson() !!};
     </script>
 
     <script>
-        window.addEventListener('scroll', betaWelcomeRemover);
         function betaWelcomeRemover(ev) {
             if (window.pageYOffset >= window.innerHeight) {
-                document.querySelector('.BetaWelcome').style.display = 'none';
-                window.rootWrapper.style.top = '0px';
-                document.querySelector('.FilterPanelDesktop').style.position = 'fixed';
+                removeBetaWelcome();
                 // window.scroll(0, window.innerHeight - window.pageYOffset);
                 window.scroll(0, 0);
+                window.localStorage.setItem('BetaWelcome', 'initialized');
                 window.removeEventListener('scroll', betaWelcomeRemover);
             }
         }
+
+        function removeBetaWelcome() {
+            window.document.documentElement.classList.remove('has-uninitialized-BetaWelcome');
+            window.document.documentElement.classList.add('has-initialized-BetaWelcome');
+        }
+
+        if (localStorage && localStorage.getItem('BetaWelcome') && localStorage.getItem('BetaWelcome') == 'initialized') {
+            removeBetaWelcome();
+        } else {
+            window.addEventListener('scroll', betaWelcomeRemover);
+        }
+
     </script>
 
 @stop

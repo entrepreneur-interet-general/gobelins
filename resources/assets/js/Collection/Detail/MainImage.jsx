@@ -13,37 +13,49 @@ class MainImage extends Component {
   render() {
     return (
       <section className="DetailMainImage">
-        <figure className="DetailMainImage__fig">
-          <ImageLoader
-            src={
-              "/image/" + encodeURIComponent(this.props.image.path) + "?w=800"
-            }
-            alt=""
-            image={props => (
-              <img
-                src={
-                  "/image/" +
-                  encodeURIComponent(this.props.image.path) +
-                  "?w=800"
-                }
-                alt=""
-                className="DetailMainImage__img"
-              />
-            )}
-            loading={() => <Loader className="DetailMainImage__spinner" />}
-            error={() => <div>Error</div>}
-            className="DetailMainImage__img"
-          />
+        {this.props.image ? (
+          <figure className="DetailMainImage__fig">
+            <ImageLoader
+              src={
+                "/image/" + encodeURIComponent(this.props.image.path) + "?w=800"
+              }
+              alt=""
+              image={props => (
+                <img
+                  src={
+                    "/image/" +
+                    encodeURIComponent(this.props.image.path) +
+                    "?w=800"
+                  }
+                  alt=""
+                  className="DetailMainImage__img"
+                />
+              )}
+              loading={() => <Loader className="DetailMainImage__spinner" />}
+              error={() => <div>Error</div>}
+              className="DetailMainImage__img"
+            />
 
-          <div className="DetailMainImage__toolbar">
-            <button type="button" className="DetailMainImage__button">
-              <MagnifyingGlass />
-            </button>
-            <button type="button" className="DetailMainImage__button">
-              <Download />
-            </button>
-          </div>
-        </figure>
+            <div className="DetailMainImage__toolbar">
+              <button
+                type="button"
+                className="DetailMainImage__button DetailMainImage__button--magnifying-glass"
+              >
+                <MagnifyingGlass />
+              </button>
+              <button
+                type="button"
+                className="DetailMainImage__button DetailMainImage__button--download"
+              >
+                <Download />
+              </button>
+            </div>
+          </figure>
+        ) : (
+          <figure className="DetailMainImage__fig has-no-image">
+            <span>Objet sans image</span>
+          </figure>
+        )}
       </section>
     );
   }

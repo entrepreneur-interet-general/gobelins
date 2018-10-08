@@ -1,3 +1,10 @@
+.has-uninitialized-BetaWelcome .BetaWelcome {
+  display: block;
+}
+.has-initialized-BetaWelcome .BetaWelcome {
+  display: none;
+}
+
 .BetaWelcome {
   background-color: $quasi-black;
   color: #fff;
