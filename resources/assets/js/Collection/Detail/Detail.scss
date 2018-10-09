@@ -299,3 +299,109 @@
     margin-left: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
   }
 }
+
+.DetailZoomed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+
+  display: flex;
+  flex-flow: row nowrap;
+
+  background-color: #fff;
+}
+.DetailZoomed__fig {
+  flex: 1 1 auto;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+.DetailZoom__thumbails {
+  display: block;
+  flex: 0 0 auto;
+  width: 225px;
+  list-style: none;
+  margin: 0;
+  padding: 60px 0 0 0;
+  filter: grayscale(1);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  li {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  button {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    padding: 10px;
+    margin: 0;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  img {
+    display: block;
+    width: 145px;
+    margin: 0 auto;
+  }
+}
+.DetailZoomed__toolbar {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+
+  .DetailZoomed__button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid $lines;
+    color: #000;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:first-child {
+      margin-right: 20px;
+    }
+
+    &:hover {
+      border-color: #000;
+    }
+  }
+}
+.DetailZoom__close {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  padding: 10px;
+  border: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  cursor: pointer;
+}

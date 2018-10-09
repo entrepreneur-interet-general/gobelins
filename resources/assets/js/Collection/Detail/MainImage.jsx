@@ -39,6 +39,7 @@ class MainImage extends Component {
             <div className="DetailMainImage__toolbar">
               <button
                 type="button"
+                onClick={this.props.onZoom}
                 className="DetailMainImage__button DetailMainImage__button--magnifying-glass"
               >
                 <MagnifyingGlass />
