@@ -7,6 +7,7 @@ import Title from "./Title.jsx";
 import Data from "./Data.jsx";
 import Info from "./Info.jsx";
 import DetailZoomed from "./DetailZoomed.jsx";
+import DownloadModal from "./DownloadModal.jsx";
 
 class DetailDesktop extends Component {
   constructor(props) {
@@ -14,11 +15,11 @@ class DetailDesktop extends Component {
     this.state = {
       mainImageIndex: 0,
       layoutOrientation: this.computeLayoutOrientation(),
-      zoomedMode: false
+      zoomedMode: false,
+      downloadMode: false
     };
     this.computeLayoutOrientation = this.computeLayoutOrientation.bind(this);
     this.handleMainImageIndex = this.handleMainImageIndex.bind(this);
-    this.handleZoom = this.handleZoom.bind(this);
   }
 
   computeLayoutOrientation() {
@@ -39,12 +40,6 @@ class DetailDesktop extends Component {
     this.setState({ mainImageIndex: index });
   }
 
-  handleZoom() {
-    this.setState({
-      zoomedMode: true
-    });
-  }
-
   render() {
     return (
       <article className="Detail">
@@ -57,7 +52,12 @@ class DetailDesktop extends Component {
             <BackToCollection onClick={this.props.onBackToCollection} />
             <MainImage
               image={this.props.product.images[this.state.mainImageIndex]}
-              onZoom={this.handleZoom}
+              onZoom={() => this.setState({ zoomedMode: true })}
+              onDownload={() =>
+                this.setState({
+                  downloadMode: true
+                })
+              }
             />
             <ImageList
               images={this.props.product.images}
@@ -81,6 +81,11 @@ class DetailDesktop extends Component {
             images={this.props.product.images}
             zoomedImage={this.props.product.images[this.state.mainImageIndex]}
             onClose={() => this.setState({ zoomedMode: false })}
+          />
+        ) : null}
+        {this.state.downloadMode ? (
+          <DownloadModal
+            onClose={() => this.setState({ downloadMode: false })}
           />
         ) : null}
       </article>

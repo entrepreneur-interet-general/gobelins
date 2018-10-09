@@ -46,6 +46,7 @@ class MainImage extends Component {
               </button>
               <button
                 type="button"
+                onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
               >
                 <Download />
