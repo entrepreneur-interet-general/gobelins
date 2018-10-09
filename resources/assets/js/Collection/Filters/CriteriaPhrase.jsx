@@ -53,7 +53,8 @@ class CriteriaPhrase extends Component {
   }
 
   extractQueryString() {
-    return this.props.filterObj.hasOwnProperty("q") ? (
+    return this.props.filterObj.hasOwnProperty("q") &&
+      this.props.filterObj.q ? (
       <Criterion
         type="query"
         paramName="q"
@@ -68,7 +69,10 @@ class CriteriaPhrase extends Component {
   extractProductTypes() {
     let out;
 
-    if (this.props.filterObj.hasOwnProperty("product_type_ids")) {
+    if (
+      this.props.filterObj.hasOwnProperty("product_type_ids") &&
+      this.props.filterObj.product_type_ids.length > 0
+    ) {
       out = [].concat(
         this.state.flatProductTypes
           .filter(pt => this.props.filterObj.product_type_ids.includes(pt.id))
@@ -93,7 +97,10 @@ class CriteriaPhrase extends Component {
   extractStyles() {
     let out;
 
-    if (this.props.filterObj.hasOwnProperty("style_ids")) {
+    if (
+      this.props.filterObj.hasOwnProperty("style_ids") &&
+      this.props.filterObj.style_ids.length > 0
+    ) {
       out = [].concat(
         this.state.styles
           .filter(s => this.props.filterObj.style_ids.includes(s.id))
@@ -118,7 +125,10 @@ class CriteriaPhrase extends Component {
   extractProductionOrigins() {
     let out;
 
-    if (this.props.filterObj.hasOwnProperty("production_origin_ids")) {
+    if (
+      this.props.filterObj.hasOwnProperty("production_origin_ids") &&
+      this.props.filterObj.production_origin_ids.length > 0
+    ) {
       out = [].concat(
         this.state.productionOrigins
           .filter(s =>
@@ -145,7 +155,10 @@ class CriteriaPhrase extends Component {
   extractAuthors() {
     let out;
 
-    if (this.props.filterObj.hasOwnProperty("author_ids")) {
+    if (
+      this.props.filterObj.hasOwnProperty("author_ids") &&
+      this.props.filterObj.author_ids.length > 0
+    ) {
       out = [];
       Object.keys(this.state.authors).forEach(letter => {
         out = out.concat(
@@ -192,7 +205,9 @@ class CriteriaPhrase extends Component {
       ]),
       "et"
     );
-    out.unshift("Objets ");
+    if (out.length > 0) {
+      out.unshift("Objets ");
+    }
     return out;
   }
 

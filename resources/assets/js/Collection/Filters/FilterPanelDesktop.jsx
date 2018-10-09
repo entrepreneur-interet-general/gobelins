@@ -9,6 +9,7 @@ import ProductTypes from "./ProductTypes.jsx";
 import Styles from "./Styles.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
 import Authors from "./Authors.jsx";
+import Loader from "../Loader.jsx";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -176,16 +177,7 @@ class FilterPanelDesktop extends Component {
           </div>
         ) : null}
         {this.props.isLoading ? (
-          <div className="FilterPanelDesktop__spinner Spinner__pgloading">
-            <div className="Spinner__loadingwrap">
-              <ul className="Spinner__bokeh">
-                <li />
-                <li />
-                <li />
-                <li />
-              </ul>
-            </div>
-          </div>
+          <Loader className="FilterPanelDesktop__spinner" />
         ) : null}
         <CSSTransitionGroup
           transitionName="desktopFilterPanel"
@@ -198,6 +190,14 @@ class FilterPanelDesktop extends Component {
               productTypes={this.state.productTypes}
               onFilterAdd={this.props.onFilterAdd}
               selectedIds={this.props.filterObj.product_type_ids || []}
+              totalHitsComponent={
+                this.state.filterPanelOpen && !this.props.isLoading ? (
+                  <div className="FilterPanelDesktop__total-hits">
+                    {this.props.totalHits}{" "}
+                    {this.props.totalHits > 1 ? "résultats" : "résultat"}
+                  </div>
+                ) : null
+              }
             />
           ) : null}
 

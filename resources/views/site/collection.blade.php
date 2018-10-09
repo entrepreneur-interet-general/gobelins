@@ -35,10 +35,10 @@
 
     <script>
         function betaWelcomeRemover(ev) {
-            if (window.pageYOffset >= window.innerHeight) {
+            if (window.pageYOffset - 40 >= window.innerHeight) {
                 removeBetaWelcome();
                 // window.scroll(0, window.innerHeight - window.pageYOffset);
-                window.scroll(0, 0);
+                window.scrollTo(0, 0);
                 window.localStorage.setItem('BetaWelcome', 'initialized');
                 window.removeEventListener('scroll', betaWelcomeRemover);
             }

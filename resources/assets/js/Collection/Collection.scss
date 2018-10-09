@@ -1,10 +1,15 @@
+.Collection {
+  background-color: #fff;
+}
+
 .has-uninitialized-BetaWelcome .Collection {
   position: relative;
   top: 100vh;
-  background-color: #fff;
+  padding-top: 40px;
 }
 .has-initialized-BetaWelcome .Collection {
-  background-color: #fff;
+  position: static;
+  padding-top: 0;
 }
 
 .Collection__result {

@@ -145,6 +145,10 @@
   font-size: rem(30px);
   line-height: rem(50px);
 }
+.DetailTitle__denomination,
+.DetailTitle__title_or_designation {
+  display: block;
+}
 
 .DetailData {
 }

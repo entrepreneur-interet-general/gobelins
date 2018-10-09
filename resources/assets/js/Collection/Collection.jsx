@@ -32,7 +32,8 @@ class Collection extends Component {
       hasMore: false,
       totalHits: 0,
       filterObj: stateFromURL.filterObj || {},
-      productDetail: false // When in detail mode, hold the product data.
+      productDetail: false, // When in detail mode, hold the product data.
+      scrollPosition: 0
     };
 
     this.cache = {};
@@ -79,7 +80,7 @@ class Collection extends Component {
           return keywords[value];
         }
 
-        return value;
+        return window.decodeURIComponent(value);
       }
     });
     let out = {};
@@ -295,13 +296,19 @@ class Collection extends Component {
 
   handleDisplayProduct(prod, event) {
     event.preventDefault();
-    this.setState({ productDetail: prod });
+    this.setState({ productDetail: prod, scrollPosition: window.scrollY });
     console.log("Product is", prod);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 0);
   }
 
   handleBackToCollection(event) {
     event.preventDefault();
     this.setState({ productDetail: null });
+    setTimeout(() => {
+      window.scrollTo(0, this.state.scrollPosition);
+    }, 0);
   }
 
   render() {
@@ -342,7 +349,7 @@ class Collection extends Component {
                 <CollectionList hits={this.state.hits} />
               )}
             </div>
-            <ScrollToTop />
+            <ScrollToTop isLoading={this.state.isLoading} />
             <Settings />
           </div>
         )}
