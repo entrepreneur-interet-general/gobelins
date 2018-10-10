@@ -283,14 +283,20 @@ class Collection extends Component {
 
   handleRemoveFilter(filterToRemove) {
     let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
+    let filterObjAmended = this.state.filterObj;
     if (filterValueToAmend instanceof Array) {
       filterValueToAmend.splice(
         filterValueToAmend.indexOf(filterToRemove.id),
         1
       );
+      if (filterValueToAmend.length > 0) {
+        filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
+      } else {
+        delete filterObjAmended[filterToRemove.paramName];
+      }
+    } else {
+      delete filterObjAmended[filterToRemove.paramName];
     }
-    let filterObjAmended = this.state.filterObj;
-    filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
     this.handleFilterChange(filterObjAmended);
   }
 
