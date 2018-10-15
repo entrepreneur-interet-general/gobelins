@@ -484,3 +484,37 @@
     }
   }
 }
+
+.DetailInfo__sharing {
+  color: #888;
+
+  a,
+  button {
+    display: inline-block;
+    margin: 0;
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: #1a1a1a;
+    }
+  }
+}
+.DetailInfo__sharing-copied {
+  display: inline-block;
+  position: relative;
+  top: -2px;
+  @include f-sans;
+  font-size: 13px;
+  color: #1a1a1a;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
