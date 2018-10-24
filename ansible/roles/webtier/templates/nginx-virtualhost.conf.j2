@@ -1,0 +1,23 @@
+server {
+    listen       80;
+    server_name  {{ item.value.servernames | join(" ") }} {{ ansible_default_ipv4["address"] }} localhost;
+
+    root   /var/www/{{ item.key }}/public;
+    index index.php;
+
+    access_log  /var/log/nginx/{{ item.value.servernames[0] }}-access.log;
+    error_log  /var/log/nginx/{{ item.value.servernames[0] }}-error.log error;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 1200;
+        include fastcgi_params;
+    }
+}

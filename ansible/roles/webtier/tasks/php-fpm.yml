@@ -1,0 +1,36 @@
+# file: roles/webtier/tasks/php-fpm.yml
+- name: Install php-fpm
+  tags: php-fpm
+  yum: name=php-fpm state=installed
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Install php-fpm
+  tags: php-fpm
+  apt: name=php7.2-fpm state=installed
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Make sure php-fpm is running
+  tags: php-fpm
+  service: name=php-fpm state=started enabled=yes
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Make sure php-fpm is running
+  tags: php-fpm
+  service: name=php7.2-fpm state=started enabled=yes
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Make sure php-fpm is configured
+  tags: php-fpm
+  template: src=php-fpm.conf.j2 dest=/etc/php-fpm.d/www.conf
+  notify:
+    - Restart php-fpm
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Make sure php-fpm is configured
+  tags: php-fpm
+  template: src=php-fpm.conf.j2 dest=/etc/php/7.2/fpm/pool.d/www.conf
+  notify:
+    - Restart php-fpm (Debian)
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+

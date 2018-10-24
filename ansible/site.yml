@@ -1,0 +1,6 @@
+# file: site.yml
+- import_playbook: webservers.yml
+#- import_playbook: mysqlservers.yml
+- import_playbook: pgsqlservers.yml
+- import_playbook: queueservers.yml
+- import_playbook: elasticsearchservers.yml

@@ -1,0 +1,12 @@
+# file: roles/common/tasks/selinux.yml
+- name: Set SELinux to enforcing
+  tags: selinux
+  selinux: policy=targeted state=enforcing
+  register: selinux
+  notify:
+    - Restart server
+    - Wait for server to restart
+
+- name: Make sure SELinux managements tools are installed
+  tags: selinux
+  yum: name=policycoreutils-python state=installed

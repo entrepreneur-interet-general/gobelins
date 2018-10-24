@@ -1,0 +1,17 @@
+# file: roles/webtier/tasks/main.yml
+- import_tasks: remi.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+- import_tasks: ondrej.yml
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+- import_tasks: php.yml
+- import_tasks: php-fpm.yml
+- import_tasks: composer.yml
+- import_tasks: nginx.yml
+- import_tasks: dotenv.yml
+- import_tasks: cron.yml
+- import_tasks: letsencrypt.yml
+  when: enable_ssl|default(false)|bool == true
+- import_tasks: firewalld.yml
+- import_tasks: redis.yml
+- import_tasks: selinux.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'

@@ -1,0 +1,14 @@
+enable_ssl: false
+
+virtualhosts:
+  gobelins:
+    servernames:
+      - gobelins.test
+      - admin.gobelins.test
+    run_queue_worker: false
+    has_scheduled_jobs: false
+  datasource:
+    servernames:
+      - gobelins-datasource.test
+    run_queue_worker: false
+    has_scheduled_jobs: false

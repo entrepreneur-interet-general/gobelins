@@ -1,0 +1,5 @@
+# file: roles/custom/tasks/main.yml
+- include_tasks: "{{ item }}"
+  tags: custom
+  with_fileglob:
+    - "*.yml"

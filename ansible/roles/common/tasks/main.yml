@@ -1,0 +1,44 @@
+# file: roles/common/tasks/main.yml
+
+- name: Make sure epel-repository is installed
+  yum: name=epel-release state=installed
+  tags: epel
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- import_tasks: remi.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Make sure git is installed
+  tags: git
+  yum: name=git state=installed
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Make sure git is installed
+  tags: git
+  apt: name=git state=installed
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Make sure unzip is installed
+  tags: unzip
+  yum: name=unzip state=installed
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Make sure unzip is installed
+  tags: unzip
+  apt: name=unzip state=installed
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Remove require tty
+  lineinfile:
+    dest: /etc/sudoers
+    line: "Defaults    requiretty"
+    state: absent
+
+- import_tasks: ntp.yml
+- import_tasks: selinux.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+- import_tasks: yum-cron.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+- import_tasks: cron-apt.yml
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+- import_tasks: swap.yml

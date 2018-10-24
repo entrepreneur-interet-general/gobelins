@@ -1,0 +1,41 @@
+# file: pgsqlservers.yml
+- hosts: pgsqlservers
+  become: true
+  become_user: root
+
+  pre_tasks:
+    - name: Make selinux permissive
+      selinux:
+        policy: targeted
+        state: permissive
+
+    - name: Install PostgreSQL 9.6 repository
+      yum:
+        name: https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+        state: present
+
+    - name: Reinstall glibc-common for locales
+      command: /usr/bin/yum reinstall glibc-common -y
+      args:
+        warn: no
+
+    - name: Set default locale
+      command: localectl set-locale LANG="{{ default_locale }}"
+
+  roles:
+    - common
+    - role: geerlingguy.postgresql
+      postgresql_enablerepo: "pgdg96"
+      postgresql_version: 9.6
+      postgresql_data_dir: /var/lib/pgsql/9.6/data
+      postgresql_initdb_opts: "--encoding=UTF8 --locale=fr_FR.UTF-8"
+      postgresql_bin_path: /usr/pgsql-9.6/bin
+      postgresql_config_path: /var/lib/pgsql/9.6/data
+      postgresql_daemon: postgresql-9.6.service
+      postgresql_packages:
+        - postgresql96
+        - postgresql96-server
+        - postgresql96-libs
+        - postgresql96-contrib
+        - postgresql96-devel
+    - custom

@@ -1,0 +1,4 @@
+# file: roles/queuetier/tasks/main.yml
+- import_tasks: beanstalk.yml
+- import_tasks: redis.yml
+- import_tasks: supervisor.yml

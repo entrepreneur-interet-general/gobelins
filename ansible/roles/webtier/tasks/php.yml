@@ -1,0 +1,82 @@
+# file: roles/webtier/tasks/php.yml
+- name: Install PHP and extensions
+  yum: # name={{ item }} state=installed enablerepo=epel,remi,remi-php72
+    name:
+      - php
+      - php-zip
+      - php-openssl
+      - php-pdo
+      - php-mbstring
+      - php-tokenizer
+      - php-xml
+      - php-mysqlnd
+      - php-opcache
+    state: installed
+    enablerepo: epel,remi,remi-php72
+  tags: php
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+
+- name: Install PHP and extensions
+  apt: #name={{ item }} state=installed update_cache=yes
+    name:
+      - php7.2
+      - php7.2-zip
+      - php7.2-pdo
+      - php7.2-mbstring
+      - php7.2-tokenizer
+      - php7.2-xml
+      - php7.2-mysqlnd
+      - php7.2-opcache
+    state: installed
+    update_cache: yes
+  tags: php
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Install extra PHP packages
+  # yum: name={{ item }} state=installed enablerepo=epel,remi,remi-php72
+  yum:
+    name: "{{ php_extra_packages }}"
+    state: installed
+    enablerepo: epel,remi,remi-php72
+  tags: php-extra
+  # with_items: "{{ php_extra_packages }}"
+  when: php_extra_packages is defined and (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  notify:
+    - Restart php-fpm
+
+- name: Install extra PHP packages
+  apt:
+    name: "{{ php_extra_packages }}"
+    state: installed
+    update_cache: yes
+  tags: php-extra
+  # with_items: "{{ php_extra_packages }}"
+  when: php_extra_packages is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
+  notify:
+    - Restart php-fpm (Debian)
+
+- name: Set PHP memory limit in php.ini
+  tags: php
+  ini_file:
+    dest: /etc/php.ini
+    section: "PHP"
+    option: memory_limit
+    value: "{{ php_memory_limit }}"
+  when: php_memory_limit is defined and (ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat')
+  notify:
+    - Restart php-fpm
+
+- name: Set PHP memory limit in php.ini
+  tags: php
+  ini_file:
+    dest: "{{ item }}"
+    section: "PHP"
+    option: memory_limit
+    value: "{{ php_memory_limit }}"
+  with_items:
+    - /etc/php/7.2/apache2/php.ini
+    - /etc/php/7.2/fpm/php.ini
+    - /etc/php/7.2/cli/php.ini
+  when: php_memory_limit is defined and (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
+  notify:
+    - Restart php-fpm (Debian)
