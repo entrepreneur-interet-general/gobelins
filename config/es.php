@@ -121,14 +121,13 @@ return [
                             'properties' =>  [
                                 'id' => [
                                     'type' => 'long',
+                                    'index' => false,
                                 ],
                                 'first_name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                                 'last_name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                             ],
                         ],
