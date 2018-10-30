@@ -88,7 +88,8 @@ class Import extends Command
 
     private function setupProgressBar()
     {
-        $response = $this->client->get('/api/products');
+        $options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : null;
+        $response = $this->client->request('GET', '/api/products', $options);
         if ($response->getStatusCode() === 200) {
             $json_resp = json_decode($response->getBody());
             $this->progress_bar = $this->output->createProgressBar($json_resp->meta->total);
