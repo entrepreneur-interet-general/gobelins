@@ -6,27 +6,34 @@ collections of the Mobilier National, as described <a href="https://entrepreneur
 Documentation: coming soon :)
 
 ### Development setup
+
 ```shell
+$ php artisan migrate:install
 $ php artisan migrate
 $ php artisan db:seed --class=ProductTypeSeeder
 $ php artisan es:indices:create
 ```
 
 Importing products from the Gobelin-datasource API
+
 ```shell
 $ php artisan gobelins:import -vvv
 ```
+
 Interrupt process with `Ctrl-C`, it will gracefully exit.
 You may then resume the import starting from a given page:
+
 ```shell
 $ php artisan gobelins:import -vvv --from=58
 ```
 
 To re-index Elasticsearch:
+
 ```shell
 php artisan scout:flush "App\Models\Product"
 php artisan scout:import "App\Models\Product"
 ```
+
 #### Credits
 
 - Laurie Chapotte, design
