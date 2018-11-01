@@ -47,24 +47,17 @@ class SearchController extends Controller
 
     public function index(Request $request)
     {
-        start_measure('controller_index', 'Total controller time');
-
-
         $query = ES::type("products");
         
         $filters = [];
 
         
-        start_measure('fetch_product_type', 'fetch_product_type');
         $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
             $filters[] = ['terms' => ['product_types.id' => $product_type_ids]];
         }
-        stop_measure('fetch_product_type');
-        
-        start_measure('fetch_style', 'fetch_style');
         
         $styles = Style::all();
         $style_ids = [];
@@ -72,16 +65,13 @@ class SearchController extends Controller
             $style_ids = $request->input('style_ids');
             $filters[] = ['terms' => ['style.id' => $style_ids]];
         }
-        stop_measure('fetch_style');
-        
-        start_measure('fetch_authors', 'fetch_authors');
+
         $authors = Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get();
         $author_ids = [];
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
             $filters[] = ['terms' => ['authors.id' => $author_ids]];
         }
-        stop_measure('fetch_authors');
         
         $periods = Period::orderBy('start_year', 'asc')->get();
         $period_start_year = false;
@@ -187,12 +177,9 @@ class SearchController extends Controller
             ];
         };
         
-        // \Debugbar::measure('ES queryyyyy', function () use (&$query, &$body) {
-        // });
         if (sizeof($filters) === 0 && empty($request->input('q'))) {
             $body["query"] = ["match_all" => (object) null]; // TODO: randomize the default results.
         }
-
 
 
         $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
@@ -205,7 +192,7 @@ class SearchController extends Controller
                 $aggs[$k][$b['key']] = $b['doc_count'];
             }
         }
-        
+
 
         if ($request->wantsJson()) {
             return json_encode([
@@ -216,7 +203,6 @@ class SearchController extends Controller
             ]);
         }
         
-        // start_measure('render', 'Rendering the view');
         $view = view('site.search', [
             'query' => $request->input('q'),
             'es_query' => $query->getBody(),
@@ -254,6 +240,5 @@ class SearchController extends Controller
 
         ]);
         return $view;
-        stop_measure('controller_index');
     }
 }
