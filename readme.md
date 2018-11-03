@@ -34,7 +34,20 @@ php artisan scout:flush "App\Models\Product"
 php artisan scout:import "App\Models\Product"
 ```
 
-#### Credits
+### Cache stategy
+
+#### Image caching
+
+The images should hardely ever change, so we set up a request cache at the HTTP server level,
+so we only need to generate images once.
+Nginx will cache whatever result is outputted from the Image controller.
+For more configuration information, see the [gobelins-devops](https://github.com/entrepreneur-interet-general/gobelins-devops) repository.
+
+#### Response cache
+
+…TODO…
+
+### Credits
 
 - Laurie Chapotte, design
 - Ned Baldessin, development

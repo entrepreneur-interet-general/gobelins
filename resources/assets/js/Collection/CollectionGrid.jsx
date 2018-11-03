@@ -23,7 +23,9 @@ class CollectionGrid extends Component {
     return this.props.hits.map((datum, index) => {
       let hasImages = datum.images && datum.images.length > 0;
       let imgRoot = hasImages
-        ? "/image/" + encodeURIComponent(datum.images[0].path) + "?w="
+        ? "/image/" +
+          encodeURIComponent(datum.images[0].path) +
+          "?q=40&fm=pjpg&w="
         : "";
       let display_name =
         datum.title_or_designation ||
@@ -55,6 +57,15 @@ class CollectionGrid extends Component {
                        (min-width: 1024px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
                        (min-width: 800px) and (max-width: 1023px) calc((100vw - (40px * 4)) / 3),
                        calc(100vw - (3 * 15px) / 2)"
+                srcSet={imgRoot + "330 330w,\n" + imgRoot + "600 600w"}
+              />
+              {/* <img
+                sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),
+                       (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),
+                       (min-width: 1440px) and (max-width: 1599px) calc((100vw - 288px - (40px * 4)) / 4),
+                       (min-width: 1024px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
+                       (min-width: 800px) and (max-width: 1023px) calc((100vw - (40px * 4)) / 3),
+                       calc(100vw - (3 * 15px) / 2)"
                 srcSet={
                   imgRoot +
                   "300 300w,\n" +
@@ -65,7 +76,7 @@ class CollectionGrid extends Component {
                   imgRoot +
                   "760 760w"
                 }
-              />
+              /> */}
             </div>
           ) : (
             <div className="Collection__image-container--empty" />
