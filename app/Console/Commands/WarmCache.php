@@ -73,7 +73,7 @@ class WarmCache extends Command
     private function fetchImages()
     {
         $http_options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : null;
-        $glide_params = '?q=40&fm=pjpg&w=600';
+        $glide_params = '?q=40&fm=pjpg&cache=1&w=600';
 
         $this->progress_bar = $this->output->createProgressBar(Product::count());
 
@@ -92,7 +92,7 @@ class WarmCache extends Command
         //     }
         // });
 
-        
+
         ///////////////////////////////////
         // Pool of 4 concurrent requests //
         ///////////////////////////////////
