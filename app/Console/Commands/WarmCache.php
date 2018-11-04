@@ -72,7 +72,7 @@ class WarmCache extends Command
 
     private function fetchImages()
     {
-        $http_options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : null;
+        $http_headers = env('HTTP_AUTH_USERNAME') ? ['Authorization' => 'Basic ' . base64_encode(env('HTTP_AUTH_USERNAME') .':'. env('HTTP_AUTH_PASSWORD'))] : null;
         $glide_params = '?q=40&fm=pjpg&cache=1&w=600';
 
         $this->progress_bar = $this->output->createProgressBar(Product::count());
@@ -82,11 +82,11 @@ class WarmCache extends Command
         // Consecutive single requests //
         /////////////////////////////////
 
-        // Product::chunk(200, function ($prods) use ($glide_params, $http_options) {
+        // Product::chunk(200, function ($prods) use ($glide_params, $http_headers) {
         //     foreach ($prods as $prod) {
         //         $img = $prod->images->first();
         //         if ($img) {
-        //             $response = $this->client->request('GET', '/image/' . $img->path . $glide_params, $http_options);
+        //             $response = $this->client->request('GET', '/image/' . $img->path . $glide_params, $http_headers);
         //         }
         //         $this->progress_bar->advance();
         //     }
@@ -97,12 +97,12 @@ class WarmCache extends Command
         // Pool of 4 concurrent requests //
         ///////////////////////////////////
 
-        Product::chunk(200, function ($prods) use ($glide_params, $http_options) {
-            $requests = function ($prods) use ($glide_params, $http_options) {
+        Product::chunk(200, function ($prods) use ($glide_params, $http_headers) {
+            $requests = function ($prods) use ($glide_params, $http_headers) {
                 foreach ($prods as $prod) {
                     $img = $prod->images->first();
                     if ($img) {
-                        yield new Request('GET', '/image/' . $img->path . $glide_params, $http_options);
+                        yield new Request('GET', '/image/' . $img->path . $glide_params, $http_headers);
                     }
                 }
             };
