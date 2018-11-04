@@ -25,7 +25,7 @@ class CollectionGrid extends Component {
       let imgRoot = hasImages
         ? "/image/" +
           encodeURIComponent(datum.images[0].path) +
-          "?q=40&fm=pjpg&w="
+          "?q=40&fm=pjpg&cache=1&w="
         : "";
       let display_name =
         datum.title_or_designation ||
