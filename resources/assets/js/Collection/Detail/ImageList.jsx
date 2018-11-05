@@ -17,7 +17,11 @@ class ImageList extends Component {
       <li key={index}>
         <button type="button" onClick={this.handleClick.bind(null, index)}>
           <img
-            src={"/image/" + encodeURIComponent(img.path) + "?w=160"}
+            src={
+              "/image/" +
+              encodeURIComponent(img.path) +
+              "?q=40&fm=jpg&cache=1&w=160"
+            }
             alt=""
           />
         </button>

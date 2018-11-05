@@ -34,7 +34,7 @@ class Style extends Model
         if (file_exists($dir_path)) {
             for ($i=1; $i < 4; $i++) {
                 $name = rawurlencode($this->name);
-                $paths[] = "/image/_images-didactiques/styles/$name/$i.jpg";
+                $paths[] = "/image/_images-didactiques/styles/$name/$i.jpg?q=40&cache=1";
             }
         }
         return $paths;

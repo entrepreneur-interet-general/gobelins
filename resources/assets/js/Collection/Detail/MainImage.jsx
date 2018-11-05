@@ -17,7 +17,9 @@ class MainImage extends Component {
           <figure className="DetailMainImage__fig">
             <ImageLoader
               src={
-                "/image/" + encodeURIComponent(this.props.image.path) + "?w=800"
+                "/image/" +
+                encodeURIComponent(this.props.image.path) +
+                "?q=40&fm=jpg&cache=1&w=1200"
               }
               alt=""
               image={props => (
@@ -25,7 +27,7 @@ class MainImage extends Component {
                   src={
                     "/image/" +
                     encodeURIComponent(this.props.image.path) +
-                    "?w=800"
+                    "?q=40&fm=jpg&cache=1&w=1200"
                   }
                   alt=""
                   className="DetailMainImage__img"
