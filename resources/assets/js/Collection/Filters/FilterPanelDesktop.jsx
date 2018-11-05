@@ -225,6 +225,15 @@ class FilterPanelDesktop extends Component {
               selectedIds={this.props.filterObj.author_ids || []}
             />
           ) : null}
+
+          {this.state.filterPanelOpen && this.state.openPanel === "Period" ? (
+            <Periods
+              periods={this.state.periods}
+              onFilterAdd={this.props.onFilterAdd}
+              periodStartYear={this.props.filterObj.period_start_year}
+              periodEndYear={this.props.filterObj.period_end_year}
+            />
+          ) : null}
         </CSSTransitionGroup>
       </div>
     );
