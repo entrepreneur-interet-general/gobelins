@@ -1,0 +1,134 @@
+.Periods {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  width: calc(288px + 80px);
+  z-index: 1;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $red-dark;
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFilterPanel-enter {
+    opacity: 0;
+  }
+  &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
+    opacity: 1;
+  }
+}
+.Periods__named-container {
+  height: 100vh;
+  width: 288px;
+  box-sizing: border-box;
+  padding: 30px 0;
+  background-color: $red-medium;
+}
+.Periods__named {
+  //   display: flex;
+  //   flex-flow: column nowrap;
+  //   align-items: stretch;
+  //   justify-content: flex-start;
+  height: 100%;
+  width: 288px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: visible;
+  position: relative;
+}
+.Periods__named-button {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: center;
+
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0 0 0 60px;
+  border: 0;
+  text-align: left;
+  border-top: 1px solid #ff6363;
+  border-bottom: 1px solid #ff6363;
+  background-color: transparent;
+  @include f-sans;
+  font-size: rem(15px);
+  color: white;
+  cursor: pointer;
+
+  //   &:first-child {
+  //     border-top-color: #ff6363;
+  //   }
+
+  &:hover {
+    border-color: #000;
+    color: #000;
+  }
+}
+.Periods__range-container {
+  position: absolute;
+  padding: 15px 0;
+  width: 10px;
+  top: 0;
+  bottom: 0;
+  left: 288px;
+  z-index: 1;
+}
+.Periods__slider {
+  position: absolute;
+  top: 30px;
+  bottom: 30px;
+  left: 0;
+  width: 80px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -30px;
+    bottom: -30px;
+    background-color: #fff;
+    width: 1px;
+  }
+}
+.Periods__slider-handle {
+  position: absolute;
+  top: 0;
+  left: -12px;
+  margin-top: -12px;
+  z-index: 2;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.Periods__slider-handle-dot {
+  height: 12px;
+  width: 12px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: white;
+  //   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.Periods__slider-handle-label {
+  position: absolute;
+  margin-left: calc(100% + 10px);
+  padding: 3px 5px 3px 0;
+  z-index: 3;
+  @include f-sans;
+  font-size: rem(15px);
+  color: black;
+}
+.Periods__slider-track {
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  cursor: pointer;
+  width: 3px;
+  margin-left: -1px;
+}

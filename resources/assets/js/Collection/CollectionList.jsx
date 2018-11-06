@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { InfiniteLoader, WindowScroller, List } from "react-virtualized";
 
 class CollectionList extends Component {
   render() {

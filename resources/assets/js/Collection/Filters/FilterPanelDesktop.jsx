@@ -9,6 +9,7 @@ import ProductTypes from "./ProductTypes.jsx";
 import Styles from "./Styles.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
 import Authors from "./Authors.jsx";
+import Periods from "./Periods.jsx";
 import Loader from "../Loader.jsx";
 
 class FilterPanelDesktop extends Component {
@@ -226,7 +227,7 @@ class FilterPanelDesktop extends Component {
             />
           ) : null}
 
-          {this.state.filterPanelOpen && this.state.openPanel === "Period" ? (
+          {this.state.filterPanelOpen && this.state.openPanel === "Periods" ? (
             <Periods
               periods={this.state.periods}
               onFilterAdd={this.props.onFilterAdd}

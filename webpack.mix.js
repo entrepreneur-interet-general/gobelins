@@ -1,4 +1,6 @@
 let mix = require("laravel-mix");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ let mix = require("laravel-mix");
 mix
   .react("resources/assets/js/app.jsx", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css");
+// .webpackConfig({
+//   plugins: [
+//     new BundleAnalyzerPlugin({
+//       analyzerMode: "static",
+//       reportFilename: "../storage/app/public/report.html",
+//       generateStatsFile: true,
+//       statsFilename: "../storage/app/public/stats.json"
+//     })
+//   ]
+// });
 // .options({
 //   hmrOptions: {
 //     host: "gobelins.test",

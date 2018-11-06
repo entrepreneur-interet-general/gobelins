@@ -2,7 +2,6 @@
 @import "~normalize.css";
 @import "~sass-rem";
 @import "~breakpoint-sass";
-//@import "~react-virtualized/styles";
 
 // Shared utilities
 @import "shared/aspect-ratio";
@@ -20,6 +19,7 @@
 @import "../js/Collection/Collection.scss";
 @import "../js/Collection/Detail/Detail.scss";
 @import "../js/Collection/Filters/Authors.scss";
+@import "../js/Collection/Filters/Periods.scss";
 @import "../js/Collection/Filters/CriteriaPhrase.scss";
 @import "../js/Collection/Filters/FilterPanelDesktop.scss";
 @import "../js/Collection/Filters/FilterPanelMobile.scss";

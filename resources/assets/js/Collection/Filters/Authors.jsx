@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { map } from "lodash";
 
 class Authors extends Component {
   constructor(props) {

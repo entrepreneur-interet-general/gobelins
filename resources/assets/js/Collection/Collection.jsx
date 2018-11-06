@@ -7,7 +7,6 @@ import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
 import Detail from "./Detail/Detail.jsx";
 import qs from "qs";
-import { uniq } from "lodash";
 import merge from "deepmerge";
 
 const breakpoints = {

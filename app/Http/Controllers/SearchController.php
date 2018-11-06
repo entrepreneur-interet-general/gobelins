@@ -34,7 +34,70 @@ class SearchController extends Controller
                                 ->sortBy(function ($item, $key) {
                                     return $key;
                                 }),
-                'periods' => Period::orderBy('start_year', 'asc')->get(),
+                // 'periods' => Period::orderBy('start_year', 'asc')->get(),
+                // TODO: put this in a seeder…
+                'periods' => [
+                    [
+                        'name' => 'Henri IV',
+                        'start_year' => 1589,
+                        'end_year' => 1610,
+                    ],
+                    [
+                        'name' => 'Louis XIII',
+                        'start_year' => 1610,
+                        'end_year' => 1643,
+                    ],
+                    [
+                        'name' => 'Louis XIV',
+                        'start_year' => 1643,
+                        'end_year' => 1715,
+                    ],
+                    [
+                        'name' => 'Louis XV',
+                        'start_year' => 1723,
+                        'end_year' => 1774,
+                    ],
+                    [
+                        'name' => 'Louis XVI',
+                        'start_year' => 1774,
+                        'end_year' => 1792,
+                    ],
+                    [
+                        'name' => 'Directoire et Consulat',
+                        'start_year' => 1795,
+                        'end_year' => 1804,
+                    ],
+                    // [
+                    //     'name' => 'Directoire',
+                    //     'start_year' => 1795,
+                    //     'end_year' => 1799,
+                    // ],
+                    // [
+                    //     'name' => 'Consulat',
+                    //     'start_year' => 1799,
+                    //     'end_year' => 1804,
+                    // ],
+                    [
+                        'name' => 'Empire',
+                        'start_year' => 1804,
+                        'end_year' => 1815,
+                    ],
+                    [
+                        'name' => 'Restauration',
+                        'start_year' => 1815,
+                        'end_year' => 1830,
+                    ],
+                    [
+                        'name' => 'Louis-Philippe',
+                        'start_year' => 1830,
+                        'end_year' => 1848,
+                    ],
+                    [
+                        'name' => 'Napoléon III',
+                        'start_year' => 1848,
+                        'end_year' => 1870,
+                    ],
+                ],
                 'materials' => Material::all(),
                 'productionOrigins' => ProductionOrigin::all(),
             ]);

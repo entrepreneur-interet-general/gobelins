@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { flatMap, compact } from "lodash";
+import flatMap from "lodash/flatMap";
+import compact from "lodash/compact";
 const treeFlatten = require("tree-flatten");
 import Cross from "./Cross";
 

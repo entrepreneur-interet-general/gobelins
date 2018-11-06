@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
-import { find } from "lodash";
+import find from "lodash/find";
 
 const ProductTypeNullObject = {
   id: null,
