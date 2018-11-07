@@ -10,6 +10,7 @@ import Styles from "./Styles.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
 import Authors from "./Authors.jsx";
 import Periods from "./Periods.jsx";
+import Dimensions from "./Dimensions.jsx";
 import Loader from "../Loader.jsx";
 
 class FilterPanelDesktop extends Component {
@@ -22,6 +23,7 @@ class FilterPanelDesktop extends Component {
       periods: window.__INITIAL_STATE__.periods,
       materials: window.__INITIAL_STATE__.materials,
       productionOrigins: window.__INITIAL_STATE__.productionOrigins,
+      dimensions: window.__INITIAL_STATE__.dimensions,
       filterPanelOpen: false,
       searchFieldValue:
         props.filterObj && props.filterObj.q ? props.filterObj.q : ""
@@ -233,6 +235,28 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               periodStartYear={this.props.filterObj.period_start_year}
               periodEndYear={this.props.filterObj.period_end_year}
+            />
+          ) : null}
+
+          {this.state.filterPanelOpen &&
+          this.state.openPanel === "Dimensions" ? (
+            <Dimensions
+              onFilterAdd={this.props.onFilterAdd}
+              dimensions={this.state.dimensions}
+              length_or_diameter_lte={
+                this.props.filterObj.length_or_diameter_lte
+              }
+              length_or_diameter_gte={
+                this.props.filterObj.length_or_diameter_gte
+              }
+              depth_or_width_lte={this.props.filterObj.depth_or_width_lte}
+              depth_or_width_gte={this.props.filterObj.depth_or_width_gte}
+              height_or_thickness_lte={
+                this.props.filterObj.height_or_thickness_lte
+              }
+              height_or_thickness_gte={
+                this.props.filterObj.height_or_thickness_gte
+              }
             />
           ) : null}
         </CSSTransitionGroup>

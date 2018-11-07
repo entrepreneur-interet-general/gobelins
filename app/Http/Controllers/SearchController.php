@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Author;
 use App\Models\Period;
@@ -100,6 +101,11 @@ class SearchController extends Controller
                 ],
                 'materials' => Material::all(),
                 'productionOrigins' => ProductionOrigin::all(),
+                'dimensions' => [
+                    'max_height_or_thickness' => ceil(Product::max('height_or_thickness')),
+                    'max_depth_or_width' => ceil(Product::max('depth_or_width')),
+                    'max_length_or_diameter' => ceil(Product::max('length_or_diameter')),
+                ]
             ]);
         });
 
@@ -167,16 +173,33 @@ class SearchController extends Controller
         }
 
 
-        $dimensions = collect(['length_or_diameter', 'depth_or_width', 'height_or_thickness']);
+        // $dimensions = collect(['length_or_diameter', 'depth_or_width', 'height_or_thickness']);
+        // $sanitized_dimensions = [];
+        // $dimensions->filter(function ($d) use ($request) {
+        //     return $request->$d;
+        // })->map(function ($d) use ($request, &$filters, &$sanitized_dimensions) {
+        //     foreach (['gte', 'lte'] as $comparator) {
+        //         if (isset($request->input($d)[$comparator]) && is_numeric($request->input($d)[$comparator])) {
+        //             $filters[] = ['range' => [$d => [$comparator => (float) $request->input($d)[$comparator]]]];
+        //             $sanitized_dimensions[$d . '_' . $comparator] = (float) $request->input($d)[$comparator];
+        //         }
+        //     }
+        // });
+        $dimensions = collect(['length_or_diameter_lte',
+                               'length_or_diameter_gte',
+                               'depth_or_width_lte',
+                               'depth_or_width_gte',
+                               'height_or_thickness_lte',
+                               'height_or_thickness_gte']);
         $sanitized_dimensions = [];
         $dimensions->filter(function ($d) use ($request) {
             return $request->$d;
         })->map(function ($d) use ($request, &$filters, &$sanitized_dimensions) {
-            foreach (['gte', 'lte'] as $comparator) {
-                if (isset($request->input($d)[$comparator]) && is_numeric($request->input($d)[$comparator])) {
-                    $filters[] = ['range' => [$d => [$comparator => (float) $request->input($d)[$comparator]]]];
-                    $sanitized_dimensions[$d . '_' . $comparator] = (float) $request->input($d)[$comparator];
-                }
+            $dim = substr($d, 0, -4);
+            $comparator = substr($d, -3, 3);
+            if (is_numeric($request->input($d))) {
+                $filters[] = ['range' => [$dim => [$comparator => (float) $request->input($d)]]];
+                $sanitized_dimensions[$d] = (float) $request->input($d);
             }
         });
         

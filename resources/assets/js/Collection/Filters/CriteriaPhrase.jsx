@@ -25,6 +25,7 @@ class Criterion extends Component {
       >
         <span className="CriteriaPhrase__button-text">{this.props.label}</span>
         <span className="CriteriaPhrase__button-cross">
+          {String.fromCharCode(65279)}
           <Cross />
         </span>
       </span>
@@ -59,7 +60,13 @@ class CriteriaPhrase extends Component {
       <Criterion
         type="query"
         paramName="q"
-        label={"« " + this.props.filterObj.q + " »"}
+        label={
+          "«" +
+          String.fromCharCode(160) +
+          this.props.filterObj.q +
+          String.fromCharCode(160) +
+          "»"
+        }
         id={this.props.filterObj.q}
         key={"query_string"}
         onFilterRemove={this.props.onFilterRemove}
@@ -209,6 +216,41 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  extractDimensions() {
+    let out = [];
+    let first = "";
+    const dims = {
+      height_or_thickness: "hauteur",
+      depth_or_width: "largeur",
+      length_or_diameter: "longeur"
+    };
+    for (const dim in dims) {
+      if (
+        this.props.filterObj.hasOwnProperty(dim + "_lte") ||
+        this.props.filterObj.hasOwnProperty(dim + "_gte")
+      ) {
+        out.push(first + " de " + dims[dim] + " entre ");
+        out.push(
+          <Criterion
+            type="dimension"
+            paramName={dim + "_gte"}
+            label={
+              (this.props.filterObj[dim + "_gte"] || 0) +
+              " et " +
+              this.props.filterObj[dim + "_lte"] +
+              "m"
+            }
+            id={this.props.filterObj[dim + "_gte"]}
+            key={dim}
+            onFilterRemove={this.props.onFilterRemove}
+          />
+        );
+        first = " ou ";
+      }
+    }
+    return out;
+  }
+
   sentencize(arr, op) {
     let last = null;
     if (arr.length >= 2) {
@@ -228,7 +270,8 @@ class CriteriaPhrase extends Component {
         this.extractStyles(),
         this.extractProductionOrigins(),
         this.extractAuthors(),
-        this.extractPeriod()
+        this.extractPeriod(),
+        this.extractDimensions()
       ]),
       "et"
     );

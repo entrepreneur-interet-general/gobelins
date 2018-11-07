@@ -294,10 +294,19 @@ class Collection extends Component {
         delete filterObjAmended[filterToRemove.paramName];
       }
     } else {
+      let match;
       if (filterToRemove.paramName == "period_start_year") {
+        // Periods
         delete filterObjAmended.period_start_year;
         delete filterObjAmended.period_end_year;
+      } else if (
+        // Dimensions
+        (match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/))
+      ) {
+        delete filterObjAmended[match[1] + "lte"];
+        delete filterObjAmended[match[1] + "gte"];
       } else {
+        // Other: query string, etc.
         delete filterObjAmended[filterToRemove.paramName];
       }
     }
