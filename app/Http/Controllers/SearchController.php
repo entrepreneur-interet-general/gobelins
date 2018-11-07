@@ -144,18 +144,9 @@ class SearchController extends Controller
             $period_end_year = (int) $request->input('period_end_year');
             $filters[] = [
                 'bool' => [
-                    'should' => [
+                    'must' => [
                         ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
-                        [ 'bool' => ['must_not' => ['exists' => [ 'field' => 'period_start_year']]]],
-                    ]
-                ]
-            ];
-            
-            $filters[] = [
-                'bool' => [
-                    'should' => [
                         ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
-                        [ 'bool' => ['must_not' => ['exists' => [ 'field' => 'period_end_year']]]],
                     ]
                 ]
             ];
