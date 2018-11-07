@@ -184,6 +184,31 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  extractPeriod() {
+    let out;
+    if (
+      this.props.filterObj.hasOwnProperty("period_start_year") &&
+      this.props.filterObj.hasOwnProperty("period_end_year")
+    ) {
+      out = ["entre "];
+      out.push(
+        <Criterion
+          type="period"
+          paramName="period_start_year"
+          label={
+            this.props.filterObj.period_start_year +
+            " et " +
+            this.props.filterObj.period_end_year
+          }
+          id={this.props.filterObj.period_start_year}
+          key={"period"}
+          onFilterRemove={this.props.onFilterRemove}
+        />
+      );
+    }
+    return out;
+  }
+
   sentencize(arr, op) {
     let last = null;
     if (arr.length >= 2) {
@@ -202,7 +227,8 @@ class CriteriaPhrase extends Component {
         this.extractProductTypes(),
         this.extractStyles(),
         this.extractProductionOrigins(),
-        this.extractAuthors()
+        this.extractAuthors(),
+        this.extractPeriod()
       ]),
       "et"
     );

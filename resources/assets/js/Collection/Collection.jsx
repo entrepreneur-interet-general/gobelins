@@ -294,7 +294,12 @@ class Collection extends Component {
         delete filterObjAmended[filterToRemove.paramName];
       }
     } else {
-      delete filterObjAmended[filterToRemove.paramName];
+      if (filterToRemove.paramName == "period_start_year") {
+        delete filterObjAmended.period_start_year;
+        delete filterObjAmended.period_end_year;
+      } else {
+        delete filterObjAmended[filterToRemove.paramName];
+      }
     }
     this.handleFilterChange(filterObjAmended);
   }

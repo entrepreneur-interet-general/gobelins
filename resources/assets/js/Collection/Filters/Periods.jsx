@@ -8,8 +8,8 @@ class Periods extends Component {
     this.state = {
       min: props.periods[0].start_year,
       max: new Date().getFullYear(),
-      min_value: props.periods[0].start_year,
-      max_value: new Date().getFullYear()
+      min_value: props.periodStartYear || props.periods[0].start_year,
+      max_value: props.periodEndYear || new Date().getFullYear()
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,11 +20,18 @@ class Periods extends Component {
     ev.stopPropagation(); // To not close the filter panel.
     this.setState({ min_value: period.start_year, max_value: period.end_year });
 
-    // this.props.onFilterAdd({ style_ids: [style.id] });
+    this.props.onFilterAdd({
+      period_start_year: period.start_year,
+      period_end_year: period.end_year
+    });
   }
 
   handleChange(values) {
     this.setState({ min_value: values[0], max_value: values[1] });
+    this.props.onFilterAdd({
+      period_start_year: values[0],
+      period_end_year: values[1]
+    });
   }
 
   renderPeriodButton(p) {

@@ -39,6 +39,9 @@
   &.is-query {
     background-color: #f1f1f1;
   }
+  &.is-period {
+    background-color: $pink-light;
+  }
 }
 
 .CriteriaPhrase__button-cross {
