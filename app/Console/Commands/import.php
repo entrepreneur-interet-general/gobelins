@@ -50,6 +50,12 @@ class Import extends Command
      * displayed in the terminal after exit;
      */
     protected $report = [];
+    
+    
+    /**
+     * Any shared HTTP options, like auth…
+     */
+    protected $http_options = [];
 
     /**
      * Create a new command instance.
@@ -88,8 +94,8 @@ class Import extends Command
 
     private function setupProgressBar()
     {
-        $options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : null;
-        $response = $this->client->request('GET', '/api/products', $options);
+        $this->http_options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : null;
+        $response = $this->client->request('GET', '/api/products', $this->http_options);
         if ($response->getStatusCode() === 200) {
             $json_resp = json_decode($response->getBody());
             $this->progress_bar = $this->output->createProgressBar($json_resp->meta->total);
@@ -114,7 +120,7 @@ class Import extends Command
 
         do {
             try {
-                $response = $this->client->get($next_page);
+                $response = $this->client->request('GET', $next_page, $this->http_options);
                 if ($response->getStatusCode() === 200) {
                     // $this->comment('Received page: ' . $next_page);
                     
