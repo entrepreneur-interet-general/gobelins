@@ -122,6 +122,7 @@ class Product extends Model
         'inventory_root',
         'inventory_number',
         'inventory_suffix',
+        'height_or_thickness',
         'length_or_diameter',
         'depth_or_width',
         'conception_year',
