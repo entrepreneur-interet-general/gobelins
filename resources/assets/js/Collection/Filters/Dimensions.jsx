@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DimensionSlider from "./DimensionSlider";
 
 class Dimensions extends Component {
   constructor(props) {
@@ -15,56 +16,7 @@ class Dimensions extends Component {
       length_or_diameter_lte:
         props.length_or_diameter_lte || props.dimensions.max_length_or_diameter
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
     this.renderFormBlock = this.renderFormBlock.bind(this);
-  }
-
-  handleChange(type, event) {
-    this.setState({ [type]: event.target.value });
-  }
-
-  handleKeyDown(type, event) {
-    let filterObj = {};
-    if (event.keyCode == 13) {
-      this.handleUpdate(type);
-      //   [
-      //     "height_or_thickness_lte",
-      //     "height_or_thickness_gte",
-      //     "depth_or_width_lte",
-      //     "depth_or_width_gte",
-      //     "length_or_diameter_lte",
-      //     "length_or_diameter_gte"
-      //   ].forEach(val => {
-      //     if (this.state[val]) {
-      //       filterObj[val] = this.state[val];
-      //     }
-      //   });
-      //   if (Object.keys(filterObj).length > 0) {
-      //     this.props.onFilterAdd(filterObj);
-      //   }
-    }
-  }
-
-  handleBlur(type, event) {
-    // In case the user deleted the value, restore default ones.
-    let notEmptyValues = {};
-    if (this.state[type + "_gte"] == "") {
-      notEmptyValues[type + "_gte"] = 0;
-    }
-    if (this.state[type + "_lte"] == "") {
-      notEmptyValues[type + "_lte"] = this.props.dimensions["max_" + type];
-    }
-    this.handleUpdate(type);
-  }
-
-  handleUpdate(type) {
-    let filterObj = {};
-    filterObj[type + "_gte"] = this.state[type + "_gte"];
-    filterObj[type + "_lte"] = this.state[type + "_lte"];
-    this.props.onFilterAdd(filterObj);
   }
 
   renderFormBlock(dimension) {
@@ -73,27 +25,18 @@ class Dimensions extends Component {
         <div className="Dimensions__label">
           <b>{dimension[1]}</b> comprise entre
         </div>
-        <div className="Dimensions__inputs-line">
-          <div className="Dimensions__inputs-container">
-            <input
-              type="text"
-              value={this.state[dimension[0] + "_gte"]}
-              onChange={this.handleChange.bind(this, dimension[0] + "_gte")}
-              onKeyDown={this.handleKeyDown.bind(this, dimension[0])}
-              onBlur={this.handleBlur.bind(this, dimension[0])}
-              placeholder="0"
-            />
-            et
-            <input
-              type="text"
-              value={this.state[dimension[0] + "_lte"]}
-              onChange={this.handleChange.bind(this, dimension[0] + "_lte")}
-              onKeyDown={this.handleKeyDown.bind(this, dimension[0])}
-              onBlur={this.handleBlur.bind(this, dimension[0])}
-              placeholder={this.props.dimensions["max_" + dimension[0]]}
-            />
-          </div>
-          m.
+        <div className="Dimensions__slider-container">
+          <DimensionSlider
+            dimension={dimension[0]}
+            min={this.state[dimension[0] + "_gte"] || 0}
+            max={
+              this.state[dimension[0] + "_lte"] ||
+              this.props.dimensions["max_" + dimension[0]]
+            }
+            domainMin={0}
+            domainMax={this.props.dimensions["max_" + dimension[0]]}
+            onFilterAdd={this.props.onFilterAdd}
+          />
         </div>
       </div>
     );
