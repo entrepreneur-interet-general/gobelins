@@ -249,7 +249,7 @@ class CriteriaPhrase extends Component {
   }
 
   extractDimensions() {
-    let out = [];
+    let out;
     let first = "";
     const dims = {
       height_or_thickness: "hauteur",
@@ -261,6 +261,7 @@ class CriteriaPhrase extends Component {
         this.props.filterObj.hasOwnProperty(dim + "_lte") ||
         this.props.filterObj.hasOwnProperty(dim + "_gte")
       ) {
+        out = [];
         out.push(first + " de " + dims[dim] + " entre ");
         out.push(
           <Criterion
