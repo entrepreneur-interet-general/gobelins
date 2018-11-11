@@ -99,7 +99,8 @@ class SearchController extends Controller
                         'end_year' => 1870,
                     ],
                 ],
-                'materials' => Material::all(),
+                // 'materials' => Material::all(),
+                'materials' => Material::get()->toTree(),
                 'productionOrigins' => ProductionOrigin::all(),
                 'dimensions' => [
                     'max_height_or_thickness' => ceil(Product::max('height_or_thickness')),

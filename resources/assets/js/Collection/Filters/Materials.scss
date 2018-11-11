@@ -1,0 +1,122 @@
+.Materials {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  z-index: 1;
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFilterPanel-enter {
+    opacity: 0;
+  }
+  &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
+    opacity: 1;
+  }
+}
+
+.Materials__lvl1,
+.Materials__lvl1-item,
+.Materials__lvl2,
+.Materials__lvl2-item {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.Materials__lvl1 {
+  width: 288px;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: $blue-medium;
+  color: white;
+  list-style: none;
+}
+.Materials__lvl1-item,
+.Materials__lvl2-item {
+  padding-top: 40px;
+
+  & ~ li {
+    padding-top: 0;
+  }
+}
+.Materials__lvl1-item,
+.Materials__lvl2-item {
+  margin-bottom: 5px;
+}
+.Materials__lvl2-item {
+  //   padding-left: 25px;
+}
+
+.Materials__lvl1-item > button,
+.Materials__lvl2-item > button {
+  display: block;
+  width: 100%;
+  padding: 10px 10px 10px 60px;
+  box-sizing: border-box;
+  position: relative;
+  margin: 0;
+  @include f-sans;
+  font-weight: normal;
+  font-size: rem(15px);
+  line-height: rem(18px);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+  text-align: left;
+  border-right: 4px solid transparent;
+
+  //   &:hover {
+  //     font-weight: bold;
+  //   }
+  &.is-selected {
+    font-weight: bold;
+    border-right-color: $blue-dark;
+  }
+
+  &.has-children::after {
+    content: "▸";
+    position: absolute;
+    top: 50%;
+    right: calc(50px - 4px);
+    transform: translateY(-50%);
+    color: inherit;
+    opacity: 0.8;
+  }
+}
+
+.Materials__objcount {
+  margin-left: 5px;
+  font-size: rem(10px);
+}
+
+.Materials__lvl2 {
+  position: absolute;
+  top: 0;
+  left: 288px;
+  height: 100vh;
+  width: 288px;
+  background-color: $blue-dark;
+  padding-left: 25px;
+
+  //   &:before {
+  //     content: "Voir seulement :";
+  //     display: block;
+  //     padding-top: 50px;
+  //     padding-bottom: 16px;
+  //     padding-left: 35px;
+  //     @include f-sans;
+  //     font-size: rem(15px);
+  //     line-height: rem(18px);
+  //     font-weight: bold;
+  //   }
+
+  transition: opacity 0.15s ease-in-out;
+  &.desktopFilterPanel-enter {
+    opacity: 0;
+  }
+  &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
+    opacity: 1;
+  }
+}

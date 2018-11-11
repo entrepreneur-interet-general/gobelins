@@ -13,6 +13,8 @@ class Material extends Model
 
     protected $touches = ['products'];
 
+    protected $visible = ['name', 'id', 'children'];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

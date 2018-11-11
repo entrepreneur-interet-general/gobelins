@@ -5,13 +5,14 @@ import { CSSTransitionGroup } from "react-transition-group";
 import MagnifyingGlass from "./MagnifyingGlass.jsx";
 import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
+import Loader from "../Loader.jsx";
 import ProductTypes from "./ProductTypes.jsx";
-import Styles from "./Styles.jsx";
-import ProductionOrigins from "./ProductionOrigins.jsx";
 import Authors from "./Authors.jsx";
 import Periods from "./Periods.jsx";
+import Styles from "./Styles.jsx";
+import Materials from "./Materials.jsx";
+import ProductionOrigins from "./ProductionOrigins.jsx";
 import Dimensions from "./Dimensions.jsx";
-import Loader from "../Loader.jsx";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -97,7 +98,13 @@ class FilterPanelDesktop extends Component {
             <ul>
               <li>
                 <button
-                  className="is-product_type"
+                  className={
+                    "is-product_type" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "ProductTypes"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("ProductTypes", ev)}
                 >
                   Types d’objet
@@ -105,7 +112,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-author"
+                  className={
+                    "is-author" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "Authors"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("Authors", ev)}
                 >
                   Auteur
@@ -113,7 +126,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-period"
+                  className={
+                    "is-period" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "Periods"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("Periods", ev)}
                 >
                   Année de création
@@ -121,7 +140,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-style"
+                  className={
+                    "is-style" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "Styles"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("Styles", ev)}
                 >
                   Style
@@ -129,7 +154,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-material"
+                  className={
+                    "is-material" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "Materials"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("Materials", ev)}
                 >
                   Matière
@@ -137,7 +168,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-production_origin"
+                  className={
+                    "is-production_origin" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "ProductionOrigins"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("ProductionOrigins", ev)}
                 >
                   Lieu de production
@@ -145,7 +182,13 @@ class FilterPanelDesktop extends Component {
               </li>
               <li>
                 <button
-                  className="is-dimension"
+                  className={
+                    "is-dimension" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "Dimensions"
+                      ? " is-open"
+                      : "")
+                  }
                   onClick={ev => this.openPanel("Dimensions", ev)}
                 >
                   Dimensions
@@ -204,23 +247,6 @@ class FilterPanelDesktop extends Component {
             />
           ) : null}
 
-          {this.state.filterPanelOpen && this.state.openPanel === "Styles" ? (
-            <Styles
-              styles={this.state.styles}
-              onFilterAdd={this.props.onFilterAdd}
-              selectedIds={this.props.filterObj.style_ids || []}
-            />
-          ) : null}
-
-          {this.state.filterPanelOpen &&
-          this.state.openPanel === "ProductionOrigins" ? (
-            <ProductionOrigins
-              productionOrigins={this.state.productionOrigins}
-              onFilterAdd={this.props.onFilterAdd}
-              selectedIds={this.props.filterObj.production_origin_ids || []}
-            />
-          ) : null}
-
           {this.state.filterPanelOpen && this.state.openPanel === "Authors" ? (
             <Authors
               authors={this.state.authors}
@@ -235,6 +261,33 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               periodStartYear={this.props.filterObj.period_start_year}
               periodEndYear={this.props.filterObj.period_end_year}
+            />
+          ) : null}
+
+          {this.state.filterPanelOpen && this.state.openPanel === "Styles" ? (
+            <Styles
+              styles={this.state.styles}
+              onFilterAdd={this.props.onFilterAdd}
+              selectedIds={this.props.filterObj.style_ids || []}
+            />
+          ) : null}
+
+          {this.state.filterPanelOpen &&
+          this.state.openPanel === "Materials" ? (
+            <Materials
+              materials={this.state.materials}
+              onFilterAdd={this.props.onFilterAdd}
+              onFilterChange={this.props.onFilterChange}
+              selectedIds={this.props.filterObj.material_ids || []}
+            />
+          ) : null}
+
+          {this.state.filterPanelOpen &&
+          this.state.openPanel === "ProductionOrigins" ? (
+            <ProductionOrigins
+              productionOrigins={this.state.productionOrigins}
+              onFilterAdd={this.props.onFilterAdd}
+              selectedIds={this.props.filterObj.production_origin_ids || []}
             />
           ) : null}
 

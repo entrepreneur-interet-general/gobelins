@@ -56,25 +56,32 @@
     line-height: rem(20px);
     text-align: left;
 
-    &.is-product_type:hover {
+    &.is-product_type:hover,
+    &.is-product_type.is-open {
       border-bottom-color: $pink-medium;
     }
-    &.is-author:hover {
+    &.is-author:hover,
+    &.is-author.is-open {
       border-bottom-color: $green-medium;
     }
-    &.is-period:hover {
+    &.is-period:hover,
+    &.is-period.is-open {
       border-bottom-color: $red-medium;
     }
-    &.is-style:hover {
+    &.is-style:hover,
+    &.is-style.is-open {
       border-bottom-color: $yellow-medium;
     }
-    &.is-material:hover {
+    &.is-material:hover,
+    &.is-material.is-open {
       border-bottom-color: $blue-medium;
     }
-    &.is-production_origin:hover {
+    &.is-production_origin:hover,
+    &.is-production_origin.is-open {
       border-bottom-color: $purple-medium;
     }
-    &.is-dimension:hover {
+    &.is-dimension:hover,
+    &.is-dimension.is-open {
       border-bottom-color: $petrol-medium;
     }
   }

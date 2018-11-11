@@ -41,7 +41,6 @@ class Collection extends Component {
 
     //
 
-    this.handleFilterChange = this.handleFilterChange.bind(this);
     this.buildEndpointUrl = this.buildEndpointUrl.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
     this.historyPushState = this.historyPushState.bind(this);
@@ -51,6 +50,8 @@ class Collection extends Component {
     this.handleAddFilter = this.handleAddFilter.bind(this);
     this.handleRemoveFilter = this.handleRemoveFilter.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.mergeAddedFilters = this.mergeAddedFilters.bind(this);
+    this.mergeRemovedFilters = this.mergeRemovedFilters.bind(this);
     this.buildSearchParamsFromParams = this.buildSearchParamsFromParams.bind(
       this
     );
@@ -222,12 +223,68 @@ class Collection extends Component {
     }
   }
 
-  handleAddFilter(filterObj) {
-    const filters = merge(this.state.filterObj, filterObj);
-    this.handleFilterChange(filters);
+  mergeAddedFilters(filterObj, currentStateFilterObj = null) {
+    return merge(currentStateFilterObj || this.state.filterObj, filterObj);
   }
 
-  handleFilterChange(filterObj) {
+  mergeRemovedFilters(filterToRemove, currentStateFilterObj = null) {
+    currentStateFilterObj = currentStateFilterObj || this.state.filterObj;
+    let filterValueToAmend = currentStateFilterObj[filterToRemove.paramName];
+    let filterObjAmended = currentStateFilterObj;
+    // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
+    // let filterObjAmended = this.state.filterObj;
+    if (filterValueToAmend instanceof Array) {
+      console.log("going to iterate on", filterToRemove.ids);
+
+      console.log("before filterValueToAmend", filterValueToAmend);
+      filterToRemove.ids.map(id => {
+        if (filterValueToAmend.indexOf(id) > 0) {
+          filterValueToAmend.splice(filterValueToAmend.indexOf(id), 1);
+        }
+      });
+      console.log("now filterValueToAmend", filterValueToAmend);
+
+      if (filterValueToAmend.length > 0) {
+        filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
+      } else {
+        delete filterObjAmended[filterToRemove.paramName];
+      }
+    } else {
+      let match;
+      if (filterToRemove.paramName == "period_start_year") {
+        // Periods
+        delete filterObjAmended.period_start_year;
+        delete filterObjAmended.period_end_year;
+      } else if (
+        // Dimensions
+        (match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/))
+      ) {
+        delete filterObjAmended[match[1] + "lte"];
+        delete filterObjAmended[match[1] + "gte"];
+      } else {
+        // Other: query string, etc.
+        delete filterObjAmended[filterToRemove.paramName];
+      }
+    }
+    return filterObjAmended;
+  }
+
+  handleAddFilter(filterObj) {
+    const mergedObj = this.mergeAddedFilters(filterObj);
+    console.log("handleAddFilter/mergedObj:", mergedObj);
+
+    this.commitFilterChange(mergedObj);
+  }
+
+  handleFilterChange(addedFiltersObj, removedFiltersObj) {
+    let filterObj;
+    filterObj = this.mergeRemovedFilters(removedFiltersObj);
+    filterObj = this.mergeAddedFilters(addedFiltersObj, filterObj);
+    console.log("handleFilterChange, final obj to commit:", filterObj);
+    this.commitFilterChange(filterObj);
+  }
+
+  commitFilterChange(filterObj) {
     let searchUrl = this.buildSearchParamsFromParams({
       ...filterObj,
       page: 1
@@ -281,36 +338,38 @@ class Collection extends Component {
   }
 
   handleRemoveFilter(filterToRemove) {
-    let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
-    let filterObjAmended = this.state.filterObj;
-    if (filterValueToAmend instanceof Array) {
-      filterValueToAmend.splice(
-        filterValueToAmend.indexOf(filterToRemove.id),
-        1
-      );
-      if (filterValueToAmend.length > 0) {
-        filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
-      } else {
-        delete filterObjAmended[filterToRemove.paramName];
-      }
-    } else {
-      let match;
-      if (filterToRemove.paramName == "period_start_year") {
-        // Periods
-        delete filterObjAmended.period_start_year;
-        delete filterObjAmended.period_end_year;
-      } else if (
-        // Dimensions
-        (match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/))
-      ) {
-        delete filterObjAmended[match[1] + "lte"];
-        delete filterObjAmended[match[1] + "gte"];
-      } else {
-        // Other: query string, etc.
-        delete filterObjAmended[filterToRemove.paramName];
-      }
-    }
-    this.handleFilterChange(filterObjAmended);
+    // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
+    // let filterObjAmended = this.state.filterObj;
+    // if (filterValueToAmend instanceof Array) {
+    //   filterValueToAmend.splice(
+    //     filterValueToAmend.indexOf(filterToRemove.id),
+    //     1
+    //   );
+    //   if (filterValueToAmend.length > 0) {
+    //     filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
+    //   } else {
+    //     delete filterObjAmended[filterToRemove.paramName];
+    //   }
+    // } else {
+    //   let match;
+    //   if (filterToRemove.paramName == "period_start_year") {
+    //     // Periods
+    //     delete filterObjAmended.period_start_year;
+    //     delete filterObjAmended.period_end_year;
+    //   } else if (
+    //     // Dimensions
+    //     (match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/))
+    //   ) {
+    //     delete filterObjAmended[match[1] + "lte"];
+    //     delete filterObjAmended[match[1] + "gte"];
+    //   } else {
+    //     // Other: query string, etc.
+    //     delete filterObjAmended[filterToRemove.paramName];
+    //   }
+    // }
+    const filterObj = this.mergeRemovedFilters(filterToRemove);
+    console.log("handleRemoveFilter/filterObj:", filterObj);
+    this.commitFilterChange(filterObj);
   }
 
   handleDisplayProduct(prod, event) {
@@ -347,6 +406,7 @@ class Collection extends Component {
             <Filters
               onFilterAdd={this.handleAddFilter}
               onFilterRemove={this.handleRemoveFilter}
+              onFilterChange={this.handleFilterChange}
               isLoadingURL={this.isLoadingSearch.bind(
                 this,
                 this.buildSearchParamsFromState()

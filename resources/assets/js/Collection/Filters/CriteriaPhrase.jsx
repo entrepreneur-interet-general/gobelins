@@ -19,7 +19,7 @@ class Criterion extends Component {
         className={"CriteriaPhrase__button is-" + this.props.type}
         onClick={this.props.onFilterRemove.bind(this.props.onFilterRemove, {
           type: this.props.type,
-          id: this.props.id,
+          ids: [this.props.id],
           paramName: this.props.paramName
         })}
       >
@@ -51,6 +51,7 @@ class CriteriaPhrase extends Component {
 
     this.extractProductTypes = this.extractProductTypes.bind(this);
     this.extractStyles = this.extractStyles.bind(this);
+    this.extractMaterials = this.extractMaterials.bind(this);
     this.extractProductionOrigins = this.extractProductionOrigins.bind(this);
   }
 
@@ -155,6 +156,34 @@ class CriteriaPhrase extends Component {
       );
       out = this.sentencize(out, "ou de");
       out.unshift(" de ");
+    }
+
+    return out;
+  }
+
+  extractMaterials() {
+    let out;
+
+    if (
+      this.props.filterObj.hasOwnProperty("material_ids") &&
+      this.props.filterObj.material_ids.length > 0
+    ) {
+      out = [].concat(
+        this.state.materials
+          .filter(s => this.props.filterObj.material_ids.includes(s.id))
+          .map(s => (
+            <Criterion
+              type="material"
+              paramName="material_ids"
+              label={s.name.toLowerCase()}
+              id={s.id}
+              key={"material_" + s.id}
+              onFilterRemove={this.props.onFilterRemove}
+            />
+          ))
+      );
+      out = this.sentencize(out, "ou en");
+      out.unshift(" en ");
     }
 
     return out;
@@ -268,6 +297,7 @@ class CriteriaPhrase extends Component {
         this.extractQueryString(),
         this.extractProductTypes(),
         this.extractStyles(),
+        this.extractMaterials(),
         this.extractProductionOrigins(),
         this.extractAuthors(),
         this.extractPeriod(),
