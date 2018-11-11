@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
-//import find from "lodash/find";
+import difference from "lodash/difference";
 
 const MaterialNullObject = {
   id: null,
@@ -31,28 +31,57 @@ class Materials extends Component {
   }
   handleSecondColumnClick(mat, ev) {
     ev.stopPropagation();
-    // if (this mat's parent is in the selected ids)
-    //      remove the parent's id
-    //      and add all the ids of the siblings of this mat
-    // else,
-    //      if (ALL the siblings of this mat are in the selected ids)
-    //          remove the sibling ids
-    //          add the parent's id
-    //      else
-    //          add this mat's id to the selected ids
-    //
-    this.props.onFilterAdd({ material_ids: [mat.id] });
+
+    // Is this material's parent selected ?
+    if (this.props.selectedIds.indexOf(this.state.expandedMaterial.id) >= 0) {
+      // Remove the parent id, and add all the siblings.
+      const filtersToDelete = {
+        type: "material",
+        ids: [this.state.expandedMaterial.id],
+        paramName: "material_ids"
+      };
+      this.props.onFilterChange(
+        // Add this id.
+        {
+          material_ids: this.state.expandedMaterial.children
+            .map(m => m.id)
+            .filter(id => id !== mat.id)
+        }, // Remove these ids.
+        filtersToDelete
+      );
+    } else {
+      const otherSiblings = this.state.expandedMaterial.children
+        .map(m => m.id)
+        .filter(id => id !== mat.id);
+
+      // Are all the siblings of this material already selected ?
+      if (difference(otherSiblings, this.props.selectedIds).length === 0) {
+        // We have a complete set, so we remove the ids of the siblings,
+        // and add the id of the parent.
+        const filtersToDelete = {
+          type: "material",
+          ids: otherSiblings,
+          paramName: "material_ids"
+        };
+        this.props.onFilterChange(
+          // Add this id.
+          { material_ids: [this.state.expandedMaterial.id] }, // Remove these ids.
+          filtersToDelete
+        );
+      } else {
+        // Default case: simply add the id of the material.
+        this.props.onFilterAdd({
+          material_ids: [mat.id]
+        });
+      }
+    }
   }
   handleAddAllClick(group, ev) {
-    // remove all the selected ids that are children of the group.
-    // add the id of this group.
     const filtersToDelete = {
       type: "material",
       ids: group.children.map(mat => mat.id),
       paramName: "material_ids"
     };
-    console.log("filtersToAdd", { material_ids: [group.id] });
-    console.log("filtersToDelete", filtersToDelete);
 
     this.props.onFilterChange(
       // Add this id.
@@ -62,14 +91,16 @@ class Materials extends Component {
     );
   }
 
-  renderSecondColumnItem(mat, i) {
+  renderSecondColumnItem(mat, parentIsSelected, i) {
     return (
       <li className="Materials__lvl2-item" key={i}>
         <button
           type="button"
-          onClick={ev => this.handleFirstColumnClick(mat, ev)}
+          onClick={ev => this.handleSecondColumnClick(mat, ev)}
           className={
-            this.state.expandedMaterial.id === mat.id ? "is-selected" : null
+            parentIsSelected || this.props.selectedIds.indexOf(mat.id) >= 0
+              ? "is-selected"
+              : null
           }
         >
           {mat.name}
@@ -80,7 +111,8 @@ class Materials extends Component {
 
   renderFirstColumnItem(mat, i) {
     let classes = "";
-    classes += this.state.expandedMaterial.id === mat.id ? " is-selected" : "";
+    classes +=
+      this.props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "";
     classes += mat.children.length > 0 ? " has-children" : "";
     return (
       <li className="Materials__lvl1-item" key={i}>
@@ -106,7 +138,7 @@ class Materials extends Component {
                   type="button"
                   onClick={ev => this.handleAddAllClick(mat, ev)}
                   className={
-                    this.state.expandedMaterial.id === mat.id
+                    this.props.selectedIds.indexOf(mat.id) >= 0
                       ? "is-selected"
                       : null
                   }
@@ -114,7 +146,13 @@ class Materials extends Component {
                   Tous
                 </button>
               </li>
-              {mat.children.map(this.renderSecondColumnItem)}
+              {mat.children.map((m, i) =>
+                this.renderSecondColumnItem(
+                  m,
+                  this.props.selectedIds.indexOf(mat.id) >= 0,
+                  i
+                )
+              )}
             </ul>
           ) : null}
         </CSSTransitionGroup>

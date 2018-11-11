@@ -234,15 +234,11 @@ class Collection extends Component {
     // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
     // let filterObjAmended = this.state.filterObj;
     if (filterValueToAmend instanceof Array) {
-      console.log("going to iterate on", filterToRemove.ids);
-
-      console.log("before filterValueToAmend", filterValueToAmend);
       filterToRemove.ids.map(id => {
-        if (filterValueToAmend.indexOf(id) > 0) {
+        if (filterValueToAmend.indexOf(id) >= 0) {
           filterValueToAmend.splice(filterValueToAmend.indexOf(id), 1);
         }
       });
-      console.log("now filterValueToAmend", filterValueToAmend);
 
       if (filterValueToAmend.length > 0) {
         filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
@@ -271,8 +267,6 @@ class Collection extends Component {
 
   handleAddFilter(filterObj) {
     const mergedObj = this.mergeAddedFilters(filterObj);
-    console.log("handleAddFilter/mergedObj:", mergedObj);
-
     this.commitFilterChange(mergedObj);
   }
 
@@ -280,7 +274,6 @@ class Collection extends Component {
     let filterObj;
     filterObj = this.mergeRemovedFilters(removedFiltersObj);
     filterObj = this.mergeAddedFilters(addedFiltersObj, filterObj);
-    console.log("handleFilterChange, final obj to commit:", filterObj);
     this.commitFilterChange(filterObj);
   }
 

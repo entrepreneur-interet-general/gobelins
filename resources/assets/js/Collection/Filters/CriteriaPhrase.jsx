@@ -45,6 +45,9 @@ class CriteriaPhrase extends Component {
       authors: window.__INITIAL_STATE__.authors,
       periods: window.__INITIAL_STATE__.periods,
       materials: window.__INITIAL_STATE__.materials,
+      flatMaterials: flatMap(window.__INITIAL_STATE__.materials, m => {
+        return treeFlatten(m, "children");
+      }),
       productionOrigins: window.__INITIAL_STATE__.productionOrigins,
       q: props.filterObj && props.filterObj.q ? props.filterObj.q : ""
     };
@@ -169,7 +172,7 @@ class CriteriaPhrase extends Component {
       this.props.filterObj.material_ids.length > 0
     ) {
       out = [].concat(
-        this.state.materials
+        this.state.flatMaterials
           .filter(s => this.props.filterObj.material_ids.includes(s.id))
           .map(s => (
             <Criterion

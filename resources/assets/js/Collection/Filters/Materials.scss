@@ -44,9 +44,6 @@
 .Materials__lvl2-item {
   margin-bottom: 5px;
 }
-.Materials__lvl2-item {
-  //   padding-left: 25px;
-}
 
 .Materials__lvl1-item > button,
 .Materials__lvl2-item > button {
@@ -99,18 +96,7 @@
   width: 288px;
   background-color: $blue-dark;
   padding-left: 25px;
-
-  //   &:before {
-  //     content: "Voir seulement :";
-  //     display: block;
-  //     padding-top: 50px;
-  //     padding-bottom: 16px;
-  //     padding-left: 35px;
-  //     @include f-sans;
-  //     font-size: rem(15px);
-  //     line-height: rem(18px);
-  //     font-weight: bold;
-  //   }
+  overflow-y: auto;
 
   transition: opacity 0.15s ease-in-out;
   &.desktopFilterPanel-enter {
