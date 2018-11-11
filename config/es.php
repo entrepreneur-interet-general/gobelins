@@ -121,7 +121,6 @@ return [
                             'properties' =>  [
                                 'id' => [
                                     'type' => 'long',
-                                    'index' => false,
                                 ],
                                 'first_name' => [
                                     'type' => 'text',
@@ -173,7 +172,6 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                             ],
                         ],
@@ -185,7 +183,6 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -205,7 +202,6 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                                 'label' => [
                                     'type' => 'text',
