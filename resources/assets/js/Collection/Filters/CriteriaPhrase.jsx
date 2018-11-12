@@ -321,7 +321,7 @@ class CriteriaPhrase extends Component {
         {this.allCriteria()}
         <span>
           {" "}
-          dans les collections du <strong>Mobilier National</strong>
+          dans les collections du <strong>Mobilier national</strong>
         </span>
       </div>
     );

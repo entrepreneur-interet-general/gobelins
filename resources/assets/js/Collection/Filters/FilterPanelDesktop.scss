@@ -27,6 +27,10 @@
 }
 .FilterPanelDesktop__filters-block {
   flex: 2 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: stretch;
   & ul {
     display: block;
     margin: 0;
@@ -89,9 +93,10 @@
 
 .FilterPanelDesktop__filters-label {
   padding-left: 40px;
-  @include f-sans;
-  font-size: rem(11px);
+  @include f-serif;
+  font-size: rem(15px);
   line-height: rem(17px);
+  color: #929292;
 }
 .FilterPanelDesktop__bottom-row {
   padding: 40px;
@@ -125,7 +130,7 @@
   }
 }
 .FilterPanelDesktop__autocomplete {
-  border-bottom: 1px solid $gray-min;
+  border-bottom: 1px dotted $gray-min;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -143,8 +148,8 @@
     background-color: transparent;
     border: 0;
 
-    @include f-sans;
-    font-size: rem(11px); // FIXME too small.
+    @include f-serif;
+    font-size: rem(15px);
     line-height: rem(35px);
   }
 }
@@ -168,10 +173,10 @@
 .FilterPanelDesktop__criteria-phrase {
   margin-top: 10px; // Keep 32px gap between baseline and autocomplete bottom border.
   @include f-serif;
-  font-size: rem(18px);
+  font-size: rem(15px);
   line-height: rem(32px);
-  & > strong {
-    font-weight: 600;
+  strong {
+    font-weight: normal;
   }
 }
 
