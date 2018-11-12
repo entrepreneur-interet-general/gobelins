@@ -256,7 +256,16 @@ class SearchController extends Controller
         };
         
         if (sizeof($filters) === 0 && empty($request->input('q'))) {
-            $body["query"] = ["match_all" => (object) null]; // TODO: randomize the default results.
+            // Randomize the default results.
+            // TODO: store the seed client-side, to have consistent
+            // random scoring across pagination.
+            $body["query"] = [
+                "function_score"=> [
+                    "functions" => [
+                        ["random_score"=> ["seed"=> time()]]
+                    ]
+                ]
+            ];
         }
 
 
