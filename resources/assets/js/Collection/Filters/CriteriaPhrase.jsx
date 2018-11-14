@@ -100,7 +100,7 @@ class CriteriaPhrase extends Component {
           ))
       );
       out = this.sentencize(out, "ou");
-      out.unshift(" de type ");
+      // out.unshift(" de type ");
     }
 
     return out;
@@ -248,7 +248,7 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
-  extractDimensions() {
+  extractDimension(dim) {
     let out;
     let first = "";
     const dims = {
@@ -256,30 +256,28 @@ class CriteriaPhrase extends Component {
       depth_or_width: "largeur",
       length_or_diameter: "longeur"
     };
-    for (const dim in dims) {
-      if (
-        this.props.filterObj.hasOwnProperty(dim + "_lte") ||
-        this.props.filterObj.hasOwnProperty(dim + "_gte")
-      ) {
-        out = [];
-        out.push(first + " de " + dims[dim] + " entre ");
-        out.push(
-          <Criterion
-            type="dimension"
-            paramName={dim + "_gte"}
-            label={
-              (this.props.filterObj[dim + "_gte"] || 0) +
-              " et " +
-              this.props.filterObj[dim + "_lte"] +
-              "m"
-            }
-            id={this.props.filterObj[dim + "_gte"]}
-            key={dim}
-            onFilterRemove={this.props.onFilterRemove}
-          />
-        );
-        first = " ou ";
-      }
+    if (
+      this.props.filterObj.hasOwnProperty(dim + "_lte") ||
+      this.props.filterObj.hasOwnProperty(dim + "_gte")
+    ) {
+      out = out || [];
+      out.push("entre ");
+      out.push(
+        <Criterion
+          type="dimension"
+          paramName={dim + "_gte"}
+          label={
+            (this.props.filterObj[dim + "_gte"] || 0) +
+            " et " +
+            this.props.filterObj[dim + "_lte"] +
+            "m"
+          }
+          id={this.props.filterObj[dim + "_gte"]}
+          key={dim}
+          onFilterRemove={this.props.onFilterRemove}
+        />
+      );
+      out.push(" de " + dims[dim]);
     }
     return out;
   }
@@ -305,11 +303,16 @@ class CriteriaPhrase extends Component {
         this.extractProductionOrigins(),
         this.extractAuthors(),
         this.extractPeriod(),
-        this.extractDimensions()
+        this.extractDimension("height_or_thickness"),
+        this.extractDimension("depth_or_width"),
+        this.extractDimension("length_or_diameter")
       ]),
       "et"
     );
-    if (out.length > 0) {
+    if (
+      out.length > 0 &&
+      !this.props.filterObj.hasOwnProperty("product_type_ids")
+    ) {
       out.unshift("Objets ");
     }
     return out;
