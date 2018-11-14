@@ -45,9 +45,12 @@
   cursor: pointer;
   text-align-last: left;
 
-  &:hover,
+  &:hover {
+    font-weight: 600;
+  }
   &.is-selected {
-    color: $yellow-dark;
+    // color: $yellow-dark;
+    font-weight: 700;
   }
 }
 .ProductionOrigins__double-col ul ul button {

@@ -41,7 +41,7 @@
 .ProductTypes__col1 li {
   margin-bottom: 5px;
 }
-.ProductTypes__col1 li li {
+.ProductTypes__col1 li li li {
   padding-left: 25px;
 }
 
@@ -55,22 +55,27 @@
   border: 0;
   cursor: pointer;
 
-  &:hover,
+  &:hover {
+    font-weight: 600;
+  }
   &.is-selected {
-    color: $pink-dark;
+    // color: $pink-dark;
+    font-weight: 700;
   }
 }
 .ProductTypes__col1 ul ul button {
-  &:hover,
+  &:hover {
+    font-weight: 600;
+  }
   &.is-selected {
-    color: white;
+    font-weight: bold;
   }
 }
-.ProductTypes__col1 button {
-  font-weight: bold;
+.ProductTypes__col1 button span {
+  border-bottom: 1px solid black;
 }
-.ProductTypes__col1 ul button {
-  font-weight: normal;
+.ProductTypes__col1 ul button span {
+  border: 0;
 }
 .ProductTypes__objcount {
   margin-left: 5px;

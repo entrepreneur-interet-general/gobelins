@@ -27,11 +27,14 @@ class FilterPanelDesktop extends Component {
       dimensions: window.__INITIAL_STATE__.dimensions,
       filterPanelOpen: false,
       searchFieldValue:
-        props.filterObj && props.filterObj.q ? props.filterObj.q : ""
+        props.filterObj && props.filterObj.q ? props.filterObj.q : "",
+      searchFieldPlaceholder: "Rechercher"
     };
     this.openPanel = this.openPanel.bind(this);
     this.closeFilterPanels = this.closeFilterPanels.bind(this);
     this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
+    this.handleSearchFieldFocus = this.handleSearchFieldFocus.bind(this);
+    this.handleSearchFieldBlur = this.handleSearchFieldBlur.bind(this);
     this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
   }
 
@@ -48,6 +51,12 @@ class FilterPanelDesktop extends Component {
 
   handleSearchFieldChange(ev) {
     this.setState({ searchFieldValue: ev.target.value });
+  }
+  handleSearchFieldFocus(ev) {
+    this.setState({ searchFieldPlaceholder: "mot-clé, date, artiste…" });
+  }
+  handleSearchFieldBlur(ev) {
+    this.setState({ searchFieldPlaceholder: "Rechercher" });
   }
 
   handleFullTextSearch(ev) {
@@ -72,10 +81,12 @@ class FilterPanelDesktop extends Component {
             >
               <div className="FilterPanelDesktop__input">
                 <input
-                  placeholder="Rechercher"
+                  placeholder={this.state.searchFieldPlaceholder}
                   type="text"
                   value={this.state.searchFieldValue}
                   onChange={this.handleSearchFieldChange}
+                  onFocus={this.handleSearchFieldFocus}
+                  onBlur={this.handleSearchFieldBlur}
                 />
               </div>
               <div className="FilterPanelDesktop__search">

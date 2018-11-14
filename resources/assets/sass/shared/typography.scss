@@ -22,6 +22,15 @@
 }
 
 @font-face {
+  font-family: "Source Sans Pro";
+  src: url(/fonts/SourceSansPro-Semibold.ttf.woff2) format("woff2"),
+    url(/fonts/SourceSansPro-Semibold.ttf.woff) format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Source Serif Pro";
   src: url(/fonts/SourceSerifPro-Regular.otf.woff2) format("woff2"),
     url(/fonts/SourceSerifPro-Regular.otf.woff) format("woff");

@@ -45,7 +45,7 @@ class ProductTypes extends Component {
               : null
           }
         >
-          {productType.name}
+          <span>{productType.name}</span>
           {/* <span className="ProductTypes__objcount">15340</span> */}
         </button>
         {productType.children.length > 0

@@ -19,7 +19,7 @@
   height: 100vh;
   width: 80px;
   box-sizing: border-box;
-  padding: 10px 0;
+  padding: 30px 0 20px;
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
@@ -41,6 +41,10 @@
   font-size: rem(11px);
   color: #0a3630;
   cursor: pointer;
+
+  &:hover {
+    font-weight: 600;
+  }
 }
 .Authors__double-col {
   display: block;
@@ -67,6 +71,9 @@
   padding-bottom: 20px;
   border-bottom: 1px solid $green-medium;
 
+  &:first-child {
+    padding-top: 0;
+  }
   &:last-child {
     border-bottom: 0;
     padding-bottom: 0;
@@ -92,17 +99,25 @@
   -webkit-font-smoothing: antialiased;
 
   strong {
-    font-weight: 600;
+    font-weight: normal;
   }
 
   &:hover,
+  &:hover strong {
+    font-weight: 600;
+  }
   &.is-selected {
-    color: $green-medium;
+    // color: $green-medium;
+    color: white;
+    font-weight: 700;
   }
 }
 .Authors__double-col ul ul button {
-  &:hover,
+  &:hover {
+    font-weight: 600;
+  }
   &.is-selected {
+    font-weight: 700;
     color: white;
   }
 }

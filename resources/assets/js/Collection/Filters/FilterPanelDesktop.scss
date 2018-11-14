@@ -26,7 +26,7 @@
   padding: 40px;
 }
 .FilterPanelDesktop__filters-block {
-  flex: 2 auto;
+  flex: 2 0 auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-end;
@@ -56,7 +56,7 @@
     cursor: pointer;
 
     @include f-serif;
-    font-size: rem(18px);
+    font-size: rem(15px);
     line-height: rem(20px);
     text-align: left;
 

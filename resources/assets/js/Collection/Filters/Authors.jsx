@@ -4,18 +4,6 @@ class Authors extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    // console.time("orderedByInitial");
-    // this.orderedByInitial = this.props.authors.map(a => {
-    //   const initial = a.last_name.charAt(0);
-    //   console.log("this.alphabet.get(initial)", this.alphabet.get(initial));
-
-    //   let arr = this.alphabet.get(initial);
-    //   arr.push(a);
-    //   this.alphabet.set(initial, arr);
-    //   return false;
-    // });
-    // console.timeEnd("orderedByInitial");
-    // debugger;
     Object.keys(this.props.authors).forEach(letter => {
       this["refLetter" + letter] = React.createRef();
     });
@@ -63,7 +51,7 @@ class Authors extends Component {
   handleAlphabetClick(letter, ev) {
     ev.stopPropagation();
     this["refLetter" + letter].current.scrollIntoView({
-      behavior: "smooth",
+      behavior: "auto", // could be "smooth".
       block: "start"
     });
   }

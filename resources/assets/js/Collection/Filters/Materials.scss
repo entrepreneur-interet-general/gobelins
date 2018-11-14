@@ -64,9 +64,9 @@
   text-align: left;
   border-right: 4px solid transparent;
 
-  //   &:hover {
-  //     font-weight: bold;
-  //   }
+  &:hover {
+    font-weight: 600;
+  }
   &.is-selected {
     font-weight: bold;
     border-right-color: $blue-dark;
