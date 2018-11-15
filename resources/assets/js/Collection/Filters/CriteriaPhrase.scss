@@ -1,4 +1,7 @@
 .CriteriaPhrase {
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .CriteriaPhrase__button {

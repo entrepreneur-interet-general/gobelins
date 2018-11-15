@@ -311,7 +311,8 @@ class CriteriaPhrase extends Component {
     );
     if (
       out.length > 0 &&
-      !this.props.filterObj.hasOwnProperty("product_type_ids")
+      !this.props.filterObj.hasOwnProperty("product_type_ids") &&
+      !this.props.filterObj.hasOwnProperty("q")
     ) {
       out.unshift("Objets ");
     }
