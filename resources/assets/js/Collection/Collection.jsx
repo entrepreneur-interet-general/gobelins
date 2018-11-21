@@ -94,6 +94,7 @@ class Collection extends Component {
 
   loadFromRemote(searchURL) {
     return fetch(process.env.MIX_COLLECTION_DSN + searchURL, {
+      credentials: "include",
       headers: {
         Accept: "application/json"
       }

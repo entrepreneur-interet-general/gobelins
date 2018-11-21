@@ -118,7 +118,7 @@ class FilterPanelDesktop extends Component {
                   }
                   onClick={ev => this.openPanel("ProductTypes", ev)}
                 >
-                  Types d’objet
+                  Type d’objet
                 </button>
               </li>
               <li>
@@ -202,7 +202,7 @@ class FilterPanelDesktop extends Component {
                   }
                   onClick={ev => this.openPanel("Dimensions", ev)}
                 >
-                  Dimensions
+                  Dimension
                 </button>
               </li>
             </ul>
