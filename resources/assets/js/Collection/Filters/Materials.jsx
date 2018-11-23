@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
+import ReactHoverObserver from "react-hover-observer";
 import difference from "lodash/difference";
 
 const MaterialNullObject = {
@@ -16,16 +17,25 @@ class Materials extends Component {
     this.renderFirstColumnItem = this.renderFirstColumnItem.bind(this);
     this.renderSecondColumnItem = this.renderSecondColumnItem.bind(this);
     this.handleFirstColumnClick = this.handleFirstColumnClick.bind(this);
+    this.handleHoverChange = this.handleHoverChange.bind(this);
     this.handleAddAllClick = this.handleAddAllClick.bind(this);
+  }
+
+  handleHoverChange(mat, { isHovering }) {
+    if (isHovering && mat.children.length > 0) {
+      this.setState({ expandedMaterial: mat });
+    } else if (isHovering && mat.children.length === 0) {
+      this.setState({ expandedMaterial: MaterialNullObject });
+    }
   }
 
   handleFirstColumnClick(mat, ev) {
     ev.stopPropagation();
     if (mat.children.length > 0) {
       // Expand the second column panel.
-      this.setState({ expandedMaterial: mat });
+      //   this.setState({ expandedMaterial: mat });
     } else {
-      this.setState({ expandedMaterial: MaterialNullObject });
+      //   this.setState({ expandedMaterial: MaterialNullObject });
       this.props.onFilterAdd({ material_ids: [mat.id] });
     }
   }
@@ -77,6 +87,7 @@ class Materials extends Component {
     }
   }
   handleAddAllClick(group, ev) {
+    ev.stopPropagation();
     const filtersToDelete = {
       type: "material",
       ids: group.children.map(mat => mat.id),
@@ -98,9 +109,10 @@ class Materials extends Component {
           type="button"
           onClick={ev => this.handleSecondColumnClick(mat, ev)}
           className={
-            parentIsSelected || this.props.selectedIds.indexOf(mat.id) >= 0
-              ? "is-selected"
-              : null
+            "Materials__lvl2-button" +
+            (parentIsSelected || this.props.selectedIds.indexOf(mat.id) >= 0
+              ? " is-selected"
+              : "")
           }
         >
           {mat.name}
@@ -110,52 +122,60 @@ class Materials extends Component {
   }
 
   renderFirstColumnItem(mat, i) {
-    let classes = "";
+    let classes = "Materials__lvl1-button";
     classes +=
       this.props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "";
     classes += mat.children.length > 0 ? " has-children" : "";
     return (
       <li className="Materials__lvl1-item" key={i}>
-        <button
-          type="button"
-          onClick={ev => this.handleFirstColumnClick(mat, ev)}
-          className={classes}
+        <ReactHoverObserver
+          hoverDelayInMs={300}
+          hoverOffDelayInMs={300}
+          onHoverChanged={this.handleHoverChange.bind(this, mat)}
+          shouldDecorateChildren={false}
         >
-          {mat.name}
-          {/* <span className="Materials__objcount">15340</span> */}
-        </button>
+          <button
+            type="button"
+            onClick={ev => this.handleFirstColumnClick(mat, ev)}
+            className={classes}
+          >
+            {mat.name}
+            {/* <span className="Materials__objcount">15340</span> */}
+          </button>
 
-        <CSSTransitionGroup
-          transitionName="desktopFilterPanel"
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        >
-          {mat.children.length > 0 &&
-          mat.id === this.state.expandedMaterial.id ? (
-            <ul className="Materials__lvl2">
-              <li className="Materials__lvl2-item" key="All">
-                <button
-                  type="button"
-                  onClick={ev => this.handleAddAllClick(mat, ev)}
-                  className={
-                    this.props.selectedIds.indexOf(mat.id) >= 0
-                      ? "is-selected"
-                      : null
-                  }
-                >
-                  Tous
-                </button>
-              </li>
-              {mat.children.map((m, i) =>
-                this.renderSecondColumnItem(
-                  m,
-                  this.props.selectedIds.indexOf(mat.id) >= 0,
-                  i
-                )
-              )}
-            </ul>
-          ) : null}
-        </CSSTransitionGroup>
+          <CSSTransitionGroup
+            transitionName="desktopFilterPanel"
+            transitionEnterTimeout={150}
+            transitionLeaveTimeout={150}
+          >
+            {mat.children.length > 0 &&
+            mat.id === this.state.expandedMaterial.id ? (
+              <ul className="Materials__lvl2">
+                <li className="Materials__lvl2-item" key="All">
+                  <button
+                    type="button"
+                    onClick={ev => this.handleAddAllClick(mat, ev)}
+                    className={
+                      "Materials__lvl2-button" +
+                      (this.props.selectedIds.indexOf(mat.id) >= 0
+                        ? " is-selected"
+                        : "")
+                    }
+                  >
+                    Tous
+                  </button>
+                </li>
+                {mat.children.map((m, i) =>
+                  this.renderSecondColumnItem(
+                    m,
+                    this.props.selectedIds.indexOf(mat.id) >= 0,
+                    i
+                  )
+                )}
+              </ul>
+            ) : null}
+          </CSSTransitionGroup>
+        </ReactHoverObserver>
       </li>
     );
   }
