@@ -92,7 +92,8 @@
   padding-left: 25px;
 
   &:before {
-    content: "Voir seulement :";
+    // content: "Voir seulement :";
+    content: "Tous";
     display: block;
     padding-top: 50px;
     padding-bottom: 16px;

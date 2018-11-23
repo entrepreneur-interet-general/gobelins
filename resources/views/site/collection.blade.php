@@ -16,13 +16,22 @@
                     de belles découvertes en attendant les versions ultérieures.
                 </p>
             </div>
-            <aside class="BetaWelcome__aparte BetaWelcome__purple">
-                Le Mobilier national est une institution publique, héritière
-                du garde-Meuble de la couronne, créé en 1604 par Henri IV
-                et réorganisé par Louis XIV.
-                Cette structure assure la conservation,
-                restauration et création de ses collections.  
-            </aside>
+            <div class="BetaWelcome__bottom">
+                <aside class="BetaWelcome__aparte BetaWelcome__purple">
+                    Le Mobilier national est une institution publique, héritière
+                    du garde-Meuble de la couronne, créé en 1604 par Henri IV
+                    et réorganisé par Louis XIV.
+                    Cette structure assure la conservation,
+                    restauration et création de ses collections.  
+                </aside>
+                <div class="BetaWelcome__arrow-container">
+                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" class="BetaWelcome__arrow-down">
+                        <path d="M14 9L7.5171 15" stroke="#FF9090" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M1 9L7.4829 15" stroke="#FF9090" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="7.5" y1="0.5" x2="7.5" y2="14.5" stroke="#FF9090" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
         </div>
     </section>
     <div id="root">

@@ -70,9 +70,30 @@
     color: $salmon;
   }
 
-  .BetaWelcome__aparte {
-    flex: 0 0 auto;
+  .BetaWelcome__bottom {
     margin-bottom: rem(30px);
+    @include breakpoint($small-up) {
+      display: flex;
+      flex-flow: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: rem(60px);
+    }
+  }
+  .BetaWelcome__arrow-container {
+    height: 100px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    @include breakpoint($small-up) {
+      display: block;
+      height: auto;
+      margin-right: calc(((100vw - (60px * 2)) - 730px) / 2);
+    }
+  }
+  .BetaWelcome__aparte {
+    flex: 0 1 auto;
 
     @include f-sans;
     color: $purple;
@@ -81,7 +102,6 @@
 
     @include breakpoint($small-up) {
       width: 475px;
-      margin-bottom: rem(60px);
       font-size: rem(20px);
       line-height: rem(27px);
     }

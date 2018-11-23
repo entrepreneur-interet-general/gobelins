@@ -73,6 +73,7 @@
   }
 
   &.has-children::after {
+    display: none;
     content: "▸";
     position: absolute;
     top: 50%;
