@@ -62,7 +62,7 @@
 
     &.is-product_type:hover,
     &.is-product_type.is-open {
-      border-bottom-color: $pink-medium;
+      border-bottom-color: $pink-light;
     }
     &.is-author:hover,
     &.is-author.is-open {
@@ -93,10 +93,11 @@
 
 .FilterPanelDesktop__filters-label {
   padding-left: 40px;
+  padding-bottom: 6px;
   @include f-serif;
   font-size: rem(15px);
   line-height: rem(17px);
-  color: #929292;
+  color: #767676;
 }
 .FilterPanelDesktop__bottom-row {
   padding: 40px;
