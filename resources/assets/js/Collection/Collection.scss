@@ -5,11 +5,9 @@
 .has-uninitialized-BetaWelcome .Collection {
   position: relative;
   top: calc(100vh - 256px);
-  padding-top: 40px;
 }
 .has-initialized-BetaWelcome .Collection {
   position: static;
-  padding-top: 0;
 }
 
 .Collection__result {
