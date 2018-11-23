@@ -4,7 +4,7 @@
 
 .has-uninitialized-BetaWelcome .Collection {
   position: relative;
-  top: 100vh;
+  top: calc(100vh - 256px);
   padding-top: 40px;
 }
 .has-initialized-BetaWelcome .Collection {
