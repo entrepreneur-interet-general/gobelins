@@ -8,7 +8,7 @@
   box-sizing: border-box;
   background-color: $red-dark;
 
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.20s ease-in-out;
   &.desktopFilterPanel-enter {
     opacity: 0;
   }
@@ -123,7 +123,7 @@
   z-index: 3;
   @include f-sans;
   font-size: rem(15px);
-  color: black;
+  color: white;
 }
 .Periods__slider-track {
   position: absolute;
