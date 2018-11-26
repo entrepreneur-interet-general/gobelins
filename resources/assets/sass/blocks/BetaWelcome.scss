@@ -94,6 +94,7 @@
   }
   .BetaWelcome__aparte {
     flex: 0 1 auto;
+    padding-bottom :80px;
 
     @include f-sans;
     color: $purple;
