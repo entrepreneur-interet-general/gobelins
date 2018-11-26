@@ -69,6 +69,8 @@
   }
   &.is-selected {
     font-weight: bold;
+  }
+  &.is-hovered {
     border-right-color: $blue-dark;
   }
 

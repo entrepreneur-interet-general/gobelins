@@ -126,6 +126,7 @@ class Materials extends Component {
     classes +=
       this.props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "";
     classes += mat.children.length > 0 ? " has-children" : "";
+    classes += mat.id === this.state.expandedMaterial.id ? " is-hovered" : "";
     return (
       <li className="Materials__lvl1-item" key={i}>
         <ReactHoverObserver
