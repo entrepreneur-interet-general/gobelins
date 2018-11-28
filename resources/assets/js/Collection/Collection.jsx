@@ -131,10 +131,6 @@ class Collection extends Component {
     );
   }
 
-  handleFilterChange(filterObj) {
-    this.setState({ filterObj: filterObj, currentPage: 1 });
-  }
-
   handleLoading() {
     this.setState({ isLoading: true });
   }
@@ -314,7 +310,9 @@ class Collection extends Component {
             hits: this.searches[searchUrl].data.hits,
             hasMore: this.searches[searchUrl].data.hasMore,
             currentPage: 1,
-            isLoading: false
+            isLoading: false,
+            filterObj: filterObj,
+            totalHits: this.searches[searchUrl].data.totalHits
           }),
           () => {
             this.historyPushState();
