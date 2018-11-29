@@ -26,8 +26,7 @@ class FilterPanelDesktop extends Component {
       productionOrigins: window.__INITIAL_STATE__.productionOrigins,
       dimensions: window.__INITIAL_STATE__.dimensions,
       filterPanelOpen: false,
-      searchFieldValue:
-        props.filterObj && props.filterObj.q ? props.filterObj.q : "",
+      searchFieldValue: "",
       searchFieldPlaceholder: "Rechercher"
     };
     this.openPanel = this.openPanel.bind(this);
