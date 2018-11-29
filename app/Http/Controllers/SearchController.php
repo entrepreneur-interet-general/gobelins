@@ -232,6 +232,8 @@ class SearchController extends Controller
                         'materials.name^2',
                         'production_origin.name^2',
                         'acquisition_origin',
+                        'legacy_inventory_numbers.number',
+                        'legacy_inventory_numbers.comment',
                     ],
                 ],
             ];

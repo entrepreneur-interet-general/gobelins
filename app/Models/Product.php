@@ -103,17 +103,23 @@ class Product extends Model
             return $image->toSearchableArray();
         })->all();
     }
-
+    
     public function getSearchableStyleAttribute()
     {
         return $this->style ? $this->style->toSearchableArray() : [];
     }
-
+    
     public function getSearchableProductionOriginAttribute()
     {
         return $this->productionOrigin ? $this->productionOrigin->toSearchableArray() : [];
     }
-
+    
+    public function getSearchableLegacyInventoryNumbersAttribute()
+    {
+        return $this->legacyInventoryNumbers->map(function ($inv) {
+            return $inv->toSearchableArray();
+        })->all();
+    }
 
     // Fillables
 
@@ -193,6 +199,7 @@ class Product extends Model
             'length_or_diameter' => $this->length_or_diameter,
             'depth_or_width' => $this->depth_or_width,
             'height_or_thickness' => $this->height_or_thickness,
+            'legacy_inventory_numbers' => $this->searchableLegacyInventoryNumbers,
         ];
     }
 }
