@@ -18,7 +18,11 @@ function InventoryId(props) {
 function Authors(props) {
   const label_singular = "Auteur";
   const label_plural = "Auteurs";
-  if (props.authors && props.authors instanceof Array) {
+  if (
+    props.authors &&
+    props.authors instanceof Array &&
+    props.authors.length > 0
+  ) {
     const label = props.authors.length > 1 ? label_plural : label_singular;
     return (
       <DataUnitTemplate
@@ -51,7 +55,7 @@ function Style(props) {
 function Types(props) {
   const label_singular = "Type";
   const label_plural = "Types";
-  if (props.types && props.types instanceof Array) {
+  if (props.types && props.types instanceof Array && props.types.length > 0) {
     const label = props.types.length > 1 ? label_plural : label_singular;
     return (
       <DataUnitTemplate
@@ -73,7 +77,11 @@ function Period(props) {
 function Materials(props) {
   const label_singular = "Matière";
   const label_plural = "Matières";
-  if (props.materials && props.materials instanceof Array) {
+  if (
+    props.materials &&
+    props.materials instanceof Array &&
+    props.materials.length > 0
+  ) {
     const label = props.materials.length > 1 ? label_plural : label_singular;
     return (
       <DataUnitTemplate
