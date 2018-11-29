@@ -122,28 +122,28 @@ class SearchController extends Controller
         $filters = [];
 
         
-        $product_types = ProductType::all();
+        // $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
             $filters[] = ['terms' => ['product_types.id' => $product_type_ids]];
         }
         
-        $styles = Style::all();
+        // $styles = Style::all();
         $style_ids = [];
         if (is_array($request->input('style_ids'))) {
             $style_ids = $request->input('style_ids');
             $filters[] = ['terms' => ['style.id' => $style_ids]];
         }
 
-        $authors = Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get();
+        // $authors = Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get();
         $author_ids = [];
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
             $filters[] = ['terms' => ['authors.id' => $author_ids]];
         }
         
-        $periods = Period::orderBy('start_year', 'asc')->get();
+        // $periods = Period::orderBy('start_year', 'asc')->get();
         $period_start_year = false;
         $period_end_year = false;
         if (is_numeric($request->input('period_start_year')) && is_numeric($request->input('period_end_year'))) {
@@ -159,14 +159,14 @@ class SearchController extends Controller
             ];
         }
 
-        $materials = Material::all();
+        // $materials = Material::all();
         $material_ids = [];
         if (is_array($request->input('material_ids'))) {
             $material_ids = $request->input('material_ids');
             $filters[] = ['terms' => ['materials.id' => $material_ids]];
         }
 
-        $production_origins = ProductionOrigin::all();
+        // $production_origins = ProductionOrigin::all();
         $production_origin_ids = [];
         if (is_array($request->input('production_origin_ids'))) {
             $production_origin_ids = $request->input('production_origin_ids');
@@ -210,9 +210,9 @@ class SearchController extends Controller
                 'bool' => []
             ],
             'sort' => [
+                '_score',
                 // Display products with good images first, then bad images, then those without images.
                 ['image_quality_score' => 'desc'],
-                '_score'
             ]
         ];
         if ($request->input('q')) {
@@ -220,10 +220,20 @@ class SearchController extends Controller
                 'multi_match' => [
                     'query' => $request->input('q'),
                     'fields' => [
-                        'title_or_designation',
+                        'title_or_designation^2',
                         'description',
-                        'inventory_id',
-                        'conception_year',
+                        'inventory_id^3',
+                        'conception_year^2',
+                        'authors.first_name',
+                        'authors.last_name^3',
+                        'product_types.name^2',
+                        'period_name^2',
+                        'style.name^2',
+                        'materials.name^2',
+                        'production_origin.name^2',
+                        'acquisition_origin',
+                        'legacy_inventory_numbers.number',
+                        'legacy_inventory_numbers.comment',
                     ],
                 ],
             ];
@@ -266,6 +276,7 @@ class SearchController extends Controller
                     ]
                 ]
             ];
+            $body["sort"] = [['image_quality_score' => 'desc'], '_score'];
         }
 
 

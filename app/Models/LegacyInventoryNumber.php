@@ -17,4 +17,17 @@ class LegacyInventoryNumber extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    /**
+     * Data stored in Elasticsearch
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'number' => $this->number,
+            'comment' => $this->comment,
+        ];
+    }
 }

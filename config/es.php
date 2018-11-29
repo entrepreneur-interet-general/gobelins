@@ -92,6 +92,14 @@ return [
                             'type' => 'text',
                             'analyzer' => 'french',
                         ],
+                        'acquisition_origin' => [
+                            'type' => 'text',
+                            'analyzer' => 'french',
+                        ],
+                        'acquisition_date' => [
+                            'type' => 'text',
+                            'analyzer' => 'standard',
+                        ],
                         'inventory_id' => [
                             'type' => 'text',
                             'analyzer' => 'standard',
@@ -104,7 +112,6 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -220,6 +227,19 @@ return [
                         'height_or_thickness' => [
                             'type' => 'scaled_float',
                             'scaling_factor' => 1000,
+                        ],
+                        'legacy_inventory_numbers' => [
+                            'type' => 'object',
+                            'properties' =>  [
+                                'number' => [
+                                    'type' => 'text',
+                                    'analyzer' => 'standard',
+                                ],
+                                'comment' => [
+                                    'type' => 'text',
+                                    'analyzer' => 'standard',
+                                ]
+                            ]
                         ],
                     ]
                 ]
