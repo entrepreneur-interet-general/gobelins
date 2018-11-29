@@ -95,10 +95,24 @@ function ProductionOrigin(props) {
   ) : null;
 }
 
+/* By default, values are in meters. */
 function Dimensions(props) {
-  const dims = [props.l, props.w, props.h];
-  return props.dimensions ? (
-    <DataUnitTemplate label="Dimensions" value={dims.join("×") + " cm"} />
+  const has_dims = props.l || props.w || props.h; // values can be null!
+  let dims = [
+    parseFloat(props.l || 0),
+    parseFloat(props.w || 0),
+    parseFloat(props.h || 0)
+  ];
+  const is_small = has_dims && dims.filter(d => d > 0 && d < 1).length > 0;
+  dims = is_small ? dims.map(d => d * 100) : dims;
+  const unit = is_small ? "cm" : "m";
+  return has_dims ? (
+    <DataUnitTemplate
+      label="Dimensions"
+      value={
+        dims.map(d => d.toString().replace(".", ",")).join(" × ") + " " + unit
+      }
+    />
   ) : null;
 }
 
