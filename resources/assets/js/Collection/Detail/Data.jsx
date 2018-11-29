@@ -108,7 +108,7 @@ function Dimensions(props) {
   const unit = is_small ? "cm" : "m";
   return has_dims ? (
     <DataUnitTemplate
-      label="Dimensions"
+      label="Dimensions (L × l × h)"
       value={
         dims.map(d => d.toString().replace(".", ",")).join(" × ") + " " + unit
       }
