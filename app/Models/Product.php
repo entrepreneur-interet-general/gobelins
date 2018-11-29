@@ -176,6 +176,8 @@ class Product extends Model
             'denomination' => $this->denomination,
             'description' => $this->description,
             'bibliography' => $this->bibliography,
+            'acquisition_origin' => $this->acquisition_origin,
+            'acquisition_date' => $this->acquisition_date,
             'inventory_id' => $this->inventory_id,
             'product_types' => $this->searchableProductTypes,
             'authors' => $this->searchableAuthors,
