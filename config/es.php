@@ -92,6 +92,14 @@ return [
                             'type' => 'text',
                             'analyzer' => 'french',
                         ],
+                        'acquisition_origin' => [
+                            'type' => 'text',
+                            'analyzer' => 'french',
+                        ],
+                        'acquisition_date' => [
+                            'type' => 'text',
+                            'analyzer' => 'standard',
+                        ],
                         'inventory_id' => [
                             'type' => 'text',
                             'analyzer' => 'standard',

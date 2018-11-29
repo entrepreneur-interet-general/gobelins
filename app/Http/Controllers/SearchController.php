@@ -231,6 +231,7 @@ class SearchController extends Controller
                         'style.name^2',
                         'materials.name^2',
                         'production_origin.name^2',
+                        'acquisition_origin',
                     ],
                 ],
             ];
