@@ -104,7 +104,6 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
