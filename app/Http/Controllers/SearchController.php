@@ -210,9 +210,9 @@ class SearchController extends Controller
                 'bool' => []
             ],
             'sort' => [
+                '_score',
                 // Display products with good images first, then bad images, then those without images.
                 ['image_quality_score' => 'desc'],
-                '_score'
             ]
         ];
         if ($request->input('q')) {
@@ -276,6 +276,7 @@ class SearchController extends Controller
                     ]
                 ]
             ];
+            $body["sort"] = [['image_quality_score' => 'desc'], '_score'];
         }
 
 
