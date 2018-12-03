@@ -71,6 +71,14 @@ return [
             'settings' => [
                 'number_of_shards' => 1,
                 'number_of_replicas' => 0,
+                'analysis' => [
+                    'analyzer' => [
+                        'author_name_analyzer' => [
+                            'type'=> 'standard',
+                            'stopwords'=> ['de', 'le', 'et', 'da', 'l', 'd']
+                        ]
+                    ]
+                ],
             ],
 
             'mappings' => [
@@ -112,6 +120,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'french',
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -131,9 +140,11 @@ return [
                                 ],
                                 'first_name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'author_name_analyzer',
                                 ],
                                 'last_name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'author_name_analyzer',
                                 ],
                             ],
                         ],
@@ -179,6 +190,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'french',
                                 ],
                             ],
                         ],
@@ -190,6 +202,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'french',
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -209,6 +222,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
+                                    'analyzer' => 'french',
                                 ],
                                 'label' => [
                                     'type' => 'text',
@@ -237,7 +251,7 @@ return [
                                 ],
                                 'comment' => [
                                     'type' => 'text',
-                                    'analyzer' => 'standard',
+                                    'analyzer' => 'french',
                                 ]
                             ]
                         ],

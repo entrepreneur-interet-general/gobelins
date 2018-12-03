@@ -206,30 +206,35 @@ class SearchController extends Controller
         
         $body = [
             'query' => [
-                // Filter terms are boolean AND i.e. "must".
-                'bool' => []
-            ],
-            'sort' => [
-                '_score',
-                // Display products with good images first, then bad images, then those without images.
-                ['image_quality_score' => 'desc'],
+                'function_score' => [
+                    'field_value_factor' => [
+                        // Display products with good images first, then bad images, then those without images.
+                        'field' => 'image_quality_score',
+                        'factor' => 1.2,
+                        'missing' => 1
+                    ],
+                    'query' => [
+                        // Filter terms are boolean AND i.e. "must".
+                        'bool' => []
+                    ]
+                ]
             ]
         ];
         if ($request->input('q')) {
-            $body['query']['bool']['must'] = [
+            $body['query']['function_score']['query']['bool']['must'] = [
                 'multi_match' => [
                     'query' => $request->input('q'),
                     'fields' => [
-                        'title_or_designation^2',
+                        'title_or_designation',
                         'description',
                         'inventory_id^3',
                         'conception_year^2',
                         'authors.first_name',
-                        'authors.last_name^3',
-                        'product_types.name^2',
+                        'authors.last_name^10',
+                        'product_types.name^10',
                         'period_name^2',
                         'style.name^2',
-                        'materials.name^2',
+                        'materials.name^10',
                         'production_origin.name^2',
                         'acquisition_origin',
                         'legacy_inventory_numbers.number',
@@ -239,7 +244,7 @@ class SearchController extends Controller
             ];
         }
         if (sizeof($filters) > 0) {
-            $body['query']['bool']['filter'] = $filters;
+            $body['query']['function_score']['query']['bool']['filter'] = $filters;
         }
 
         // Aggregations.
@@ -298,6 +303,7 @@ class SearchController extends Controller
                 'nextPageUrl' => $pagination->nextPageUrl(),
                 'totalHits' => $pagination->total(),
                 'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
+                // 'queryBody' => $query->getBody() // DEBUG :)
             ]);
         }
         
