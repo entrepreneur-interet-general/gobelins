@@ -125,6 +125,17 @@ function Dimensions(props) {
   ) : null;
 }
 
+function Acquisition(props) {
+  return props.acquisitionOrigin || props.acquisitionDate ? (
+    <DataUnitTemplate
+      label="Acquisition"
+      value={[props.acquisitionDate, props.acquisitionOrigin]
+        .filter(Boolean)
+        .join(" — ")}
+    />
+  ) : null;
+}
+
 function LegacyInventoryNumbers(props) {
   return props.legacyInventoryNumbers ? (
     <DataUnitTemplate
@@ -159,6 +170,10 @@ function Data(props) {
         l={props.product.length_or_diameter}
         w={props.product.depth_or_width}
         h={props.product.height_or_thickness}
+      />
+      <Acquisition
+        acquisitionDate={props.product.acquisition_date}
+        acquisitionOrigin={props.product.acquisition_origin}
       />
       <LegacyInventoryNumbers
         legacyInventoryNumbers={props.product.legacy_inventory_numbers}
