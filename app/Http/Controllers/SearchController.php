@@ -157,6 +157,14 @@ class SearchController extends Controller
                     ]
                 ]
             ];
+            $filters[] = [
+                'bool' => [
+                    'must' => [
+                        ['range' => ['conception_year' => ['lte' => $period_end_year]]],
+                        ['range' => ['conception_year' => ['gte' => $period_start_year]]],
+                    ]
+                ]
+            ];
         }
 
         // $materials = Material::all();
@@ -207,6 +215,7 @@ class SearchController extends Controller
         $body = [
             'query' => [
                 'function_score' => [
+                    'boost_mode' => 'sum', // For when we have an initial score of 0.
                     'field_value_factor' => [
                         // Display products with good images first, then bad images, then those without images.
                         'field' => 'image_quality_score',

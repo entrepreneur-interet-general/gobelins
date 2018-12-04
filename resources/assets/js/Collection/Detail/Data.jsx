@@ -137,7 +137,9 @@ function Acquisition(props) {
 }
 
 function LegacyInventoryNumbers(props) {
-  return props.legacyInventoryNumbers ? (
+  return props.legacyInventoryNumbers &&
+    props.legacyInventoryNumbers instanceof Array &&
+    props.legacyInventoryNumbers.length > 0 ? (
     <DataUnitTemplate
       label="Anciens numéros d’inventaire"
       value={nl2br(

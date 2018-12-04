@@ -159,8 +159,7 @@ return [
                             'type' => 'short',
                         ],
                         'conception_year' => [
-                            'type' => 'text',
-                            'analyzer' => 'standard',
+                            'type' => 'short',
                         ],
                         'images' => [
                             'type' => 'object',
