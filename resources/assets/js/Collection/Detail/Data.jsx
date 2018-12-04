@@ -1,4 +1,5 @@
 import React from "react";
+import nl2br from "react-nl2br";
 
 function DataUnitTemplate(props) {
   return (
@@ -124,6 +125,19 @@ function Dimensions(props) {
   ) : null;
 }
 
+function LegacyInventoryNumbers(props) {
+  return props.legacyInventoryNumbers ? (
+    <DataUnitTemplate
+      label="Anciens numéros d’inventaire"
+      value={nl2br(
+        props.legacyInventoryNumbers
+          .map(n => [n.number, n.comment].filter(Boolean).join(" — "))
+          .join("\n")
+      )}
+    />
+  ) : null;
+}
+
 function Data(props) {
   return (
     <section className="DetailData">
@@ -145,6 +159,9 @@ function Data(props) {
         l={props.product.length_or_diameter}
         w={props.product.depth_or_width}
         h={props.product.height_or_thickness}
+      />
+      <LegacyInventoryNumbers
+        legacyInventoryNumbers={props.product.legacy_inventory_numbers}
       />
     </section>
   );

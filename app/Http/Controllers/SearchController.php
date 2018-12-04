@@ -303,7 +303,7 @@ class SearchController extends Controller
                 'nextPageUrl' => $pagination->nextPageUrl(),
                 'totalHits' => $pagination->total(),
                 'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
-                // 'queryBody' => $query->getBody() // DEBUG :)
+                'queryBody' => \App::environment(['local', 'staging']) ? $query->getBody() : 'filtered',
             ]);
         }
         
