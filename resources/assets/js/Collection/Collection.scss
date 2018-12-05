@@ -122,7 +122,7 @@
   @include f-sans;
   font-size: rem(13px);
   line-height: rem(18px);
-  font-weight: bold;
+  font-weight: 600;
   color: $dark-gray;
 
   &:empty {
