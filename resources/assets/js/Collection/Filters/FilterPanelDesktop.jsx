@@ -6,7 +6,7 @@ import MagnifyingGlass from "./MagnifyingGlass.jsx";
 import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
 import Loader from "../Loader.jsx";
-import ProductTypes from "./ProductTypesNeue.jsx";
+import ProductTypes from "./ProductTypes.jsx";
 import Authors from "./Authors.jsx";
 import Periods from "./Periods.jsx";
 import Styles from "./Styles.jsx";
