@@ -428,6 +428,7 @@
   position: relative;
   background-color: #40b877;
   color: #fff;
+  max-height:550px;
   -webkit-font-smoothing: antialias;
   @include f-sans;
   font-size: rem(20px);
