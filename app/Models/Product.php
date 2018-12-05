@@ -185,6 +185,7 @@ class Product extends Model
             'acquisition_origin' => $this->acquisition_origin,
             'acquisition_date' => $this->acquisition_date,
             'inventory_id' => $this->inventory_id,
+            'inventory_id_as_keyword' => strtoupper($this->inventory_id),
             'product_types' => $this->searchableProductTypes,
             'authors' => $this->searchableAuthors,
             'period_name' => $this->period ? $this->period->name : null,

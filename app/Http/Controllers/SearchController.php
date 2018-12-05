@@ -121,6 +121,16 @@ class SearchController extends Controller
         
         $filters = [];
 
+        $inventory_roots = Cache::rememberForever('distinct_inventory_roots', function () {
+            $out = Product::select('inventory_root')
+                ->distinct()
+                ->get()
+                ->map(function ($p) {
+                    return $p->inventory_root;
+                })
+                ->sort()->values()->implode('|');
+            return '(' . $out . ')';
+        });
         
         // $product_types = ProductType::all();
         $product_type_ids = [];
@@ -230,27 +240,37 @@ class SearchController extends Controller
             ]
         ];
         if ($request->input('q')) {
-            $body['query']['function_score']['query']['bool']['must'] = [
-                'multi_match' => [
-                    'query' => $request->input('q'),
-                    'fields' => [
-                        'title_or_designation',
-                        'description',
-                        'inventory_id^3',
-                        'conception_year_as_text^2',
-                        'authors.first_name',
-                        'authors.last_name^10',
-                        'product_types.name^10',
-                        'period_name^2',
-                        'style.name^2',
-                        'materials.name^10',
-                        'production_origin.name^2',
-                        'acquisition_origin',
-                        'legacy_inventory_numbers.number',
-                        'legacy_inventory_numbers.comment',
+            if (preg_match('/^'.$inventory_roots.'[- ][0-9]+[- ][0-9]{3}$/i', $request->input('q'), $matches)) {
+                // Inventory id exact match
+                $body['query']['function_score']['query']['bool']['must'] = [
+                    'match' => [
+                        'inventory_id_as_keyword' => str_replace(' ', '-', strtoupper($request->input('q')))
+                    ]
+                ];
+            } else {
+                // Full text search
+                $body['query']['function_score']['query']['bool']['must'] = [
+                    'multi_match' => [
+                        'query' => $request->input('q'),
+                        'fields' => [
+                            'title_or_designation',
+                            'description',
+                            'inventory_id^3',
+                            'conception_year_as_text^2',
+                            'authors.first_name',
+                            'authors.last_name^10',
+                            'product_types.name^10',
+                            'period_name^2',
+                            'style.name^2',
+                            'materials.name^10',
+                            'production_origin.name^2',
+                            'acquisition_origin',
+                            'legacy_inventory_numbers.number',
+                            'legacy_inventory_numbers.comment',
+                        ],
                     ],
-                ],
-            ];
+                ];
+            }
         }
         if (sizeof($filters) > 0) {
             $body['query']['function_score']['query']['bool']['filter'] = $filters;
@@ -293,6 +313,9 @@ class SearchController extends Controller
             $body["sort"] = [['image_quality_score' => 'desc'], '_score'];
         }
 
+        if (\App::environment(['local', 'staging'])) {
+            $body['explain'] = true;
+        }
 
         $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
         $raw_aggs = $query->response()['aggregations']['all'];
@@ -304,6 +327,7 @@ class SearchController extends Controller
                 $aggs[$k][$b['key']] = $b['doc_count'];
             }
         }
+
 
 
         if ($request->wantsJson()) {

@@ -112,6 +112,9 @@ return [
                             'type' => 'text',
                             'analyzer' => 'standard',
                         ],
+                        'inventory_id_as_keyword' => [
+                            'type' => 'keyword',
+                        ],
                         'product_types' => [
                             'type' => 'object',
                             'properties' => [
