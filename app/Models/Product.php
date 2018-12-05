@@ -191,6 +191,7 @@ class Product extends Model
             'period_start_year' => $this->period ? $this->period->start_year : null,
             'period_end_year' => $this->period ? $this->period->end_year : null,
             'conception_year' => $this->conception_year,
+            'conception_year_as_text' => $this->conception_year ? (string) $this->conception_year : null,
             'images' => $this->searchableImages,
             'image_quality_score' => $this->imageQualityScore,
             'style' => $this->searchableStyle,

@@ -161,6 +161,10 @@ return [
                         'conception_year' => [
                             'type' => 'short',
                         ],
+                        'conception_year_as_text' => [
+                            'type' => 'text',
+                            'analyzer' => 'standard',
+                        ],
                         'images' => [
                             'type' => 'object',
                             'properties' =>  [

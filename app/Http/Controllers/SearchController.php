@@ -237,7 +237,7 @@ class SearchController extends Controller
                         'title_or_designation',
                         'description',
                         'inventory_id^3',
-                        //'conception_year^2',
+                        'conception_year_as_text^2',
                         'authors.first_name',
                         'authors.last_name^10',
                         'product_types.name^10',
