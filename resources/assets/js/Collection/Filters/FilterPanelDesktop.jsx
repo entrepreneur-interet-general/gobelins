@@ -145,7 +145,7 @@ class FilterPanelDesktop extends Component {
                   }
                   onClick={ev => this.openPanel("Periods", ev)}
                 >
-                  Année de création
+                  Période de création
                 </button>
               </li>
               <li>
