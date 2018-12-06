@@ -15,10 +15,10 @@ ATLAS	Beaux arts > Art graphique > Carte et plan
 BAHUT	Meuble > Rangement
 BALAI D'ATRE	
 BALDAQUIN	Meuble > Lit
-BANC	Siège > Banquette et tabouret  > Banc
-BANC D'ANGLE	Siège > Banquette et tabouret  > Banc
+BANC	Siège > Banquette et tabouret > Banc
+BANC D'ANGLE	Siège > Banquette et tabouret > Banc
 BANDEAU	
-BANQUETTE	Siège > Banquette et tabouret  > Banquette
+BANQUETTE	Siège > Banquette et tabouret > Banquette
 BAR	Meuble
 BARRE DE FOYER	
 BAS D'ARMOIRE	Meuble > Rangement > Armoire
@@ -294,7 +294,7 @@ LAMBRIS D'ANGLE
 LAMPADAIRE	Luminaire > Lampadaire
 LAMPE	Luminaire > Lampe
 LAMPE DE BUREAU	Luminaire > Lampe > Lampe de bureau
-LAMPE DE CHEVET	Luminaire > Lampe  > Lampe de chevet
+LAMPE DE CHEVET	Luminaire > Lampe > Lampe de chevet
 LANTERNE	Luminaire > Lanterne
 LAVABO	Meuble
 LE DE TISSU	Textile
@@ -638,8 +638,8 @@ TABLEAU	Beaux arts > Tableau
 TABLEAU MURAL D'AFFICHAGE	
 TABLEAU SOUS-VERRE ( CONTENANT DES MEDAILLES )	
 TABLEAU VITRAIL	
-TABOURET	Siège > Banquette et tabouret  > Tabouret
-TABOURET DE PIEDS	Siège > Banquette et tabouret  > Tabouret
+TABOURET	Siège > Banquette et tabouret > Tabouret
+TABOURET DE PIEDS	Siège > Banquette et tabouret > Tabouret
 TAPIS	Textile > Tapis
 TAPIS D'ORIENT	Textile > Tapis > Tapis d’orient
 TAPIS DE TABLE	Textile
