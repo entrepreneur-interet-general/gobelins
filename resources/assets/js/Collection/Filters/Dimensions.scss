@@ -47,10 +47,14 @@
   text-align: center;
 }
 .Dimensions__form-block {
-  margin-bottom: 85px;
+  margin-bottom: 120px;
 }
 .Dimensions__label {
   margin-bottom: 19px;
+  text-align: left;
+  padding-left: 45px;
+  padding-bottom: 15px;
+
 }
 .Dimensions__label,
 .Dimensions__inputs-line {
@@ -87,11 +91,11 @@
   position: absolute;
   width: 100%;
   height: 0;
-  border-bottom: 2px dotted #27667a;
+  border-bottom: 1px dotted #000000;
 }
 .Dimensions__slider-track {
   height: 2px;
-  background-color: #27667a;
+  background-color: #000000;
   position: absolute;
 }
 .Dimensions__slider-handles {
