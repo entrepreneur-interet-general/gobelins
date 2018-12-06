@@ -29,7 +29,7 @@
   list-style: none;
 }
 .ProductionOrigins__col-item {
-  padding: 4px 0 25px 10px;
+  padding: 4px 0 25px 0;
   margin: 0;
   list-style: none;
 }
@@ -61,8 +61,12 @@
 }
 .ProductionOrigins__name {
   display: block;
-  font-weight: bold;
+  font-weight: 600;
   text-align: left;
+  
+    &.is-selected {
+    font-weight: 700;
+  }
 }
 .ProductionOrigins__label {
   display: block;
