@@ -245,6 +245,7 @@ class FilterPanelDesktop extends Component {
             <ProductTypes
               productTypes={this.state.productTypes}
               onFilterAdd={this.props.onFilterAdd}
+              onFilterChange={this.props.onFilterChange}
               selectedIds={this.props.filterObj.product_type_ids || []}
               totalHitsComponent={
                 this.state.filterPanelOpen && !this.props.isLoading ? (
