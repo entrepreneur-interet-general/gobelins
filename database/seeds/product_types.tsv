@@ -1,129 +1,135 @@
 Siège
-Siège > Fauteuil
-Siège > Fauteuil > Bergère
-Siège > Fauteuil > Fauteuil de bureau
-Siège > Fauteuil > Fauteuil visiteur
-Siège > Fauteuil > Fauteuil confortable
-Siège > Fauteuil > Fauteuil de bridge
-Siège > Fauteuil > Fauteuil de veille
-Siège > Fauteuil > Fauteuil cabriolet
-Siège > Fauteuil > Fauteuil de jardin
-Siège > Fauteuil > Fauteuil à la reine
-Siège > Fauteuil > Marquise
-Siège > Chaise
-Siège > Chaise > Chaise à grille
-Siège > Chaise > Chaise longue
-Siège > Chaise > Chaise confortable
-Siège > Chaise > Chaise dactylo
-Siège > Chaise > Chaise cabriolet
-Siège > Chaise > Chaise lyre
+Siège > Banquette et tabouret
+Siège > Banquette et tabouret > Banc
+Siège > Banquette et tabouret > Banquette
+Siège > Banquette et tabouret > Pouf
+Siège > Banquette et tabouret > Tabouret
 Siège > Canapé
+Siège > Canapé > Canapé
 Siège > Canapé > Causeuse
 Siège > Canapé > Chauffeuse
 Siège > Canapé > Méridienne
-Siège > Banquette et tabouret
-Siège > Banquette et tabouret > Banquette
-Siège > Banquette et tabouret > Tabouret
-Siège > Banquette et tabouret > Banc
-Siège > Banquette et tabouret > Pouf
+Siège > Chaise
+Siège > Chaise > Chaise
+Siège > Chaise > Chaise à grille
+Siège > Chaise > Chaise cabriolet
+Siège > Chaise > Chaise confortable
+Siège > Chaise > Chaise dactylo
+Siège > Chaise > Chaise longue
+Siège > Chaise > Chaise lyre
+Siège > Fauteuil
+Siège > Fauteuil > Bergère
+Siège > Fauteuil > Fauteuil
+Siège > Fauteuil > Fauteuil à la reine
+Siège > Fauteuil > Fauteuil cabriolet
+Siège > Fauteuil > Fauteuil confortable
+Siège > Fauteuil > Fauteuil de bridge
+Siège > Fauteuil > Fauteuil de bureau
+Siège > Fauteuil > Fauteuil de jardin
+Siège > Fauteuil > Fauteuil de veille
+Siège > Fauteuil > Fauteuil visiteur
+Siège > Fauteuil > Marquise
 Meuble
-Meuble > Rangement
-Meuble > Rangement > Commode
-Meuble > Rangement > Bibliothèque
-Meuble > Rangement > Armoire
-Meuble > Rangement > Buffet
-Meuble > Rangement > Vitrine
-Meuble > Rangement > Casier
-Meuble > Rangement > Semainier
-Meuble > Rangement > Étagère
-Meuble > Rangement > Desserte
-Meuble > Rangement > Chiffonnier
-Meuble > Rangement > Vestiaire
 Meuble > Bureau
+Meuble > Bureau > Bureau
+Meuble > Bureau > Pupitre
 Meuble > Bureau > Secrétaire
 Meuble > Bureau > Table à écrire
-Meuble > Bureau > Pupitre
+Meuble > Lit
+Meuble > Lit > Lit
+Meuble > Lit > Lit de milieu
+Meuble > Lit > Lit de repos
+Meuble > Lit > Lit de travers
+Meuble > Miroir
+Meuble > Miroir > Miroir
+Meuble > Miroir > Psyché
+Meuble > Paravent et écran
+Meuble > Paravent et écran > Écran à feu
+Meuble > Paravent et écran > Paravent
+Meuble > Rangement
+Meuble > Rangement > Armoire
+Meuble > Rangement > Bibliothèque
+Meuble > Rangement > Buffet
+Meuble > Rangement > Casier
+Meuble > Rangement > Chiffonnier
+Meuble > Rangement > Commode
+Meuble > Rangement > Desserte
+Meuble > Rangement > Étagère
+Meuble > Rangement > Semainier
+Meuble > Rangement > Vestiaire
+Meuble > Rangement > Vitrine
 Meuble > Table
 Meuble > Table > Console
 Meuble > Table > Guéridon
-Meuble > Table > Table basse
-Meuble > Table > Table de chevet
-Meuble > Table > Table d’appoint
+Meuble > Table > Table
 Meuble > Table > Table à jeux
-Meuble > Table > Table de téléphone
+Meuble > Table > Table basse
+Meuble > Table > Table d’appoint
+Meuble > Table > Table de chevet
 Meuble > Table > Table de salon
+Meuble > Table > Table de téléphone
 Meuble > Table > Table gigogne
-Meuble > Lit
-Meuble > Lit > Lit de travers
-Meuble > Lit > Lit de milieu
-Meuble > Lit > Lit de repos
-Meuble > Miroir
-Meuble > Miroir > Psyché
-Meuble > Paravent et écran
-Meuble > Paravent et écran > Paravent
-Meuble > Paravent et écran > Écran à feu
 Luminaire
 Luminaire > Applique
+Luminaire > Chandelier
+Luminaire > Chandelier > Bougeoir
+Luminaire > Chandelier > Bouquet
+Luminaire > Chandelier > Candélabre
+Luminaire > Chandelier > Chandelier
+Luminaire > Chandelier > Flambeau
+Luminaire > Chandelier > Girandole
+Luminaire > Chandelier > Torchère
 Luminaire > Lampadaire
+Luminaire > Lampe
+Luminaire > Lampe > Lampe
+Luminaire > Lampe > Lampe de bureau
+Luminaire > Lampe > Lampe de chevet
+Luminaire > Lanterne
 Luminaire > Lustre et plafonnier
 Luminaire > Lustre et plafonnier > Lustre
 Luminaire > Lustre et plafonnier > Plafonnier
-Luminaire > Lampe
-Luminaire > Lampe > Lampe de bureau
-Luminaire > Lampe > Lampe de chevet
-Luminaire > Chandelier
-Luminaire > Chandelier > Candélabre
-Luminaire > Chandelier > Bougeoir
-Luminaire > Chandelier > Flambeau
-Luminaire > Chandelier > Bouquet
-Luminaire > Chandelier > Torchère
-Luminaire > Chandelier > Chandelier
-Luminaire > Chandelier > Girandole
-Luminaire > Lanterne
 Textile
+Textile > Broderie
+Textile > Dentelle
 Textile > Tapis
-Textile > Tapis > Tapis velours
+Textile > Tapis > Tapis d’orient
 Textile > Tapis > Tapis moquette
 Textile > Tapis > Tapis ras
 Textile > Tapis > Tapis tufté
-Textile > Tapis > Tapis d’orient
+Textile > Tapis > Tapis velours
 Textile > Tapisserie
 Textile > Tapisserie > Tapisserie de lice
 Textile > Tapisserie > Tapisserie pour mobilier
-Textile > Dentelle
-Textile > Broderie
 Textile > Tissu précieux
 Textile > Vêtement et accessoire
-Textile > Vêtement et accessoire > Vêtement
 Textile > Vêtement et accessoire > Accessoire
-Textile > Autre
-Textile > Autre > Rideau
-Textile > Autre > Tenture
+Textile > Vêtement et accessoire > Vêtement
 Beaux arts
 Beaux arts > Art graphique
+Beaux arts > Art graphique > Carte et plan
 Beaux arts > Art graphique > Dessin
 Beaux arts > Art graphique > Gravure
-Beaux arts > Art graphique > Photographie
 Beaux arts > Art graphique > Imprimé
-Beaux arts > Art graphique > Carte et plan
+Beaux arts > Art graphique > Photographie
 Beaux arts > Modèle pour tissage
+Beaux arts > Modèle pour tissage > Modèle pour garniture de meuble
+Beaux arts > Modèle pour tissage > Modèle pour garniture de siège
 Beaux arts > Modèle pour tissage > Modèle pour tapis
 Beaux arts > Modèle pour tissage > Modèle pour tapisserie
-Beaux arts > Modèle pour tissage > Modèle pour garniture de siège
-Beaux arts > Modèle pour tissage > Modèle pour garniture de meuble
 Beaux arts > Sculpture
+Beaux arts > Sculpture > Sculpture
 Beaux arts > Sculpture > Statue
 Beaux arts > Sculpture > Statuette
 Beaux arts > Tableau
 Objet décoratif
-Objet décoratif > Vase
-Objet décoratif > Horlogerie
-Objet décoratif > Horlogerie > Pendule
-Objet décoratif > Horlogerie > Horloge
 Objet décoratif > Art de la table
-Objet décoratif > Art de la table > Verrerie
 Objet décoratif > Art de la table > Coupe
-Objet décoratif > Art de la table > Plateau
-Objet décoratif > Art de la table > Service de table
 Objet décoratif > Art de la table > Plat
+Objet décoratif > Art de la table > Plateau
 Objet décoratif > Art de la table > Service à thé et à café
+Objet décoratif > Art de la table > Service de table
+Objet décoratif > Art de la table > Verrerie
+Objet décoratif > Horlogerie
+Objet décoratif > Horlogerie > Horloge
+Objet décoratif > Horlogerie > Pendule
+Objet décoratif > Vase
