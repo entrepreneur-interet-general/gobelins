@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import { source, target } from "react-aim";
 import difference from "lodash/difference";
 
+/*
+
+
+*/
+
 const ProductTypeNullObject = {
   id: null,
   children: []
@@ -20,78 +25,62 @@ class ProductTypes extends Component {
   handleFirstColClick(pt, ev) {
     ev.stopPropagation();
 
+    // Toggle this product type on/off
     if (this.props.selectedIds.indexOf(pt.id) >= 0) {
-      // We already are filtering with this product type. Noop.
-      return;
-    }
+      this.props.onFilterRemove({
+        type: "product_type",
+        ids: [pt.id],
+        paramName: "product_type_ids"
+      });
+    } else {
+      if (pt.children.length > 0) {
+        const childrenIds = pt.children.map(c => c.id);
+        const typesToRemove = this.props.selectedIds.filter(
+          id => childrenIds.indexOf(id) >= 0
+        );
 
-    if (pt.children.length > 0) {
-      const childrenIds = pt.children.map(c => c.id);
-      const typesToRemove = this.props.selectedIds.filter(
-        id => childrenIds.indexOf(id) >= 0
-      );
-
-      if (typesToRemove.length > 0) {
-        const removeObj = {
-          type: "product_type",
-          ids: typesToRemove,
-          paramName: "product_type_ids"
-        };
-        this.props.onFilterChange({ product_type_ids: [pt.id] }, removeObj);
+        if (typesToRemove.length > 0) {
+          const removeObj = {
+            type: "product_type",
+            ids: typesToRemove,
+            paramName: "product_type_ids"
+          };
+          this.props.onFilterChange({ product_type_ids: [pt.id] }, removeObj);
+        } else {
+          this.props.onFilterAdd({ product_type_ids: [pt.id] });
+        }
       } else {
         this.props.onFilterAdd({ product_type_ids: [pt.id] });
       }
-    } else {
-      this.props.onFilterAdd({ product_type_ids: [pt.id] });
     }
   }
 
   handleSecondColClick(pt, ev) {
     ev.stopPropagation();
 
-    if (this.props.selectedIds.indexOf(pt.id) >= 0) {
-      // We already are filtering with this product type. Noop.
-      return;
-    }
-
     // Is this product type's parent selected ?
     if (this.props.selectedIds.indexOf(this.state.expandedType.id) >= 0) {
-      // Remove the parent id, and add all the siblings.
+      // Remove the parent id, and add the clicked item.
       const filtersToDelete = {
         type: "product_type",
         ids: [this.state.expandedType.id],
         paramName: "product_type_ids"
       };
       this.props.onFilterChange(
-        // Add this id.
         {
-          product_type_ids: this.state.expandedType.children
-            .map(item => item.id)
-            .filter(id => id !== pt.id)
-        }, // Remove these ids.
+          product_type_ids: [pt.id]
+        },
         filtersToDelete
       );
     } else {
-      const otherSiblings = this.state.expandedType.children
-        .map(item => item.id)
-        .filter(id => id !== pt.id);
-
-      // Are all the siblings of this product type already selected ?
-      if (difference(otherSiblings, this.props.selectedIds).length === 0) {
-        // We have a complete set, so we remove the ids of the siblings,
-        // and add the id of the parent.
-        const filtersToDelete = {
+      // Simply toggle this product type on/off
+      if (this.props.selectedIds.indexOf(pt.id) >= 0) {
+        this.props.onFilterRemove({
           type: "product_type",
-          ids: otherSiblings,
+          ids: [pt.id],
           paramName: "product_type_ids"
-        };
-
-        this.props.onFilterChange(
-          { product_type_ids: [this.state.expandedType.id] },
-          filtersToDelete
-        );
+        });
       } else {
-        // Default case: simply add the id of the material.
         this.props.onFilterAdd({
           product_type_ids: [pt.id]
         });
@@ -148,19 +137,11 @@ class FirstColMenuItem extends Component {
   render() {
     return (
       <li className="ProductTypes__col1-item" key={this.props.productType.id}>
-        <button
-          type="button"
-          onClick={ev => this.props.onAddAllClick(this.props.productType, ev)}
-          className={
-            this.props.selectedIds.includes(this.props.productType.id) ||
-            this.props.expandedType.id === this.props.productType.id
-              ? "is-selected"
-              : null
-          }
-        >
+        <strong className="ProductTypes__col1-set">
           <span>{this.props.productType.name}</span>
-          {/* <span className="ProductTypes__objcount">15340</span> */}
-        </button>
+        </strong>
+        {/* <span className="ProductTypes__objcount">15340</span> */}
+
         {this.props.productType.children.length > 0 ? (
           <ul className="ProductTypes__col1-subitems">
             {this.props.productType.children.map(pt => (
@@ -168,6 +149,7 @@ class FirstColMenuItem extends Component {
                 productType={pt}
                 expandedType={this.props.expandedType}
                 selectedIds={this.props.selectedIds}
+                selected={this.props.selectedIds.indexOf(pt.id) >= 0}
                 onActiveSecondCol={this.props.onActiveSecondCol}
                 onFirstColClick={this.props.onFirstColClick}
                 onSecondColClick={this.props.onSecondColClick}
@@ -219,14 +201,17 @@ class FirstColMenuSubItem extends Component {
         <button
           type="button"
           onClick={ev => this.props.onFirstColClick(pt, ev)}
-          className={
-            this.props.selectedIds.includes(pt.id) ||
-            this.props.expandedType.id === pt.id
-              ? "is-selected"
-              : null
-          }
+          className={classes}
         >
           <span>{this.props.productType.name}</span>
+          <svg
+            width="6"
+            height="10"
+            fill="none"
+            className="ProductTypes__col1-chevron"
+          >
+            <path d="M1 1L5 5L1 9" stroke="currentColor" />
+          </svg>
           {/* <span className="ProductTypes__objcount">15340</span> */}
         </button>
         {secondCol}
@@ -250,9 +235,7 @@ class SecondColMenu extends Component {
           onClick={ev => this.props.onSecondColClick(pt, ev)}
           className={
             "ProductType__col2-button" +
-            (parentIsSelected || this.props.selectedIds.indexOf(pt.id) >= 0
-              ? " is-selected"
-              : "")
+            (this.props.selectedIds.indexOf(pt.id) >= 0 ? " is-selected" : "")
           }
         >
           {pt.name}

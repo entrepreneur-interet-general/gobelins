@@ -68,6 +68,8 @@
 // }
 
 .ProductTypes__col1 button {
+  display: block;
+  width: 100%;
   padding: 10px;
   margin: 0;
   @include f-sans;
@@ -76,25 +78,63 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
+  text-align: left;
+  border-right: 4px solid transparent;
 
-  &:hover {
+  // &:hover {
+  //   font-weight: 600;
+  // }
+
+  //////////////////////////
+  // TODO
+  // Hover states semi-bold of 1st column items;
+  // chevrons
+  // right borders
+  // Port to materials
+  // Port toggle to other filters.
+  ////////////////////////////
+
+  &.is-hovered {
     font-weight: 600;
   }
   &.is-selected {
-    // color: $pink-dark;
     font-weight: 700;
+  }
+  &.has-children.is-hovered {
+    border-right-color: $pink-medium;
   }
 }
 .ProductTypes__col1 ul ul button {
+  &.is-hovered,
   &:hover {
     font-weight: 600;
   }
   &.is-selected {
-    font-weight: bold;
+    font-weight: 700;
   }
 }
-.ProductTypes__col1 button span {
-  border-bottom: 1px solid black;
+.ProductTypes__col1-chevron {
+  display: none;
+  stroke: inherit;
+  float: right;
+  position: relative;
+  top: 6px;
+  right: 10px;
+  .has-children & {
+    display: block;
+  }
+}
+.ProductTypes__col1-set {
+  display: block;
+  font-weight: normal;
+  padding: 10px;
+  margin: 0;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(18px);
+  & span {
+    border-bottom: 1px solid black;
+  }
 }
 .ProductTypes__col1 ul button span {
   border: 0;
