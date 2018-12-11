@@ -81,7 +81,7 @@
   text-align: left;
   border-right: 4px solid transparent;
 
-  &.is-hovered {
+  &:hover {
     font-weight: 600;
   }
   &.is-selected {
