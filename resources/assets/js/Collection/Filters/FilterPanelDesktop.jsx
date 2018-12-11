@@ -263,6 +263,7 @@ class FilterPanelDesktop extends Component {
             <Authors
               authors={this.state.authors}
               onFilterAdd={this.props.onFilterAdd}
+              onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.author_ids || []}
             />
           ) : null}
@@ -280,6 +281,7 @@ class FilterPanelDesktop extends Component {
             <Styles
               styles={this.state.styles}
               onFilterAdd={this.props.onFilterAdd}
+              onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.style_ids || []}
             />
           ) : null}
@@ -290,6 +292,7 @@ class FilterPanelDesktop extends Component {
               materials={this.state.materials}
               onFilterAdd={this.props.onFilterAdd}
               onFilterChange={this.props.onFilterChange}
+              onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.material_ids || []}
             />
           ) : null}
@@ -299,6 +302,7 @@ class FilterPanelDesktop extends Component {
             <ProductionOrigins
               productionOrigins={this.state.productionOrigins}
               onFilterAdd={this.props.onFilterAdd}
+              onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.production_origin_ids || []}
             />
           ) : null}

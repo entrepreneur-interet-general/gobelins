@@ -81,19 +81,6 @@
   text-align: left;
   border-right: 4px solid transparent;
 
-  // &:hover {
-  //   font-weight: 600;
-  // }
-
-  //////////////////////////
-  // TODO
-  // Hover states semi-bold of 1st column items;
-  // chevrons
-  // right borders
-  // Port to materials
-  // Port toggle to other filters.
-  ////////////////////////////
-
   &.is-hovered {
     font-weight: 600;
   }
