@@ -10,7 +10,17 @@ class ProductionOrigins extends Component {
 
   handleClick(production_origin, ev) {
     ev.stopPropagation(); // To not close the filter panel.
-    this.props.onFilterAdd({ production_origin_ids: [production_origin.id] });
+    if (this.props.selectedIds.indexOf(production_origin.id) >= 0) {
+      this.props.onFilterRemove({
+        type: "production_origin",
+        ids: [production_origin.id],
+        paramName: "production_origin_ids"
+      });
+    } else {
+      this.props.onFilterAdd({
+        production_origin_ids: [production_origin.id]
+      });
+    }
   }
 
   renderListItem(production_origin) {

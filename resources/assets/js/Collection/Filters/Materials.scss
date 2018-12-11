@@ -81,7 +81,7 @@
   &.is-selected {
     font-weight: bold;
   }
-  &.is-hovered {
+  &.has-children.is-hovered {
     border-right-color: $blue-dark;
   }
 
