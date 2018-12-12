@@ -43,9 +43,7 @@ class Product extends Model
 
     public function productType()
     {
-        return $this->belongsTo(ProductType::class)->withDefault(function ($product) {
-            $product->branchIds = [];
-        });
+        return $this->belongsTo(ProductType::class);
     }
     
     public function style()
@@ -87,7 +85,7 @@ class Product extends Model
 
     public function getSearchableProductTypesAttribute()
     {
-        return $this->productType->toSearchableAncestorsAndSelf();
+        return $this->productType ? $this->productType->toSearchableAncestorsAndSelf() : [];
     }
 
     public function getSearchableAuthorsAttribute()

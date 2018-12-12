@@ -58,12 +58,10 @@ function Types(props) {
   const label_plural = "Types";
   if (props.types && props.types instanceof Array && props.types.length > 0) {
     const label = props.types.length > 1 ? label_plural : label_singular;
-    return (
-      <DataUnitTemplate
-        label={label}
-        value={props.types.map(t => t.name).join(", ")}
-      />
-    );
+    const val = props.types
+      .filter(t => t.is_leaf)[0]
+      .mapping_key.replace(/ > /g, ", ");
+    return <DataUnitTemplate label={label} value={val} />;
   } else {
     return null;
   }
@@ -113,7 +111,11 @@ function Dimensions(props) {
     parseFloat(props.h || 0)
   ];
   const is_small = has_dims && dims.filter(d => d > 0 && d < 1).length > 0;
-  dims = is_small ? dims.map(d => d * 100) : dims;
+  dims = is_small
+    ? dims
+        .map(d => parseFloat((d * 100).toFixed(2)))
+        .map(d => (Number.isInteger(d) ? parseInt(d) : d))
+    : dims;
   const unit = is_small ? "cm" : "m";
   return has_dims ? (
     <DataUnitTemplate
