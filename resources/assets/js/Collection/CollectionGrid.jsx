@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
 import TirelessMason from "./TirelessMason.jsx";
+import isEqual from "lodash/isEqual";
 
 class CollectionGrid extends Component {
   constructor(props) {
@@ -10,11 +11,9 @@ class CollectionGrid extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      prevProps.hits.length > 0 &&
-      this.props.hits.length > 0 &&
-      prevProps.hits[0]["_id"] !== this.props.hits[0]["_id"]
-    ) {
+    const prevIds = prevProps.hits.map(p => p["_id"]);
+    const currentIds = this.props.hits.map(p => p["_id"]);
+    if (!isEqual(prevIds, currentIds)) {
       this.infiniteScroll.current.forcePack();
     }
   }
