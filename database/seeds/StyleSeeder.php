@@ -12,14 +12,15 @@ class StyleSeeder extends Seeder
     public function run()
     {
         $rows = [
-            ['name' => 'Années 40'],
-            ['name' => 'Années 50'],
-            ['name' => 'Années 60'],
-            ['name' => 'Années 70'],
-            ['name' => 'Années 80'],
-            ['name' => 'Années 90'],
+            ['name' => 'Années 1930'],
+            ['name' => 'Années 1940'],
+            ['name' => 'Années 1950'],
+            ['name' => 'Années 1960'],
+            ['name' => 'Années 1970'],
+            ['name' => 'Années 1980'],
+            ['name' => 'Années 1990'],
             ['name' => 'Années 2000'],
-            ['name' => 'Contemporain'],
+            ['name' => 'Années 2010'],
         ];
 
         DB::table('styles')->insert($rows);
