@@ -21,14 +21,14 @@
   }
   svg {
     position: relative;
-    top: 3px;
+    top: 4px;
     margin-right: 10px;
   }
   .BackToCollection__label {
     @include f-serif;
     font-size: rem(15px);
     b {
-      font-weight: 600;
+      font-weight: 500;
     }
   }
 }
