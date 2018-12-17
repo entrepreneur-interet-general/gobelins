@@ -154,6 +154,7 @@
 .DetailTitle__denomination,
 .DetailTitle__title_or_designation {
   display: block;
+  text-transform : lowercase;
 }
 
 .DetailData {
