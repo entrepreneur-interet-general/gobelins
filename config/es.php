@@ -183,6 +183,10 @@ return [
                                     'type' => 'integer',
                                     'index' => false,
                                 ],
+                                'photographer' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
                             ]
                         ],
                         'image_quality_score' => [
