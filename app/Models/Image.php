@@ -10,7 +10,12 @@ class Image extends Model
         'path',
         'width',
         'height',
-        'photographer',
+        'is_published',
+        'is_prime_quality',
+        'is_documentation_quality',
+        'has_privacy_issue',
+        'has_marking',
+        'is_reviewed',
     ];
 
     protected $touches = ['product'];
@@ -18,7 +23,7 @@ class Image extends Model
     // Maps the directory name to a human name.
     const IDENTIFIED_PHOTOGRAPHERS = [
         'BERSANI' => 'Marie-Hélène Bersani',
-        'BIDEAU' => 'Iabelle Bideau',
+        'BIDEAU' => 'Isabelle Bideau',
         'BOHL' => 'Thomas Bohl',
         'BROUILLET' => 'Stéphanie Brouillet',
         'CAVALIE' => 'Hélène Cavalié',
@@ -51,6 +56,9 @@ class Image extends Model
             'width' => $this->width,
             'height' => $this->height,
             'photographer' => $this->photographer,
+            'is_prime_quality' => $this->is_prime_quality,
+            'is_documentation_quality' => $this->is_documentation_quality,
+            'has_marking' => $this->has_marking,
         ];
     }
 

@@ -187,6 +187,15 @@ return [
                                     'type' => 'text',
                                     'index' => false,
                                 ],
+                                'is_prime_quality' => [
+                                    'type' => 'boolean',
+                                ],
+                                'is_documentation_quality' => [
+                                    'type' => 'boolean',
+                                ],
+                                'has_marking' => [
+                                    'type' => 'boolean',
+                                ],
                             ]
                         ],
                         'image_quality_score' => [

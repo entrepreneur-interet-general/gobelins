@@ -97,7 +97,7 @@ class Product extends Model
 
     public function getSearchableImagesAttribute()
     {
-        return $this->images->map(function ($image) {
+        return $this->images()->where('is_published', true)->get()->map(function ($image) {
             return $image->toSearchableArray();
         })->all();
     }
