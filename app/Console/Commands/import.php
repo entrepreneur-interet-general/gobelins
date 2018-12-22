@@ -158,6 +158,8 @@ class Import extends Command
                                     'title_or_designation' => $item->title_or_designation,
                                     'description' => $item->description,
                                     'bibliography' => $item->bibliography,
+                                    'is_published' => $item->publication_state->is_published,
+                                    'publication_code' => $item->publication_state->code,
                                 ]
                             );
                         });
