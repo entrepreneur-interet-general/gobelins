@@ -254,6 +254,14 @@ class Import extends Command
                                     'name' => $as->author->name,
                                     'first_name' => $as->author->first_name,
                                     'last_name' => $as->author->last_name,
+                                    'date_of_birth' => $as->author->date_of_birth,
+                                    'year_of_birth' => $as->author->year_of_birth,
+                                    'date_of_death' => $as->author->date_of_death,
+                                    'year_of_death' => $as->author->year_of_death,
+                                    'occupation' => $as->author->occupation,
+                                    'birthplace' => $as->author->birthplace,
+                                    'deathplace' => $as->author->deathplace,
+                                    'isni_uri' => $as->author->isni_uri,
                                 ]
                             );
                         });
