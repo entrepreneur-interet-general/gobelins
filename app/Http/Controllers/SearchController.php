@@ -22,7 +22,7 @@ class SearchController extends Controller
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
                 'productTypes' => ProductType::get()->toTree(),
-                'styles' => Style::orderBy('name', 'asc')->select('id', 'name')->get(),
+                'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
                 'authors' => Author::orderBy('last_name', 'asc')
                                 ->select('id', 'first_name', 'last_name')->get()
                                 ->map(function ($item) {
