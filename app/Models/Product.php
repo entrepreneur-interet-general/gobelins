@@ -97,7 +97,7 @@ class Product extends Model
 
     public function getSearchableImagesAttribute()
     {
-        return $this->images->map(function ($image) {
+        return $this->images()->where('is_published', true)->get()->map(function ($image) {
             return $image->toSearchableArray();
         })->all();
     }
@@ -140,6 +140,8 @@ class Product extends Model
         'description',
         'bibliography',
         'style_id',
+        'is_published',
+        'publication_code',
     ];
 
 
@@ -155,8 +157,10 @@ class Product extends Model
     // fine tune the image quality criteria.
     public function getImageQualityScoreAttribute()
     {
-        if ($this->images && sizeof($this->images) > 0) {
-            if (strstr($this->images[0]->path, 'BIDEAU')) {
+        if ($this->images && sizeof($this->images) > 0 && $this->images[0]->is_published) {
+            if ($this->images[0]->is_prime_quality) {
+                return 5;
+            } elseif (strstr($this->images[0]->path, 'BIDEAU')) {
                 return 3;
             } else {
                 return 2;
@@ -200,6 +204,15 @@ class Product extends Model
             'depth_or_width' => $this->depth_or_width,
             'height_or_thickness' => $this->height_or_thickness,
             'legacy_inventory_numbers' => $this->searchableLegacyInventoryNumbers,
+            'is_published' => $this->is_published,
         ];
+    }
+
+    /***
+     * Determine if a model should be indexed in Elasticsearch, or not.
+     */
+    public function shouldBeSearchable()
+    {
+        return $this->is_published;
     }
 }

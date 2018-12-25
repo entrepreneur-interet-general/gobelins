@@ -22,7 +22,7 @@ class SearchController extends Controller
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
                 'productTypes' => ProductType::get()->toTree(),
-                'styles' => Style::orderBy('name', 'asc')->select('id', 'name')->get(),
+                'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
                 'authors' => Author::orderBy('last_name', 'asc')
                                 ->select('id', 'first_name', 'last_name')->get()
                                 ->map(function ($item) {
@@ -161,17 +161,19 @@ class SearchController extends Controller
             $period_end_year = (int) $request->input('period_end_year');
             $filters[] = [
                 'bool' => [
-                    'must' => [
-                        ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
-                        ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
-                    ]
-                ]
-            ];
-            $filters[] = [
-                'bool' => [
-                    'must' => [
-                        ['range' => ['conception_year' => ['lte' => $period_end_year]]],
-                        ['range' => ['conception_year' => ['gte' => $period_start_year]]],
+                    'should' => [
+                        ['bool' => [
+                            'must' => [
+                                ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
+                                ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
+                            ]
+                        ]],
+                        ['bool' => [
+                            'must' => [
+                                ['range' => ['conception_year' => ['lte' => $period_end_year]]],
+                                ['range' => ['conception_year' => ['gte' => $period_start_year]]],
+                            ]
+                        ]]
                     ]
                 ]
             ];

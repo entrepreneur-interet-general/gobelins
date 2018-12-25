@@ -1,5 +1,6 @@
 import React from "react";
 import nl2br from "react-nl2br";
+import uniq from "lodash/uniq";
 
 function DataUnitTemplate(props) {
   return (
@@ -153,6 +154,23 @@ function LegacyInventoryNumbers(props) {
   ) : null;
 }
 
+function Photographers(props) {
+  return props.images &&
+    props.images instanceof Array &&
+    props.images.length > 0 &&
+    props.images.filter(i => i.photographer).length > 0 ? (
+    <DataUnitTemplate
+      label={
+        "Photographie © " +
+        uniq(
+          props.images.filter(i => i.photographer).map(i => i.photographer)
+        ).join(", ")
+      }
+      value=""
+    />
+  ) : null;
+}
+
 function Data(props) {
   return (
     <section className="DetailData">
@@ -182,6 +200,7 @@ function Data(props) {
       <LegacyInventoryNumbers
         legacyInventoryNumbers={props.product.legacy_inventory_numbers}
       />
+      <Photographers images={props.product.images} />
     </section>
   );
 }

@@ -11,6 +11,14 @@ class Author extends Model
         'name',
         'first_name',
         'last_name',
+        'date_of_birth',
+        'year_of_birth',
+        'date_of_death',
+        'year_of_death',
+        'occupation',
+        'birthplace',
+        'deathplace',
+        'isni_uri',
     ];
 
     protected $touches = ['products'];
