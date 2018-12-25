@@ -161,17 +161,19 @@ class SearchController extends Controller
             $period_end_year = (int) $request->input('period_end_year');
             $filters[] = [
                 'bool' => [
-                    'must' => [
-                        ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
-                        ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
-                    ]
-                ]
-            ];
-            $filters[] = [
-                'bool' => [
-                    'must' => [
-                        ['range' => ['conception_year' => ['lte' => $period_end_year]]],
-                        ['range' => ['conception_year' => ['gte' => $period_start_year]]],
+                    'should' => [
+                        ['bool' => [
+                            'must' => [
+                                ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
+                                ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
+                            ]
+                        ]],
+                        ['bool' => [
+                            'must' => [
+                                ['range' => ['conception_year' => ['lte' => $period_end_year]]],
+                                ['range' => ['conception_year' => ['gte' => $period_start_year]]],
+                            ]
+                        ]]
                     ]
                 ]
             ];
