@@ -323,36 +323,20 @@ class Import extends Command
                                 // We consolidate the English, Chinese, Japanese, etc, styles into one "Foreign" one.
                                 $product->style()->associate(\App\Models\Style::where('name', 'Étranger')->first());
                             }
+                        } elseif ($item->period &&
+                                    $item->period->id &&
+                                    $style = \App\Models\Style::mappedFrom('numepo', (string) $item->period->id)->first()) {
+                            // associate the product to the style related to the period
+                            $product->style()->associate($style);
                         } else {
-                            // Objects created in the modern age usually won't have a 'style',
-                            // so we map the year of conception to a list of seeded styles.
+                            // Fallback to conception year.
                             if ($item->conception_year) {
-                                if ($item->conception_year >= 1940 && $item->conception_year <= 1949) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1940')->first());
-                                }
-                                if ($item->conception_year >= 1950 && $item->conception_year <= 1959) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1950')->first());
-                                }
-                                if ($item->conception_year >= 1960 && $item->conception_year <= 1969) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1960')->first());
-                                }
-                                if ($item->conception_year >= 1970 && $item->conception_year <= 1979) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1970')->first());
-                                }
-                                if ($item->conception_year >= 1980 && $item->conception_year <= 1989) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1980')->first());
-                                }
-                                if ($item->conception_year >= 1990 && $item->conception_year <= 1999) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 1990')->first());
-                                }
-                                if ($item->conception_year >= 2000 && $item->conception_year <= 2009) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 2000')->first());
-                                }
-                                if ($item->conception_year >= 2010 && $item->conception_year <= 2019) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 2010')->first());
-                                }
-                                if ($item->conception_year >= 2020) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 2020')->first());
+                                $style = \App\Models\Style::where([
+                                    ['start_year', '<=', $item->conception_year],
+                                    ['end_year', '>=', $item->conception_year]
+                                ])->first();
+                                if ($style) {
+                                    $product->style()->associate($style);
                                 }
                             }
                         }
