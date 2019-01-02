@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Mappable;
 
 class Style extends Model
 {
+    use Mappable;
+
     protected $fillable = [
         'name',
         'legacy_id',

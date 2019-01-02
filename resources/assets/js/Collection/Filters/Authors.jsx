@@ -15,7 +15,15 @@ class Authors extends Component {
 
   handleClick(author, ev) {
     ev.stopPropagation(); // To not close the filter panel.
-    this.props.onFilterAdd({ author_ids: [author.id] });
+    if (this.props.selectedIds.indexOf(author.id) >= 0) {
+      this.props.onFilterRemove({
+        type: "author",
+        ids: [author.id],
+        paramName: "author_ids"
+      });
+    } else {
+      this.props.onFilterAdd({ author_ids: [author.id] });
+    }
   }
 
   renderListItem(author) {

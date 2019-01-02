@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { source, target } from "react-aim";
-import difference from "lodash/difference";
 
 const MaterialNullObject = {
   id: null,
@@ -123,28 +122,31 @@ class Materials extends Component {
     ev.stopPropagation();
 
     if (this.props.selectedIds.indexOf(mat.id) >= 0) {
-      // We already are filtering with this material. Noop.
-      return;
-    }
+      this.props.onFilterRemove({
+        type: "material",
+        ids: [mat.id],
+        paramName: "material_ids"
+      });
+    } else {
+      if (mat.children.length > 0) {
+        const childrenIds = mat.children.map(c => c.id);
+        const materialsToRemove = this.props.selectedIds.filter(
+          id => childrenIds.indexOf(id) >= 0
+        );
 
-    if (mat.children.length > 0) {
-      const childrenIds = mat.children.map(c => c.id);
-      const materialsToRemove = this.props.selectedIds.filter(
-        id => childrenIds.indexOf(id) >= 0
-      );
-
-      if (materialsToRemove.length > 0) {
-        const removeObj = {
-          type: "material",
-          ids: materialsToRemove,
-          paramName: "material_ids"
-        };
-        this.props.onFilterChange({ material_ids: [mat.id] }, removeObj);
+        if (materialsToRemove.length > 0) {
+          const removeObj = {
+            type: "material",
+            ids: materialsToRemove,
+            paramName: "material_ids"
+          };
+          this.props.onFilterChange({ material_ids: [mat.id] }, removeObj);
+        } else {
+          this.props.onFilterAdd({ material_ids: [mat.id] });
+        }
       } else {
         this.props.onFilterAdd({ material_ids: [mat.id] });
       }
-    } else {
-      this.props.onFilterAdd({ material_ids: [mat.id] });
     }
   }
 
@@ -153,43 +155,22 @@ class Materials extends Component {
 
     // Is this material's parent selected ?
     if (this.props.selectedIds.indexOf(this.state.expandedMaterial.id) >= 0) {
-      // Remove the parent id, and add all the siblings.
+      // Remove the parent id, and add the clicked item.
       const filtersToDelete = {
         type: "material",
         ids: [this.state.expandedMaterial.id],
         paramName: "material_ids"
       };
-      this.props.onFilterChange(
-        // Add this id.
-        {
-          material_ids: this.state.expandedMaterial.children
-            .map(m => m.id)
-            .filter(id => id !== mat.id)
-        }, // Remove these ids.
-        filtersToDelete
-      );
+      this.props.onFilterChange({ material_ids: [mat.id] }, filtersToDelete);
     } else {
-      const otherSiblings = this.state.expandedMaterial.children
-        .map(m => m.id)
-        .filter(id => id !== mat.id);
-
-      // Are all the siblings of this material already selected ?
-      if (difference(otherSiblings, this.props.selectedIds).length === 0) {
-        // We have a complete set, so we remove the ids of the siblings,
-        // and add the id of the parent.
-        const filtersToDelete = {
+      // Simply toggle this material on/off
+      if (this.props.selectedIds.indexOf(mat.id) >= 0) {
+        this.props.onFilterRemove({
           type: "material",
-          ids: otherSiblings,
+          ids: [mat.id],
           paramName: "material_ids"
-        };
-
-        this.props.onFilterChange(
-          // Add this id.
-          { material_ids: [this.state.expandedMaterial.id] }, // Remove these ids.
-          filtersToDelete
-        );
+        });
       } else {
-        // Default case: simply add the id of the material.
         this.props.onFilterAdd({
           material_ids: [mat.id]
         });

@@ -10,7 +10,15 @@ class Styles extends Component {
 
   handleClick(style, ev) {
     ev.stopPropagation(); // To not close the filter panel.
-    this.props.onFilterAdd({ style_ids: [style.id] });
+    if (this.props.selectedIds.indexOf(style.id) >= 0) {
+      this.props.onFilterRemove({
+        type: "style",
+        ids: [style.id],
+        paramName: "style_ids"
+      });
+    } else {
+      this.props.onFilterAdd({ style_ids: [style.id] });
+    }
   }
 
   renderListItem(style) {

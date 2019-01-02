@@ -158,6 +158,8 @@ class Import extends Command
                                     'title_or_designation' => $item->title_or_designation,
                                     'description' => $item->description,
                                     'bibliography' => $item->bibliography,
+                                    'is_published' => $item->publication_state->is_published,
+                                    'publication_code' => $item->publication_state->code,
                                 ]
                             );
                         });
@@ -252,6 +254,14 @@ class Import extends Command
                                     'name' => $as->author->name,
                                     'first_name' => $as->author->first_name,
                                     'last_name' => $as->author->last_name,
+                                    'date_of_birth' => $as->author->date_of_birth,
+                                    'year_of_birth' => $as->author->year_of_birth,
+                                    'date_of_death' => $as->author->date_of_death,
+                                    'year_of_death' => $as->author->year_of_death,
+                                    'occupation' => $as->author->occupation,
+                                    'birthplace' => $as->author->birthplace,
+                                    'deathplace' => $as->author->deathplace,
+                                    'isni_uri' => $as->author->isni_uri,
                                 ]
                             );
                         });
@@ -305,44 +315,28 @@ class Import extends Command
                         // Styles
                         // Also udpated based on the legacy_id
                         if ($item->product_style && $item->product_style->id) {
-                            $style = \App\Models\style::updateOrCreate(
-                                ['legacy_id' => $item->product_style->id],
-                                [
-                                    'legacy_id' => $item->product_style->id,
-                                    'name' => $item->product_style->name,
-                                ]
-                            );
+                            $style = \App\Models\Style::where('legacy_id', $item->product_style->id)->first();
 
                             if ($style) {
                                 $product->style()->associate($style);
+                            } elseif (preg_match('/etranger/i', $item->product_style->name) > 0) {
+                                // We consolidate the English, Chinese, Japanese, etc, styles into one "Foreign" one.
+                                $product->style()->associate(\App\Models\Style::where('name', 'Étranger')->first());
                             }
+                        } elseif ($item->period &&
+                                    $item->period->id &&
+                                    $style = \App\Models\Style::mappedFrom('numepo', (string) $item->period->id)->first()) {
+                            // associate the product to the style related to the period
+                            $product->style()->associate($style);
                         } else {
-                            // Objects created in the modern age usually won't have a 'style',
-                            // so we map the year of conception to a list of seeded styles.
+                            // Fallback to conception year.
                             if ($item->conception_year) {
-                                if ($item->conception_year >= 1940 && $item->conception_year <= 1949) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 40')->first());
-                                }
-                                if ($item->conception_year >= 1950 && $item->conception_year <= 1959) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 50')->first());
-                                }
-                                if ($item->conception_year >= 1960 && $item->conception_year <= 1969) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 60')->first());
-                                }
-                                if ($item->conception_year >= 1970 && $item->conception_year <= 1979) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 70')->first());
-                                }
-                                if ($item->conception_year >= 1980 && $item->conception_year <= 1989) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 80')->first());
-                                }
-                                if ($item->conception_year >= 1990 && $item->conception_year <= 1999) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 90')->first());
-                                }
-                                if ($item->conception_year >= 2000 && $item->conception_year <= 2009) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Années 2000')->first());
-                                }
-                                if ($item->conception_year >= 2010) {
-                                    $product->style()->associate(\App\Models\Style::where('name', 'Contemporain')->first());
+                                $style = \App\Models\Style::where([
+                                    ['start_year', '<=', $item->conception_year],
+                                    ['end_year', '>=', $item->conception_year]
+                                ])->first();
+                                if ($style) {
+                                    $product->style()->associate($style);
                                 }
                             }
                         }

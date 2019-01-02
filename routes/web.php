@@ -15,12 +15,17 @@
 //     return view('welcome');
 // });
 
-Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/rechercher', 'SearchController@index')->name('search');
+Route::get('/', function () {
+    return redirect()->route('search');
+});
 
-Route::get('/collection', 'SearchController@collection')->name('collection');
 
-Route::get('/collection/objet/{inventory_id}', 'ProductController@show')->name('product')->where('inventory_id', '.*');
+Route::get('/rechercher', 'SearchController@search')->name('search_endpoint');
+
+Route::get('/recherche', 'SearchController@index')->name('search');
+
+Route::get('/objet/{inventory_id}', 'ProductController@show')->name('product')->where('inventory_id', '.*');
 
 Route::get('/image/{path}', 'ImageController@show')->where('path', '.*');
