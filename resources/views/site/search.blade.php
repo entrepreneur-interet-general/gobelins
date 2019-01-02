@@ -19,7 +19,7 @@
             <div class="BetaWelcome__bottom">
                 <aside class="BetaWelcome__aparte BetaWelcome__purple">
                     Le Mobilier national est une institution publique, héritière
-                    du garde-Meuble de la couronne, créé en 1604 par Henri IV
+                    du garde-meuble de la couronne, créé en 1604 par Henri IV
                     et réorganisé par Louis XIV.
                     Cette structure assure la conservation,
                     restauration et création de ses collections.  
