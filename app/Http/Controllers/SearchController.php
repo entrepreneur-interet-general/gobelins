@@ -17,7 +17,11 @@ class SearchController extends Controller
 {
     private static $RESULTS_PER_PAGE = 25;
     
-    public function collection(Request $request)
+    /**
+     * Search page
+     * Gather filter data, and boot the React app.
+     */
+    public function index(Request $request)
     {
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
@@ -99,7 +103,6 @@ class SearchController extends Controller
                         'end_year' => 1870,
                     ],
                 ],
-                // 'materials' => Material::all(),
                 'materials' => Material::get()->toTree(),
                 'productionOrigins' => ProductionOrigin::all(),
                 'dimensions' => [
@@ -110,12 +113,12 @@ class SearchController extends Controller
             ]);
         });
 
-        return view('site.collection', [
+        return view('site.search', [
             'filters' => $filters
         ]);
     }
 
-    public function index(Request $request)
+    public function search(Request $request)
     {
         $query = ES::type("products");
         
@@ -132,28 +135,24 @@ class SearchController extends Controller
             return '(' . $out . ')';
         });
         
-        // $product_types = ProductType::all();
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
             $filters[] = ['terms' => ['product_types.id' => $product_type_ids]];
         }
         
-        // $styles = Style::all();
         $style_ids = [];
         if (is_array($request->input('style_ids'))) {
             $style_ids = $request->input('style_ids');
             $filters[] = ['terms' => ['style.id' => $style_ids]];
         }
 
-        // $authors = Author::orderBy('last_name', 'asc')->select('id', 'first_name', 'last_name')->get();
         $author_ids = [];
         if (is_array($request->input('author_ids'))) {
             $author_ids = $request->input('author_ids');
             $filters[] = ['terms' => ['authors.id' => $author_ids]];
         }
         
-        // $periods = Period::orderBy('start_year', 'asc')->get();
         $period_start_year = false;
         $period_end_year = false;
         if (is_numeric($request->input('period_start_year')) && is_numeric($request->input('period_end_year'))) {
@@ -179,33 +178,18 @@ class SearchController extends Controller
             ];
         }
 
-        // $materials = Material::all();
         $material_ids = [];
         if (is_array($request->input('material_ids'))) {
             $material_ids = $request->input('material_ids');
             $filters[] = ['terms' => ['materials.id' => $material_ids]];
         }
 
-        // $production_origins = ProductionOrigin::all();
         $production_origin_ids = [];
         if (is_array($request->input('production_origin_ids'))) {
             $production_origin_ids = $request->input('production_origin_ids');
             $filters[] = ['terms' => ['production_origin.id' => $production_origin_ids]];
         }
 
-
-        // $dimensions = collect(['length_or_diameter', 'depth_or_width', 'height_or_thickness']);
-        // $sanitized_dimensions = [];
-        // $dimensions->filter(function ($d) use ($request) {
-        //     return $request->$d;
-        // })->map(function ($d) use ($request, &$filters, &$sanitized_dimensions) {
-        //     foreach (['gte', 'lte'] as $comparator) {
-        //         if (isset($request->input($d)[$comparator]) && is_numeric($request->input($d)[$comparator])) {
-        //             $filters[] = ['range' => [$d => [$comparator => (float) $request->input($d)[$comparator]]]];
-        //             $sanitized_dimensions[$d . '_' . $comparator] = (float) $request->input($d)[$comparator];
-        //         }
-        //     }
-        // });
         $dimensions = collect(['length_or_diameter_lte',
                                'length_or_diameter_gte',
                                'depth_or_width_lte',
@@ -330,54 +314,13 @@ class SearchController extends Controller
             }
         }
 
-
-
-        if ($request->wantsJson()) {
-            return json_encode([
-                'hasMore' => $pagination->hasMorePages(),
-                'nextPageUrl' => $pagination->nextPageUrl(),
-                'totalHits' => $pagination->total(),
-                'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
-                'queryBody' => \App::environment(['local', 'staging']) ? $query->getBody() : 'filtered',
-            ]);
-        }
-        
-        $view = view('site.search', [
-            'query' => $request->input('q'),
-            'es_query' => $query->getBody(),
-            'product_types' => $product_types,
-            'product_type_ids' => $product_type_ids,
-
-            'authors' => $authors,
-            'author_ids' => $author_ids,
-
-            'periods' => $periods,
-            'period_start_year' => $period_start_year,
-            'period_end_year' => $period_end_year,
-
-            'materials' => $materials,
-            'material_ids' => $material_ids,
-
-            'production_origins' => $production_origins,
-            'production_origin_ids' => $production_origin_ids,
-
-            'length_or_diameter_gte' => isset($sanitized_dimensions['length_or_diameter_gte']) ? $sanitized_dimensions['length_or_diameter_gte'] : null,
-            'length_or_diameter_lte' => isset($sanitized_dimensions['length_or_diameter_lte']) ? $sanitized_dimensions['length_or_diameter_lte'] : null,
-            'depth_or_width_gte' => isset($sanitized_dimensions['depth_or_width_gte']) ? $sanitized_dimensions['depth_or_width_gte'] : null,
-            'depth_or_width_lte' => isset($sanitized_dimensions['depth_or_width_lte']) ? $sanitized_dimensions['depth_or_width_lte'] : null,
-            'height_or_thickness_gte' => isset($sanitized_dimensions['height_or_thickness_gte']) ? $sanitized_dimensions['height_or_thickness_gte'] : null,
-            'height_or_thickness_lte' => isset($sanitized_dimensions['height_or_thickness_lte']) ? $sanitized_dimensions['height_or_thickness_lte'] : null,
-
-            'styles' => $styles,
-            'style_ids' => $style_ids,
-            
-            'results' => $query->take(15)->get(),
-
-            'aggregations' => $aggs,
-
-            'pagination' => $pagination,
-
+        return json_encode([
+            'hasMore' => $pagination->hasMorePages(),
+            'nextPageUrl' => $pagination->nextPageUrl(),
+            'totalHits' => $pagination->total(),
+            'hits' => $query->take(self::$RESULTS_PER_PAGE)->get()->toArray(),
+            'queryBody' => \App::environment(['local', 'staging']) ? $query->getBody() : 'filtered',
+            // 'aggs' => $aggs,
         ]);
-        return $view;
     }
 }
