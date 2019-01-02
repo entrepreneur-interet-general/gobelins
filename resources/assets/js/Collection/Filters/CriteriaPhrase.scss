@@ -1,8 +1,8 @@
-.CriteriaPhrase {
-  &::first-letter {
-    text-transform: uppercase;
-  }
-}
+//.CriteriaPhrase {
+ // &::first-letter {
+   // text-transform: uppercase;
+  //}
+//}
 
 .CriteriaPhrase__button {
   padding: 0;
@@ -11,7 +11,7 @@
   background-color: transparent;
   cursor: pointer;
   border-radius: 1px;
-  padding: 0 3px 2px 5px;
+  padding: 0 4px 2px 5px;
   text-align: left;
   box-decoration-break: clone;
 
@@ -26,7 +26,7 @@
   }
 
   &.is-product_type {
-    background-color: $pink-light;
+    background-color: #FFDFDC;
     text-transform: lowercase;
   }
   &.is-production_origin {

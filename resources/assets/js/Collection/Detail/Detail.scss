@@ -16,19 +16,19 @@
     cursor: pointer;
 
     &:hover {
-      color: #767676;
+      color: #606060;
     }
   }
   svg {
     position: relative;
-    top: 3px;
+    top: 4px;
     margin-right: 10px;
   }
   .BackToCollection__label {
     @include f-serif;
     font-size: rem(15px);
     b {
-      font-weight: 600;
+      font-weight: 500;
     }
   }
 }
@@ -144,10 +144,17 @@
   font-weight: normal;
   font-size: rem(30px);
   line-height: rem(50px);
+  text-transform : lowercase;
+  
+  &::first-letter {
+   text-transform: uppercase;}
 }
+
+
 .DetailTitle__denomination,
 .DetailTitle__title_or_designation {
   display: block;
+  text-transform : lowercase;
 }
 
 .DetailData {
