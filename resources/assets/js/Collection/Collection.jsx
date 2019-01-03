@@ -5,7 +5,6 @@ import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
 import Settings from "./Settings/Settings.jsx";
-import Detail from "./Detail/Detail.jsx";
 import qs from "qs";
 import merge from "deepmerge";
 
@@ -388,42 +387,35 @@ class Collection extends Component {
         debounceResize={true}
         debounceDelay={100}
       >
-        {this.state.productDetail ? (
-          <Detail
-            product={this.state.productDetail}
-            onBackToCollection={this.handleBackToCollection}
+        <div className="Collection">
+          <Filters
+            onFilterAdd={this.handleAddFilter}
+            onFilterRemove={this.handleRemoveFilter}
+            onFilterChange={this.handleFilterChange}
+            isLoadingURL={this.isLoadingSearch.bind(
+              this,
+              this.buildSearchParamsFromState()
+            )}
+            isLoading={this.state.isLoading}
+            totalHits={this.state.totalHits}
+            filterObj={this.state.filterObj}
           />
-        ) : (
-          <div className="Collection">
-            <Filters
-              onFilterAdd={this.handleAddFilter}
-              onFilterRemove={this.handleRemoveFilter}
-              onFilterChange={this.handleFilterChange}
-              isLoadingURL={this.isLoadingSearch.bind(
-                this,
-                this.buildSearchParamsFromState()
-              )}
-              isLoading={this.state.isLoading}
-              totalHits={this.state.totalHits}
-              filterObj={this.state.filterObj}
-            />
-            <div className="Collection__result">
-              {true ? (
-                <CollectionGrid
-                  hits={this.state.hits}
-                  loadMore={this.handleNextPageCallback}
-                  hasMore={!this.state.isLoading && this.state.hasMore}
-                  currentPage={this.state.currentPage}
-                  onDisplayProduct={this.handleDisplayProduct}
-                />
-              ) : (
-                <CollectionList hits={this.state.hits} />
-              )}
-            </div>
-            <ScrollToTop isLoading={this.state.isLoading} />
-            <Settings />
+          <div className="Collection__result">
+            {true ? (
+              <CollectionGrid
+                hits={this.state.hits}
+                loadMore={this.handleNextPageCallback}
+                hasMore={!this.state.isLoading && this.state.hasMore}
+                currentPage={this.state.currentPage}
+                onDisplayProduct={this.handleDisplayProduct}
+              />
+            ) : (
+              <CollectionList hits={this.state.hits} />
+            )}
           </div>
-        )}
+          <ScrollToTop isLoading={this.state.isLoading} />
+          <Settings />
+        </div>
       </ReactBreakpoints>
     );
   }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import MagnifyingGlass from "./MagnifyingGlass";
 import Download from "./Download";
-import Loader from "../Loader.jsx";
+import Loader from "../Loader";
 
 class MainImage extends Component {
   constructor(props) {

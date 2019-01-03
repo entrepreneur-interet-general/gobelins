@@ -1,27 +1,52 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Collection from "./Collection/Collection";
+import Detail from "./Detail/Detail";
 
-// require('./bootstrap');
+function App() {
+  return (
+    <Router>
+      <div>
+        <ul
+          style={{
+            position: "fixed",
+            right: 0,
+            top: 0,
+            zIndex: 999999,
+            backgroundColor: "pink",
+            padding: "15px"
+          }}
+        >
+          <li>
+            <Link to="/recherche">Recherche</Link>
+          </li>
+          <li>
+            <Link to="/objet/GMT-14189-000">Un Objet</Link>
+          </li>
+          <li>
+            <Link to="/savoir-faire">Les savoir-faire</Link>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/recherche" component={Collection} />
+          <Route exact path="/objet/:inventory_id" component={DetailWrapper} />
+          <Route path="/savoir-faire" component={SavoirFaire} />
+        </Switch>
+      </div>
+    </Router>
+  );
+}
 
-// window.Vue = require('vue');
+function DetailWrapper() {
+  return (
+    <Detail
+    //   product={this.state.productDetail}
+    //   onBackToCollection={this.handleBackToCollection}
+    />
+  );
+}
+function SavoirFaire() {
+  return <div>Savoir faires</div>;
+}
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-// const app = new Vue({
-//     el: '#app'
-// });
-
-import React from "react";
-import ReactDOM from "react-dom";
-import Collection from "./Collection/Collection.jsx";
-
-ReactDOM.render(<Collection />, document.getElementById("root"));
+export default App;
