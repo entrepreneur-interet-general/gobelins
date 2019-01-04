@@ -33,8 +33,9 @@ class CollectionGrid extends Component {
           ? datum.product_types.find(t => t.is_leaf).name
           : "");
       return (
-        <Link
-          to={"/objet/" + datum.inventory_id}
+        <a
+          href={`/objet/${datum.inventory_id}`}
+          onClick={ev => this.props.onObjectClick(datum, ev)}
           key={datum["_id"]}
           className="Collection__cell"
         >
@@ -88,7 +89,7 @@ class CollectionGrid extends Component {
                 .join(", ")}
             </small>
           </div>
-        </Link>
+        </a>
       );
     });
   }

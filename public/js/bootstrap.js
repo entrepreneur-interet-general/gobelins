@@ -290,12 +290,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__App__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AppRouter__ = __webpack_require__(345);
 
 
 
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__App__["a" /* default */], null), document.getElementById("root"));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__AppRouter__["a" /* default */], null), document.getElementById("root"));
 
 /***/ }),
 /* 5 */
@@ -22125,77 +22125,512 @@ exports.unstable_unsubscribe = unstable_unsubscribe;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Collection_Collection__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Detail_Detail__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_breakpoints__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_breakpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_breakpoints__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qs__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_qs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_qs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_deepmerge__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Collection_Collection__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Detail_Detail__ = __webpack_require__(309);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
 
 
-function App() {
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* BrowserRouter */],
-    null,
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      "div",
-      null,
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        "ul",
-        {
-          style: {
-            position: "fixed",
-            right: 0,
-            top: 0,
-            zIndex: 999999,
-            backgroundColor: "pink",
-            padding: "15px"
+
+
+
+
+
+var breakpoints = {
+  xsmall: 800,
+  small: 1024,
+  medium: 1440,
+  large: 1600,
+  xlarge: 1800,
+  xxlarge: 9999
+};
+
+var App = function (_Component) {
+  _inherits(App, _Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+    var stateFromURL = _this.extractSearchParams();
+
+    _this.state = {
+      hits: [],
+      currentPage: stateFromURL.currentPage || 1,
+      isLoading: false,
+      hasMore: false,
+      totalHits: 0,
+      filterObj: stateFromURL.filterObj || {},
+      productDetail: false, // When in detail mode, hold the product data.
+      scrollPosition: 0
+    };
+
+    _this.cache = {};
+    _this.searches = {};
+    _this.isLoadingNextPage = false;
+
+    //
+
+    _this.extractSearchParams = _this.extractSearchParams.bind(_this);
+    _this.buildEndpointUrl = _this.buildEndpointUrl.bind(_this);
+    _this.handleLoading = _this.handleLoading.bind(_this);
+    _this.historyPushState = _this.historyPushState.bind(_this);
+    // this.handlePopState = this.handlePopState.bind(this);
+    _this.loadFromRemote = _this.loadFromRemote.bind(_this);
+    _this.handleNextPageCallback = _this.handleNextPageCallback.bind(_this);
+    _this.handleAddFilter = _this.handleAddFilter.bind(_this);
+    _this.handleRemoveFilter = _this.handleRemoveFilter.bind(_this);
+    _this.handleFilterChange = _this.handleFilterChange.bind(_this);
+    _this.mergeAddedFilters = _this.mergeAddedFilters.bind(_this);
+    _this.mergeRemovedFilters = _this.mergeRemovedFilters.bind(_this);
+    _this.buildSearchParamsFromParams = _this.buildSearchParamsFromParams.bind(_this);
+    _this.buildSearchParamsFromState = _this.buildSearchParamsFromState.bind(_this);
+    // this.handleDisplayProduct = this.handleDisplayProduct.bind(this);
+    _this.handleBackToCollection = _this.handleBackToCollection.bind(_this);
+    _this.handleObjectClick = _this.handleObjectClick.bind(_this);
+    return _this;
+  }
+
+  _createClass(App, [{
+    key: "extractSearchParams",
+    value: function extractSearchParams() {
+      var urlParams = __WEBPACK_IMPORTED_MODULE_3_qs___default.a.parse(window.location.search, {
+        ignoreQueryPrefix: true,
+        decoder: function decoder(value) {
+          if (/^(\d+|\d*\.\d+)$/.test(value)) {
+            return parseFloat(value);
           }
+
+          var keywords = {
+            true: true,
+            false: false,
+            null: null,
+            undefined: undefined
+          };
+          if (value in keywords) {
+            return keywords[value];
+          }
+
+          return window.decodeURIComponent(value);
+        }
+      });
+      var out = {};
+      if (urlParams.page) {
+        out.currentPage = urlParams.page;
+        delete urlParams.page;
+      }
+      out.filterObj = _extends({}, urlParams);
+      return out;
+    }
+  }, {
+    key: "loadFromRemote",
+    value: function loadFromRemote(searchURL) {
+      return fetch("http://gobelins.test/rechercher" + searchURL, {
+        credentials: "include",
+        headers: {
+          Accept: "application/json"
+        }
+      }).then(function (response) {
+        return response.json();
+      });
+    }
+  }, {
+    key: "buildEndpointUrl",
+    value: function buildEndpointUrl() {
+      return "http://gobelins.test/rechercher" + this.buildSearchParamsFromState();
+    }
+  }, {
+    key: "buildSearchParamsFromState",
+    value: function buildSearchParamsFromState() {
+      return "?" + __WEBPACK_IMPORTED_MODULE_3_qs___default.a.stringify(_extends({}, this.state.filterObj, { page: this.state.currentPage }), { arrayFormat: "brackets", encodeValuesOnly: true });
+    }
+  }, {
+    key: "buildSearchParamsFromParams",
+    value: function buildSearchParamsFromParams(params) {
+      return "?" + __WEBPACK_IMPORTED_MODULE_3_qs___default.a.stringify(params, { arrayFormat: "brackets", encodeValuesOnly: true });
+    }
+  }, {
+    key: "historyPushState",
+    value: function historyPushState() {
+      var urlBase = window.location.origin + window.location.pathname;
+      window.history.pushState(_extends({}, this.state.filterObj, { page: this.state.currentPage }), "Recherche", urlBase + this.buildSearchParamsFromState());
+    }
+  }, {
+    key: "handleLoading",
+    value: function handleLoading() {
+      this.setState({ isLoading: true });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // window.addEventListener("popstate", this.handlePopState);
+      this.firstLoad();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {}
+    // window.removeEventListener("popstate", this.handlePopState);
+
+
+    //   handlePopState(ev) {
+    //     // TODO: we'll probably have to integrating a proper router here
+    //     // once we have the detail-page view.
+    //     let searchUrl = this.buildSearchParamsFromParams(ev.state);
+    //     if (this.searches[searchUrl].isLoading === false) {
+    //       this.setState(state => ({
+    //         hits: this.searches[searchUrl].data.hits,
+    //         hasMore: this.searches[searchUrl].data.hasMore,
+    //         totalHits: this.searches[searchUrl].data.totalHits,
+    //         currentPage: ev.state.page,
+    //         isLoading: false
+    //       }));
+    //     }
+    //   }
+
+  }, {
+    key: "firstLoad",
+    value: function firstLoad() {
+      var _this2 = this;
+
+      var searchUrl = this.buildSearchParamsFromState();
+      this.searches[searchUrl] = {
+        isLoading: true,
+        data: {}
+      };
+      this.loadFromRemote(searchUrl).then(function (data) {
+        _this2.searches[searchUrl].data = data;
+        _this2.searches[searchUrl].isLoading = false;
+        _this2.setState({
+          hits: data.hits,
+          hasMore: data.hasMore,
+          totalHits: data.totalHits
+        });
+      });
+    }
+  }, {
+    key: "handleNextPageCallback",
+    value: function handleNextPageCallback() {
+      var _this3 = this;
+
+      // FIXME: this flag isn't stopping the page 2+3 problem…
+      if (this.isLoadingNextPage || !this.state.hasMore) {
+        return;
+      }
+      var pageToLoad = this.state.currentPage + 1;
+      var nextPageUrl = this.buildSearchParamsFromParams(_extends({}, this.state.filterObj, {
+        page: pageToLoad
+      }));
+      if (!this.searches.hasOwnProperty(nextPageUrl)) {
+        this.searches[nextPageUrl] = {
+          isLoading: true,
+          data: {}
+        };
+        this.isLoadingNextPage = true;
+        this.setState({ isLoading: true });
+
+        this.loadFromRemote(nextPageUrl).then(function (data) {
+          _this3.searches[nextPageUrl].data = data;
+          _this3.searches[nextPageUrl].isLoading = false;
+          _this3.setState(function (state) {
+            return {
+              hits: state.hits.concat(data.hits),
+              hasMore: data.hasMore,
+              totalHits: data.totalHits,
+              currentPage: pageToLoad,
+              isLoading: false
+            };
+          }, function () {
+            _this3.historyPushState();
+            _this3.isLoadingNextPage = false;
+          });
+        });
+      } else {
+        if (this.searches[nextPageUrl].isLoading === true) {
+          console.log("URL is loading, noop", nextPageUrl);
+          return;
+        } else {
+          console.log("URL is already loaded, noop", nextPageUrl);
+        }
+      }
+    }
+  }, {
+    key: "mergeAddedFilters",
+    value: function mergeAddedFilters(filterObj) {
+      var currentStateFilterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      return Object(__WEBPACK_IMPORTED_MODULE_4_deepmerge__["a" /* default */])(currentStateFilterObj || this.state.filterObj, filterObj);
+    }
+  }, {
+    key: "mergeRemovedFilters",
+    value: function mergeRemovedFilters(filterToRemove) {
+      var currentStateFilterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+      currentStateFilterObj = currentStateFilterObj || this.state.filterObj;
+      var filterValueToAmend = currentStateFilterObj[filterToRemove.paramName];
+      var filterObjAmended = currentStateFilterObj;
+      // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
+      // let filterObjAmended = this.state.filterObj;
+      if (filterValueToAmend instanceof Array) {
+        filterToRemove.ids.map(function (id) {
+          if (filterValueToAmend.indexOf(id) >= 0) {
+            filterValueToAmend.splice(filterValueToAmend.indexOf(id), 1);
+          }
+        });
+
+        if (filterValueToAmend.length > 0) {
+          filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
+        } else {
+          delete filterObjAmended[filterToRemove.paramName];
+        }
+      } else {
+        var match = void 0;
+        if (filterToRemove.paramName == "period_start_year") {
+          // Periods
+          delete filterObjAmended.period_start_year;
+          delete filterObjAmended.period_end_year;
+        } else if (
+        // Dimensions
+        match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/)) {
+          delete filterObjAmended[match[1] + "lte"];
+          delete filterObjAmended[match[1] + "gte"];
+        } else {
+          // Other: query string, etc.
+          delete filterObjAmended[filterToRemove.paramName];
+        }
+      }
+      return filterObjAmended;
+    }
+  }, {
+    key: "handleAddFilter",
+    value: function handleAddFilter(filterObj) {
+      var mergedObj = this.mergeAddedFilters(filterObj);
+      this.commitFilterChange(mergedObj);
+    }
+  }, {
+    key: "handleFilterChange",
+    value: function handleFilterChange(addedFiltersObj, removedFiltersObj) {
+      var filterObj = void 0;
+      filterObj = this.mergeRemovedFilters(removedFiltersObj);
+      filterObj = this.mergeAddedFilters(addedFiltersObj, filterObj);
+      this.commitFilterChange(filterObj);
+    }
+  }, {
+    key: "commitFilterChange",
+    value: function commitFilterChange(filterObj) {
+      var _this4 = this;
+
+      var searchUrl = this.buildSearchParamsFromParams(_extends({}, filterObj, {
+        page: 1
+      }));
+      if (!this.searches.hasOwnProperty(searchUrl)) {
+        this.searches[searchUrl] = {
+          isLoading: true,
+          data: {}
+        };
+        this.setState({ isLoading: true }, function () {
+          _this4.loadFromRemote(searchUrl).then(function (data) {
+            _this4.searches[searchUrl].data = data;
+            _this4.searches[searchUrl].isLoading = false;
+            _this4.setState(function (state) {
+              return {
+                hits: data.hits,
+                hasMore: data.hasMore,
+                currentPage: 1,
+                isLoading: false,
+                totalHits: data.totalHits,
+                filterObj: filterObj
+              };
+            }, function () {
+              _this4.historyPushState();
+            });
+          });
+        });
+      } else {
+        if (this.searches[searchUrl].isLoading === false) {
+          this.setState(function (state) {
+            return {
+              hits: _this4.searches[searchUrl].data.hits,
+              hasMore: _this4.searches[searchUrl].data.hasMore,
+              currentPage: 1,
+              isLoading: false,
+              filterObj: filterObj,
+              totalHits: _this4.searches[searchUrl].data.totalHits
+            };
+          }, function () {
+            _this4.historyPushState();
+          });
+        }
+      }
+    }
+  }, {
+    key: "isLoadingSearch",
+    value: function isLoadingSearch(searchParams) {
+      return this.searches[searchParams] && this.searches[searchParams].isLoading === true;
+    }
+  }, {
+    key: "handleRemoveFilter",
+    value: function handleRemoveFilter(filterToRemove) {
+      var filterObj = this.mergeRemovedFilters(filterToRemove);
+      console.log("handleRemoveFilter/filterObj:", filterObj);
+      this.commitFilterChange(filterObj);
+    }
+
+    //   handleDisplayProduct(prod, event) {
+    //     event.preventDefault();
+    //     this.setState({ productDetail: prod, scrollPosition: window.scrollY });
+    //     console.log("Product is", prod);
+    //     setTimeout(() => {
+    //       window.scrollTo(0, 0);
+    //     }, 0);
+    //   }
+
+  }, {
+    key: "handleBackToCollection",
+    value: function handleBackToCollection(event) {
+      event.preventDefault();
+      this.props.history.push("/recherche" + this.buildSearchParamsFromState());
+      // this.setState({ productDetail: null });
+      window.scrollTo(0, this.state.scrollPosition);
+      // setTimeout(() => {
+      //   window.scrollTo(0, this.state.scrollPosition);
+      // }, 0);
+    }
+  }, {
+    key: "handleObjectClick",
+    value: function handleObjectClick(product, event) {
+      var _this5 = this;
+
+      event.preventDefault();
+      console.log("this.props.history", this.props.history);
+      this.setState({ productDetail: product, scrollPosition: window.scrollY }, function () {
+        _this5.props.history.push("/objet/" + product.inventory_id);
+        window.scrollTo(0, 0);
+        // setTimeout(() => {}, 0);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this6 = this;
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_2_react_breakpoints___default.a,
+        {
+          breakpoints: breakpoints,
+          debounceResize: true,
+          debounceDelay: 100
         },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "li",
+          "div",
           null,
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-            { to: "/recherche" },
-            "Recherche"
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "li",
-          null,
+            "ul",
+            {
+              style: {
+                position: "fixed",
+                right: 0,
+                top: 0,
+                zIndex: 999999,
+                backgroundColor: "pink",
+                padding: "15px"
+              }
+            },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "li",
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                { to: "/recherche" },
+                "Recherche"
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "li",
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                { to: "/objet/GMT-14189-000" },
+                "Un Objet"
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "li",
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                { to: "/savoir-faire" },
+                "Les savoir-faire"
+              )
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              "li",
+              null,
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+                { to: "/other" },
+                "Other component"
+              )
+            )
+          ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-            { to: "/objet/GMT-14189-000" },
-            "Un Objet"
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          "li",
-          null,
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
-            { to: "/savoir-faire" },
-            "Les savoir-faire"
+            __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Switch */],
+            null,
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], {
+              path: "/recherche",
+              render: function render(props) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Collection_Collection__["a" /* default */], _extends({}, props, {
+                  onFilterAdd: _this6.handleAddFilter,
+                  onFilterRemove: _this6.handleRemoveFilter,
+                  onFilterChange: _this6.handleFilterChange,
+                  isLoadingURL: _this6.isLoadingSearch.bind(_this6, _this6.buildSearchParamsFromState()),
+                  isLoading: _this6.state.isLoading,
+                  totalHits: _this6.state.totalHits,
+                  filterObj: _this6.state.filterObj,
+                  hits: _this6.state.hits,
+                  loadMore: _this6.handleNextPageCallback,
+                  hasMore: !_this6.state.isLoading && _this6.state.hasMore,
+                  currentPage: _this6.state.currentPage
+                  //   onDisplayProduct={this.handleDisplayProduct}
+                  , onObjectClick: _this6.handleObjectClick
+                }));
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], {
+              exact: true,
+              path: "/objet/:inventory_id",
+              render: function render(props) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Detail_Detail__["a" /* default */], _extends({}, props, {
+                  product: _this6.state.productDetail,
+                  onBackToCollection: _this6.handleBackToCollection
+                }));
+              }
+            }),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { path: "/savoir-faire", component: SavoirFaire })
           )
         )
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["d" /* Switch */],
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { path: "/recherche", component: __WEBPACK_IMPORTED_MODULE_2__Collection_Collection__["a" /* default */] }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { exact: true, path: "/objet/:inventory_id", component: DetailWrapper }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { path: "/savoir-faire", component: SavoirFaire })
-      )
-    )
-  );
-}
+      );
+    }
+  }]);
 
-function DetailWrapper() {
-  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__Detail_Detail__["a" /* default */]
-  //   product={this.state.productDetail}
-  //   onBackToCollection={this.handleBackToCollection}
-  , null);
-}
+  return App;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
 function SavoirFaire() {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     "div",
@@ -22204,7 +22639,7 @@ function SavoirFaire() {
   );
 }
 
-/* harmony default export */ __webpack_exports__["a"] = (App);
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["e" /* withRouter */])(App));
 
 /***/ }),
 /* 14 */
@@ -23759,7 +24194,7 @@ var callAll = function callAll() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__matchPath__ = __webpack_require__(138);
 /* unused harmony reexport matchPath */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__withRouter__ = __webpack_require__(139);
-/* unused harmony reexport withRouter */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_13__withRouter__["a"]; });
 
 
 
@@ -29416,7 +29851,7 @@ Switch.propTypes = {
 // Written in this round about way for babel-transform-imports
 
 
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_withRouter__["a" /* default */]);
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_react_router_es_withRouter__["a" /* default */]);
 
 /***/ }),
 /* 140 */
@@ -29474,18 +29909,11 @@ var withRouter = function withRouter(Component) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_breakpoints__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_breakpoints___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_breakpoints__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionList_jsx__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CollectionGrid_jsx__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ScrollToTop_jsx__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Filters_Filters_jsx__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Settings_Settings_jsx__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_qs__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_qs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_qs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_deepmerge__ = __webpack_require__(308);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CollectionList_jsx__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CollectionGrid_jsx__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ScrollToTop_jsx__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Filters_Filters_jsx__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Settings_Settings_jsx__ = __webpack_require__(302);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29501,436 +29929,44 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
-
-
-var breakpoints = {
-  xsmall: 800,
-  small: 1024,
-  medium: 1440,
-  large: 1600,
-  xlarge: 1800,
-  xxlarge: 9999
-};
-
 var Collection = function (_Component) {
   _inherits(Collection, _Component);
 
-  function Collection(props) {
+  function Collection() {
     _classCallCheck(this, Collection);
 
-    var _this = _possibleConstructorReturn(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).call(this, props));
-
-    var stateFromURL = _this.extractStateFromURL();
-
-    _this.state = {
-      hits: [],
-      currentPage: stateFromURL.currentPage || 1,
-      isLoading: false,
-      hasMore: false,
-      totalHits: 0,
-      filterObj: stateFromURL.filterObj || {},
-      productDetail: false, // When in detail mode, hold the product data.
-      scrollPosition: 0
-    };
-
-    _this.cache = {};
-    _this.searches = {};
-    _this.isLoadingNextPage = false;
-
-    //
-
-    _this.buildEndpointUrl = _this.buildEndpointUrl.bind(_this);
-    _this.handleLoading = _this.handleLoading.bind(_this);
-    _this.historyPushState = _this.historyPushState.bind(_this);
-    _this.handlePopState = _this.handlePopState.bind(_this);
-    _this.loadFromRemote = _this.loadFromRemote.bind(_this);
-    _this.handleNextPageCallback = _this.handleNextPageCallback.bind(_this);
-    _this.handleAddFilter = _this.handleAddFilter.bind(_this);
-    _this.handleRemoveFilter = _this.handleRemoveFilter.bind(_this);
-    _this.handleFilterChange = _this.handleFilterChange.bind(_this);
-    _this.mergeAddedFilters = _this.mergeAddedFilters.bind(_this);
-    _this.mergeRemovedFilters = _this.mergeRemovedFilters.bind(_this);
-    _this.buildSearchParamsFromParams = _this.buildSearchParamsFromParams.bind(_this);
-    _this.buildSearchParamsFromState = _this.buildSearchParamsFromState.bind(_this);
-    _this.handleDisplayProduct = _this.handleDisplayProduct.bind(_this);
-    _this.handleBackToCollection = _this.handleBackToCollection.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (Collection.__proto__ || Object.getPrototypeOf(Collection)).apply(this, arguments));
   }
 
   _createClass(Collection, [{
-    key: "extractStateFromURL",
-    value: function extractStateFromURL() {
-      var urlParams = __WEBPACK_IMPORTED_MODULE_7_qs___default.a.parse(window.location.search, {
-        ignoreQueryPrefix: true,
-        decoder: function decoder(value) {
-          if (/^(\d+|\d*\.\d+)$/.test(value)) {
-            return parseFloat(value);
-          }
-
-          var keywords = {
-            true: true,
-            false: false,
-            null: null,
-            undefined: undefined
-          };
-          if (value in keywords) {
-            return keywords[value];
-          }
-
-          return window.decodeURIComponent(value);
-        }
-      });
-      var out = {};
-      if (urlParams.page) {
-        out.currentPage = urlParams.page;
-        delete urlParams.page;
-      }
-      out.filterObj = _extends({}, urlParams);
-      return out;
-    }
-  }, {
-    key: "loadFromRemote",
-    value: function loadFromRemote(searchURL) {
-      return fetch("http://gobelins.test/rechercher" + searchURL, {
-        credentials: "include",
-        headers: {
-          Accept: "application/json"
-        }
-      }).then(function (response) {
-        return response.json();
-      });
-    }
-  }, {
-    key: "buildEndpointUrl",
-    value: function buildEndpointUrl() {
-      return "http://gobelins.test/rechercher" + this.buildSearchParamsFromState();
-    }
-  }, {
-    key: "buildSearchParamsFromState",
-    value: function buildSearchParamsFromState() {
-      return "?" + __WEBPACK_IMPORTED_MODULE_7_qs___default.a.stringify(_extends({}, this.state.filterObj, { page: this.state.currentPage }), { arrayFormat: "brackets", encodeValuesOnly: true });
-    }
-  }, {
-    key: "buildSearchParamsFromParams",
-    value: function buildSearchParamsFromParams(params) {
-      return "?" + __WEBPACK_IMPORTED_MODULE_7_qs___default.a.stringify(params, { arrayFormat: "brackets", encodeValuesOnly: true });
-    }
-  }, {
-    key: "historyPushState",
-    value: function historyPushState() {
-      var urlBase = window.location.origin + window.location.pathname;
-      window.history.pushState(_extends({}, this.state.filterObj, { page: this.state.currentPage }), "Recherche", urlBase + this.buildSearchParamsFromState());
-    }
-  }, {
-    key: "handleLoading",
-    value: function handleLoading() {
-      this.setState({ isLoading: true });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      window.addEventListener("popstate", this.handlePopState);
-      this.firstLoad();
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.removeEventListener("popstate", this.handlePopState);
-    }
-  }, {
-    key: "handlePopState",
-    value: function handlePopState(ev) {
-      var _this2 = this;
-
-      // TODO: we'll probably have to integrating a proper router here
-      // once we have the detail-page view.
-      var searchUrl = this.buildSearchParamsFromParams(ev.state);
-      if (this.searches[searchUrl].isLoading === false) {
-        this.setState(function (state) {
-          return {
-            hits: _this2.searches[searchUrl].data.hits,
-            hasMore: _this2.searches[searchUrl].data.hasMore,
-            totalHits: _this2.searches[searchUrl].data.totalHits,
-            currentPage: ev.state.page,
-            isLoading: false
-          };
-        });
-      }
-    }
-  }, {
-    key: "firstLoad",
-    value: function firstLoad() {
-      var _this3 = this;
-
-      var searchUrl = this.buildSearchParamsFromState();
-      this.searches[searchUrl] = {
-        isLoading: true,
-        data: {}
-      };
-      this.loadFromRemote(searchUrl).then(function (data) {
-        _this3.searches[searchUrl].data = data;
-        _this3.searches[searchUrl].isLoading = false;
-        _this3.setState({
-          hits: data.hits,
-          hasMore: data.hasMore,
-          totalHits: data.totalHits
-        });
-      });
-    }
-  }, {
-    key: "handleNextPageCallback",
-    value: function handleNextPageCallback() {
-      var _this4 = this;
-
-      // FIXME: this flag isn't stopping the page 2+3 problem…
-      if (this.isLoadingNextPage || !this.state.hasMore) {
-        return;
-      }
-      var pageToLoad = this.state.currentPage + 1;
-      var nextPageUrl = this.buildSearchParamsFromParams(_extends({}, this.state.filterObj, {
-        page: pageToLoad
-      }));
-      if (!this.searches.hasOwnProperty(nextPageUrl)) {
-        this.searches[nextPageUrl] = {
-          isLoading: true,
-          data: {}
-        };
-        this.isLoadingNextPage = true;
-        this.setState({ isLoading: true });
-
-        this.loadFromRemote(nextPageUrl).then(function (data) {
-          _this4.searches[nextPageUrl].data = data;
-          _this4.searches[nextPageUrl].isLoading = false;
-          _this4.setState(function (state) {
-            return {
-              hits: state.hits.concat(data.hits),
-              hasMore: data.hasMore,
-              totalHits: data.totalHits,
-              currentPage: pageToLoad,
-              isLoading: false
-            };
-          }, function () {
-            _this4.historyPushState();
-            _this4.isLoadingNextPage = false;
-          });
-        });
-      } else {
-        if (this.searches[nextPageUrl].isLoading === true) {
-          console.log("URL is loading, noop", nextPageUrl);
-          return;
-        } else {
-          console.log("URL is already loaded, noop", nextPageUrl);
-        }
-      }
-    }
-  }, {
-    key: "mergeAddedFilters",
-    value: function mergeAddedFilters(filterObj) {
-      var currentStateFilterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-      return Object(__WEBPACK_IMPORTED_MODULE_8_deepmerge__["a" /* default */])(currentStateFilterObj || this.state.filterObj, filterObj);
-    }
-  }, {
-    key: "mergeRemovedFilters",
-    value: function mergeRemovedFilters(filterToRemove) {
-      var currentStateFilterObj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-      currentStateFilterObj = currentStateFilterObj || this.state.filterObj;
-      var filterValueToAmend = currentStateFilterObj[filterToRemove.paramName];
-      var filterObjAmended = currentStateFilterObj;
-      // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
-      // let filterObjAmended = this.state.filterObj;
-      if (filterValueToAmend instanceof Array) {
-        filterToRemove.ids.map(function (id) {
-          if (filterValueToAmend.indexOf(id) >= 0) {
-            filterValueToAmend.splice(filterValueToAmend.indexOf(id), 1);
-          }
-        });
-
-        if (filterValueToAmend.length > 0) {
-          filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
-        } else {
-          delete filterObjAmended[filterToRemove.paramName];
-        }
-      } else {
-        var match = void 0;
-        if (filterToRemove.paramName == "period_start_year") {
-          // Periods
-          delete filterObjAmended.period_start_year;
-          delete filterObjAmended.period_end_year;
-        } else if (
-        // Dimensions
-        match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/)) {
-          delete filterObjAmended[match[1] + "lte"];
-          delete filterObjAmended[match[1] + "gte"];
-        } else {
-          // Other: query string, etc.
-          delete filterObjAmended[filterToRemove.paramName];
-        }
-      }
-      return filterObjAmended;
-    }
-  }, {
-    key: "handleAddFilter",
-    value: function handleAddFilter(filterObj) {
-      var mergedObj = this.mergeAddedFilters(filterObj);
-      this.commitFilterChange(mergedObj);
-    }
-  }, {
-    key: "handleFilterChange",
-    value: function handleFilterChange(addedFiltersObj, removedFiltersObj) {
-      var filterObj = void 0;
-      filterObj = this.mergeRemovedFilters(removedFiltersObj);
-      filterObj = this.mergeAddedFilters(addedFiltersObj, filterObj);
-      this.commitFilterChange(filterObj);
-    }
-  }, {
-    key: "commitFilterChange",
-    value: function commitFilterChange(filterObj) {
-      var _this5 = this;
-
-      var searchUrl = this.buildSearchParamsFromParams(_extends({}, filterObj, {
-        page: 1
-      }));
-      if (!this.searches.hasOwnProperty(searchUrl)) {
-        this.searches[searchUrl] = {
-          isLoading: true,
-          data: {}
-        };
-        this.setState({ isLoading: true }, function () {
-          _this5.loadFromRemote(searchUrl).then(function (data) {
-            _this5.searches[searchUrl].data = data;
-            _this5.searches[searchUrl].isLoading = false;
-            _this5.setState(function (state) {
-              return {
-                hits: data.hits,
-                hasMore: data.hasMore,
-                currentPage: 1,
-                isLoading: false,
-                totalHits: data.totalHits,
-                filterObj: filterObj
-              };
-            }, function () {
-              _this5.historyPushState();
-            });
-          });
-        });
-      } else {
-        if (this.searches[searchUrl].isLoading === false) {
-          this.setState(function (state) {
-            return {
-              hits: _this5.searches[searchUrl].data.hits,
-              hasMore: _this5.searches[searchUrl].data.hasMore,
-              currentPage: 1,
-              isLoading: false,
-              filterObj: filterObj,
-              totalHits: _this5.searches[searchUrl].data.totalHits
-            };
-          }, function () {
-            _this5.historyPushState();
-          });
-        }
-      }
-    }
-  }, {
-    key: "isLoadingSearch",
-    value: function isLoadingSearch(searchParams) {
-      return this.searches[searchParams] && this.searches[searchParams].isLoading === true;
-    }
-  }, {
-    key: "handleRemoveFilter",
-    value: function handleRemoveFilter(filterToRemove) {
-      // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
-      // let filterObjAmended = this.state.filterObj;
-      // if (filterValueToAmend instanceof Array) {
-      //   filterValueToAmend.splice(
-      //     filterValueToAmend.indexOf(filterToRemove.id),
-      //     1
-      //   );
-      //   if (filterValueToAmend.length > 0) {
-      //     filterObjAmended[filterToRemove.paramName] = filterValueToAmend;
-      //   } else {
-      //     delete filterObjAmended[filterToRemove.paramName];
-      //   }
-      // } else {
-      //   let match;
-      //   if (filterToRemove.paramName == "period_start_year") {
-      //     // Periods
-      //     delete filterObjAmended.period_start_year;
-      //     delete filterObjAmended.period_end_year;
-      //   } else if (
-      //     // Dimensions
-      //     (match = filterToRemove.paramName.match(/^([_a-z]+_)(l|g)te$/))
-      //   ) {
-      //     delete filterObjAmended[match[1] + "lte"];
-      //     delete filterObjAmended[match[1] + "gte"];
-      //   } else {
-      //     // Other: query string, etc.
-      //     delete filterObjAmended[filterToRemove.paramName];
-      //   }
-      // }
-      var filterObj = this.mergeRemovedFilters(filterToRemove);
-      console.log("handleRemoveFilter/filterObj:", filterObj);
-      this.commitFilterChange(filterObj);
-    }
-  }, {
-    key: "handleDisplayProduct",
-    value: function handleDisplayProduct(prod, event) {
-      event.preventDefault();
-      this.setState({ productDetail: prod, scrollPosition: window.scrollY });
-      console.log("Product is", prod);
-      setTimeout(function () {
-        window.scrollTo(0, 0);
-      }, 0);
-    }
-  }, {
-    key: "handleBackToCollection",
-    value: function handleBackToCollection(event) {
-      var _this6 = this;
-
-      event.preventDefault();
-      this.setState({ productDetail: null });
-      setTimeout(function () {
-        window.scrollTo(0, _this6.state.scrollPosition);
-      }, 0);
-    }
-  }, {
     key: "render",
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_react_breakpoints___default.a,
-        {
-          breakpoints: breakpoints,
-          debounceResize: true,
-          debounceDelay: 100
-        },
+        "div",
+        { className: "Collection" },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__Filters_Filters_jsx__["a" /* default */], {
+          onFilterAdd: this.props.onFilterAdd,
+          onFilterRemove: this.props.onFilterRemove,
+          onFilterChange: this.props.onFilterChange,
+          isLoadingURL: this.props.isLoadingURL,
+          isLoading: this.props.isLoading,
+          totalHits: this.props.totalHits,
+          filterObj: this.props.filterObj
+        }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           "div",
-          { className: "Collection" },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Filters_Filters_jsx__["a" /* default */], {
-            onFilterAdd: this.handleAddFilter,
-            onFilterRemove: this.handleRemoveFilter,
-            onFilterChange: this.handleFilterChange,
-            isLoadingURL: this.isLoadingSearch.bind(this, this.buildSearchParamsFromState()),
-            isLoading: this.state.isLoading,
-            totalHits: this.state.totalHits,
-            filterObj: this.state.filterObj
-          }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            "div",
-            { className: "Collection__result" },
-            true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__CollectionGrid_jsx__["a" /* default */], {
-              hits: this.state.hits,
-              loadMore: this.handleNextPageCallback,
-              hasMore: !this.state.isLoading && this.state.hasMore,
-              currentPage: this.state.currentPage,
-              onDisplayProduct: this.handleDisplayProduct
-            }) : React.createElement(CollectionList, { hits: this.state.hits })
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__ScrollToTop_jsx__["a" /* default */], { isLoading: this.state.isLoading }),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__Settings_Settings_jsx__["a" /* default */], null)
-        )
+          { className: "Collection__result" },
+          true ? __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__CollectionGrid_jsx__["a" /* default */], {
+            hits: this.props.hits,
+            loadMore: this.props.loadMore,
+            hasMore: this.props.hasMore,
+            currentPage: this.props.currentPage,
+            onDisplayProduct: this.props.onDisplayProduct,
+            onObjectClick: this.props.onObjectClick
+          }) : React.createElement(CollectionList, { hits: this.props.hits })
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ScrollToTop_jsx__["a" /* default */], { isLoading: this.props.isLoading }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Settings_Settings_jsx__["a" /* default */], null)
       );
     }
   }]);
@@ -31022,6 +31058,8 @@ var CollectionGrid = function (_Component) {
   }, {
     key: "renderGridElements",
     value: function renderGridElements() {
+      var _this2 = this;
+
       return this.props.hits.map(function (datum, index) {
         var hasImages = datum.images && datum.images.length > 0;
         var imgRoot = hasImages ? "/image/" + encodeURIComponent(datum.images[0].path) + "?q=40&fm=pjpg&cache=1&w=" : "";
@@ -31029,9 +31067,12 @@ var CollectionGrid = function (_Component) {
           return t.is_leaf;
         }).name : "");
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_3_react_router_dom__["b" /* Link */],
+          "a",
           {
-            to: "/objet/" + datum.inventory_id,
+            href: "/objet/" + datum.inventory_id,
+            onClick: function onClick(ev) {
+              return _this2.props.onObjectClick(datum, ev);
+            },
             key: datum["_id"],
             className: "Collection__cell"
           },
@@ -42998,6 +43039,29 @@ var Loader = function Loader(props) {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Loader);
+
+/***/ }),
+/* 345 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = AppRouter;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__App__ = __webpack_require__(13);
+
+
+
+
+
+function AppRouter() {
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["a" /* BrowserRouter */],
+    null,
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__App__["a" /* default */], null)
+  );
+}
 
 /***/ })
 /******/ ]);
