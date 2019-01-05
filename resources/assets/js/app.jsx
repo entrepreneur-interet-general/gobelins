@@ -40,9 +40,10 @@ class App extends Component {
       scrollPosition: 0
     };
 
-    this.cache = {};
     this.searches = {};
     this.isLoadingNextPage = false;
+
+    props.history.listen(this.historyEventListener.bind(this));
 
     //
 
@@ -67,6 +68,27 @@ class App extends Component {
     // this.handleDisplayProduct = this.handleDisplayProduct.bind(this);
     this.handleBackToCollection = this.handleBackToCollection.bind(this);
     this.handleObjectClick = this.handleObjectClick.bind(this);
+  }
+
+  historyEventListener(location, action) {
+    console.log(`historyEventListener: action is ${action}`);
+    console.log("this.searches", this.searches);
+
+    // When using the 'back' button of the browser, we must
+    // manually restore the state.
+    if (action === "POP") {
+      const s = location.search;
+      if (this.searches[s].isLoading === false) {
+        this.setState(state => ({
+          hits: this.searches[s].data.hits,
+          hasMore: this.searches[s].data.hasMore,
+          totalHits: this.searches[s].data.totalHits,
+          currentPage: location.state.currentPage,
+          filterObj: location.state.filterObj,
+          isLoading: false
+        }));
+      }
+    }
   }
 
   extractSearchParams() {
@@ -130,12 +152,26 @@ class App extends Component {
   }
 
   historyPushState() {
-    let urlBase = window.location.origin + window.location.pathname;
-    window.history.pushState(
-      { ...this.state.filterObj, page: this.state.currentPage },
-      "Recherche",
-      urlBase + this.buildSearchParamsFromState()
+    // let urlBase = window.location.origin + window.location.pathname;
+    // window.history.pushState(
+    //   { ...this.state.filterObj, page: this.state.currentPage },
+    //   "Recherche",
+    //   urlBase + this.buildSearchParamsFromState()
+    // );
+    console.log(
+      "history push state function",
+      this.buildSearchParamsFromState()
     );
+    console.log("saved state", {
+      filterObj: this.state.filterObj,
+      currentPage: this.state.currentPage
+    });
+
+    this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`, {
+      filterObj: this.state.filterObj,
+      currentPage: this.state.currentPage
+    });
+    // window.scrollTo(0, 0);
   }
 
   handleLoading() {
@@ -149,17 +185,22 @@ class App extends Component {
   componentWillUnmount() {
     // window.removeEventListener("popstate", this.handlePopState);
   }
+  //   componentDidUpdate(prevProps) {
+  //     console.log("componentDidUpdate", prevProps);
+  //   }
 
   //   handlePopState(ev) {
+  //     console.log("handle pop state !", ev.state.state);
+
   //     // TODO: we'll probably have to integrating a proper router here
   //     // once we have the detail-page view.
-  //     let searchUrl = this.buildSearchParamsFromParams(ev.state);
+  //     let searchUrl = this.buildSearchParamsFromParams(ev.state.state);
   //     if (this.searches[searchUrl].isLoading === false) {
   //       this.setState(state => ({
   //         hits: this.searches[searchUrl].data.hits,
   //         hasMore: this.searches[searchUrl].data.hasMore,
   //         totalHits: this.searches[searchUrl].data.totalHits,
-  //         currentPage: ev.state.page,
+  //         currentPage: ev.state.state.page,
   //         isLoading: false
   //       }));
   //     }
@@ -174,11 +215,23 @@ class App extends Component {
     this.loadFromRemote(searchUrl).then(data => {
       this.searches[searchUrl].data = data;
       this.searches[searchUrl].isLoading = false;
-      this.setState({
-        hits: data.hits,
-        hasMore: data.hasMore,
-        totalHits: data.totalHits
-      });
+      this.setState(
+        {
+          hits: data.hits,
+          hasMore: data.hasMore,
+          totalHits: data.totalHits
+        },
+        () => {
+          this.props.history.replace(
+            `/recherche${this.buildSearchParamsFromState()}`,
+            {
+              filterObj: this.state.filterObj,
+              currentPage: this.state.currentPage
+            }
+          );
+          window.scrollTo(0, 0);
+        }
+      );
     });
   }
 
