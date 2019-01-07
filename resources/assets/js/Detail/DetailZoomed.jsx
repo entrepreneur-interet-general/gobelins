@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
+import { Link } from "react-router-dom";
+
 import Loader from "../Loader.jsx";
 import ZoomIn from "./ZoomIn";
 import ZoomOut from "./ZoomOut";
@@ -72,13 +74,9 @@ class DetailZoomed extends Component {
         <ul className="DetailZoom__thumbails">
           {this.props.images.map(this.renderListItem)}
         </ul>
-        <button
-          className="DetailZoom__close"
-          type="button"
-          onClick={this.props.onClose}
-        >
+        <Link className="DetailZoom__close" to={this.props.detailPath}>
           <Cross />
-        </button>
+        </Link>
       </section>
     );
   }

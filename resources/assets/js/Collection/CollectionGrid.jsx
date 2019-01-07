@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
-import TirelessMason from "./TirelessMason.jsx";
 import isEqual from "lodash/isEqual";
+import { Link } from "react-router-dom";
+import TirelessMason from "./TirelessMason.jsx";
 
 class CollectionGrid extends Component {
   constructor(props) {
@@ -33,11 +34,8 @@ class CollectionGrid extends Component {
           : "");
       return (
         <a
-          href={"/collection/objet/" + datum.inventory_id}
-          onClick={this.props.onDisplayProduct.bind(
-            this.props.onDisplayProduct,
-            datum
-          )}
+          href={`/objet/${datum.inventory_id}`}
+          onClick={ev => this.props.onObjectClick(datum, ev)}
           key={datum["_id"]}
           className="Collection__cell"
         >

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
+import { Link } from "react-router-dom";
+
 import MagnifyingGlass from "./MagnifyingGlass";
 import Download from "./Download";
-import Loader from "../Loader.jsx";
+import Loader from "../Loader";
 
 class MainImage extends Component {
   constructor(props) {
@@ -39,20 +41,20 @@ class MainImage extends Component {
             />
 
             <div className="DetailMainImage__toolbar">
-              <button
-                type="button"
-                onClick={this.props.onZoom}
+              <Link
+                to={`${this.props.match.url}/zoom`}
                 className="DetailMainImage__button DetailMainImage__button--magnifying-glass"
               >
                 <MagnifyingGlass />
-              </button>
-              <button
-                type="button"
+              </Link>
+              <a
+                href={`/image/${encodeURIComponent(this.props.image.path)}`}
+                download
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
               >
                 <Download />
-              </button>
+              </a>
             </div>
           </figure>
         ) : (
