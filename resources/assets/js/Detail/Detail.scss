@@ -82,6 +82,7 @@
   z-index: 1;
   display: flex;
   flex-flow: column nowrap;
+  color: black;
 }
 .DetailMainImage__button {
   height: 50px;
@@ -95,6 +96,7 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  color: black;
   cursor: pointer;
 
   &.DetailMainImage__button--magnifying-glass:hover {
@@ -144,17 +146,17 @@
   font-weight: normal;
   font-size: rem(30px);
   line-height: rem(50px);
-  text-transform : lowercase;
-  
-  &::first-letter {
-   text-transform: uppercase;}
-}
+  text-transform: lowercase;
 
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
 
 .DetailTitle__denomination,
 .DetailTitle__title_or_designation {
   display: block;
-  text-transform : lowercase;
+  text-transform: lowercase;
 }
 
 .DetailData {
@@ -197,8 +199,6 @@
   left: 40px;
   padding-top: 20px;
   box-sizing: border-box;
-  .DetailMainImage {
-  }
 }
 .DetailDesktop__right-zone {
   margin-top: 70px;
@@ -411,6 +411,7 @@
   background-color: transparent;
   -webkit-appearance: none;
   cursor: pointer;
+  color: black;
 }
 
 .DetailDownloadModal {
@@ -435,7 +436,7 @@
   position: relative;
   background-color: #40b877;
   color: #fff;
-  max-height:550px;
+  max-height: 550px;
   -webkit-font-smoothing: antialias;
   @include f-sans;
   font-size: rem(20px);
@@ -474,6 +475,11 @@
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    &:hover {
+      color: #606060;
+      border-color: #606060;
+    }
   }
 }
 .DetailDownloadModal__2cols {

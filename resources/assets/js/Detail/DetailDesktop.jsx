@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
 import BackToCollection from "./BackToCollection.jsx";
 import MainImage from "./MainImage.jsx";
@@ -43,49 +44,67 @@ class DetailDesktop extends Component {
   render() {
     return (
       <article className="Detail">
-        <div
-          className={
-            "DetailDesktop has-" + this.state.layoutOrientation + "-poster"
-          }
-        >
-          <div className="DetailDesktop__left-zone">
-            <BackToCollection onClick={this.props.onBackToCollection} />
-            <MainImage
-              image={this.props.product.images[this.state.mainImageIndex]}
-              onZoom={() => this.setState({ zoomedMode: true })}
-              onDownload={() =>
-                this.setState({
-                  downloadMode: true
-                })
+        <Route
+          exact
+          path={this.props.match.path}
+          render={props => (
+            <div
+              className={
+                "DetailDesktop has-" + this.state.layoutOrientation + "-poster"
               }
-            />
-            <ImageList
-              images={this.props.product.images}
-              onChangeMainImageIndex={this.handleMainImageIndex}
-            />
-          </div>
+            >
+              <div className="DetailDesktop__left-zone">
+                <BackToCollection onClick={this.props.onBackToCollection} />
+                <MainImage
+                  image={this.props.product.images[this.state.mainImageIndex]}
+                  onZoom={() => this.setState({ zoomedMode: true })}
+                  match={this.props.match}
+                  onDownload={() =>
+                    this.setState({
+                      downloadMode: true
+                    })
+                  }
+                />
+                <ImageList
+                  images={this.props.product.images}
+                  onChangeMainImageIndex={this.handleMainImageIndex}
+                />
+              </div>
 
-          <div className="DetailDesktop__right-zone">
-            <Title
-              denomination={this.props.product.denomination}
-              designation={this.props.product.title_or_designation}
-            />
-            <div className="DetailDesktop__right-zone-dblcol">
-              <Data product={this.props.product} />
-              <Info product={this.props.product} />
+              <div className="DetailDesktop__right-zone">
+                <Title
+                  denomination={this.props.product.denomination}
+                  designation={this.props.product.title_or_designation}
+                />
+                <div className="DetailDesktop__right-zone-dblcol">
+                  <Data product={this.props.product} />
+                  <Info product={this.props.product} />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        {this.state.zoomedMode ? (
-          <DetailZoomed
-            images={this.props.product.images}
-            zoomedImage={this.props.product.images[this.state.mainImageIndex]}
-            onClose={() => this.setState({ zoomedMode: false })}
-          />
-        ) : null}
+          )}
+        />
+        <Route
+          path={`${this.props.match.path}/zoom`}
+          render={props => (
+            <DetailZoomed
+              images={this.props.product.images}
+              zoomedImage={this.props.product.images[this.state.mainImageIndex]}
+              detailPath={this.props.match.url}
+            />
+          )}
+        />
         {this.state.downloadMode ? (
           <DownloadModal
-            onClose={() => this.setState({ downloadMode: false })}
+            onDownload={() => this.setState({ downloadMode: true })}
+            onClose={() =>
+              this.setState({
+                downloadMode: false
+              })
+            }
+            photographer={
+              this.props.product.images[this.state.mainImageIndex].photographer
+            }
           />
         ) : null}
       </article>

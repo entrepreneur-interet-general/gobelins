@@ -33,8 +33,14 @@ class DownloadModal extends Component {
             <p>
               <span>Sous réserve de :</span>
               mentionner la paternité, ici{" "}
-              <b>« Isabelle Bideau, Mobilier national » </b>
-              et la date de dernière mise à jour ici, <b>« juin 2018 »</b>.
+              <b>
+                «{" "}
+                {[this.props.photographer, "Mobilier national"]
+                  .filter(i => !!i)
+                  .join(", ")}{" "}
+                »{" "}
+              </b>
+              et la date de dernière mise à jour ici, <b>« janvier 2019 »</b>.
             </p>
             <button onClick={this.props.onClose}>OK</button>
           </div>

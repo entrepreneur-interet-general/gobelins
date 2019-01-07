@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch,
-  Redirect,
   withRouter
 } from "react-router-dom";
 import ReactBreakpoints from "react-breakpoints";
@@ -45,13 +43,10 @@ class App extends Component {
 
     props.history.listen(this.historyEventListener.bind(this));
 
-    //
-
     this.extractSearchParams = this.extractSearchParams.bind(this);
     this.buildEndpointUrl = this.buildEndpointUrl.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
     this.historyPushState = this.historyPushState.bind(this);
-    // this.handlePopState = this.handlePopState.bind(this);
     this.loadFromRemote = this.loadFromRemote.bind(this);
     this.handleNextPageCallback = this.handleNextPageCallback.bind(this);
     this.handleAddFilter = this.handleAddFilter.bind(this);
@@ -65,18 +60,14 @@ class App extends Component {
     this.buildSearchParamsFromState = this.buildSearchParamsFromState.bind(
       this
     );
-    // this.handleDisplayProduct = this.handleDisplayProduct.bind(this);
     this.handleBackToCollection = this.handleBackToCollection.bind(this);
     this.handleObjectClick = this.handleObjectClick.bind(this);
   }
 
   historyEventListener(location, action) {
-    console.log(`historyEventListener: action is ${action}`);
-    console.log("this.searches", this.searches);
-
     // When using the 'back' button of the browser, we must
-    // manually restore the state.
-    if (action === "POP") {
+    // manually restore the state of the filters.
+    if (location.pathname === "recherche" && action === "POP") {
       const s = location.search;
       if (this.searches[s].isLoading === false) {
         this.setState(state => ({
@@ -152,21 +143,6 @@ class App extends Component {
   }
 
   historyPushState() {
-    // let urlBase = window.location.origin + window.location.pathname;
-    // window.history.pushState(
-    //   { ...this.state.filterObj, page: this.state.currentPage },
-    //   "Recherche",
-    //   urlBase + this.buildSearchParamsFromState()
-    // );
-    console.log(
-      "history push state function",
-      this.buildSearchParamsFromState()
-    );
-    console.log("saved state", {
-      filterObj: this.state.filterObj,
-      currentPage: this.state.currentPage
-    });
-
     this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`, {
       filterObj: this.state.filterObj,
       currentPage: this.state.currentPage
@@ -179,32 +155,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // window.addEventListener("popstate", this.handlePopState);
     this.firstLoad();
   }
-  componentWillUnmount() {
-    // window.removeEventListener("popstate", this.handlePopState);
-  }
-  //   componentDidUpdate(prevProps) {
-  //     console.log("componentDidUpdate", prevProps);
-  //   }
-
-  //   handlePopState(ev) {
-  //     console.log("handle pop state !", ev.state.state);
-
-  //     // TODO: we'll probably have to integrating a proper router here
-  //     // once we have the detail-page view.
-  //     let searchUrl = this.buildSearchParamsFromParams(ev.state.state);
-  //     if (this.searches[searchUrl].isLoading === false) {
-  //       this.setState(state => ({
-  //         hits: this.searches[searchUrl].data.hits,
-  //         hasMore: this.searches[searchUrl].data.hasMore,
-  //         totalHits: this.searches[searchUrl].data.totalHits,
-  //         currentPage: ev.state.state.page,
-  //         isLoading: false
-  //       }));
-  //     }
-  //   }
 
   firstLoad() {
     let searchUrl = this.buildSearchParamsFromState();
@@ -288,8 +240,6 @@ class App extends Component {
     currentStateFilterObj = currentStateFilterObj || this.state.filterObj;
     let filterValueToAmend = currentStateFilterObj[filterToRemove.paramName];
     let filterObjAmended = currentStateFilterObj;
-    // let filterValueToAmend = this.state.filterObj[filterToRemove.paramName];
-    // let filterObjAmended = this.state.filterObj;
     if (filterValueToAmend instanceof Array) {
       filterToRemove.ids.map(id => {
         if (filterValueToAmend.indexOf(id) >= 0) {
@@ -391,38 +341,24 @@ class App extends Component {
 
   handleRemoveFilter(filterToRemove) {
     const filterObj = this.mergeRemovedFilters(filterToRemove);
-    console.log("handleRemoveFilter/filterObj:", filterObj);
     this.commitFilterChange(filterObj);
   }
-
-  //   handleDisplayProduct(prod, event) {
-  //     event.preventDefault();
-  //     this.setState({ productDetail: prod, scrollPosition: window.scrollY });
-  //     console.log("Product is", prod);
-  //     setTimeout(() => {
-  //       window.scrollTo(0, 0);
-  //     }, 0);
-  //   }
 
   handleBackToCollection(event) {
     event.preventDefault();
     this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`);
-    // this.setState({ productDetail: null });
-    window.scrollTo(0, this.state.scrollPosition);
-    // setTimeout(() => {
-    //   window.scrollTo(0, this.state.scrollPosition);
-    // }, 0);
+    setTimeout(() => {
+      window.scrollTo(0, this.state.scrollPosition);
+    }, 0);
   }
 
   handleObjectClick(product, event) {
     event.preventDefault();
-    console.log("this.props.history", this.props.history);
     this.setState(
       { productDetail: product, scrollPosition: window.scrollY },
       () => {
         this.props.history.push(`/objet/${product.inventory_id}`);
         window.scrollTo(0, 0);
-        // setTimeout(() => {}, 0);
       }
     );
   }
@@ -434,76 +370,44 @@ class App extends Component {
         debounceResize={true}
         debounceDelay={100}
       >
-        <div>
-          <ul
-            style={{
-              position: "fixed",
-              right: 0,
-              top: 0,
-              zIndex: 999999,
-              backgroundColor: "pink",
-              padding: "15px"
-            }}
-          >
-            <li>
-              <Link to="/recherche">Recherche</Link>
-            </li>
-            <li>
-              <Link to="/objet/GMT-14189-000">Un Objet</Link>
-            </li>
-            <li>
-              <Link to="/savoir-faire">Les savoir-faire</Link>
-            </li>
-            <li>
-              <Link to="/other">Other component</Link>
-            </li>
-          </ul>
-          <Switch>
-            <Route
-              path="/recherche"
-              render={props => (
-                <Collection
-                  {...props}
-                  onFilterAdd={this.handleAddFilter}
-                  onFilterRemove={this.handleRemoveFilter}
-                  onFilterChange={this.handleFilterChange}
-                  isLoadingURL={this.isLoadingSearch.bind(
-                    this,
-                    this.buildSearchParamsFromState()
-                  )}
-                  isLoading={this.state.isLoading}
-                  totalHits={this.state.totalHits}
-                  filterObj={this.state.filterObj}
-                  hits={this.state.hits}
-                  loadMore={this.handleNextPageCallback}
-                  hasMore={!this.state.isLoading && this.state.hasMore}
-                  currentPage={this.state.currentPage}
-                  //   onDisplayProduct={this.handleDisplayProduct}
-                  onObjectClick={this.handleObjectClick}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/objet/:inventory_id"
-              render={props => (
-                <Detail
-                  {...props}
-                  product={this.state.productDetail}
-                  onBackToCollection={this.handleBackToCollection}
-                />
-              )}
-            />
-            <Route path="/savoir-faire" component={SavoirFaire} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route
+            path="/recherche"
+            render={props => (
+              <Collection
+                {...props}
+                onFilterAdd={this.handleAddFilter}
+                onFilterRemove={this.handleRemoveFilter}
+                onFilterChange={this.handleFilterChange}
+                isLoadingURL={this.isLoadingSearch.bind(
+                  this,
+                  this.buildSearchParamsFromState()
+                )}
+                isLoading={this.state.isLoading}
+                totalHits={this.state.totalHits}
+                filterObj={this.state.filterObj}
+                hits={this.state.hits}
+                loadMore={this.handleNextPageCallback}
+                hasMore={!this.state.isLoading && this.state.hasMore}
+                currentPage={this.state.currentPage}
+                onObjectClick={this.handleObjectClick}
+              />
+            )}
+          />
+          <Route
+            path="/objet/:inventory_id"
+            render={props => (
+              <Detail
+                {...props}
+                product={this.state.productDetail}
+                onBackToCollection={this.handleBackToCollection}
+              />
+            )}
+          />
+        </Switch>
       </ReactBreakpoints>
     );
   }
-}
-
-function SavoirFaire() {
-  return <div>Savoir faires</div>;
 }
 
 export default withRouter(App);
