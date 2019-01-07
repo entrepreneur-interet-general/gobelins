@@ -67,9 +67,9 @@ class App extends Component {
   historyEventListener(location, action) {
     // When using the 'back' button of the browser, we must
     // manually restore the state of the filters.
-    if (location.pathname === "recherche" && action === "POP") {
+    if (location.pathname === "/recherche" && action === "POP") {
       const s = location.search;
-      if (this.searches[s].isLoading === false) {
+      if (this.searches[s] && this.searches[s].isLoading === false) {
         this.setState(state => ({
           hits: this.searches[s].data.hits,
           hasMore: this.searches[s].data.hasMore,
