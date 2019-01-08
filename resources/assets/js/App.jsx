@@ -177,6 +177,7 @@ class App extends Component {
     this.loadFromRemote(apiUrl).then(data => {
       this.cache[apiUrl].data = data;
       this.cache[apiUrl].isLoading = false;
+      this.cache[apiUrl].currentPage = 1;
       this.setState(
         {
           hits: data.hits,
