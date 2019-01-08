@@ -11,18 +11,7 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/', function () {
-    return redirect()->route('search');
-});
-
-
-// Route::get('/rechercher', 'SearchController@search')->name('search_endpoint');
+Route::redirect('/', '/recherche', 302);
 
 Route::get('/recherche', 'SearchController@index')->name('search');
 Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')->where('inventory_id', '.*');
