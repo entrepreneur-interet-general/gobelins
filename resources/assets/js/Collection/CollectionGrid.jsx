@@ -85,7 +85,7 @@ class CollectionGrid extends Component {
             </h2>
             <small className="Collection__cell-authors">
               {datum.authors
-                .map(a => a.last_name + " " + a.first_name)
+                .map(a => [a.last_name, a.first_name].join(" "))
                 .join(", ")}
             </small>
           </div>
