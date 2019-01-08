@@ -38,13 +38,12 @@ class App extends Component {
       scrollPosition: 0
     };
 
-    this.searches = {};
+    this.cache = {};
     this.isLoadingNextPage = false;
 
     props.history.listen(this.historyEventListener.bind(this));
 
     this.extractSearchParams = this.extractSearchParams.bind(this);
-    this.buildEndpointUrl = this.buildEndpointUrl.bind(this);
     this.handleLoading = this.handleLoading.bind(this);
     this.historyPushState = this.historyPushState.bind(this);
     this.loadFromRemote = this.loadFromRemote.bind(this);
@@ -68,13 +67,13 @@ class App extends Component {
     // When using the 'back' button of the browser, we must
     // manually restore the state of the filters.
     if (location.pathname === "/recherche" && action === "POP") {
-      const s = location.search;
-      if (this.searches[s] && this.searches[s].isLoading === false) {
+      const s = "/api/search" + (location.search || "?");
+      if (this.cache[s] && this.cache[s].isLoading === false) {
         this.setState(state => ({
-          hits: this.searches[s].data.hits,
-          hasMore: this.searches[s].data.hasMore,
-          totalHits: this.searches[s].data.totalHits,
-          currentPage: location.state.currentPage,
+          hits: this.cache[s].data.hits,
+          hasMore: this.cache[s].data.hasMore,
+          totalHits: this.cache[s].data.totalHits,
+          currentPage: this.cache[s].currentPage,
           filterObj: location.state.filterObj,
           isLoading: false
         }));
@@ -113,7 +112,7 @@ class App extends Component {
   }
 
   loadFromRemote(searchURL) {
-    return fetch(process.env.MIX_COLLECTION_DSN + searchURL, {
+    return fetch(searchURL, {
       credentials: "include",
       headers: {
         Accept: "application/json"
@@ -121,15 +120,12 @@ class App extends Component {
     }).then(response => response.json());
   }
 
-  buildEndpointUrl() {
-    return process.env.MIX_COLLECTION_DSN + this.buildSearchParamsFromState();
-  }
-
   buildSearchParamsFromState() {
     return (
       "?" +
       qs.stringify(
-        { ...this.state.filterObj, page: this.state.currentPage },
+        // { ...this.state.filterObj, page: this.state.currentPage },
+        { ...this.state.filterObj },
         { arrayFormat: "brackets", encodeValuesOnly: true }
       )
     );
@@ -142,10 +138,11 @@ class App extends Component {
     );
   }
 
-  historyPushState() {
+  historyPushState(type = "search") {
     this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`, {
       filterObj: this.state.filterObj,
-      currentPage: this.state.currentPage
+      type: type
+      // currentPage: this.state.currentPage
     });
     // window.scrollTo(0, 0);
   }
@@ -159,14 +156,36 @@ class App extends Component {
   }
 
   firstLoad() {
-    let searchUrl = this.buildSearchParamsFromState();
-    this.searches[searchUrl] = {
-      isLoading: true,
-      data: {}
-    };
-    this.loadFromRemote(searchUrl).then(data => {
-      this.searches[searchUrl].data = data;
-      this.searches[searchUrl].isLoading = false;
+    // if (this.props.match.path === "/objet") {
+    //   this.loadFromRemote(searchUrl).then(data => {
+    //     this.cache[searchUrl].data = data;
+    //     this.cache[searchUrl].isLoading = false;
+    //     this.setState(
+    //       {
+    //         hits: data.hits,
+    //         hasMore: data.hasMore,
+    //         totalHits: data.totalHits
+    //       },
+    //       () => {
+    //         this.props.history.replace(
+    //           `/recherche${this.buildSearchParamsFromState()}`,
+    //           {
+    //             filterObj: this.state.filterObj,
+    //             currentPage: this.state.currentPage
+    //           }
+    //         );
+    //         window.scrollTo(0, 0);
+    //       }
+    //     );
+    //   });
+    // }
+
+    let visibleUrl = `/recherche${this.buildSearchParamsFromState()}`;
+    let apiUrl = `/api/search${this.buildSearchParamsFromState()}`;
+    this.cache[apiUrl] = { isLoading: true, data: {} };
+    this.loadFromRemote(apiUrl).then(data => {
+      this.cache[apiUrl].data = data;
+      this.cache[apiUrl].isLoading = false;
       this.setState(
         {
           hits: data.hits,
@@ -174,13 +193,11 @@ class App extends Component {
           totalHits: data.totalHits
         },
         () => {
-          this.props.history.replace(
-            `/recherche${this.buildSearchParamsFromState()}`,
-            {
-              filterObj: this.state.filterObj,
-              currentPage: this.state.currentPage
-            }
-          );
+          this.props.history.replace(visibleUrl, {
+            filterObj: this.state.filterObj,
+            currentPage: this.state.currentPage,
+            type: "search"
+          });
           window.scrollTo(0, 0);
         }
       );
@@ -192,22 +209,37 @@ class App extends Component {
     if (this.isLoadingNextPage || !this.state.hasMore) {
       return;
     }
+
     let pageToLoad = this.state.currentPage + 1;
-    let nextPageUrl = this.buildSearchParamsFromParams({
-      ...this.state.filterObj,
-      page: pageToLoad
-    });
-    if (!this.searches.hasOwnProperty(nextPageUrl)) {
-      this.searches[nextPageUrl] = {
-        isLoading: true,
-        data: {}
-      };
+    let apiUrl =
+      "/api/search" +
+      this.buildSearchParamsFromParams({
+        ...this.state.filterObj
+      });
+    let nextPageUrl =
+      "/api/search" +
+      this.buildSearchParamsFromParams({
+        ...this.state.filterObj,
+        page: pageToLoad
+      });
+    if (
+      !this.cache.hasOwnProperty(apiUrl) ||
+      this.cache[apiUrl].currentPage < pageToLoad
+    ) {
+      if (!this.cache.hasOwnProperty(apiUrl)) {
+        this.cache[apiUrl] = { isLoading: true, data: { hits: [] } };
+      }
       this.isLoadingNextPage = true;
       this.setState({ isLoading: true });
 
       this.loadFromRemote(nextPageUrl).then(data => {
-        this.searches[nextPageUrl].data = data;
-        this.searches[nextPageUrl].isLoading = false;
+        this.cache[apiUrl].data.hits = this.cache[apiUrl].data.hits.concat(
+          data.hits
+        );
+        this.cache[apiUrl].data.hasMore = data.hasMore;
+        this.cache[apiUrl].data.totalHits = data.totalHits;
+        this.cache[apiUrl].currentPage = pageToLoad;
+        this.cache[apiUrl].isLoading = false;
         this.setState(
           state => ({
             hits: state.hits.concat(data.hits),
@@ -217,17 +249,15 @@ class App extends Component {
             isLoading: false
           }),
           () => {
-            this.historyPushState();
+            //this.historyPushState();
             this.isLoadingNextPage = false;
           }
         );
       });
     } else {
-      if (this.searches[nextPageUrl].isLoading === true) {
-        console.log("URL is loading, noop", nextPageUrl);
+      if (this.cache[apiUrl].isLoading === true) {
+        console.log("URL is loading, noop", apiUrl);
         return;
-      } else {
-        console.log("URL is already loaded, noop", nextPageUrl);
       }
     }
   }
@@ -285,19 +315,21 @@ class App extends Component {
   }
 
   commitFilterChange(filterObj) {
-    let searchUrl = this.buildSearchParamsFromParams({
-      ...filterObj,
-      page: 1
-    });
-    if (!this.searches.hasOwnProperty(searchUrl)) {
-      this.searches[searchUrl] = {
+    let apiUrl =
+      "/api/search" +
+      this.buildSearchParamsFromParams({
+        ...filterObj
+      });
+    if (!this.cache.hasOwnProperty(apiUrl)) {
+      this.cache[apiUrl] = {
         isLoading: true,
-        data: {}
+        data: {},
+        currentPage: 1
       };
       this.setState({ isLoading: true }, () => {
-        this.loadFromRemote(searchUrl).then(data => {
-          this.searches[searchUrl].data = data;
-          this.searches[searchUrl].isLoading = false;
+        this.loadFromRemote(apiUrl).then(data => {
+          this.cache[apiUrl].data = data;
+          this.cache[apiUrl].isLoading = false;
           this.setState(
             state => ({
               hits: data.hits,
@@ -314,15 +346,15 @@ class App extends Component {
         });
       });
     } else {
-      if (this.searches[searchUrl].isLoading === false) {
+      if (this.cache[apiUrl].isLoading === false) {
         this.setState(
           state => ({
-            hits: this.searches[searchUrl].data.hits,
-            hasMore: this.searches[searchUrl].data.hasMore,
+            hits: this.cache[apiUrl].data.hits,
+            hasMore: this.cache[apiUrl].data.hasMore,
             currentPage: 1,
             isLoading: false,
             filterObj: filterObj,
-            totalHits: this.searches[searchUrl].data.totalHits
+            totalHits: this.cache[apiUrl].data.totalHits
           }),
           () => {
             this.historyPushState();
@@ -334,8 +366,7 @@ class App extends Component {
 
   isLoadingSearch(searchParams) {
     return (
-      this.searches[searchParams] &&
-      this.searches[searchParams].isLoading === true
+      this.cache[searchParams] && this.cache[searchParams].isLoading === true
     );
   }
 
@@ -346,7 +377,8 @@ class App extends Component {
 
   handleBackToCollection(event) {
     event.preventDefault();
-    this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`);
+    // this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`);
+    this.historyPushState();
     setTimeout(() => {
       window.scrollTo(0, this.state.scrollPosition);
     }, 0);
@@ -357,7 +389,9 @@ class App extends Component {
     this.setState(
       { productDetail: product, scrollPosition: window.scrollY },
       () => {
-        this.props.history.push(`/objet/${product.inventory_id}`);
+        this.props.history.push(`/objet/${product.inventory_id}`, {
+          type: "detail"
+        });
         window.scrollTo(0, 0);
       }
     );
