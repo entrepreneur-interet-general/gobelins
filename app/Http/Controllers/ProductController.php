@@ -10,8 +10,8 @@ class ProductController extends Controller
     public function show($inventory_id)
     {
         $product = Product::byInventory($inventory_id)->firstOrFail();
-        return view('site.product', [
-            'product' => $product,
+        return response()->json([
+            'product' => $product->toSearchableArray(),
         ]);
     }
 }

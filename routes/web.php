@@ -25,6 +25,7 @@ Route::get('/', function () {
 // Route::get('/rechercher', 'SearchController@search')->name('search_endpoint');
 
 Route::get('/recherche', 'SearchController@index')->name('search');
+Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')->where('inventory_id', '.*');
 Route::get('/objet/{inventory_id}', 'SearchController@index')->name('product')->where('inventory_id', '.*');
 
 Route::get('/image/{path}', 'ImageController@show')->where('path', '.*');

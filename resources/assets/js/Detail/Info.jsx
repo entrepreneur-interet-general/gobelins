@@ -58,9 +58,15 @@ class Info extends Component {
       ].join(" ")
     );
     const enc_url = encodeURIComponent(window.location);
-    const enc_media_url = encodeURIComponent(
-      "/image/" + encodeURIComponent(this.props.product.images[0].path)
-    );
+    const has_image =
+      this.props.product &&
+      this.props.product.images &&
+      this.props.product.images.length > 0;
+    const enc_media_url = has_image
+      ? encodeURIComponent(
+          "/image/" + encodeURIComponent(this.props.product.images[0].path)
+        )
+      : "";
 
     return (
       <section className="DetailInfo">

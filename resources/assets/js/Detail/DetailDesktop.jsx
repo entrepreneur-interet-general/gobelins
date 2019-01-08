@@ -13,6 +13,11 @@ import DownloadModal from "./DownloadModal.jsx";
 class DetailDesktop extends Component {
   constructor(props) {
     super(props);
+    this.hasImages =
+      props.product &&
+      props.product.images &&
+      props.product.images instanceof Array &&
+      props.product.images.length > 0;
     this.state = {
       mainImageIndex: 0,
       layoutOrientation: this.computeLayoutOrientation(),
@@ -24,12 +29,7 @@ class DetailDesktop extends Component {
   }
 
   computeLayoutOrientation() {
-    if (
-      this.props.product &&
-      this.props.product.images &&
-      this.props.product.images instanceof Array &&
-      this.props.product.images.length > 0
-    ) {
+    if (this.hasImages) {
       const img = this.props.product.images[0];
       return img.height >= img.width ? "portrait" : "landscape";
     } else {
@@ -55,8 +55,13 @@ class DetailDesktop extends Component {
             >
               <div className="DetailDesktop__left-zone">
                 <BackToCollection onClick={this.props.onBackToCollection} />
+
                 <MainImage
-                  image={this.props.product.images[this.state.mainImageIndex]}
+                  image={
+                    this.hasImages
+                      ? this.props.product.images[this.state.mainImageIndex]
+                      : null
+                  }
                   onZoom={() => this.setState({ zoomedMode: true })}
                   match={this.props.match}
                   onDownload={() =>
@@ -66,7 +71,7 @@ class DetailDesktop extends Component {
                   }
                 />
                 <ImageList
-                  images={this.props.product.images}
+                  images={this.hasImages ? this.props.product.images : []}
                   onChangeMainImageIndex={this.handleMainImageIndex}
                 />
               </div>
@@ -88,7 +93,7 @@ class DetailDesktop extends Component {
           path={`${this.props.match.path}/zoom`}
           render={props => (
             <DetailZoomed
-              images={this.props.product.images}
+              images={this.hasImages ? this.props.product.images : []}
               zoomedImage={this.props.product.images[this.state.mainImageIndex]}
               detailPath={this.props.match.url}
             />
@@ -103,7 +108,10 @@ class DetailDesktop extends Component {
               })
             }
             photographer={
-              this.props.product.images[this.state.mainImageIndex].photographer
+              this.hasImages
+                ? this.props.product.images[this.state.mainImageIndex]
+                    .photographer
+                : null
             }
           />
         ) : null}

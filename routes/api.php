@@ -18,3 +18,7 @@ use Illuminate\Http\Request;
 Route::get('/search', [
     'as' => 'search_endpoint', 'uses' => 'SearchController@search'
 ]);
+
+Route::get('/product/{inventory_id}', [
+    'as' => 'product_endpoint', 'uses' => 'ProductController@show'
+]);

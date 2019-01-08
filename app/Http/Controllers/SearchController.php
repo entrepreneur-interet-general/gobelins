@@ -21,7 +21,7 @@ class SearchController extends Controller
      * Search page
      * Gather filter data, and boot the React app.
      */
-    public function index(Request $request)
+    public function index(Request $request, $inventory_id = null)
     {
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
@@ -113,8 +113,15 @@ class SearchController extends Controller
             ]);
         });
 
+        $product = null;
+        if ($inventory_id) {
+            $product = Product::byInventory($inventory_id)->firstOrFail();
+            $product = json_encode($product->toSearchableArray());
+        };
+
         return view('site.search', [
-            'filters' => $filters
+            'filters' => $filters,
+            'product' => $product,
         ]);
     }
 

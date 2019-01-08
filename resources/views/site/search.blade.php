@@ -40,6 +40,12 @@
 
     <script>
         var __INITIAL_STATE__ = {!! $filters->toJson() !!};
+
+
+        @isset($product)
+            var PRODUCT = {!! $product !!};
+        @endisset
+
     </script>
 
     <script>

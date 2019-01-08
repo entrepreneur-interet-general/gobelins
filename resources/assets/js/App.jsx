@@ -34,7 +34,7 @@ class App extends Component {
       hasMore: false,
       totalHits: 0,
       filterObj: stateFromURL.filterObj || {},
-      productDetail: false, // When in detail mode, hold the product data.
+      productDetail: window.PRODUCT || false, // When in detail mode, hold the product data.
       scrollPosition: 0
     };
 
@@ -156,29 +156,20 @@ class App extends Component {
   }
 
   firstLoad() {
-    // if (this.props.match.path === "/objet") {
-    //   this.loadFromRemote(searchUrl).then(data => {
-    //     this.cache[searchUrl].data = data;
-    //     this.cache[searchUrl].isLoading = false;
-    //     this.setState(
-    //       {
-    //         hits: data.hits,
-    //         hasMore: data.hasMore,
-    //         totalHits: data.totalHits
-    //       },
-    //       () => {
-    //         this.props.history.replace(
-    //           `/recherche${this.buildSearchParamsFromState()}`,
-    //           {
-    //             filterObj: this.state.filterObj,
-    //             currentPage: this.state.currentPage
-    //           }
-    //         );
-    //         window.scrollTo(0, 0);
-    //       }
-    //     );
-    //   });
-    // }
+    let segment1, segment2;
+    [, segment1, segment2] = this.props.location.pathname.split("/");
+    if (segment1 === "objet") {
+      let apiUrl = `/api/product/${segment2}`;
+      let visibleUrl = `/objet/${segment2}`;
+      this.cache[apiUrl] = {
+        product: window.PRODUCT,
+        isLoading: false,
+        type: "detail"
+      };
+      this.props.history.replace(this.props.location.pathname, {
+        type: "detail"
+      });
+    }
 
     let visibleUrl = `/recherche${this.buildSearchParamsFromState()}`;
     let apiUrl = `/api/search${this.buildSearchParamsFromState()}`;
@@ -193,12 +184,14 @@ class App extends Component {
           totalHits: data.totalHits
         },
         () => {
-          this.props.history.replace(visibleUrl, {
-            filterObj: this.state.filterObj,
-            currentPage: this.state.currentPage,
-            type: "search"
-          });
-          window.scrollTo(0, 0);
+          if (segment1 === "recherche") {
+            this.props.history.replace(visibleUrl, {
+              filterObj: this.state.filterObj,
+              currentPage: this.state.currentPage,
+              type: "search"
+            });
+            window.scrollTo(0, 0);
+          }
         }
       );
     });
@@ -386,6 +379,11 @@ class App extends Component {
 
   handleObjectClick(product, event) {
     event.preventDefault();
+    this.cache[this.props.location.pathname] = {
+      type: "detail",
+      product: product,
+      isLoading: false
+    };
     this.setState(
       { productDetail: product, scrollPosition: window.scrollY },
       () => {
