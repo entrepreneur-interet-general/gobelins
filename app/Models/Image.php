@@ -44,6 +44,11 @@ class Image extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
+    }
+
     /**
      * Data stored in Elasticsearch
      *

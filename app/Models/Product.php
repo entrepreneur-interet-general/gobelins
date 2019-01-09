@@ -157,9 +157,10 @@ class Product extends Model
     // fine tune the image quality criteria.
     public function getImageQualityScoreAttribute()
     {
-        if ($this->images && sizeof($this->images) > 0 && $this->images[0]->is_published) {
-            if ($this->images[0]->is_prime_quality) {
-                if (strstr($this->images[0]->path, 'BIDEAU')) {
+        $images = $this->images()->published()->get();
+        if ($images && sizeof($images) > 0) {
+            if ($images[0]->is_prime_quality) {
+                if (strstr($images[0]->path, 'BIDEAU')) {
                     return 5;
                 } else {
                     return 3;
