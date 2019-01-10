@@ -60,6 +60,7 @@ class CriteriaPhrase extends Component {
     this.extractMaterials = this.extractMaterials.bind(this);
     this.extractProductionOrigins = this.extractProductionOrigins.bind(this);
     this.renderResetButton = this.renderResetButton.bind(this);
+    this.handleRemoveAll = this.handleRemoveAll.bind(this);
   }
 
   extractQueryString() {
@@ -331,11 +332,16 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  handleRemoveAll() {
+    this.props.onFilterRemoveAll();
+    this.setState({ hoverRemoveAll: false });
+  }
+
   renderResetButton() {
     return (
       <button
         className="CriteriaPhrase__reset-button"
-        onClick={this.props.onFilterRemoveAll}
+        onClick={this.handleRemoveAll}
         onMouseEnter={() => this.setState({ hoverRemoveAll: true })}
         onMouseOut={() => this.setState({ hoverRemoveAll: false })}
       >
@@ -346,7 +352,12 @@ class CriteriaPhrase extends Component {
 
   render() {
     const numberOfActiveCriteria =
-      (this.props.filterObj && Object.keys(this.props.filterObj).length) || 0;
+      (this.props.filterObj &&
+        Object.keys(this.props.filterObj).reduce(
+          (r, k) => r.concat(this.props.filterObj[k]),
+          []
+        ).length) ||
+      0;
     return (
       <div className="CriteriaPhrase">
         {this.allCriteria()}
@@ -354,7 +365,7 @@ class CriteriaPhrase extends Component {
           {" "}
           dans les collections du <strong>Mobilier national</strong>
         </span>
-        {numberOfActiveCriteria > 2 ? this.renderResetButton() : null}
+        {numberOfActiveCriteria > 1 ? this.renderResetButton() : null}
       </div>
     );
   }
