@@ -1,10 +1,10 @@
 import React from "react";
 
 const Cross = props => (
-  <svg width={6} height={6} fill="none" {...props}>
+  <svg width={8} height={8} fill="none" {...props}>
     <path
-      d="M5 1L3.006 2.936M1 1l1.994 1.936M1 5.004l1.994-1.936M5 5.004L3.006 3.068"
-      stroke="currentColor"
+      d="M7 1L4.009 3.904M1 1l2.991 2.905M1 7.005L3.991 4.1M7 7.005L4.009 4.1"
+      stroke="#000"
       strokeMiterlimit={10}
       strokeLinecap="round"
       strokeLinejoin="round"

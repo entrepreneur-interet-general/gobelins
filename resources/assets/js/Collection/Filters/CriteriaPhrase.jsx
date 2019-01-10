@@ -16,7 +16,9 @@ class Criterion extends Component {
       <span
         tabIndex="0"
         role="button"
-        className={"CriteriaPhrase__button is-" + this.props.type}
+        className={`CriteriaPhrase__button is-${this.props.type} ${
+          this.props.displayAsHovered ? "is-hovered" : ""
+        }`}
         onClick={this.props.onFilterRemove.bind(this.props.onFilterRemove, {
           type: this.props.type,
           ids: [this.props.id],
@@ -49,13 +51,15 @@ class CriteriaPhrase extends Component {
         return treeFlatten(m, "children");
       }),
       productionOrigins: window.__INITIAL_STATE__.productionOrigins,
-      q: props.filterObj && props.filterObj.q ? props.filterObj.q : ""
+      q: props.filterObj && props.filterObj.q ? props.filterObj.q : "",
+      hoverRemoveAll: false
     };
 
     this.extractProductTypes = this.extractProductTypes.bind(this);
     this.extractStyles = this.extractStyles.bind(this);
     this.extractMaterials = this.extractMaterials.bind(this);
     this.extractProductionOrigins = this.extractProductionOrigins.bind(this);
+    this.renderResetButton = this.renderResetButton.bind(this);
   }
 
   extractQueryString() {
@@ -74,6 +78,7 @@ class CriteriaPhrase extends Component {
         id={this.props.filterObj.q}
         key={"query_string"}
         onFilterRemove={this.props.onFilterRemove}
+        displayAsHovered={this.state.hoverRemoveAll}
       />
     ) : null;
   }
@@ -96,6 +101,7 @@ class CriteriaPhrase extends Component {
               id={pt.id}
               key={"product_type_" + pt.id}
               onFilterRemove={this.props.onFilterRemove}
+              displayAsHovered={this.state.hoverRemoveAll}
             />
           ))
       );
@@ -124,6 +130,7 @@ class CriteriaPhrase extends Component {
               id={s.id}
               key={"style_" + s.id}
               onFilterRemove={this.props.onFilterRemove}
+              displayAsHovered={this.state.hoverRemoveAll}
             />
           ))
       );
@@ -154,6 +161,7 @@ class CriteriaPhrase extends Component {
               id={s.id}
               key={"production_origin_" + s.id}
               onFilterRemove={this.props.onFilterRemove}
+              displayAsHovered={this.state.hoverRemoveAll}
             />
           ))
       );
@@ -182,6 +190,7 @@ class CriteriaPhrase extends Component {
               id={s.id}
               key={"material_" + s.id}
               onFilterRemove={this.props.onFilterRemove}
+              displayAsHovered={this.state.hoverRemoveAll}
             />
           ))
       );
@@ -212,6 +221,7 @@ class CriteriaPhrase extends Component {
                 id={s.id}
                 key={"author_" + s.id}
                 onFilterRemove={this.props.onFilterRemove}
+                displayAsHovered={this.state.hoverRemoveAll}
               />
             ))
         );
@@ -242,6 +252,7 @@ class CriteriaPhrase extends Component {
           id={this.props.filterObj.period_start_year}
           key={"period"}
           onFilterRemove={this.props.onFilterRemove}
+          displayAsHovered={this.state.hoverRemoveAll}
         />
       );
     }
@@ -275,6 +286,7 @@ class CriteriaPhrase extends Component {
           id={this.props.filterObj[dim + "_gte"]}
           key={dim}
           onFilterRemove={this.props.onFilterRemove}
+          displayAsHovered={this.state.hoverRemoveAll}
         />
       );
       out.push(" de " + dims[dim]);
@@ -319,7 +331,22 @@ class CriteriaPhrase extends Component {
     return out;
   }
 
+  renderResetButton() {
+    return (
+      <button
+        className="CriteriaPhrase__reset-button"
+        onClick={this.props.onFilterRemoveAll}
+        onMouseEnter={() => this.setState({ hoverRemoveAll: true })}
+        onMouseOut={() => this.setState({ hoverRemoveAll: false })}
+      >
+        <Cross />
+      </button>
+    );
+  }
+
   render() {
+    const numberOfActiveCriteria =
+      (this.props.filterObj && Object.keys(this.props.filterObj).length) || 0;
     return (
       <div className="CriteriaPhrase">
         {this.allCriteria()}
@@ -327,6 +354,7 @@ class CriteriaPhrase extends Component {
           {" "}
           dans les collections du <strong>Mobilier national</strong>
         </span>
+        {numberOfActiveCriteria > 2 ? this.renderResetButton() : null}
       </div>
     );
   }

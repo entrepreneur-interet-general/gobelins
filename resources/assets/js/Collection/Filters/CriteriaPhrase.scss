@@ -1,7 +1,7 @@
 //.CriteriaPhrase {
- // &::first-letter {
-   // text-transform: uppercase;
-  //}
+// &::first-letter {
+// text-transform: uppercase;
+//}
 //}
 
 .CriteriaPhrase__button {
@@ -15,18 +15,19 @@
   text-align: left;
   box-decoration-break: clone;
 
-  &:hover {
+  &:hover,
+  &.is-hovered {
     background-color: transparent !important;
     .CriteriaPhrase__button-text {
       text-decoration: line-through;
     }
     //.CriteriaPhrase__button-cross {
-     // visibility: hidden; 
-   // }
+    // visibility: hidden;
+    // }
   }
 
   &.is-product_type {
-    background-color: #FFDFDC;
+    background-color: #ffdfdc;
     text-transform: lowercase;
   }
   &.is-production_origin {
@@ -43,21 +44,38 @@
   }
 
   &.is-query {
-    background-color: #ECECEC;
+    background-color: #ececec;
   }
   &.is-period {
-    background-color: #FFD8D8;
+    background-color: #ffd8d8;
   }
   &.is-dimension {
     background-color: #bde7ff;
   }
 }
-//test
+
 .CriteriaPhrase__button-cross {
   margin-left: 4px;
   margin-right: 2px;
-  position: relative;
-  top: -1px;
   color: #1e1e1e;
   white-space: nowrap;
+}
+
+.CriteriaPhrase__reset-button {
+  display: inline-flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: transparent;
+  appearance: none;
+  border: 1px solid $lines;
+  cursor: pointer;
+
+  &:hover {
+    border-color: black;
+  }
 }

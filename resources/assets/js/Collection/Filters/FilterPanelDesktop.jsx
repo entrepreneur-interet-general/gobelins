@@ -98,6 +98,7 @@ class FilterPanelDesktop extends Component {
               <CriteriaPhrase
                 filterObj={this.props.filterObj}
                 onFilterRemove={this.props.onFilterRemove}
+                onFilterRemoveAll={this.props.onFilterRemoveAll}
               />
             </div>
           </div>

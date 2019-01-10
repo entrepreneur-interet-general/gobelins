@@ -50,6 +50,7 @@ class App extends Component {
     this.handleNextPageCallback = this.handleNextPageCallback.bind(this);
     this.handleAddFilter = this.handleAddFilter.bind(this);
     this.handleRemoveFilter = this.handleRemoveFilter.bind(this);
+    this.handleRemoveAllFilters = this.handleRemoveAllFilters.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
     this.mergeAddedFilters = this.mergeAddedFilters.bind(this);
     this.mergeRemovedFilters = this.mergeRemovedFilters.bind(this);
@@ -369,6 +370,10 @@ class App extends Component {
     this.commitFilterChange(filterObj);
   }
 
+  handleRemoveAllFilters() {
+    this.commitFilterChange({});
+  }
+
   handleBackToCollection(event) {
     event.preventDefault();
     // this.props.history.push(`/recherche${this.buildSearchParamsFromState()}`);
@@ -411,6 +416,7 @@ class App extends Component {
                 {...props}
                 onFilterAdd={this.handleAddFilter}
                 onFilterRemove={this.handleRemoveFilter}
+                onFilterRemoveAll={this.handleRemoveAllFilters}
                 onFilterChange={this.handleFilterChange}
                 isLoadingURL={this.isLoadingSearch.bind(
                   this,

@@ -12,6 +12,7 @@ class Collection extends Component {
         <Filters
           onFilterAdd={this.props.onFilterAdd}
           onFilterRemove={this.props.onFilterRemove}
+          onFilterRemoveAll={this.props.onFilterRemoveAll}
           onFilterChange={this.props.onFilterChange}
           isLoadingURL={this.props.isLoadingURL}
           isLoading={this.props.isLoading}
