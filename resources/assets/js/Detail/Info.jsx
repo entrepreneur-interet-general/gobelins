@@ -113,7 +113,7 @@ class Info extends Component {
             text={window.location}
             onCopy={this.handleCopiedLink}
           >
-            <button type="button">
+            <button type="button" title="Copier le lien">
               <ShareUrl />
             </button>
           </CopyToClipboard>
