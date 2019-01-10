@@ -29,6 +29,7 @@ class CollectionGrid extends Component {
         : "";
       let display_name =
         datum.title_or_designation ||
+        datum.denomination ||
         (datum.product_types && datum.product_types.length > 0
           ? datum.product_types.find(t => t.is_leaf).name
           : "");

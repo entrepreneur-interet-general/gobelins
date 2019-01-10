@@ -246,7 +246,7 @@ class SearchController extends Controller
                     'multi_match' => [
                         'query' => $request->input('q'),
                         'fields' => [
-                            'authors.last_name^10',
+                            'authors.last_name^3',
                             'product_types.name^10',
                             'materials.name^10',
                             'inventory_id^3',
@@ -254,7 +254,7 @@ class SearchController extends Controller
                             'style.name^2',
                             'conception_year_as_text^10',
                             'production_origin.name^2',
-                            'title_or_designation',
+                            'title_or_designation^2',
                             'description',
                             'authors.first_name',
                             'acquisition_origin',

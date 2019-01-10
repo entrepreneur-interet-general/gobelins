@@ -75,7 +75,7 @@ return [
                     'analyzer' => [
                         'author_name_analyzer' => [
                             'type'=> 'standard',
-                            'stopwords'=> ['de', 'le', 'et', 'da', 'l', 'd']
+                            'stopwords'=> ['de', 'du', 'le', 'la', 'et', 'da', 'l', 'd', 'van', 'von', 'der']
                         ]
                     ]
                 ],
