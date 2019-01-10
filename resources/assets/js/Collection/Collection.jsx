@@ -3,7 +3,7 @@ import CollectionList from "./CollectionList.jsx";
 import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
-import Settings from "./Settings/Settings.jsx";
+// import Settings from "./Settings/Settings.jsx";
 
 class Collection extends Component {
   render() {
@@ -34,7 +34,7 @@ class Collection extends Component {
           )}
         </div>
         <ScrollToTop isLoading={this.props.isLoading} />
-        <Settings />
+        {/* <Settings /> */}
       </div>
     );
   }
