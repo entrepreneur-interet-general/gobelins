@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 
 class ProductionOrigins extends Component {
   constructor(props) {
@@ -50,9 +53,26 @@ class ProductionOrigins extends Component {
   render() {
     return (
       <div className="ProductionOrigins">
-        <ul className="ProductionOrigins__double-col">
-          {this.props.productionOrigins.map(this.renderListItem)}
-        </ul>
+        <div className="ProductionOrigins__scrollable">
+          <ul className="ProductionOrigins__double-col">
+            {this.props.productionOrigins.map(this.renderListItem)}
+          </ul>
+        </div>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={288}
+              filterPanelsWidth={288 + 288}
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

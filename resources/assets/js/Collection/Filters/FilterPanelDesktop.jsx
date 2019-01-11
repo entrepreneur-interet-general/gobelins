@@ -13,6 +13,7 @@ import Styles from "./Styles.jsx";
 import Materials from "./Materials.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
 import Dimensions from "./Dimensions.jsx";
+import ResultCount from "../ResultCount";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class FilterPanelDesktop extends Component {
     this.handleSearchFieldFocus = this.handleSearchFieldFocus.bind(this);
     this.handleSearchFieldBlur = this.handleSearchFieldBlur.bind(this);
     this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
+    this.renderOverlayContent = this.renderOverlayContent.bind(this);
   }
 
   openPanel(panel, ev) {
@@ -62,6 +64,21 @@ class FilterPanelDesktop extends Component {
     this.props.onFilterAdd({ q: this.state.searchFieldValue });
     this.setState({ searchFieldValue: "" });
     ev.preventDefault();
+  }
+
+  renderOverlayContent() {
+    if (this.props.isLoading) {
+      return <Loader />;
+    } else {
+      if (this.state.filterPanelOpen) {
+        return (
+          <ResultCount
+            totalHits={this.props.totalHits}
+            onFilterRemoveAll={this.props.onFilterRemoveAll}
+          />
+        );
+      }
+    }
   }
 
   render() {
@@ -218,24 +235,7 @@ class FilterPanelDesktop extends Component {
             </a>
           </div>
         </div>
-        <CSSTransitionGroup
-          transitionName="desktopFiltersOverlay"
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        >
-          {this.state.filterPanelOpen ? (
-            <div className="FilterPanelDesktop__overlay" />
-          ) : null}
-        </CSSTransitionGroup>
-        {this.state.filterPanelOpen && !this.props.isLoading ? (
-          <div className="FilterPanelDesktop__total-hits">
-            {this.props.totalHits}{" "}
-            {this.props.totalHits > 1 ? "résultats" : "résultat"}
-          </div>
-        ) : null}
-        {this.props.isLoading ? (
-          <Loader className="FilterPanelDesktop__spinner" />
-        ) : null}
+
         <CSSTransitionGroup
           transitionName="desktopFilterPanel"
           transitionEnterTimeout={150}
@@ -249,14 +249,10 @@ class FilterPanelDesktop extends Component {
               onFilterChange={this.props.onFilterChange}
               onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.product_type_ids || []}
-              totalHitsComponent={
-                this.state.filterPanelOpen && !this.props.isLoading ? (
-                  <div className="FilterPanelDesktop__total-hits">
-                    {this.props.totalHits}{" "}
-                    {this.props.totalHits > 1 ? "résultats" : "résultat"}
-                  </div>
-                ) : null
-              }
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -266,6 +262,10 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.author_ids || []}
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -275,6 +275,10 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               periodStartYear={this.props.filterObj.period_start_year}
               periodEndYear={this.props.filterObj.period_end_year}
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -284,6 +288,10 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.style_ids || []}
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -295,6 +303,10 @@ class FilterPanelDesktop extends Component {
               onFilterChange={this.props.onFilterChange}
               onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.material_ids || []}
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -305,6 +317,10 @@ class FilterPanelDesktop extends Component {
               onFilterAdd={this.props.onFilterAdd}
               onFilterRemove={this.props.onFilterRemove}
               selectedIds={this.props.filterObj.production_origin_ids || []}
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
 
@@ -327,6 +343,10 @@ class FilterPanelDesktop extends Component {
               height_or_thickness_gte={
                 this.props.filterObj.height_or_thickness_gte
               }
+              totalHitsComponent={this.renderOverlayContent()}
+              filterPanelOpen={this.state.filterPanelOpen}
+              isLoading={this.props.isLoading}
+              onClickOverlay={this.closeFilterPanels}
             />
           ) : null}
         </CSSTransitionGroup>

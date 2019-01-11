@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { source, target } from "react-aim";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 
 const MaterialNullObject = {
   id: null,
@@ -218,6 +221,21 @@ class Materials extends Component {
             );
           })}
         </ul>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={288}
+              filterPanelsWidth={288 + 288}
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

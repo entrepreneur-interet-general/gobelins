@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 import DimensionSlider from "./DimensionSlider";
 
 class Dimensions extends Component {
@@ -60,7 +63,21 @@ class Dimensions extends Component {
             ["height_or_thickness", "Hauteur"]
           ].map(this.renderFormBlock)}
         </div>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
         >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={288 + 288}
+              filterPanelsWidth={288 + 288 + 288}
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

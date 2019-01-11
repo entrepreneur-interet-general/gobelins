@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { source, target } from "react-aim";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 
 const ProductTypeNullObject = {
   id: null,
@@ -14,6 +17,7 @@ class ProductTypes extends Component {
     this.handleFirstColClick = this.handleFirstColClick.bind(this);
     this.handleSecondColClick = this.handleSecondColClick.bind(this);
     this.handleAddAllClick = this.handleAddAllClick.bind(this);
+    this.isSecondColVisible = this.isSecondColVisible.bind(this);
   }
 
   handleFirstColClick(pt, ev) {
@@ -102,6 +106,10 @@ class ProductTypes extends Component {
     this.setState({ expandedType: productType });
   }
 
+  isSecondColVisible() {
+    return this.state.expandedType.children.length > 0;
+  }
+
   render() {
     return (
       <div className="ProductTypes">
@@ -119,6 +127,23 @@ class ProductTypes extends Component {
             />
           ))}
         </ul>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={this.isSecondColVisible() ? 288 + 313 : 288}
+              filterPanelsWidth={
+                this.isSecondColVisible() ? 288 + 288 + 313 : 288 + 288
+              }
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

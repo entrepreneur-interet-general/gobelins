@@ -86,7 +86,7 @@
     }
     &.is-dimension:hover,
     &.is-dimension.is-open {
-      border-bottom-color: #ADE1FF;
+      border-bottom-color: #ade1ff;
     }
   }
 }
@@ -203,10 +203,6 @@
 }
 
 .FilterPanelDesktop__total-hits {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
-  z-index: 1;
   color: white;
   @include f-serif;
   font-size: rem(18px);

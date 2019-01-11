@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 
 class Styles extends Component {
   constructor(props) {
@@ -55,6 +58,21 @@ class Styles extends Component {
         <ul className="Styles__double-col">
           {this.props.styles.map(this.renderListItem)}
         </ul>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={450}
+              filterPanelsWidth={288 + 450}
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }

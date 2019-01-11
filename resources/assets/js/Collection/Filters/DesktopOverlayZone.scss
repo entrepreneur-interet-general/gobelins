@@ -1,0 +1,20 @@
+.DesktopOverlayZone {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.15s ease-in-out;
+  &.DesktopOverlayZone-enter {
+    opacity: 0;
+  }
+  &.DesktopOverlayZone-enter.DesktopOverlayZone-enter-active {
+    opacity: 1;
+  }
+}
+.DesktopOverlayZone__inner {
+}

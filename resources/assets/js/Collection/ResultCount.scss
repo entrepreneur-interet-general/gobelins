@@ -1,0 +1,46 @@
+.ResultCount {
+  color: black;
+  @include f-serif;
+  font-size: rem(15px);
+  text-align: center;
+}
+
+.ResultCount__count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding: 0 25px;
+
+  svg {
+    margin-right: 10px;
+  }
+  &.as-button {
+    background-color: white;
+    color: black;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+}
+
+.ResultCount__link {
+  text-decoration: none;
+}
+.ResultCount__reset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  background-color: white;
+  color: black;
+  border-radius: 25px;
+  padding: 0 25px;
+  margin-top: 5px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    border-color: black;
+  }
+}

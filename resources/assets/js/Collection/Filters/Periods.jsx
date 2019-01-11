@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Slider, Handles, Tracks, Rail } from "react-compound-slider";
+import { CSSTransitionGroup } from "react-transition-group";
+
+import DesktopOverlayZone from "./DesktopOverlayZone";
 import { Handle, Track } from "./SliderComponents.jsx";
 
 class Periods extends Component {
@@ -119,6 +122,21 @@ class Periods extends Component {
             </Tracks>
           </Slider>
         </div>
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.props.filterPanelOpen ? (
+            <DesktopOverlayZone
+              onClick={this.props.onClickOverlay}
+              offsetLeft={368}
+              filterPanelsWidth={288 + 368}
+            >
+              {this.props.totalHitsComponent}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
       </div>
     );
   }
