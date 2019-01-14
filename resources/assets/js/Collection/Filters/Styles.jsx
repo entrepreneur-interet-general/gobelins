@@ -55,9 +55,11 @@ class Styles extends Component {
   render() {
     return (
       <div className="Styles">
-        <ul className="Styles__double-col">
-          {this.props.styles.map(this.renderListItem)}
-        </ul>
+        <div className="Styles__scrollable">
+          <ul className="Styles__list">
+            {this.props.styles.map(this.renderListItem)}
+          </ul>
+        </div>
         <CSSTransitionGroup
           transitionName="DesktopOverlayZone"
           transitionEnterTimeout={150}
@@ -66,8 +68,8 @@ class Styles extends Component {
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
               onClick={this.props.onClickOverlay}
-              offsetLeft={450}
-              filterPanelsWidth={288 + 450}
+              offsetLeft={288}
+              filterPanelsWidth={288 + 288}
             >
               {this.props.totalHitsComponent}
             </DesktopOverlayZone>

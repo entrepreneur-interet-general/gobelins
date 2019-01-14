@@ -15,10 +15,14 @@
     opacity: 1;
   }
 }
-.Styles__double-col {
+.Styles__scrollable {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.Styles__list {
   display: block;
   box-sizing: border-box;
-  // columns: 2;
   width: 288px;
   padding: 47px 0 40px 30px;
   margin: 0;
@@ -32,7 +36,7 @@
   list-style: none;
 }
 
-.Styles__double-col button {
+.Styles__list button {
   padding: 10px;
   margin: 0;
   @include f-sans;
@@ -50,7 +54,7 @@
     font-weight: 700;
   }
 }
-.Styles__double-col ul ul button {
+.Styles__list ul ul button {
   &:hover,
   &.is-selected {
     color: white;
