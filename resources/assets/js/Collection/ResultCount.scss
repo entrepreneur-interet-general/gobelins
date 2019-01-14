@@ -1,6 +1,6 @@
 .ResultCount {
   color: black;
-  @include f-serif;
+  @include f-sans;
   font-size: rem(15px);
   text-align: center;
 }
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
   height: 50px;
-  padding: 0 25px;
+  padding: 0 45px 0 25px;
 
   svg {
     margin-right: 10px;
