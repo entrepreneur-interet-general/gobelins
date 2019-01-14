@@ -47,8 +47,11 @@ class Dimensions extends Component {
 
   render() {
     return (
-      <div className="Dimensions" onClick={ev => ev.stopPropagation()}>
-        <div className="Dimensions__illustrations">
+      <div className="Dimensions">
+        <div
+          className="Dimensions__illustrations"
+          onClick={ev => ev.stopPropagation()}
+        >
           <img
             src="/images/ilu-dimensions@2x.png"
             alt=""
@@ -56,7 +59,7 @@ class Dimensions extends Component {
             height="622"
           />
         </div>
-        <div className="Dimensions__form">
+        <div className="Dimensions__form" onClick={ev => ev.stopPropagation()}>
           {[
             ["length_or_diameter", "Longueur"],
             ["depth_or_width", "Largeur"],

@@ -119,6 +119,7 @@ class Materials extends Component {
     this.handleAddAllClick = this.handleAddAllClick.bind(this);
     this.handleActiveSecondCol = this.handleActiveSecondCol.bind(this);
     this.handleSecondColumnClick = this.handleSecondColumnClick.bind(this);
+    this.isSecondColVisible = this.isSecondColVisible.bind(this);
   }
 
   handleFirstColumnClick(mat, ev) {
@@ -201,6 +202,10 @@ class Materials extends Component {
     this.setState({ expandedMaterial: mat });
   }
 
+  isSecondColVisible() {
+    return this.state.expandedMaterial.children.length > 0;
+  }
+
   render() {
     return (
       <div className="Materials">
@@ -229,8 +234,10 @@ class Materials extends Component {
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
               onClick={this.props.onClickOverlay}
-              offsetLeft={288}
-              filterPanelsWidth={288 + 288}
+              offsetLeft={this.isSecondColVisible() ? 288 + 313 : 288}
+              filterPanelsWidth={
+                this.isSecondColVisible() ? 288 + 288 + 313 : 288 + 288
+              }
             >
               {this.props.totalHitsComponent}
             </DesktopOverlayZone>

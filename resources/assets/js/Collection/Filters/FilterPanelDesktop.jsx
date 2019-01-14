@@ -14,6 +14,7 @@ import Materials from "./Materials.jsx";
 import ProductionOrigins from "./ProductionOrigins.jsx";
 import Dimensions from "./Dimensions.jsx";
 import ResultCount from "../ResultCount";
+import DesktopOverlayZone from "./DesktopOverlayZone";
 
 class FilterPanelDesktop extends Component {
   constructor(props) {
@@ -28,7 +29,8 @@ class FilterPanelDesktop extends Component {
       dimensions: window.__INITIAL_STATE__.dimensions,
       filterPanelOpen: false,
       searchFieldValue: "",
-      searchFieldPlaceholder: "Rechercher"
+      searchFieldPlaceholder: "Rechercher",
+      isLoadingFullTextSearch: false
     };
     this.openPanel = this.openPanel.bind(this);
     this.closeFilterPanels = this.closeFilterPanels.bind(this);
@@ -46,7 +48,7 @@ class FilterPanelDesktop extends Component {
   }
 
   closeFilterPanels() {
-    this.setState({ filterPanelOpen: false });
+    this.setState({ filterPanelOpen: false, isLoadingFullTextSearch: false });
     document.documentElement.classList.remove("prevent-scroll");
   }
 
@@ -62,7 +64,8 @@ class FilterPanelDesktop extends Component {
 
   handleFullTextSearch(ev) {
     this.props.onFilterAdd({ q: this.state.searchFieldValue });
-    this.setState({ searchFieldValue: "" });
+    this.setState({ searchFieldValue: "", isLoadingFullTextSearch: true });
+    document.documentElement.classList.add("prevent-scroll");
     ev.preventDefault();
   }
 
@@ -70,7 +73,7 @@ class FilterPanelDesktop extends Component {
     if (this.props.isLoading) {
       return <Loader />;
     } else {
-      if (this.state.filterPanelOpen) {
+      if (this.state.filterPanelOpen || this.state.isLoadingFullTextSearch) {
         return (
           <ResultCount
             totalHits={this.props.totalHits}
@@ -235,6 +238,22 @@ class FilterPanelDesktop extends Component {
             </a>
           </div>
         </div>
+
+        <CSSTransitionGroup
+          transitionName="DesktopOverlayZone"
+          transitionEnterTimeout={150}
+          transitionLeaveTimeout={150}
+        >
+          {this.state.isLoadingFullTextSearch ? (
+            <DesktopOverlayZone
+              onClick={this.closeFilterPanels}
+              offsetLeft={288}
+              filterPanelsWidth={288}
+            >
+              {this.renderOverlayContent()}
+            </DesktopOverlayZone>
+          ) : null}
+        </CSSTransitionGroup>
 
         <CSSTransitionGroup
           transitionName="desktopFilterPanel"

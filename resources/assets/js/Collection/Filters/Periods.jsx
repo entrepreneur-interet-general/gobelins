@@ -70,13 +70,19 @@ class Periods extends Component {
       backgroundColor: "#FFF"
     };
     return (
-      <div className="Periods" onClick={ev => ev.stopPropagation()}>
-        <div className="Periods__named-container">
+      <div className="Periods">
+        <div
+          className="Periods__named-container"
+          onClick={ev => ev.stopPropagation()}
+        >
           <div className="Periods__named">
             {this.props.periods.map(this.renderPeriodButton)}
           </div>
         </div>
-        <div className="Periods__range-container">
+        <div
+          className="Periods__range-container"
+          onClick={ev => ev.stopPropagation()}
+        >
           <Slider
             className="Periods__slider"
             rootStyle={sliderStyle}
