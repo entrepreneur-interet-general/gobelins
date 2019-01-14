@@ -18,8 +18,8 @@
 .Styles__double-col {
   display: block;
   box-sizing: border-box;
-  columns: 2;
-  width: 450px;
+  // columns: 2;
+  width: 288px;
   padding: 47px 0 40px 30px;
   margin: 0;
 
@@ -64,7 +64,7 @@
 .Styles__illustrations {
   position: fixed;
   top: 0;
-  left: calc(288px + 450px);
+  left: calc(288px + 288px);
   z-index: 2;
   opacity: 0;
   transition: opacity 0.15s ease-in-out;
