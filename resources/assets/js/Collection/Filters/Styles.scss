@@ -15,6 +15,14 @@
     opacity: 1;
   }
 }
+
+.Styles__scrollable {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  
+  
 .Styles__double-col {
   display: block;
   box-sizing: border-box;
