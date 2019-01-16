@@ -33,11 +33,11 @@ class Style extends Model
     public function getIllustrationPathsAttribute()
     {
         $paths = [];
-        $dir_path = storage_path(env('MEDIA_STORAGE_PATH') . '/_images-didactiques/styles/' . $this->name);
+        $dir_path = public_path('/media/_images-didactiques/styles/' . $this->name);
         if (file_exists($dir_path)) {
             for ($i=1; $i < 4; $i++) {
                 $name = rawurlencode($this->name);
-                $paths[] = "/image/_images-didactiques/styles/$name/$i.jpg?q=40&cache=1";
+                $paths[] = "/media/_images-didactiques/styles/$name/$i.jpg";
             }
         }
         return $paths;

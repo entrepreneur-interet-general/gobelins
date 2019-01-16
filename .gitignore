@@ -5,6 +5,7 @@
 /public/js/app.js
 /public/js/bootstrap.js
 /public/mix-manifest.json
+/public/media
 /storage/*.key
 /storage/cache
 /vendor

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
+import folkloreImage from "../vendor/folklore-image.js";
 
 import Loader from "../Loader.jsx";
 import ZoomIn from "./ZoomIn";
@@ -22,34 +23,31 @@ class DetailZoomed extends Component {
   }
 
   renderListItem(image, index) {
+    let thumbUrl = folkloreImage.url(
+      `/media/xl/${encodeURIComponent(image.path)}`,
+      330
+    );
     return (
       <li key={index}>
         <button type="button" onClick={this.handleClick.bind(this, index)}>
-          <img
-            src={"/image/" + encodeURIComponent(image.path) + "?w=145"}
-            width="145"
-            alt=""
-          />
+          <img src={thumbUrl} width="145" alt="" />
         </button>
       </li>
     );
   }
 
   render() {
+    let imageUrl = `/media/xl/${encodeURIComponent(
+      this.state.zoomedImage.path
+    )}`;
     return (
       <section className="DetailZoomed">
         <figure className="DetailZoomed__fig">
           <ImageLoader
-            src={"/image/" + encodeURIComponent(this.state.zoomedImage.path)}
+            src={imageUrl}
             alt=""
             image={props => (
-              <img
-                src={
-                  "/image/" + encodeURIComponent(this.state.zoomedImage.path)
-                }
-                alt=""
-                className="DetailZoomed__img"
-              />
+              <img src={imageUrl} alt="" className="DetailZoomed__img" />
             )}
             loading={() => <Loader className="DetailZoomed__spinner" />}
             error={() => <div>Error</div>}
@@ -71,9 +69,11 @@ class DetailZoomed extends Component {
             </button>
           </div>
         </figure>
-        <ul className="DetailZoom__thumbails">
-          {this.props.images.map(this.renderListItem)}
-        </ul>
+        {this.props.images && this.props.images.length > 1 ? (
+          <ul className="DetailZoom__thumbails">
+            {this.props.images.map(this.renderListItem)}
+          </ul>
+        ) : null}
         <Link className="DetailZoom__close" to={this.props.detailPath}>
           <Cross />
         </Link>

@@ -18,6 +18,11 @@ class DetailDesktop extends Component {
       props.product.images &&
       props.product.images instanceof Array &&
       props.product.images.length > 0;
+    this.hasSingleImage =
+      props.product &&
+      props.product.images &&
+      props.product.images instanceof Array &&
+      props.product.images.length === 1;
     this.state = {
       mainImageIndex: 0,
       layoutOrientation: this.computeLayoutOrientation(),
@@ -50,7 +55,10 @@ class DetailDesktop extends Component {
           render={props => (
             <div
               className={
-                "DetailDesktop has-" + this.state.layoutOrientation + "-poster"
+                "DetailDesktop has-" +
+                this.state.layoutOrientation +
+                "-poster" +
+                (this.hasSingleImage ? " has-single-image" : "")
               }
             >
               <div className="DetailDesktop__left-zone">
@@ -70,10 +78,14 @@ class DetailDesktop extends Component {
                     })
                   }
                 />
-                <ImageList
-                  images={this.hasImages ? this.props.product.images : []}
-                  onChangeMainImageIndex={this.handleMainImageIndex}
-                />
+                {this.hasImages && this.props.product.images.length > 1 ? (
+                  <ImageList
+                    images={this.hasImages ? this.props.product.images : []}
+                    onChangeMainImageIndex={this.handleMainImageIndex}
+                  />
+                ) : (
+                  <div className="DetailImageList--spacer" />
+                )}
               </div>
 
               <div className="DetailDesktop__right-zone">

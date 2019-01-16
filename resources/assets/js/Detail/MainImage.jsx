@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
+// import folkloreImage from "../vendor/folklore-image.js";
 
 import MagnifyingGlass from "./MagnifyingGlass";
 import Download from "./Download";
@@ -13,27 +14,16 @@ class MainImage extends Component {
   }
 
   render() {
+    let imgUrl = `/media/xl/${encodeURIComponent(this.props.image.path)}`;
     return (
       <section className="DetailMainImage">
         {this.props.image ? (
           <figure className="DetailMainImage__fig">
             <ImageLoader
-              src={
-                "/image/" +
-                encodeURIComponent(this.props.image.path) +
-                "?q=40&fm=jpg&cache=1&w=1200"
-              }
+              src={imgUrl}
               alt=""
               image={props => (
-                <img
-                  src={
-                    "/image/" +
-                    encodeURIComponent(this.props.image.path) +
-                    "?q=40&fm=jpg&cache=1&w=1200"
-                  }
-                  alt=""
-                  className="DetailMainImage__img"
-                />
+                <img src={imgUrl} alt="" className="DetailMainImage__img" />
               )}
               loading={() => <Loader className="DetailMainImage__spinner" />}
               error={() => <div>Error</div>}
@@ -48,7 +38,9 @@ class MainImage extends Component {
                 <MagnifyingGlass />
               </Link>
               <a
-                href={`/image/${encodeURIComponent(this.props.image.path)}`}
+                href={`/media/orig/${encodeURIComponent(
+                  this.props.image.path
+                )}`}
                 download
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"

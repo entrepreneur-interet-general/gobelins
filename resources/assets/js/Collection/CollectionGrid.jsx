@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
 import isEqual from "lodash/isEqual";
-import { Link } from "react-router-dom";
 import TirelessMason from "./TirelessMason.jsx";
+import folkloreImage from "../vendor/folklore-image.js";
 
 class CollectionGrid extends Component {
   constructor(props) {
@@ -22,11 +22,10 @@ class CollectionGrid extends Component {
   renderGridElements() {
     return this.props.hits.map((datum, index) => {
       let hasImages = datum.images && datum.images.length > 0;
-      let imgRoot = hasImages
-        ? "/image/" +
-          encodeURIComponent(datum.images[0].path) +
-          "?q=40&fm=pjpg&cache=1&w="
-        : "";
+
+      let path = encodeURIComponent(datum.images[0].path);
+      let img600 = hasImages ? `/media/xl/${folkloreImage.url(path, 600)}` : "";
+      let img330 = hasImages ? `/media/xl/${folkloreImage.url(path, 330)}` : "";
       let display_name =
         datum.title_or_designation ||
         datum.denomination ||
@@ -55,7 +54,7 @@ class CollectionGrid extends Component {
                        (min-width: 1024px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
                        (min-width: 800px) and (max-width: 1023px) calc((100vw - (40px * 4)) / 3),
                        calc(100vw - (3 * 15px) / 2)"
-                srcSet={imgRoot + "330 330w,\n" + imgRoot + "600 600w"}
+                srcSet={`${img330} 330w, ${img600} 600w`}
               />
               {/* <img
                 sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),

@@ -8,6 +8,7 @@ import {
 import ReactBreakpoints from "react-breakpoints";
 import qs from "qs";
 import merge from "deepmerge";
+import image from "./vendor/folklore-image.js";
 
 import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
