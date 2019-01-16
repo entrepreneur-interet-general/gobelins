@@ -23,7 +23,7 @@ class CollectionGrid extends Component {
     return this.props.hits.map((datum, index) => {
       let hasImages = datum.images && datum.images.length > 0;
 
-      let path = encodeURIComponent(datum.images[0].path);
+      let path = hasImages ? encodeURIComponent(datum.images[0].path) : "";
       let img600 = hasImages ? `/media/xl/${folkloreImage.url(path, 600)}` : "";
       let img330 = hasImages ? `/media/xl/${folkloreImage.url(path, 330)}` : "";
       let display_name =
