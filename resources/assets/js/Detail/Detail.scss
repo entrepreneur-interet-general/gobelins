@@ -40,6 +40,9 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
+  .has-portrait-poster & {
+    margin-bottom: 40px;
+  }
 }
 .DetailMainImage__fig {
   flex: 1 1 auto;
@@ -139,6 +142,13 @@
   }
 }
 
+.DetailImageList--spacer {
+  flex: 0 0 auto;
+  display: block;
+  width: calc(((100vw - (40px * 13)) / 12) + 40px);
+  height: 40px;
+}
+
 .DetailTitle {
   margin: 0;
   padding: 0;
@@ -146,7 +156,6 @@
   font-weight: normal;
   font-size: rem(30px);
   line-height: rem(50px);
-
 }
 
 .DetailTitle__denomination,
@@ -340,7 +349,7 @@
   list-style: none;
   margin: 0;
   padding: 60px 0 0 0;
-  filter: grayscale(1);
+  // filter: grayscale(1);
   overflow-x: hidden;
   overflow-y: auto;
 

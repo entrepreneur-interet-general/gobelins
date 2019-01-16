@@ -3,16 +3,18 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Pool;
+// use GuzzleHttp\Client;
+// use GuzzleHttp\Psr7;
+// use GuzzleHttp\Psr7\Request;
+// use GuzzleHttp\Pool;
 
-use GuzzleHttp\Exception\RequestException;
+// use GuzzleHttp\Exception\RequestException;
 
 
 use Illuminate\Support\Facades\DB;
 use \App\Models\Product;
+use ImageOptimizer;
+use Image;
 
 class WarmCache extends Command
 {
@@ -28,13 +30,7 @@ class WarmCache extends Command
      *
      * @var string
      */
-    protected $description = 'Warm the nginx cache';
-
-
-    /**
-     * HTTP client instance.
-     */
-    protected $client;
+    protected $description = 'Preprocess image thumbnails for grid view';
 
     /**
      * UI: a Symfony Progress Bar instance.
@@ -58,72 +54,27 @@ class WarmCache extends Command
      */
     public function handle()
     {
-        $this->initHttpClient();
-        $this->fetchImages();
+        $this->processImages();
     }
 
-    private function initHttpClient()
+    private function processImages()
     {
-        $this->client = new Client([
-            'base_uri' => env('APP_URL'),
-            'timeout'  => 15.0,
-        ]);
-    }
-
-    private function fetchImages()
-    {
-        $http_headers = env('HTTP_AUTH_USERNAME') ? ['Authorization' => 'Basic ' . base64_encode(env('HTTP_AUTH_USERNAME') .':'. env('HTTP_AUTH_PASSWORD'))] : null;
-        $glide_params = '?q=40&fm=pjpg&cache=1&w=600';
-
         $this->progress_bar = $this->output->createProgressBar(Product::count());
 
-
-        /////////////////////////////////
-        // Consecutive single requests //
-        /////////////////////////////////
-
-        // Product::chunk(200, function ($prods) use ($glide_params, $http_headers) {
-        //     foreach ($prods as $prod) {
-        //         $img = $prod->images->first();
-        //         if ($img) {
-        //             $response = $this->client->request('GET', '/image/' . $img->path . $glide_params, $http_headers);
-        //         }
-        //         $this->progress_bar->advance();
-        //     }
-        // });
-
-
-        ///////////////////////////////////
-        // Pool of 4 concurrent requests //
-        ///////////////////////////////////
-
-        Product::chunk(200, function ($prods) use ($glide_params, $http_headers) {
-            $requests = function ($prods) use ($glide_params, $http_headers) {
-                foreach ($prods as $prod) {
-                    $img = $prod->images->first();
-                    if ($img) {
-                        yield new Request('GET', '/image/' . $img->path . $glide_params, $http_headers);
+        Product::with(['images'])->chunk(10, function ($prods) {
+            foreach ($prods as $prod) {
+                $img = $prod->images->first();
+                if ($img) {
+                    $xl_path = '/media/xl/' . $img->path;
+                    $thumb_path = public_path() . Image::url($xl_path, 600);
+                    if (!file_exists($thumb_path)) {
+                        Image::make($xl_path, ['width' => 600])->save($thumb_path);
                     }
+                    ImageOptimizer::optimize($thumb_path);
                 }
-            };
-
-            $pool = new Pool($this->client, $requests($prods), [
-                'concurrency' => 4,
-                'fulfilled' => function () {
-                    $this->progress_bar->advance();
-                },
-                'rejected' => function () {
-                    $this->progress_bar->advance();
-                },
-            ]);
-
-            $promise = $pool->promise();
-            // Force the pool of requests to complete.
-            $promise->wait();
+                $this->progress_bar->advance();
+            }
         });
-
-
-
 
 
         $this->progress_bar->finish();
