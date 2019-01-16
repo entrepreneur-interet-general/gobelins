@@ -14,7 +14,9 @@ class MainImage extends Component {
   }
 
   render() {
-    let imgUrl = `/media/xl/${encodeURIComponent(this.props.image.path)}`;
+    let imgUrl = this.props.image
+      ? `/media/xl/${encodeURIComponent(this.props.image.path)}`
+      : "";
     return (
       <section className="DetailMainImage">
         {this.props.image ? (
