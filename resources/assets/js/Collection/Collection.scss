@@ -93,7 +93,7 @@
 
   &:before {
     content: "Objet sans image";
-    @include f-serif;
+    @include f-sans;
     font-size: rem(13px);
     line-height: 1;
     position: absolute;
