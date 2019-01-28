@@ -125,6 +125,11 @@ class DetailDesktop extends Component {
                     .photographer
                 : null
             }
+            license={
+              this.hasImages
+                ? this.props.product.images[this.state.mainImageIndex].license
+                : null
+            }
           />
         ) : null}
       </article>

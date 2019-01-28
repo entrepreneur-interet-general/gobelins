@@ -196,6 +196,10 @@ return [
                                 'has_marking' => [
                                     'type' => 'boolean',
                                 ],
+                                'license' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
                             ]
                         ],
                         'image_quality_score' => [
