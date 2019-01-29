@@ -38,7 +38,7 @@
       padding: 0;
     }
     @include breakpoint($small-up) {
-      max-width: 730px;
+      max-width: 700px;
       margin: 0 auto;
     }
 
@@ -90,7 +90,7 @@
     @include breakpoint($small-up) {
       display: block;
       height: auto;
-      margin-right: calc(((100vw - (60px * 2)) - 730px) / 2);
+      margin-right: calc(((100vw - (60px * 2)) - 700px) / 2);
     }
   }
   .BetaWelcome__aparte {
