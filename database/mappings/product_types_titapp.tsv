@@ -591,10 +591,10 @@ Bureau suspendu	Meuble > Bureau
 Bureau table	Meuble > Bureau
 Bureau à caisson	Meuble > Bureau
 Bureau à caissons	Meuble > Bureau
-Bureau à cylindre	Meuble > Bureau
-Bureau à cylindre\nDécision de radiation n° 2011/5 du 08-07-2011 suite à la vente du 28/06/2011	Meuble > Bureau
-Bureau à cylindre\nDécision de radiation n°2008/8 suite à la vente du 11/12/2008	Meuble > Bureau
-Bureau à cylindre avec armoire	Meuble > Bureau
+Bureau à cylindre	Meuble > Bureau > Bureau à cylindre
+Bureau à cylindre\nDécision de radiation n° 2011/5 du 08-07-2011 suite à la vente du 28/06/2011	Meuble > Bureau > Bureau à cylindre
+Bureau à cylindre\nDécision de radiation n°2008/8 suite à la vente du 11/12/2008	Meuble > Bureau > Bureau à cylindre
+Bureau à cylindre avec armoire	Meuble > Bureau > Bureau à cylindre
 Bureau à gradin	Meuble > Bureau
 Bureau à gradin\nP.V. VENTE 05 99/1014\nARRETE DU 29.07.1999	Meuble > Bureau
 Bureau à retour	Meuble > Bureau
