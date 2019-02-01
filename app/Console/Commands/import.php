@@ -145,6 +145,7 @@ class Import extends Command
                                     'inventory_root' => $item->inventory_root,
                                     'inventory_number' => $item->inventory_number,
                                     'inventory_suffix' => $item->inventory_suffix,
+                                    'legacy_inventory_number' => $item->legacy_inventory_number,
                                     'height_or_thickness' => $item->height_or_thickness,
                                     'length_or_diameter' => $item->length_or_diameter,
                                     'depth_or_width' => $item->depth_or_width,

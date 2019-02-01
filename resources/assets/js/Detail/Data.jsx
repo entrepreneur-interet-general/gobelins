@@ -139,17 +139,11 @@ function Acquisition(props) {
   ) : null;
 }
 
-function LegacyInventoryNumbers(props) {
-  return props.legacyInventoryNumbers &&
-    props.legacyInventoryNumbers instanceof Array &&
-    props.legacyInventoryNumbers.length > 0 ? (
+function LegacyInventoryNumber(props) {
+  return props.legacyInventoryNumber ? (
     <DataUnitTemplate
-      label="Anciens numéros d’inventaire"
-      value={nl2br(
-        props.legacyInventoryNumbers
-          .map(n => [n.number, n.comment].filter(Boolean).join(" — "))
-          .join("\n")
-      )}
+      label="Ancien numéro d’inventaire"
+      value={nl2br(props.legacyInventoryNumber)}
     />
   ) : null;
 }
@@ -197,8 +191,8 @@ function Data(props) {
         acquisitionDate={props.product.acquisition_date}
         acquisitionOrigin={props.product.acquisition_origin}
       />
-      <LegacyInventoryNumbers
-        legacyInventoryNumbers={props.product.legacy_inventory_numbers}
+      <LegacyInventoryNumber
+        legacyInventoryNumber={props.product.legacy_inventory_number}
       />
       <Photographers images={props.product.images} />
     </section>

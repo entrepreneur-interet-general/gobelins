@@ -115,6 +115,10 @@ return [
                         'inventory_id_as_keyword' => [
                             'type' => 'keyword',
                         ],
+                        'legacy_inventory_number' => [
+                            'type' => 'text',
+                            'analyzer' => 'standard',
+                        ],
                         'product_types' => [
                             'type' => 'object',
                             'properties' => [
@@ -264,19 +268,6 @@ return [
                         'height_or_thickness' => [
                             'type' => 'scaled_float',
                             'scaling_factor' => 1000,
-                        ],
-                        'legacy_inventory_numbers' => [
-                            'type' => 'object',
-                            'properties' =>  [
-                                'number' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'standard',
-                                ],
-                                'comment' => [
-                                    'type' => 'text',
-                                    'analyzer' => 'french',
-                                ]
-                            ]
                         ],
                     ]
                 ]

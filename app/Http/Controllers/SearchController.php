@@ -260,8 +260,7 @@ class SearchController extends Controller
                             'description',
                             'authors.first_name',
                             'acquisition_origin',
-                            'legacy_inventory_numbers.number',
-                            'legacy_inventory_numbers.comment',
+                            'legacy_inventory_number',
                         ],
                     ],
                 ];
