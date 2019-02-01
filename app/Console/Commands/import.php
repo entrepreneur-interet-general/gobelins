@@ -301,18 +301,6 @@ class Import extends Command
                         }
 
 
-                        // LegacyInventoryNumbers
-                        $product->legacyInventoryNumbers->map(function ($num) {
-                            $num->delete();
-                        });
-                        $product->legacyInventoryNumbers()->createMany(collect($item->legacy_inventory_numbers)->map(function ($num) {
-                            return [
-                                'number' => $num->number,
-                                'comment' => $num->comment,
-                            ];
-                        })->toArray());
-
-
                         // Styles
                         // Also udpated based on the legacy_id
                         if ($item->product_style && $item->product_style->id) {

@@ -36,11 +36,6 @@ class Product extends Model
         return $this->belongsTo(Period::class);
     }
 
-    public function legacyInventoryNumbers()
-    {
-        return $this->hasMany(LegacyInventoryNumber::class);
-    }
-
     public function productType()
     {
         return $this->belongsTo(ProductType::class);
