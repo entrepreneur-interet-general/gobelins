@@ -233,11 +233,11 @@ class SearchController extends Controller
             ]
         ];
         if ($request->input('q')) {
-            if (preg_match('/^'.$inventory_roots.'[- ][0-9]+[- ][0-9]{3}$/i', $request->input('q'), $matches)) {
+            if (preg_match('/^'.$inventory_roots.'[- \/][0-9]+[- \/][0-9]{3}$/i', $request->input('q'), $matches)) {
                 // Inventory id exact match
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'match' => [
-                        'inventory_id_as_keyword' => str_replace(' ', '-', strtoupper($request->input('q')))
+                        'inventory_id_as_keyword' => str_replace([' ', '/'], '-', strtoupper($request->input('q')))
                     ]
                 ];
             } else {
