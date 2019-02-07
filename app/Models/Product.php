@@ -174,9 +174,9 @@ class Product extends Model
         return [
             'title_or_designation' => $this->title_or_designation,
             'denomination' => $this->denomination,
-            'description' => $this->description,
+            'description' => in_array($this->publication_state, ['P+D', 'P+D+P']) ? $this->description : null,
             'bibliography' => $this->bibliography,
-            'acquisition_origin' => $this->acquisition_origin,
+            'acquisition_origin' => $this->publication_state === 'P+D+P' ? $this->acquisition_origin : null,
             'acquisition_date' => $this->acquisition_date,
             'inventory_id' => $this->inventory_id,
             'inventory_id_as_keyword' => strtoupper($this->inventory_id),
@@ -196,7 +196,6 @@ class Product extends Model
             'depth_or_width' => $this->depth_or_width,
             'height_or_thickness' => $this->height_or_thickness,
             'legacy_inventory_number' => $this->legacy_inventory_number,
-            'is_published' => $this->is_published,
         ];
     }
 
