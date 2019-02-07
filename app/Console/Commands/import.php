@@ -173,7 +173,7 @@ class Import extends Command
                         $images = collect($item->images)
                             // Store full path of image file.
                             ->map(function ($img_obj) {
-                                $img_obj->full_path = storage_path(env('MEDIA_STORAGE_PATH') . '/' . trim($img_obj->path));
+                                $img_obj->full_path = public_path('media/orig/' . trim($img_obj->path));
                                 return $img_obj;
                             })
                             // Remove items for which we don't have a file.
@@ -206,6 +206,7 @@ class Import extends Command
                                     $this->warn('Invalid image:' . $img_obj->full_path);
                                     $this->info('Current page:' . $this->current_page);
                                     $this->progress_bar->display();
+                                    file_put_contents(storage_path('logs/missing_files.log'), $img_obj->full_path . "\n", FILE_APPEND);
                                     return false;
                                 }
                             })
