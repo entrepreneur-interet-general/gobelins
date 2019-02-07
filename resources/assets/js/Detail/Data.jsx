@@ -162,7 +162,12 @@ function Photographers(props) {
       }
       value=""
     />
-  ) : null;
+  ) : (
+    <DataUnitTemplate
+      label="Photographie Mobilier national – droits réservés"
+      value=""
+    />
+  );
 }
 
 function Data(props) {
