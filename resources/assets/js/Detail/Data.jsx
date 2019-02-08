@@ -164,7 +164,7 @@ function Photographers(props) {
     />
   ) : (
     <DataUnitTemplate
-      label="Photographie Mobilier national – droits réservés"
+      label="Photographie © Mobilier national, droits réservés"
       value=""
     />
   );
