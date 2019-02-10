@@ -61,16 +61,16 @@ class WarmCache extends Command
     {
         $this->progress_bar = $this->output->createProgressBar(Product::count());
 
-        Product::with(['images'])->chunk(10, function ($prods) {
+        Product::with(['images'])->chunk(100, function ($prods) {
             foreach ($prods as $prod) {
-                $img = $prod->images->first();
+                $img = $prod->images()->published()->first();
                 if ($img) {
                     $xl_path = '/media/xl/' . $img->path;
                     $thumb_path = public_path() . Image::url($xl_path, 600);
                     if (!file_exists($thumb_path)) {
                         Image::make($xl_path, ['width' => 600])->save($thumb_path);
                     }
-                    ImageOptimizer::optimize($thumb_path);
+                    #ImageOptimizer::optimize($thumb_path);
                 }
                 $this->progress_bar->advance();
             }
