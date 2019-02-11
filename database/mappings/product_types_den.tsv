@@ -145,7 +145,7 @@ COMMODE	Meuble > Rangement > Commode
 COMPOTIER	Objet décoratif > Art de la table > Plat
 COMPTOIR	Meuble
 CONFIDENT	Siège
-CONSOLE	Meuble > Table
+CONSOLE	Meuble > Table > Console
 COPIE D'UN CADRE OVALE	
 COQUETIER	Objet décoratif > Art de la table
 CORBEILLE	
@@ -186,7 +186,7 @@ DESSERTE	Meuble > Rangement > Desserte
 DESSIN	Beaux arts > Art graphique > Dessin
 DESSIN-PROJET	Beaux arts > Art graphique > Dessin
 DESSOUS DE CARAFE	Objet décoratif > Art de la table
-DESSUS DE CONSOLE	Meuble
+DESSUS DE CONSOLE	Meuble > Table > Console
 DESSUS DE GUERIDON	Meuble
 DESSUS DE LIT	Textile
 DESSUS DE PIANO	
