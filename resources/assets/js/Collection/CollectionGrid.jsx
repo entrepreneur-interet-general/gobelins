@@ -36,7 +36,7 @@ class CollectionGrid extends Component {
         <a
           href={`/objet/${datum.inventory_id}`}
           onClick={ev => this.props.onObjectClick(datum, ev)}
-          key={datum["_id"]}
+          key={datum["_id"] + "-" + index}
           className="Collection__cell"
         >
           {hasImages ? (
