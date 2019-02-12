@@ -8,7 +8,7 @@ const ResultCount = props => (
     >
       <ArrowDown />
       {props.totalHits || " "}
-      {props.totalHits > 1 ? " résultats" : "Aucun résultat"}
+      {props.totalHits > 0 ? " résultats" : "Aucun résultat"}
     </div>
     {props.totalHits === 0 ? (
       <button

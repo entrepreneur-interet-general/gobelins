@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
 import isEqual from "lodash/isEqual";
 import TirelessMason from "./TirelessMason.jsx";
+import Loader from "../Loader.jsx";
 import folkloreImage from "../vendor/folklore-image.js";
 
 class CollectionGrid extends Component {
@@ -121,6 +122,9 @@ class CollectionGrid extends Component {
         >
           {this.renderGridElements()}
         </TirelessMason>
+        {this.props.isLoading ? (
+          <Loader className="Collection__spinner" />
+        ) : null}
       </div>
     );
   }

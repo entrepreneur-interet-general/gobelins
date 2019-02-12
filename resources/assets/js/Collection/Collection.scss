@@ -168,3 +168,14 @@
     opacity: 1;
   }
 }
+
+.Collection__spinner {
+  position: fixed;
+  bottom: 80px;
+  right: 50%;
+  transform: translateX(-25px);
+  z-index: 999;
+  @include breakpoint($medium-up) {
+    right: calc((100vw - 248px) / 2);
+  }
+}
