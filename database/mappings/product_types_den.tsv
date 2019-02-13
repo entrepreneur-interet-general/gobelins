@@ -120,7 +120,7 @@ CHAISE LONGUE	Siège > Chaise > Chaise longue
 CHAISE PLIANTE	Siège > Chaise > Chaise
 CHALUMEAU	
 CHANDELIER	Luminaire > Chandelier > Chandelier
-CHANDELIER D'AUTEL	Luminaire > Chandelier
+CHANDELIER D'AUTEL	Luminaire > Chandelier > Chandelier
 CHAPELLE	
 CHAR	
 CHAUFFERETTE	
@@ -266,7 +266,7 @@ GARNITURE DE CHEMINEE
 GARNITURE DE MOBILIER	Textile > Tapisserie > Tapisserie pour mobilier
 GEODE	
 GIRANDOLE	Luminaire > Chandelier > Girandole
-GLACE	Meuble > Miroir
+GLACE	Meuble > Miroir > Miroir
 GLACIERE	
 GLOBE	
 GOUTIERE T1	
@@ -543,7 +543,7 @@ ROUE DE LOTERIE
 SALADIER	Objet décoratif > Art de la table > Plat
 SAMOVAR	Objet décoratif > Art de la table > Service à thé et à café
 SAUCIERE	Objet décoratif > Art de la table > Plat
-SCRIBAN	Meuble > Bureau
+SCRIBAN	Meuble > Bureau > Bureau
 SCULPTURE	Beaux arts > Sculpture > Sculpture
 SEAU	
 SEAU A RAFRAICHIR	Objet décoratif > Art de la table > Plat
@@ -595,45 +595,45 @@ SUSPENTS ECRAN
 TABATIERE	Meuble
 TABERNACLE	
 TABLE	Meuble > Table > Table
-TABLE A BASCULE	Meuble > Table
+TABLE A BASCULE	Meuble > Table > Table
 TABLE A ECRIRE	Meuble > Bureau > Table à écrire
-TABLE A ETAGERE	Meuble > Table
+TABLE A ETAGERE	Meuble > Table > Table
 TABLE A JEUX	Meuble > Table > Table à jeux
 TABLE A LA TRONCHIN	Meuble > Table
-TABLE A OUVRAGE	Meuble > Table
+TABLE A OUVRAGE	Meuble > Table > Table
 TABLE BASSE	Meuble > Table > Table basse
-TABLE BOUILLOTTE	Meuble > Table
+TABLE BOUILLOTTE	Meuble > Table > Table
 TABLE CONSOLE	Meuble > Table > Console
 TABLE D'APPOINT	Meuble > Table > Table d'appoint
-TABLE D'ARCHITECTE	Meuble > Bureau
-TABLE D'ENCOIGNURE	Meuble > Table
-TABLE DACTYLO	Meuble > Bureau
+TABLE D'ARCHITECTE	Meuble > Bureau > Bureau
+TABLE D'ENCOIGNURE	Meuble > Table > Table
+TABLE DACTYLO	Meuble > Bureau > Bureau
 TABLE DE BRIDGE	Meuble > Table > Table à jeux
-TABLE DE BUREAU	Meuble > Bureau
+TABLE DE BUREAU	Meuble > Bureau > Bureau
 TABLE DE CHEVET	Meuble > Table > Table de chevet
-TABLE DE COMMISSION	Meuble > Table
-TABLE DE CONFERENCE	Meuble > Table
-TABLE DE COUPE	Meuble > Table
-TABLE DE CUISINE	Meuble > Table
+TABLE DE COMMISSION	Meuble > Table > Table
+TABLE DE CONFERENCE	Meuble > Table > Table
+TABLE DE COUPE	Meuble > Table > Table
+TABLE DE CUISINE	Meuble > Table > Table
 TABLE DE DECHARGE	Meuble > Table > Table d'appoint
-TABLE DE JARDIN	Meuble > Table
-TABLE DE MILIEU	Meuble > Table
+TABLE DE JARDIN	Meuble > Table > Table
+TABLE DE MILIEU	Meuble > Table > Table
 TABLE DE NUIT	Meuble > Table > Table de chevet
 TABLE DE PRESENTATION	Meuble > Table
-TABLE DE REUNION	Meuble > Table
-TABLE DE SALLE A MANGER	Meuble > Table
+TABLE DE REUNION	Meuble > Table > Table
+TABLE DE SALLE A MANGER	Meuble > Table > Table de salon
 TABLE DE SALON	Meuble > Table > Table de salon
 TABLE DE TELEPHONE	Meuble > Table > Table
 TABLE DE TOILETTE	Meuble > Table
-TABLE DE TRAVAIL	Meuble > Bureau
-TABLE ECRITOIRE	Meuble > Bureau
+TABLE DE TRAVAIL	Meuble > Bureau > Bureau
+TABLE ECRITOIRE	Meuble > Bureau > Bureau
 TABLE GIGOGNE	Meuble > Table > Table gigogne
-TABLE PLIANTE	Meuble > Table
-TABLE PORTEFEUILLE	Meuble > Table
-TABLE RONDE	Meuble > Table
+TABLE PLIANTE	Meuble > Table > Table
+TABLE PORTEFEUILLE	Meuble > Table > Table
+TABLE RONDE	Meuble > Table > Table
 TABLE ROULANTE	Meuble > Rangement > Desserte
 TABLE SERVANTE	Meuble > Rangement > Desserte
-TABLE TRANSFORMABLE	Meuble > Table
+TABLE TRANSFORMABLE	Meuble > Table > Table
 TABLEAU	Beaux arts > Tableau
 TABLEAU MURAL D'AFFICHAGE	
 TABLEAU SOUS-VERRE ( CONTENANT DES MEDAILLES )	
