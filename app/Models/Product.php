@@ -174,9 +174,9 @@ class Product extends Model
         return [
             'title_or_designation' => $this->title_or_designation,
             'denomination' => $this->denomination,
-            'description' => in_array($this->publication_state, ['P+D', 'P+D+P']) ? $this->description : null,
+            'description' => in_array($this->publication_code, ['P+D', 'P+D+P']) ? $this->description : null,
             'bibliography' => $this->bibliography,
-            'acquisition_origin' => $this->publication_state === 'P+D+P' ? $this->acquisition_origin : null,
+            'acquisition_origin' => $this->publication_code === 'P+D+P' ? $this->acquisition_origin : null,
             'acquisition_date' => $this->acquisition_date,
             'inventory_id' => $this->inventory_id,
             'inventory_id_as_keyword' => strtoupper($this->inventory_id),
