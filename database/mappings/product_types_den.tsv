@@ -112,12 +112,12 @@ CENDRIER
 CERAMIQUE	
 CHAINE	
 CHAISE	Siège > Chaise > Chaise
-CHAISE AJOUREE	Siège > Chaise > Chaise à grille
-CHAISE CONFORTABLE	Siège > Chaise > Chaise confortable
-CHAISE COQUE	Siège > Chaise
-CHAISE DACTYLO	Siège > Chaise > Chaise dactylo
+CHAISE AJOUREE	Siège > Chaise > Chaise
+CHAISE CONFORTABLE	Siège > Chaise > Chaise
+CHAISE COQUE	Siège > Chaise > Chaise
+CHAISE DACTYLO	Siège > Chaise > Chaise
 CHAISE LONGUE	Siège > Chaise > Chaise longue
-CHAISE PLIANTE	Siège > Chaise
+CHAISE PLIANTE	Siège > Chaise > Chaise
 CHALUMEAU	
 CHANDELIER	Luminaire > Chandelier > Chandelier
 CHANDELIER D'AUTEL	Luminaire > Chandelier
@@ -224,27 +224,27 @@ ETAGERE	Meuble > Rangement > Étagère
 ETUDE D'ELEVE	
 ETUDE POUR TAPIS	Beaux arts > Modèle pour tissage > Modèle pour tapis
 FAUTEUIL	Siège > Fauteuil > Fauteuil
-FAUTEUIL A GRILLE	Siège > Fauteuil
+FAUTEUIL A GRILLE	Siège > Fauteuil > Fauteuil
 FAUTEUIL A LA REINE	Siège > Fauteuil > Fauteuil à la reine
-FAUTEUIL AJOURE	Siège > Fauteuil
-FAUTEUIL BRIDGE	Siège > Fauteuil > Fauteuil de bridge
+FAUTEUIL AJOURE	Siège > Fauteuil > Fauteuil
+FAUTEUIL BRIDGE	Siège > Fauteuil > Fauteuil
 FAUTEUIL CABRIOLET	Siège > Fauteuil > Fauteuil cabriolet
-FAUTEUIL CLUB	Siège > Fauteuil
+FAUTEUIL CLUB	Siège > Fauteuil > Fauteuil
 FAUTEUIL CONFORTABLE	Siège > Fauteuil > Fauteuil confortable
-FAUTEUIL D'ENFANT	Siège > Fauteuil
-FAUTEUIL DE BRIDGE	Siège > Fauteuil > Fauteuil de bridge
-FAUTEUIL DE BUREAU	Siège > Fauteuil
+FAUTEUIL D'ENFANT	Siège > Fauteuil > Fauteuil
+FAUTEUIL DE BRIDGE	Siège > Fauteuil > Fauteuil
+FAUTEUIL DE BUREAU	Siège > Fauteuil > Fauteuil
 FAUTEUIL DE JARDIN	Siège > Fauteuil > Fauteuil de jardin
-FAUTEUIL DE TRONE	Siège > Fauteuil
+FAUTEUIL DE TRONE	Siège > Fauteuil > Fauteuil
 FAUTEUIL DE VEILLE	Siège > Fauteuil > Fauteuil de veille
-FAUTEUIL GONDOLE	Siège > Fauteuil
-FAUTEUIL MEDAILLON	Siège > Fauteuil
-FAUTEUIL PIVOTANT	Siège > Fauteuil
-FAUTEUIL PLIANT	Siège > Fauteuil
-FAUTEUIL TOURNANT	Siège > Fauteuil
-FAUTEUIL TRANSAT	Siège > Fauteuil
+FAUTEUIL GONDOLE	Siège > Fauteuil > Fauteuil
+FAUTEUIL MEDAILLON	Siège > Fauteuil > Fauteuil
+FAUTEUIL PIVOTANT	Siège > Fauteuil > Fauteuil
+FAUTEUIL PLIANT	Siège > Fauteuil > Fauteuil
+FAUTEUIL TOURNANT	Siège > Fauteuil > Fauteuil
+FAUTEUIL TRANSAT	Siège > Fauteuil > Fauteuil
 FAUTEUIL VISITEUR	Siège > Fauteuil > Fauteuil visiteur
-FAUTEUIL VOLTAIRE	Siège > Fauteuil
+FAUTEUIL VOLTAIRE	Siège > Fauteuil > Fauteuil
 FEU (PARTIE GAUCHE)	
 FEU A GALERIE	
 FEUILLE D'ECRAN	Meuble > Paravent et écran > Écran à feu
@@ -473,7 +473,7 @@ PLAFONNIER	Luminaire > Lustre et plafonnier > Plafonnier
 PLAN	Beaux arts > Art graphique > Carte et plan
 PLAQUE	
 PLAT	Objet décoratif > Art de la table > Plat
-PLATEAU	Objet décoratif > Art de la table > Plateau
+PLATEAU	Objet décoratif > Art de la table
 PLATEAU DE LA TABLE A JEUX	Meuble > Table > Table à jeux
 PLATEAU DE TABLE OVALE	Meuble > Table
 PLIANT	Siège
@@ -623,7 +623,7 @@ TABLE DE PRESENTATION	Meuble > Table
 TABLE DE REUNION	Meuble > Table
 TABLE DE SALLE A MANGER	Meuble > Table
 TABLE DE SALON	Meuble > Table > Table de salon
-TABLE DE TELEPHONE	Meuble > Table > Table de téléphone
+TABLE DE TELEPHONE	Meuble > Table > Table
 TABLE DE TOILETTE	Meuble > Table
 TABLE DE TRAVAIL	Meuble > Bureau
 TABLE ECRITOIRE	Meuble > Bureau
@@ -671,8 +671,8 @@ VANTAIL
 VASE	Objet décoratif > Vase
 VASQUE	Meuble
 VEILLEUSE A JATTE	
-VERRERIE	Objet décoratif > Art de la table > Verrerie
-VERRINE	Objet décoratif > Art de la table > Verrerie
+VERRERIE	Objet décoratif > Art de la table
+VERRINE	Objet décoratif > Art de la table
 VESTIAIRE	Meuble > Rangement > Vestiaire
 VETEMENT ET ORNEMENT	Textile > Vêtement et accessoire
 VITRINE	Meuble > Rangement > Vitrine
