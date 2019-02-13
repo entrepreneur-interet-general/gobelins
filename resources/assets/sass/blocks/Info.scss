@@ -1,0 +1,170 @@
+.Info {
+  margin: 0px 30px 40px;
+
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(20px);
+
+  @include breakpoint($medium-up) {
+    max-width: 500px;
+    margin: 0 auto 100px 372px;
+  }
+
+  section {
+    padding-top: rem(100px);
+    @include breakpoint($medium-up) {
+      padding-top: rem(120px);
+    }
+  }
+  h1 {
+    margin-top: 0;
+    margin-bottom: rem(18px);
+    font-weight: normal;
+    text-decoration: none;
+    display: block;
+    font-size: rem(15px);
+    line-height: rem(20px);
+    span {
+      display: inline;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    border-bottom: 1px dotted $green-medium;
+    color: inherit;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: rem(18px);
+  }
+
+  h2 {
+    font-size: rem(15px);
+    line-height: rem(20px);
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: normal;
+    color: $green-medium;
+  }
+}
+
+.InfoNav {
+  margin-top: 100px;
+  @include breakpoint($medium-up) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    margin-top: 0;
+  }
+  background-color: #fff;
+  padding: 0 30px;
+  @include breakpoint($medium-up) {
+    padding: 0 40px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    @include breakpoint($medium-up) {
+      display: flex;
+      flex-flow: row nowrap;
+      list-style: none;
+    }
+  }
+  li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+  }
+
+  li:nth-child(2) a {
+    @include breakpoint($medium-up) {
+      padding-left: 0;
+    }
+  }
+  a {
+    display: block;
+    padding: 10px;
+    margin-left: -10px;
+    @include breakpoint($medium-up) {
+      padding: 32px 17px 28px 10px;
+      margin-left: 0;
+    }
+    @include f-sans;
+    font-size: rem(15px);
+    line-height: rem(20px);
+    color: $green-medium;
+    text-decoration: none;
+  }
+  a.InfoNav__back {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #fff;
+    padding: 0 40px;
+    border-bottom: 1px solid $lines;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+
+    @include f-serif;
+    color: black;
+
+    @include breakpoint($medium-up) {
+      position: static;
+      padding-left: 0;
+      padding-right: 0;
+      width: calc(372px - 40px);
+      border-bottom: none;
+    }
+
+    svg {
+      display: block;
+      margin-right: 20px;
+    }
+  }
+}
+
+.Info__logos {
+  margin-top: 153px;
+  @include breakpoint($medium-up) {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  p {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    margin-right: 40px;
+    &:first-of-type {
+      margin-bottom: 80px;
+      @include breakpoint($medium-up) {
+        margin-bottom: 0;
+      }
+    }
+  }
+  span {
+    display: block;
+    position: absolute;
+    top: -30px;
+    left: 0;
+  }
+  a {
+    display: block;
+    margin-right: 20px;
+    text-decoration: none;
+    border: none;
+  }
+}

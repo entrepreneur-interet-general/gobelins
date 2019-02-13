@@ -11,4 +11,9 @@ class HomeController extends Controller
         return view('site.home', [
         ]);
     }
+
+    public function info(Request $request)
+    {
+        return view('site.info');
+    }
 }

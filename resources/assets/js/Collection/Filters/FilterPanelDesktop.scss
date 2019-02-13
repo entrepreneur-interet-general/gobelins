@@ -118,13 +118,18 @@
   justify-content: center;
   color: black;
   text-decoration: none;
-  background-color: $lines;
+  background-color: white;
+  border: 1px solid $lines;
   @include f-sans;
   font-size: rem(13px);
   line-height: 1;
   position: relative;
   top: -10px;
   margin-left: 36px;
+
+  &:hover {
+    border-color: black;
+  }
 
   & > span {
     display: block;

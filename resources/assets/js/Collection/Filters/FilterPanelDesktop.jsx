@@ -230,7 +230,7 @@ class FilterPanelDesktop extends Component {
           <div className="FilterPanelDesktop__bottom-row">
             <MnLogo className="FilterPanelDesktop__mn-logo" />
             <a
-              href="#"
+              href="/info"
               className="FilterPanelDesktop__info-link"
               title="Information"
             >
