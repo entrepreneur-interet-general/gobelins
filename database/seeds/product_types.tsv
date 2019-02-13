@@ -11,9 +11,6 @@ Siège > Canapé > Chauffeuse
 Siège > Canapé > Méridienne
 Siège > Chaise
 Siège > Chaise > Chaise
-Siège > Chaise > Chaise à grille
-Siège > Chaise > Chaise confortable
-Siège > Chaise > Chaise dactylo
 Siège > Chaise > Chaise longue
 Siège > Chaise > Chaise lyre
 Siège > Fauteuil
@@ -22,7 +19,6 @@ Siège > Fauteuil > Fauteuil
 Siège > Fauteuil > Fauteuil à la reine
 Siège > Fauteuil > Fauteuil cabriolet
 Siège > Fauteuil > Fauteuil confortable
-Siège > Fauteuil > Fauteuil de bridge
 Siège > Fauteuil > Fauteuil de bureau
 Siège > Fauteuil > Fauteuil de jardin
 Siège > Fauteuil > Fauteuil de veille
@@ -67,7 +63,6 @@ Meuble > Table > Table basse
 Meuble > Table > Table d’appoint
 Meuble > Table > Table de chevet
 Meuble > Table > Table de salon
-Meuble > Table > Table de téléphone
 Meuble > Table > Table gigogne
 Luminaire
 Luminaire > Applique
@@ -125,10 +120,8 @@ Objet décoratif
 Objet décoratif > Art de la table
 Objet décoratif > Art de la table > Coupe
 Objet décoratif > Art de la table > Plat
-Objet décoratif > Art de la table > Plateau
 Objet décoratif > Art de la table > Service à thé et à café
 Objet décoratif > Art de la table > Service de table
-Objet décoratif > Art de la table > Verrerie
 Objet décoratif > Horlogerie
 Objet décoratif > Horlogerie > Horloge
 Objet décoratif > Horlogerie > Pendule
