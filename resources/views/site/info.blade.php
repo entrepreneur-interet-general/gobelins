@@ -17,6 +17,7 @@
         <li><a href="#project">Projet</a></li>
         <li><a href="#credits">Crédits et mentions légales</a></li>
         <li><a href="#cgu">Conditions générale d’utilisation</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
 <main class="Info">
@@ -179,7 +180,11 @@
             Pour toute demande de dépôt il sera nécessaire de vous mettre en relation avec notre service ameublement qui vous conseillera en fonction des disponibilités.
         </p>
 
-        <h2>Contact</h2>
+
+    <section id="contact">
+    
+       <h1><span>Contact</span></h1>
+
 
         <p>
             Pour une demande concernant l’achat ou la réglementation des droits photographiques, veuillez écrire à : <a href="mailto:documentation.mobiliert@culture.gouv.fr">documentation.mobiliert@culture.gouv.fr</a> ou <a href="mailto:helene.cavalie@culture.gouv.fr">helene.cavalie@culture.gouv.fr</a>.
@@ -192,7 +197,7 @@
         <p>
             Pour des renseignements sur le code source : <a href="mailto:ned@baldessin.fr">ned@baldessin.fr</a>
         </p>
-
+  </section>
         <p>
             <strong>Mobilier national et manufactures nationales des Gobelins, de Beauvais et de la Savonnerie</strong><br>
             1 rue Berbier-du-Mets<br>
