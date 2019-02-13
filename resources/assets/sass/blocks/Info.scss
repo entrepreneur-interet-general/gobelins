@@ -22,17 +22,16 @@
     font-weight: normal;
     text-decoration: none;
     display: block;
-    font-size: rem(15px);
+    font-size: rem(22px);
     line-height: rem(20px);
     span {
-      display: inline;
-      border-bottom: 1px solid black;
+
     }
   }
 
   a {
     text-decoration: none;
-    border-bottom: 1px dotted $green-medium;
+    border-bottom: 1px dotted #FF4747;
     color: inherit;
   }
 
@@ -43,11 +42,12 @@
 
   h2 {
     font-size: rem(15px);
-    line-height: rem(20px);
+    line-height: rem(27px);
     margin-top: 0;
     margin-bottom: 0;
     font-weight: normal;
-    color: $green-medium;
+    display: inline;
+    border-bottom: 1px solid black;
   }
 }
 
@@ -99,9 +99,12 @@
     @include f-sans;
     font-size: rem(15px);
     line-height: rem(20px);
-    color: $green-medium;
+    color: #FF4747;
     text-decoration: none;
   }
+  .InfoNav:hover{
+	color: #ff7d7d;
+}
   a.InfoNav__back {
     position: fixed;
     top: 0;
