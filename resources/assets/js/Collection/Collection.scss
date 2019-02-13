@@ -38,6 +38,7 @@
   display: block;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
   @include breakpoint($xsmall) {
     width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
   }

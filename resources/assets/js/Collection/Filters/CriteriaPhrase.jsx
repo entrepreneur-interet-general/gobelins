@@ -343,7 +343,7 @@ class CriteriaPhrase extends Component {
         className="CriteriaPhrase__reset-button"
         onClick={this.handleRemoveAll}
         onMouseEnter={() => this.setState({ hoverRemoveAll: true })}
-        onMouseOut={() => this.setState({ hoverRemoveAll: false })}
+        onMouseLeave={() => this.setState({ hoverRemoveAll: false })}
       >
         <Cross />
       </button>
