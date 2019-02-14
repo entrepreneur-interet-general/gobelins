@@ -55,7 +55,7 @@
   overflow-x: hidden;
   overflow-y: auto;
 
-  padding: 47px 30px 40px 50px;
+  padding: 37px 0 30px;
   margin: 0 0 0 80px;
   position: absolute;
   top: 0;
@@ -86,8 +86,11 @@
 }
 
 .Authors__double-col button {
-  padding: 10px;
-  margin: 0 -10px;
+  display: block;
+  width: 100%;
+  padding: 10px 30px 10px 50px;
+  margin: 0;
+  position: relative;
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(23px);
@@ -102,14 +105,23 @@
     font-weight: normal;
   }
 
-  &:hover,
-  &:hover strong {
-    font-weight: 600;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
   }
+
   &.is-selected {
-    // color: $green-medium;
     color: white;
-    font-weight: 700;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+    }
   }
 }
 .Authors__double-col ul ul button {
