@@ -24,34 +24,48 @@
   display: block;
   box-sizing: border-box;
   width: 288px;
-  padding: 47px 0 40px 30px;
+  padding: 47px 0 40px 0px;
   margin: 0;
 
   color: black;
   list-style: none;
 }
 .Styles__col-item {
-  padding: 4px 0 0 10px;
+  padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .Styles__list button {
-  padding: 10px;
+  display: block;
+  width: 100%;
+  padding: 12px 0 12px 50px;
   margin: 0;
+  position: relative;
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(18px);
   background-color: transparent;
   border: 0;
   cursor: pointer;
+  text-align: left;
 
   &:hover {
-    font-weight: 600;
+    // font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.15);
   }
   &.is-selected {
-    // color: $yellow-dark;
-    font-weight: 700;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+    }
   }
 }
 .Styles__list ul ul button {
