@@ -24,9 +24,7 @@ class SecondColMenu extends Component {
           onClick={ev => this.props.onSecondColumnClick(mat, ev)}
           className={
             "Materials__lvl2-button" +
-            (parentIsSelected || this.props.selectedIds.indexOf(mat.id) >= 0
-              ? " is-selected"
-              : "")
+            (this.props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "")
           }
         >
           {mat.name}
@@ -72,6 +70,11 @@ class FirstColMenuItem extends Component {
     classes += this.props.selected ? " is-selected" : "";
     classes += mat.children.length > 0 ? " has-children" : "";
     classes += mat.id === this.props.expandedMaterial.id ? " is-hovered" : "";
+    classes +=
+      mat.children.filter(val => -1 !== this.props.selectedIds.indexOf(val.id))
+        .length > 0
+        ? " has-selected-children"
+        : "";
 
     let secondCol =
       mat.children.length > 0 && this.props.expandedMaterial.id === mat.id ? (

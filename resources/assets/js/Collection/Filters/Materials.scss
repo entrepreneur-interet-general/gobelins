@@ -76,10 +76,20 @@
   border-right: 4px solid transparent;
 
   &:hover {
-    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.15);
   }
   &.is-selected {
-    font-weight: bold;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+    }
   }
   &.has-children.is-hovered {
     border-right-color: $blue-dark;
@@ -110,7 +120,7 @@
   height: 100vh;
   width: 288px;
   background-color: $blue-dark;
-  padding-left: 25px;
+  // padding-left: 25px;
   overflow-y: auto;
 
   transition: opacity 0.15s ease-in-out;
