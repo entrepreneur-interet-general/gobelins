@@ -17,6 +17,14 @@ class MainImage extends Component {
     let imgUrl = this.props.image
       ? `/media/xl/${encodeURIComponent(this.props.image.path)}`
       : "";
+    let downloadFilename = "";
+    let downloadFilenameRes = this.props.image.path.match(/.*\/(.+)(\.jpg)$/i);
+    if (downloadFilenameRes) {
+      downloadFilename =
+        downloadFilenameRes[1] +
+        " © Mobilier national" +
+        downloadFilenameRes[2];
+    }
     return (
       <section className="DetailMainImage">
         {this.props.image ? (
@@ -43,7 +51,7 @@ class MainImage extends Component {
                 href={`/media/orig/${encodeURIComponent(
                   this.props.image.path
                 )}`}
-                download
+                download={downloadFilename}
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
               >
