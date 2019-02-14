@@ -187,7 +187,7 @@
 
 
         <p>
-            Pour une demande concernant l’achat ou la réglementation des droits photographiques, veuillez écrire à : <a href="mailto:documentation.mobiliert@culture.gouv.fr">documentation.mobiliert@culture.gouv.fr</a> ou <a href="mailto:helene.cavalie@culture.gouv.fr">helene.cavalie@culture.gouv.fr</a>.
+            Pour une demande concernant l’achat ou la réglementation des droits photographiques, veuillez écrire à : <a href="mailto:documentation.mobilier@culture.gouv.fr">documentation.mobilier@culture.gouv.fr</a> ou <a href="mailto:helene.cavalie@culture.gouv.fr">helene.cavalie@culture.gouv.fr</a>.
         </p>
 
         <p>
