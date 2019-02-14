@@ -25,13 +25,12 @@
     font-size: rem(22px);
     line-height: rem(20px);
     span {
-
     }
   }
 
   a {
     text-decoration: none;
-    border-bottom: 1px dotted #FF4747;
+    border-bottom: 1px dotted #ff4747;
     color: inherit;
   }
 
@@ -99,12 +98,13 @@
     @include f-sans;
     font-size: rem(15px);
     line-height: rem(20px);
-    color: #FF4747;
+    color: #ff4747;
     text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: #ff7d7d;
+    }
   }
-  .InfoNav:hover{
-	color: #ff7d7d;
-}
   a.InfoNav__back {
     position: fixed;
     top: 0;
@@ -129,6 +129,9 @@
       padding-right: 0;
       width: calc(372px - 40px);
       border-bottom: none;
+    }
+    &:hover {
+      color: #ff7d7d;
     }
 
     svg {
