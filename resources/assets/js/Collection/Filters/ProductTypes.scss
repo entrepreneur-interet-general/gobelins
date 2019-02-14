@@ -28,7 +28,6 @@
   padding: 0;
   margin: 0;
   padding-top: 40px;
-  padding-left: 50px;
   margin-bottom: 5px;
 
   & ~ .ProductTypes__col1-item {
@@ -45,33 +44,13 @@
 .ProductTypes__col1-subitem {
   margin-bottom: 5px;
 }
-// .ProductTypes__col1 ul,
-// .ProductTypes__col1 li {
-//   padding: 0;
-//   margin: 0;
-//   list-style: none;
-// }
-
-// .ProductTypes__col1 > li {
-//   padding-top: 40px;
-//   padding-left: 50px;
-
-//   & ~ li {
-//     padding-top: 32px;
-//   }
-// }
-// .ProductTypes__col1 li {
-//   margin-bottom: 5px;
-// }
-// .ProductTypes__col1 li li li {
-//   padding-left: 25px;
-// }
 
 .ProductTypes__col1 button {
   display: block;
   width: 100%;
-  padding: 10px;
+  padding: 10px 10px 10px 50px;
   margin: 0;
+  position: relative;
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(18px);
@@ -82,22 +61,25 @@
   border-right: 4px solid transparent;
 
   &:hover {
-    font-weight: 600;
+    background-color: #ffcecb;
   }
-  &.is-selected {
-    font-weight: 700;
+  &.is-selected,
+  &.has-selected-children {
+    font-weight: normal;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      height: 6px;
+      width: 6px;
+      border-radius: 50%;
+    }
   }
   &.has-children.is-hovered {
     border-right-color: $pink-medium;
-  }
-}
-.ProductTypes__col1 ul ul button {
-  &.is-hovered,
-  &:hover {
-    font-weight: 600;
-  }
-  &.is-selected {
-    font-weight: 700;
   }
 }
 .ProductTypes__col1-chevron {
@@ -114,7 +96,7 @@
 .ProductTypes__col1-set {
   display: block;
   font-weight: normal;
-  padding: 10px;
+  padding: 10px 10px 10px 50px;
   margin: 0;
   @include f-sans;
   font-size: rem(15px);
@@ -138,7 +120,7 @@
   height: 100vh;
   width: 288px;
   background-color: $pink-medium;
-  padding-left: 25px;
+  padding-left: 0;
   box-sizing: border-box;
 
   // transition: opacity 0.15s ease-in-out;
@@ -151,10 +133,12 @@
 }
 
 .ProductType__col2-item {
-  padding-left: 25px;
   margin-bottom: 5px;
-
   padding-top: 40px;
+
+  button {
+    padding-left: 50px;
+  }
 
   & ~ .ProductType__col2-item {
     padding-top: 0;

@@ -198,6 +198,11 @@ class FirstColMenuSubItem extends Component {
     classes += this.props.selected ? " is-selected" : "";
     classes += pt.children.length > 0 ? " has-children" : "";
     classes += pt.id === this.props.expandedType.id ? " is-hovered" : "";
+    classes +=
+      pt.children.filter(val => -1 !== this.props.selectedIds.indexOf(val.id))
+        .length > 0
+        ? " has-selected-children"
+        : "";
 
     let secondCol =
       pt.children.length > 0 && this.props.expandedType.id === pt.id ? (
