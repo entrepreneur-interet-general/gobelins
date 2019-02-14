@@ -139,6 +139,7 @@
   width: 288px;
   background-color: $pink-medium;
   padding-left: 25px;
+  box-sizing: border-box;
 
   // transition: opacity 0.15s ease-in-out;
   // &.desktopFilterPanel-enter {
