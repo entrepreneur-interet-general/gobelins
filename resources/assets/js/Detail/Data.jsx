@@ -148,26 +148,12 @@ function LegacyInventoryNumber(props) {
   ) : null;
 }
 
-function Photographers(props) {
-  return props.images &&
-    props.images instanceof Array &&
-    props.images.length > 0 &&
-    props.images.filter(i => i.photographer).length > 0 ? (
-    <DataUnitTemplate
-      label={
-        "Photographie © " +
-        uniq(
-          props.images.filter(i => i.photographer).map(i => i.photographer)
-        ).join(", ")
-      }
-      value=""
-    />
-  ) : (
-    <DataUnitTemplate
-      label="Photographie © Mobilier national, droits réservés"
-      value=""
-    />
-  );
+function Photographer(props) {
+  const label =
+    props.mainImage && props.mainImage.photographer
+      ? "Photographie © " + props.mainImage.photographer
+      : "Photographie © Mobilier national, droits réservés";
+  return <DataUnitTemplate label={label} value="" />;
 }
 
 function Data(props) {
@@ -199,7 +185,7 @@ function Data(props) {
       <LegacyInventoryNumber
         legacyInventoryNumber={props.product.legacy_inventory_number}
       />
-      <Photographers images={props.product.images} />
+      <Photographer mainImage={props.mainImage} />
     </section>
   );
 }

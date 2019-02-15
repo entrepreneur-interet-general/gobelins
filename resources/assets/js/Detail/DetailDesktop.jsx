@@ -94,7 +94,14 @@ class DetailDesktop extends Component {
                   designation={this.props.product.title_or_designation}
                 />
                 <div className="DetailDesktop__right-zone-dblcol">
-                  <Data product={this.props.product} />
+                  <Data
+                    product={this.props.product}
+                    mainImage={
+                      this.hasImages
+                        ? this.props.product.images[this.state.mainImageIndex]
+                        : null
+                    }
+                  />
                   <Info product={this.props.product} />
                 </div>
               </div>
