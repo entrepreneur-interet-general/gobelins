@@ -18,7 +18,9 @@ class MainImage extends Component {
       ? `/media/xl/${encodeURIComponent(this.props.image.path)}`
       : "";
     let downloadFilename = "";
-    let downloadFilenameRes = this.props.image.path.match(/.*\/(.+)(\.jpg)$/i);
+    let downloadFilenameRes = this.props.image
+      ? this.props.image.path.match(/.*\/(.+)(\.jpg)$/i)
+      : null;
     if (downloadFilenameRes) {
       downloadFilename =
         downloadFilenameRes[1] +
