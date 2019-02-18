@@ -170,8 +170,8 @@ class SearchController extends Controller
                     'should' => [
                         ['bool' => [
                             'must' => [
-                                ['range' => ['period_start_year' => ['lte' => $period_end_year]]],
-                                ['range' => ['period_end_year' => ['gte' => $period_start_year]]],
+                                ['range' => ['period_start_year' => ['lt' => $period_end_year]]],
+                                ['range' => ['period_end_year' => ['gt' => $period_start_year]]],
                             ]
                         ]],
                         ['bool' => [
