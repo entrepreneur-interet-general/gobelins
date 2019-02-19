@@ -243,7 +243,7 @@ class SearchController extends Controller
             } else {
                 // Full text search
                 $body['query']['function_score']['query']['bool']['must'] = [
-                    'multi_match' => [
+                    'query_string' => [
                         'query' => $request->input('q'),
                         'fields' => [
                             'authors.last_name^3',
