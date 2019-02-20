@@ -63,8 +63,7 @@
   &:hover {
     background-color: #ffcecb;
   }
-  &.is-selected,
-  &.has-selected-children {
+  &.is-selected {
     font-weight: normal;
     &:before {
       content: "";
