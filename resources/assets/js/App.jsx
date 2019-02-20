@@ -32,6 +32,7 @@ class App extends Component {
       hits: [],
       currentPage: stateFromURL.currentPage || 1,
       isLoading: false,
+      isLoadingMore: false,
       hasMore: false,
       totalHits: 0,
       filterObj: stateFromURL.filterObj || {},
@@ -226,7 +227,7 @@ class App extends Component {
         this.cache[apiUrl] = { isLoading: true, data: { hits: [] } };
       }
       this.isLoadingNextPage = true;
-      this.setState({ isLoading: true });
+      this.setState({ isLoadingMore: true });
 
       this.loadFromRemote(nextPageUrl).then(data => {
         this.cache[apiUrl].data.hits = this.cache[apiUrl].data.hits.concat(
@@ -242,7 +243,7 @@ class App extends Component {
             hasMore: data.hasMore,
             totalHits: data.totalHits,
             currentPage: pageToLoad,
-            isLoading: false
+            isLoadingMore: false
           }),
           () => {
             //this.historyPushState();
@@ -424,6 +425,7 @@ class App extends Component {
                   this.buildSearchParamsFromState()
                 )}
                 isLoading={this.state.isLoading}
+                isLoadingMore={this.state.isLoadingMore}
                 totalHits={this.state.totalHits}
                 filterObj={this.state.filterObj}
                 hits={this.state.hits}

@@ -122,7 +122,7 @@ class CollectionGrid extends Component {
         >
           {this.renderGridElements()}
         </TirelessMason>
-        {this.props.isLoading ? (
+        {this.props.isLoadingMore ? (
           <Loader className="Collection__spinner" />
         ) : null}
       </div>
