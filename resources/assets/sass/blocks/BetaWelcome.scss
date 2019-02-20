@@ -6,7 +6,7 @@
 }
 
 .BetaWelcome {
-  background-color: $black;
+  background-color: black;
   color: #fff;
 
   position: fixed;
@@ -78,7 +78,7 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: rem(80px);
-      padding-bottom:rem(50px);
+      padding-bottom: rem(50px);
     }
   }
   .BetaWelcome__arrow-container {
