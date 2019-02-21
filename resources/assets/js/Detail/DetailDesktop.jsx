@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
+import { hotkeys } from "react-keyboard-shortcuts";
 
 import BackToCollection from "./BackToCollection.jsx";
 import MainImage from "./MainImage.jsx";
@@ -31,6 +32,12 @@ class DetailDesktop extends Component {
     };
     this.computeLayoutOrientation = this.computeLayoutOrientation.bind(this);
     this.handleMainImageIndex = this.handleMainImageIndex.bind(this);
+    this.hot_keys = {
+      esc: {
+        priority: 1,
+        handler: this.props.onBackToCollection
+      }
+    };
   }
 
   computeLayoutOrientation() {
@@ -144,4 +151,4 @@ class DetailDesktop extends Component {
   }
 }
 
-export default DetailDesktop;
+export default hotkeys(DetailDesktop);

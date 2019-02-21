@@ -1,15 +1,25 @@
 import React, { Component } from "react";
+import { hotkeys } from "react-keyboard-shortcuts";
 
 class DownloadModal extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.hot_keys = {
+      esc: {
+        priority: 2,
+        handler: this.props.onClose
+      }
+    };
   }
 
   render() {
     return (
-      <section className="DetailDownloadModal">
-        <div className="DetailDownloadModal__window">
+      <section className="DetailDownloadModal" onClick={this.props.onClose}>
+        <div
+          className="DetailDownloadModal__window"
+          onClick={e => e.stopPropagation()}
+        >
           {this.props.license === "LO 2.0" ? (
             <div>
               <header>
@@ -79,4 +89,4 @@ class DownloadModal extends Component {
   }
 }
 
-export default DownloadModal;
+export default hotkeys(DownloadModal);

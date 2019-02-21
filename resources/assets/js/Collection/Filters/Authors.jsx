@@ -10,6 +10,7 @@ class Authors extends Component {
     Object.keys(this.props.authors).forEach(letter => {
       this["refLetter" + letter] = React.createRef();
     });
+
     this.handleClick = this.handleClick.bind(this);
     this.renderListItem = this.renderListItem.bind(this);
     this.renderLetterList = this.renderLetterList.bind(this);

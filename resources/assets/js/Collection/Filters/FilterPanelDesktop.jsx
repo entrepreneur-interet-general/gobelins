@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
-// import MagnifyingGlassIcon from "react-svg-loader!./magnifying_glass.svg";
-// import MagnifyingGlassIcon from "@svgr/webpack!./magnifying_glass.svg";
+import { hotkeys } from "react-keyboard-shortcuts";
+
 import MagnifyingGlass from "./MagnifyingGlass.jsx";
 import CriteriaPhrase from "./CriteriaPhrase.jsx";
 import MnLogo from "./MnLogo.jsx";
@@ -39,6 +39,12 @@ class FilterPanelDesktop extends Component {
     this.handleSearchFieldBlur = this.handleSearchFieldBlur.bind(this);
     this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
     this.renderOverlayContent = this.renderOverlayContent.bind(this);
+    this.hot_keys = {
+      esc: {
+        priority: 1,
+        handler: this.closeFilterPanels
+      }
+    };
   }
 
   openPanel(panel, ev) {
@@ -374,4 +380,4 @@ class FilterPanelDesktop extends Component {
   }
 }
 
-export default FilterPanelDesktop;
+export default hotkeys(FilterPanelDesktop);
