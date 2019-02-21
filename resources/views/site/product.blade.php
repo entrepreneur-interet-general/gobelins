@@ -17,7 +17,7 @@
                         <line x1="18.5" y1="9.5" x2="1.5" y2="9.5" stroke="#333333" stroke-linecap="round"/>
                     </svg>
                     <span class="BackToCollection__label">
-                        Collections du <b>Mobilier national</b>
+                        Collection du <b>Mobilier national</b>
                     </span>
                 </a>
                 </div><!-- /.BackToCollection -->

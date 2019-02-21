@@ -17,7 +17,7 @@ class BackToCollection extends Component {
         >
           <ArrowBack />
           <span className="BackToCollection__label">
-            Collections du <b>Mobilier national</b>
+            Collection du <b>Mobilier national</b>
           </span>
         </a>
       </div>

@@ -363,7 +363,7 @@ class CriteriaPhrase extends Component {
         {this.allCriteria()}
         <span>
           {" "}
-          dans les collections du <strong>Mobilier national</strong>
+          dans la collection du <strong>Mobilier national</strong>
         </span>
         {numberOfActiveCriteria > 1 ? this.renderResetButton() : null}
       </div>

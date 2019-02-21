@@ -11,7 +11,7 @@
                     <path d="M9 1L1 9.47764" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                     <line x1="18.5" y1="9.5" x2="1.5" y2="9.5" stroke="currentColor" stroke-linecap="round"/>
                 </svg>
-                <span>Collections du Mobilier national</span>
+                <span>Collection du Mobilier national</span>
             </a>
         </li>
         <li><a href="#project">Projet</a></li>
@@ -26,7 +26,7 @@
     
         <h1><span>Projet</span></h1>
 
-        <p>Ce projet a pour objectif de rendre accessible les collections du Mobilier national, ses objets, œuvres, meubles, textiles… et permettre à chacun de consulter les informations relatives à ceux-ci.</p>
+        <p>Ce projet a pour objectif de rendre accessible la collection du Mobilier national, ses objets, œuvres, meubles, textiles… et permettre à chacun de consulter les informations relatives à ceux-ci.</p>
 
         <p>Ce travail est en cours de réalisation, il s’est construit avec le programme Entrepreneur·e d’intérêt général d’Étalab, permettant l’accueil au Mobilier national de Ned Baldessin développeur et Laurie Chapotte designer d’interface et de service. Ils sont accompagnés par le secrétaire général Jérôme Poulain, Hélène Cavalié cheffe de la documentation ainsi que les agents publics de l'institution qui contribuent à son enrichissement.</p>
 
