@@ -21,7 +21,7 @@
     
     <script src="{{ mix('/js/bootstrap.js') }}"></script>
 
-    @if (app()->environment('production'))
+    @if (true || app()->environment('production'))
         <!-- Matomo -->
         <script type="text/javascript">
             var _paq = window._paq || [];
@@ -40,6 +40,7 @@
         <script>
             var currentUrl = location.href;
             window.addEventListener('popstate', function() {
+                console.log('popstateeeeeee');
                 _paq.push(['setReferrerUrl', currentUrl]);
                 currentUrl = '' + window.location.href;
                 _paq.push(['setCustomUrl', currentUrl]);

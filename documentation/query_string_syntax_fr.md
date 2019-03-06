@@ -62,7 +62,7 @@ Notez que pour être pris en compte, les signes `+` et `-` doivent être adjacen
 
 Les opérateurs et les termes peuvent être associés en groupes à l’aide de parenthèses. Par exemple : `(musique OR piano) AND pupitre`, qui va renvoyer des objets contenant à la fois le terme `pupitre` mais ayant aussi un terme pouvant être soit `musique` soit `piano`.
 
-## Coéficient d’importance
+## Coefficient d’importance
 
 On peut attribuer plus d’importance à un terme, à une phrase, ou à un groupe de recherche. Par exemple : `tapisserie royale^2`, le terme `royale` comporte un coéficient 2, et donc compte double dans l’ordonnencement des résultats de recherche.
 
