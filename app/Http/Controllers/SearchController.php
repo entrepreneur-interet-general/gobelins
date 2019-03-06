@@ -247,8 +247,8 @@ class SearchController extends Controller
                         'query' => $request->input('q'),
                         'fields' => [
                             'authors.last_name^3',
-                            // 'product_types.name^10',
-                            'product_types.name^3',
+                            'product_types.name^10',
+                            // 'product_types.name^3',
                             'materials.name^10',
                             'inventory_id^3',
                             'period_name^2',
