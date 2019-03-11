@@ -106,7 +106,9 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
-      out = this.sentencize(out, "ou");
+      if (this.props.asPhrase) {
+        out = this.sentencize(out, "ou");
+      }
       // out.unshift(" de type ");
     }
 
@@ -135,8 +137,10 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
-      out = this.sentencize(out, "ou");
-      out.unshift(" de style ");
+      if (this.props.asPhrase) {
+        out = this.sentencize(out, "ou");
+        out.unshift(" de style ");
+      }
     }
 
     return out;
@@ -166,8 +170,10 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
-      out = this.sentencize(out, "ou de");
-      out.unshift(" de ");
+      if (this.props.asPhrase) {
+        out = this.sentencize(out, "ou de");
+        out.unshift(" de ");
+      }
     }
 
     return out;
@@ -195,8 +201,10 @@ class CriteriaPhrase extends Component {
             />
           ))
       );
-      out = this.sentencize(out, "ou en");
-      out.unshift(" en ");
+      if (this.props.asPhrase) {
+        out = this.sentencize(out, "ou en");
+        out.unshift(" en ");
+      }
     }
 
     return out;
@@ -227,8 +235,10 @@ class CriteriaPhrase extends Component {
             ))
         );
       });
-      out = this.sentencize(out, "ou");
-      out.unshift(" par ");
+      if (this.props.asPhrase) {
+        out = this.sentencize(out, "ou");
+        out.unshift(" par ");
+      }
     }
 
     return out;
@@ -307,21 +317,21 @@ class CriteriaPhrase extends Component {
   }
 
   allCriteria() {
-    let out = this.sentencize(
-      compact([
-        this.extractQueryString(),
-        this.extractProductTypes(),
-        this.extractStyles(),
-        this.extractMaterials(),
-        this.extractProductionOrigins(),
-        this.extractAuthors(),
-        this.extractPeriod(),
-        this.extractDimension("height_or_thickness"),
-        this.extractDimension("depth_or_width"),
-        this.extractDimension("length_or_diameter")
-      ]),
-      "et"
-    );
+    let paramsArr = compact([
+      this.extractQueryString(),
+      this.extractProductTypes(),
+      this.extractStyles(),
+      this.extractMaterials(),
+      this.extractProductionOrigins(),
+      this.extractAuthors(),
+      this.extractPeriod(),
+      this.extractDimension("height_or_thickness"),
+      this.extractDimension("depth_or_width"),
+      this.extractDimension("length_or_diameter")
+    ]);
+    let out = this.props.asPhrase
+      ? this.sentencize(paramsArr, "et")
+      : paramsArr;
     if (
       out.length > 0 &&
       !this.props.filterObj.hasOwnProperty("product_type_ids") &&
@@ -361,10 +371,12 @@ class CriteriaPhrase extends Component {
     return (
       <div className="CriteriaPhrase">
         {this.allCriteria()}
-        <span>
-          {" "}
-          dans la collection du <strong>Mobilier national</strong>
-        </span>
+        {this.props.asPhrase && (
+          <span>
+            {" "}
+            dans la collection du <strong>Mobilier national</strong>
+          </span>
+        )}
         {numberOfActiveCriteria > 1 ? this.renderResetButton() : null}
       </div>
     );

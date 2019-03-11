@@ -4,16 +4,31 @@
 //}
 //}
 
+.CriteriaPhrase {
+  display: block;
+  text-align: center;
+  @include breakpoint($medium-up) {
+    text-align: left;
+  }
+}
+
 .CriteriaPhrase__button {
-  padding: 0;
+  padding: 10px;
   margin: 0;
   border: 0;
   background-color: transparent;
   cursor: pointer;
   border-radius: 1px;
-  padding: 1px 4px 3px 5px;
   text-align: left;
   box-decoration-break: clone;
+
+  @include f-serif;
+  font-size: rem(15px);
+  line-height: rem(25px);
+
+  @include breakpoint($medium-up) {
+    padding: 1px 4px 3px 5px;
+  }
 
   &:hover,
   &.is-hovered {
@@ -67,7 +82,7 @@
   align-items: center;
   justify-content: center;
   margin-left: 10px;
-  padding-bottom : 1px;
+  padding-bottom: 1px;
   height: 24px;
   width: 24px;
   border-radius: 50%;

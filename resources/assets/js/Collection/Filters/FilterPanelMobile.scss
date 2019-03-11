@@ -1,2 +1,24 @@
 .FilterPanelMobile {
 }
+.FilterPanelMobile__header {
+  background: #fff;
+}
+.FilterPanelMobile__maintitle {
+  height: 50px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  @include f-serif;
+  font-weight: normal;
+  font-size: rem(15px);
+  line-height: rem(20px);
+  text-align: center;
+}
+
+.FilterPanelMobile__active-filters-container {
+  display: block;
+}

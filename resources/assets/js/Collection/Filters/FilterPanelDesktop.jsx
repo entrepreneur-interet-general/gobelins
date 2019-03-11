@@ -122,6 +122,7 @@ class FilterPanelDesktop extends Component {
             </form>
             <div className="FilterPanelDesktop__criteria-phrase">
               <CriteriaPhrase
+                asPhrase={true}
                 filterObj={this.props.filterObj}
                 onFilterRemove={this.props.onFilterRemove}
                 onFilterRemoveAll={this.props.onFilterRemoveAll}

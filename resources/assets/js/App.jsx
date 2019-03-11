@@ -64,6 +64,7 @@ class App extends Component {
     );
     this.handleBackToCollection = this.handleBackToCollection.bind(this);
     this.handleObjectClick = this.handleObjectClick.bind(this);
+    this.dispatchAnalyticsEvent = this.dispatchAnalyticsEvent.bind(this);
   }
 
   historyEventListener(location, action) {
@@ -82,6 +83,8 @@ class App extends Component {
         }));
       }
     }
+
+    this.dispatchAnalyticsEvent();
   }
 
   extractSearchParams() {
@@ -148,6 +151,17 @@ class App extends Component {
       // currentPage: this.state.currentPage
     });
     // window.scrollTo(0, 0);
+  }
+
+  /**
+   * Track pushState/popState navigation with analytics service.
+   * An event listener is set up inline in the default.blade.php view
+   * to track (or not) the page view.
+   */
+  dispatchAnalyticsEvent() {
+    window.document.documentElement.dispatchEvent(
+      new Event("gobelins_analytics_pagechange")
+    );
   }
 
   handleLoading() {

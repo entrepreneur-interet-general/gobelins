@@ -39,20 +39,21 @@
 
         <script>
             var currentUrl = location.href;
-            window.addEventListener('popstate', function() {
-                console.log('popstateeeeeee');
-                _paq.push(['setReferrerUrl', currentUrl]);
-                currentUrl = '' + window.location.href;
-                _paq.push(['setCustomUrl', currentUrl]);
-                _paq.push(['setDocumentTitle', window.document.title]);
+            window.document.documentElement.addEventListener('gobelins_analytics_pagechange', function() {
+                console.log('Event gobelins_analytics_pagechange');   
+                
+                // _paq.push(['setReferrerUrl', currentUrl]);
+                // currentUrl = '' + window.location.href;
+                // _paq.push(['setCustomUrl', currentUrl]);
+                // _paq.push(['setDocumentTitle', window.document.title]);
 
-                // remove all previously assigned custom variables, requires Matomo (formerly Piwik) 3.0.2
-                // _paq.push(['deleteCustomVariables', 'page']);
-                _paq.push(['setGenerationTimeMs', 0]);
-                _paq.push(['trackPageView']);
+                // // remove all previously assigned custom variables, requires Matomo (formerly Piwik) 3.0.2
+                // // _paq.push(['deleteCustomVariables', 'page']);
+                // _paq.push(['setGenerationTimeMs', 0]);
+                // _paq.push(['trackPageView']);
 
-                // make Matomo aware of newly added content
-                _paq.push(['enableLinkTracking']);
+                // // make Matomo aware of newly added content
+                // _paq.push(['enableLinkTracking']);
             });
         </script>
         <!-- End Matomo Code -->
