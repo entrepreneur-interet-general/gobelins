@@ -28,7 +28,7 @@ class Dimensions extends Component {
     return (
       <div className="Dimensions__form-block" key={dimension[0]}>
         <div className="Dimensions__label">
-          <b>{dimension[1]}</b> comprise entre
+          <b>{dimension[1]}</b> entre
         </div>
         <div className="Dimensions__slider-container">
           <DimensionSlider
