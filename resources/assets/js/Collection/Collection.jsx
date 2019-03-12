@@ -6,6 +6,14 @@ import Filters from "./Filters/Filters.jsx";
 // import Settings from "./Settings/Settings.jsx";
 
 class Collection extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    window.document.title = "Collection du Mobilier national";
+  }
+
   render() {
     return (
       <div className="Collection">

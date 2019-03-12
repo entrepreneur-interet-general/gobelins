@@ -55,12 +55,22 @@ class CriteriaPhrase extends Component {
       hoverRemoveAll: false
     };
 
+    this.criteriaPhraseRef = React.createRef();
+
     this.extractProductTypes = this.extractProductTypes.bind(this);
     this.extractStyles = this.extractStyles.bind(this);
     this.extractMaterials = this.extractMaterials.bind(this);
     this.extractProductionOrigins = this.extractProductionOrigins.bind(this);
     this.renderResetButton = this.renderResetButton.bind(this);
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
+  }
+
+  componentDidUpdate() {
+    let txt = this.criteriaPhraseRef.current.textContent;
+    window.document.title =
+      txt === " dans la collection du Mobilier national"
+        ? "Objets aléatoires de la collection du Mobilier national"
+        : txt;
   }
 
   extractQueryString() {
@@ -369,7 +379,7 @@ class CriteriaPhrase extends Component {
         ).length) ||
       0;
     return (
-      <div className="CriteriaPhrase">
+      <div className="CriteriaPhrase" ref={this.criteriaPhraseRef}>
         {this.allCriteria()}
         {this.props.asPhrase && (
           <span>

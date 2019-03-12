@@ -15,49 +15,51 @@
     <meta name="theme-color" content="#ffffff">
 
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" type="text/css">
+
+    @if (app()->environment('production'))
+        <!-- Matomo -->
+        <script type="text/javascript">
+        var _paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="https://mobiliernational.matomo.cloud/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+        </script>
+        <noscript><p><img src="https://mobiliernational.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+        <!-- End Matomo Code -->
+    @endif
+
 </head>
 <body>
     @yield('content')
     
-    <script src="{{ mix('/js/bootstrap.js') }}"></script>
-
-    @if (true || app()->environment('production'))
-        <!-- Matomo -->
-        <script type="text/javascript">
-            var _paq = window._paq || [];
-            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    
+    @if (app()->environment('production'))
+    <script>
+        var currentUrl = location.href;
+        window.document.documentElement.addEventListener('gobelins_analytics_pagechange', function() {
+            console.log('Event gobelins_analytics_pagechange');   
+            
+            _paq.push(['setReferrerUrl', currentUrl]);
+            currentUrl = '' + window.location.href;
+            _paq.push(['setCustomUrl', currentUrl]);
+            _paq.push(['setDocumentTitle', window.document.title]);
+            
+            _paq.push(['setGenerationTimeMs', 0]);
             _paq.push(['trackPageView']);
+            
+            // make Matomo aware of newly added content
             _paq.push(['enableLinkTracking']);
-            (function() {
-                var u="//gobelins-stats.eig-apps.org/";
-                _paq.push(['setTrackerUrl', u+'matomo.php']);
-                _paq.push(['setSiteId', '2']);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-            })();
+        });
         </script>
-
-        <script>
-            var currentUrl = location.href;
-            window.document.documentElement.addEventListener('gobelins_analytics_pagechange', function() {
-                console.log('Event gobelins_analytics_pagechange');   
-                
-                // _paq.push(['setReferrerUrl', currentUrl]);
-                // currentUrl = '' + window.location.href;
-                // _paq.push(['setCustomUrl', currentUrl]);
-                // _paq.push(['setDocumentTitle', window.document.title]);
-
-                // // remove all previously assigned custom variables, requires Matomo (formerly Piwik) 3.0.2
-                // // _paq.push(['deleteCustomVariables', 'page']);
-                // _paq.push(['setGenerationTimeMs', 0]);
-                // _paq.push(['trackPageView']);
-
-                // // make Matomo aware of newly added content
-                // _paq.push(['enableLinkTracking']);
-            });
-        </script>
-        <!-- End Matomo Code -->
     @endif
-
+    
+    <script src="{{ mix('/js/bootstrap.js') }}"></script>
 </body>
 </html>

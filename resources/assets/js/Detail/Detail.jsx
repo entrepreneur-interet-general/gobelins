@@ -10,6 +10,12 @@ class Detail extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    let p = this.props.product;
+    let title = [p.denomination, p.designation].join(" ").replace(/\n/g, " ");
+    window.document.title = `${title} — Collection du Mobilier national`;
+  }
+
   render() {
     return (
       <Media>

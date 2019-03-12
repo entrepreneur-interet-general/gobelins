@@ -68,23 +68,32 @@ class App extends Component {
   }
 
   historyEventListener(location, action) {
+    console.log("historyEventListener action", action);
+
     // When using the 'back' button of the browser, we must
     // manually restore the state of the filters.
     if (location.pathname === "/recherche" && action === "POP") {
       const s = "/api/search" + (location.search || "?");
       if (this.cache[s] && this.cache[s].isLoading === false) {
-        this.setState(state => ({
-          hits: this.cache[s].data.hits,
-          hasMore: this.cache[s].data.hasMore,
-          totalHits: this.cache[s].data.totalHits,
-          currentPage: this.cache[s].currentPage,
-          filterObj: location.state.filterObj,
-          isLoading: false
-        }));
+        this.setState(state => {
+          this.dispatchAnalyticsEvent();
+          return {
+            hits: this.cache[s].data.hits,
+            hasMore: this.cache[s].data.hasMore,
+            totalHits: this.cache[s].data.totalHits,
+            currentPage: this.cache[s].currentPage,
+            filterObj: location.state.filterObj,
+            isLoading: false
+          };
+        });
+      }
+    } else {
+      // History replace state is used to store state data,
+      // no need to track it with analytics.
+      if (action !== "REPLACE") {
+        this.dispatchAnalyticsEvent();
       }
     }
-
-    this.dispatchAnalyticsEvent();
   }
 
   extractSearchParams() {
