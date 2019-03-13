@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Headroom from "react-headroom";
 
 import CriteriaPhrase from "./CriteriaPhrase";
+import MnLogo from "./MnLogo";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -14,9 +15,23 @@ class FilterPanelMobile extends Component {
       <div className="FilterPanelMobile">
         <Headroom>
           <div className="FilterPanelMobile__header">
-            <h1 className="FilterPanelMobile__maintitle">
-              Collection du Mobilier national
-            </h1>
+            <div className="FilterPanelMobile__firstline">
+              <MnLogo
+                width={43}
+                height={13}
+                className="FilterPanelMobile__logo"
+              />
+              <h1 className="FilterPanelMobile__maintitle">
+                Collection du Mobilier national
+              </h1>
+              <a
+                href="/info"
+                title="information"
+                className="FilterPanelMobile__info-link"
+              >
+                <span>i</span>
+              </a>
+            </div>
             <div className="FilterPanelMobile__active-filters-container">
               <CriteriaPhrase
                 asPhrase={false}
