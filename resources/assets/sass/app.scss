@@ -27,6 +27,7 @@
 @import "../js/Collection/Filters/DesktopOverlayZone.scss";
 @import "../js/Collection/Filters/Dimensions.scss";
 @import "../js/Collection/Filters/Materials.scss";
+@import "../js/Collection/Filters/MobileSearch.scss";
 @import "../js/Collection/Filters/FilterPanelDesktop.scss";
 @import "../js/Collection/Filters/FilterPanelMobile.scss";
 @import "../js/Collection/Filters/ProductionOrigins.scss";
@@ -38,6 +39,7 @@
   height: 100%;
 }
 
+html,
 body {
   height: 100%;
 }

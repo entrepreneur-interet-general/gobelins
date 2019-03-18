@@ -5,11 +5,29 @@ import CriteriaPhrase from "./CriteriaPhrase";
 import MnLogo from "./MnLogo";
 import MagnifyingGlass from "./MagnifyingGlass";
 import ScrollToTop from "../ScrollToTop";
+import MobileSearch from "./MobileSearch";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      currentMode: "default"
+    };
+
+    this.activateSearchMode = this.activateSearchMode.bind(this);
+    this.handleCloseSearch = this.handleCloseSearch.bind(this);
+  }
+
+  activateSearchMode() {
+    this.setState({
+      currentMode: "search"
+    });
+  }
+
+  handleCloseSearch() {
+    this.setState({
+      currentMode: "default"
+    });
   }
 
   render() {
@@ -44,6 +62,11 @@ class FilterPanelMobile extends Component {
             </div>
           </div>
         </Headroom>
+
+        {this.state.currentMode === "search" ? (
+          <MobileSearch onCloseSearch={this.handleCloseSearch} />
+        ) : null}
+
         <div className="FilterPanelMobile__toggles">
           <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--left">
             <button type="button" className="FilterPanelMobile__filterbutton">
@@ -51,7 +74,11 @@ class FilterPanelMobile extends Component {
             </button>
           </div>
           <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--center">
-            <button type="button" className="FilterPanelMobile__searchicon">
+            <button
+              type="button"
+              className="FilterPanelMobile__searchicon"
+              onClick={this.activateSearchMode}
+            >
               <MagnifyingGlass width={20} height={20} />
             </button>
           </div>

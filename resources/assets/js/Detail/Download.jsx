@@ -1,7 +1,7 @@
 import React from "react";
 
 const Download = props => (
-  <svg width={17} height={17} fill="none" {...props}>
+  <svg width={17} height={17} viewBox="0 0 17 17" fill="none" {...props}>
     <path
       d="M14.412 7.348l-6.266 5.877M1.848 7.348l6.266 5.877"
       stroke="currentColor"
