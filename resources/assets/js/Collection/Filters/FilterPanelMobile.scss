@@ -59,3 +59,71 @@
     display: block;
   }
 }
+
+.FilterPanelMobile__toggles {
+  width: 100%;
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: $quasi-black;
+}
+
+.FilterPanelMobile__toggleholder {
+  flex: 1 1 50%;
+
+  &.FilterPanelMobile__toggleholder--center {
+    flex: 0 0 50px;
+    margin: 0 15px;
+  }
+  &.FilterPanelMobile__toggleholder--left {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+.FilterPanelMobile__searchicon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid $lines;
+  color: $quasi-black;
+  cursor: pointer;
+  background-color: #fff;
+
+  &:hover,
+  &:active {
+    border-color: black;
+  }
+}
+
+.FilterPanelMobile__filterbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: auto;
+  padding: 0 25px;
+  border-radius: 25px;
+  border: 1px solid $lines;
+  color: $quasi-black;
+  cursor: pointer;
+  background-color: #fff;
+
+  @include f-sans;
+  font-size: rem(16px);
+
+  &:hover,
+  &:active {
+    border-color: black;
+  }
+}

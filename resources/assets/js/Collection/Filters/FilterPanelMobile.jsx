@@ -3,6 +3,8 @@ import Headroom from "react-headroom";
 
 import CriteriaPhrase from "./CriteriaPhrase";
 import MnLogo from "./MnLogo";
+import MagnifyingGlass from "./MagnifyingGlass";
+import ScrollToTop from "../ScrollToTop";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -42,6 +44,21 @@ class FilterPanelMobile extends Component {
             </div>
           </div>
         </Headroom>
+        <div className="FilterPanelMobile__toggles">
+          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--left">
+            <button type="button" className="FilterPanelMobile__filterbutton">
+              Filtrer
+            </button>
+          </div>
+          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--center">
+            <button type="button" className="FilterPanelMobile__searchicon">
+              <MagnifyingGlass width={20} height={20} />
+            </button>
+          </div>
+          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--right">
+            <ScrollToTop />
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Media } from "react-breakpoints";
+
 import CollectionList from "./CollectionList.jsx";
 import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
@@ -43,7 +45,16 @@ class Collection extends Component {
             <CollectionList hits={this.props.hits} />
           )}
         </div>
-        <ScrollToTop isLoading={this.props.isLoading} />
+
+        <Media>
+          {({ breakpoints, currentBreakpoint }) =>
+            breakpoints[currentBreakpoint] > breakpoints.small ? (
+              <div className="Collection__scrollToTop">
+                <ScrollToTop />
+              </div>
+            ) : null
+          }
+        </Media>
         {/* <Settings /> */}
       </div>
     );

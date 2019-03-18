@@ -140,34 +140,10 @@
 }
 
 .Collection__scrollToTop {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 1px solid $lines;
-  background-color: #fff;
-  cursor: pointer;
-
   position: fixed;
   bottom: 20px;
   right: 10px;
   z-index: 1;
-
-  &:hover {
-    border-color: black;
-  }
-
-  transition: opacity 0.15s ease-in-out;
-  &.scrollToTop-enter {
-    opacity: 0;
-  }
-  &.scrollToTop-enter.scrollToTop-enter-active {
-    opacity: 1;
-  }
 }
 
 .Collection__spinner {
