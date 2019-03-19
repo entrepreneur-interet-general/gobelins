@@ -147,6 +147,18 @@
     
         <p>Aucune donnée à caractère personnel n’est collectée sur cette version beta.</p>
 
+        
+        <h2>Cookies et mesure d’audience</h2>
+
+        <p>
+            Ce site stocke des cookies sur votre navigateur afin de produire des statistiques de mesure d’audience. Les cookies déposés ne sont utilisés à aucun autre but. Les informations collectées ne sont pas recoupées avec d’autres traitements (statistiques de fréquentation d’autres sites par exemple). Les cookies sont spécifiques à ce site, et ne permettent pas de suivre votre navigation sur des sites tiers. L’addresse IP de votre connection est anonymisée en supprimant les deux derniers octets (exemple: 192.168.xxx.xxx). La longévité des cookies est réduite à 13 mois, à compter de la première visite. Les données de fréquentation brutes ("logs"), ne sont pas non plus conservés plus de 13 mois.
+        </p>
+    
+        <p><iframe
+        style="margin-top: 1.125rem; border: 1px solid #ECECEC; height: 200px; width: 100%;"
+        src="https://mobiliernational.matomo.cloud/index.php?module=CoreAdminHome&action=optOut&language=fr&backgroundColor=ffffff&fontColor=&fontSize=0.9375rem&fontFamily=Source%20Sans%20Pro%2CHelvetica%20Neue%2CHelvetica%2CArial%2Csans-serif"
+        ></iframe></p>
+
         <h2>Droits de propriété intellectuels</h2>
 
         <p>
