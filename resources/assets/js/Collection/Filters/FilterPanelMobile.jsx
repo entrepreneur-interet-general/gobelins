@@ -6,6 +6,8 @@ import MnLogo from "./MnLogo";
 import MagnifyingGlass from "./MagnifyingGlass";
 import ScrollToTop from "../ScrollToTop";
 import MobileSearch from "./MobileSearch";
+import Loader from "../../Loader";
+import ResultCount from "../ResultCount";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -16,6 +18,8 @@ class FilterPanelMobile extends Component {
 
     this.activateSearchMode = this.activateSearchMode.bind(this);
     this.handleCloseSearch = this.handleCloseSearch.bind(this);
+    this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
+    this.renderOverlayContent = this.renderOverlayContent.bind(this);
   }
 
   activateSearchMode() {
@@ -28,6 +32,23 @@ class FilterPanelMobile extends Component {
     this.setState({
       currentMode: "default"
     });
+  }
+
+  handleFullTextSearch(searchStr) {
+    this.props.onFilterAdd({ q: searchStr });
+  }
+
+  renderOverlayContent() {
+    if (this.props.isLoading) {
+      return <Loader />;
+    } else {
+      return (
+        <ResultCount
+          totalHits={this.props.totalHits}
+          onFilterRemoveAll={this.props.onFilterRemoveAll}
+        />
+      );
+    }
   }
 
   render() {
@@ -64,7 +85,11 @@ class FilterPanelMobile extends Component {
         </Headroom>
 
         {this.state.currentMode === "search" ? (
-          <MobileSearch onCloseSearch={this.handleCloseSearch} />
+          <MobileSearch
+            onCloseSearch={this.handleCloseSearch}
+            onSearch={this.handleFullTextSearch}
+            overlayContent={this.renderOverlayContent()}
+          />
         ) : null}
 
         <div className="FilterPanelMobile__toggles">

@@ -15,6 +15,18 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+
+  // Take into account the virtual keyboard on mobile.
+  @include breakpoint($xsmall) {
+    & > * {
+      position: relative;
+      top: -140px;
+    }
+  }
 }
 .MobileSearch__controls {
   position: relative;

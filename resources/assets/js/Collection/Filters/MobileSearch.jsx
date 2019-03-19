@@ -27,7 +27,8 @@ class MobileSearch extends Component {
   }
   handleFullTextSearch(ev) {
     ev.preventDefault();
-    console.log("search now");
+    console.log("Perform search for", this.state.searchFieldValue);
+    this.props.onSearch(this.state.searchFieldValue);
   }
   handleReset(ev) {
     ev.preventDefault();
@@ -46,7 +47,9 @@ class MobileSearch extends Component {
         <div
           className="MobileSearch__overlay"
           onClick={this.props.onCloseSearch}
-        />
+        >
+          {this.props.overlayContent}
+        </div>
         <div className="MobileSearch__controls">
           <form
             className="MobileSearch__form"

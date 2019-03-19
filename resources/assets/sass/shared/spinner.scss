@@ -13,10 +13,15 @@
 }
 .Spinner__pgloading .Spinner__loadingwrap {
   position: absolute;
-  top: 45%;
-  bottom: 45%;
-  left: 25%;
-  right: 25%;
+  top: -25px;
+  left: -25px;
+
+  @include breakpoint($medium-up) {
+    top: 45%;
+    bottom: 45%;
+    left: 25%;
+    right: 25%;
+  }
 }
 .Spinner__pgloading .Spinner__bokeh {
   font-size: 50px;
