@@ -129,10 +129,8 @@ class FilterPanelDesktop extends Component {
               />
             </div>
           </div>
-          <div className="FilterPanelDesktop__filters-block">
-            <div className="FilterPanelDesktop__filters-label">
-              Filtrer par :
-            </div>
+          <div className="Filters__list-container">
+            <div className="Filters__list-label">Filtrer par :</div>
             <ul>
               <li>
                 <button

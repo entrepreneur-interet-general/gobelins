@@ -1,0 +1,129 @@
+.FiltersMobile {
+}
+.FiltersMobile__header {
+  background: #fff;
+}
+.FiltersMobile__firstline {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+.FiltersMobile__maintitle {
+  flex: 0 1 auto;
+  height: 50px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  @include f-serif;
+  font-weight: normal;
+  font-size: rem(15px);
+  line-height: rem(20px);
+  text-align: center;
+}
+
+.FiltersMobile__active-filters-container {
+  display: block;
+  padding: 0 15px 14px;
+}
+
+.FiltersMobile__logo {
+  margin-right: 7px;
+  flex: 0 0 auto;
+}
+.FiltersMobile__info-link {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid $lines;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: 1;
+  position: relative;
+  margin-left: 20px;
+
+  & > span {
+    display: block;
+  }
+}
+
+.FiltersMobile__toggles {
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: $quasi-black;
+}
+
+.FiltersMobile__toggleholder {
+  flex: 1 1 50%;
+
+  &.FiltersMobile__toggleholder--center {
+    flex: 0 0 50px;
+    margin: 0 15px;
+  }
+  &.FiltersMobile__toggleholder--left {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+.FiltersMobile__searchicon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 1px solid $lines;
+  color: $quasi-black;
+  cursor: pointer;
+  background-color: #fff;
+
+  &:hover,
+  &:active {
+    border-color: black;
+  }
+}
+
+.FiltersMobile__filterbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: auto;
+  padding: 0 25px;
+  border-radius: 25px;
+  border: 1px solid $lines;
+  color: $quasi-black;
+  cursor: pointer;
+  background-color: #fff;
+
+  @include f-sans;
+  font-size: rem(16px);
+
+  &:hover,
+  &:active {
+    border-color: black;
+  }
+}

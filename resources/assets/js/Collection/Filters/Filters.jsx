@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Media } from "react-breakpoints";
-import FilterPanelMobile from "./FilterPanelMobile.jsx";
+import FiltersMobile from "./FiltersMobile.jsx";
 import FilterPanelDesktop from "./FilterPanelDesktop.jsx";
 
 class FilterPanel extends Component {
@@ -14,7 +14,7 @@ class FilterPanel extends Component {
       <Media>
         {({ breakpoints, currentBreakpoint }) =>
           breakpoints[currentBreakpoint] < breakpoints.small ? (
-            <FilterPanelMobile
+            <FiltersMobile
               onFilterAdd={this.props.onFilterAdd}
               onFilterRemove={this.props.onFilterRemove}
               onFilterRemoveAll={this.props.onFilterRemoveAll}

@@ -1,13 +1,6 @@
 import React, { Component } from "react";
-import Headroom from "react-headroom";
 
-import CriteriaPhrase from "./CriteriaPhrase";
-import MnLogo from "./MnLogo";
-import MagnifyingGlass from "./MagnifyingGlass";
-import ScrollToTop from "../ScrollToTop";
-import MobileSearch from "./MobileSearch";
-import Loader from "../../Loader";
-import ResultCount from "../ResultCount";
+import CrossLarge from "./CrossLarge";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -15,100 +8,96 @@ class FilterPanelMobile extends Component {
     this.state = {
       currentMode: "default"
     };
-
-    this.activateSearchMode = this.activateSearchMode.bind(this);
-    this.handleCloseSearch = this.handleCloseSearch.bind(this);
-    this.handleFullTextSearch = this.handleFullTextSearch.bind(this);
-    this.renderOverlayContent = this.renderOverlayContent.bind(this);
+    this.openPanel = this.openPanel.bind(this);
+  }
+  componentDidMount() {
+    document.documentElement.classList.add("prevent-scroll");
+  }
+  componentWillUnmount() {
+    document.documentElement.classList.remove("prevent-scroll");
   }
 
-  activateSearchMode() {
-    this.setState({
-      currentMode: "search"
-    });
-  }
-
-  handleCloseSearch() {
-    this.setState({
-      currentMode: "default"
-    });
-  }
-
-  handleFullTextSearch(searchStr) {
-    this.props.onFilterAdd({ q: searchStr });
-  }
-
-  renderOverlayContent() {
-    if (this.props.isLoading) {
-      return <Loader />;
-    } else {
-      return (
-        <ResultCount
-          totalHits={this.props.totalHits}
-          onFilterRemoveAll={this.props.onFilterRemoveAll}
-        />
-      );
-    }
+  openPanel(panel, ev) {
+    console.log("woo hoo open panel ", panel);
   }
 
   render() {
     return (
       <div className="FilterPanelMobile">
-        <Headroom>
-          <div className="FilterPanelMobile__header">
-            <div className="FilterPanelMobile__firstline">
-              <MnLogo
-                width={43}
-                height={13}
-                className="FilterPanelMobile__logo"
-              />
-              <h1 className="FilterPanelMobile__maintitle">
-                Collection du Mobilier national
-              </h1>
-              <a
-                href="/info"
-                title="information"
-                className="FilterPanelMobile__info-link"
-              >
-                <span>i</span>
-              </a>
-            </div>
-            <div className="FilterPanelMobile__active-filters-container">
-              <CriteriaPhrase
-                asPhrase={false}
-                filterObj={this.props.filterObj}
-                onFilterRemove={this.props.onFilterRemove}
-                onFilterRemoveAll={this.props.onFilterRemoveAll}
-              />
-            </div>
-          </div>
-        </Headroom>
-
-        {this.state.currentMode === "search" ? (
-          <MobileSearch
-            onCloseSearch={this.handleCloseSearch}
-            onSearch={this.handleFullTextSearch}
-            overlayContent={this.renderOverlayContent()}
-          />
-        ) : null}
-
-        <div className="FilterPanelMobile__toggles">
-          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--left">
-            <button type="button" className="FilterPanelMobile__filterbutton">
-              Filtrer
-            </button>
-          </div>
-          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--center">
-            <button
-              type="button"
-              className="FilterPanelMobile__searchicon"
-              onClick={this.activateSearchMode}
-            >
-              <MagnifyingGlass width={20} height={20} />
-            </button>
-          </div>
-          <div className="FilterPanelMobile__toggleholder FilterPanelMobile__toggleholder--right">
-            <ScrollToTop />
+        <div
+          className="FilterPanelMobile__overlay"
+          onClick={this.props.onCloseSearch}
+        >
+          {this.props.overlayContent}
+        </div>
+        <button
+          type="button"
+          className="FilterPanelMobile__close"
+          onClick={this.props.onCloseFilterPanel}
+        >
+          <CrossLarge />
+        </button>
+        <div className="FilterPanelMobile__rootcolumn">
+          <div className="Filters__list-container">
+            <div className="Filters__list-label">Filtrer par :</div>
+            <ul>
+              <li>
+                <button
+                  className="is-product_type is-open"
+                  onClick={ev => this.openPanel("ProductTypes", ev)}
+                >
+                  Type d’objet
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-author is-open"
+                  onClick={ev => this.openPanel("Authors", ev)}
+                >
+                  Auteur
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-period is-open"
+                  onClick={ev => this.openPanel("Periods", ev)}
+                >
+                  Période de création
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-style is-open"
+                  onClick={ev => this.openPanel("Styles", ev)}
+                >
+                  Style
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-material is-open"
+                  onClick={ev => this.openPanel("Materials", ev)}
+                >
+                  Matière
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-production_origin is-open"
+                  onClick={ev => this.openPanel("ProductionOrigins", ev)}
+                >
+                  Lieu de production
+                </button>
+              </li>
+              <li>
+                <button
+                  className="is-dimension is-open"
+                  onClick={ev => this.openPanel("Dimensions", ev)}
+                >
+                  Dimension
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
