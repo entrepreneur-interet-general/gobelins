@@ -117,7 +117,7 @@ class CriteriaPhrase extends Component {
           ))
       );
       if (this.props.asPhrase) {
-        out = this.sentencize(out, "ou");
+        out = this.sentencize(out "ou");
       }
       // out.unshift(" de type ");
     }
@@ -148,7 +148,7 @@ class CriteriaPhrase extends Component {
           ))
       );
       if (this.props.asPhrase) {
-        out = this.sentencize(out, "ou");
+        out = this.sentencize(out "ou");
         out.unshift(" de style ");
       }
     }
@@ -181,7 +181,7 @@ class CriteriaPhrase extends Component {
           ))
       );
       if (this.props.asPhrase) {
-        out = this.sentencize(out, "ou de");
+        out = this.sentencize(out "ou de");
         out.unshift(" de ");
       }
     }
@@ -212,7 +212,7 @@ class CriteriaPhrase extends Component {
           ))
       );
       if (this.props.asPhrase) {
-        out = this.sentencize(out, "ou en");
+        out = this.sentencize(out "ou en");
         out.unshift(" en ");
       }
     }
@@ -246,7 +246,7 @@ class CriteriaPhrase extends Component {
         );
       });
       if (this.props.asPhrase) {
-        out = this.sentencize(out, "ou");
+        out = this.sentencize(out "ou");
         out.unshift(" par ");
       }
     }
@@ -340,7 +340,7 @@ class CriteriaPhrase extends Component {
       this.extractDimension("length_or_diameter")
     ]);
     let out = this.props.asPhrase
-      ? this.sentencize(paramsArr, "et")
+      ? this.sentencize(paramsArr, " ")
       : paramsArr;
     if (
       out.length > 0 &&
