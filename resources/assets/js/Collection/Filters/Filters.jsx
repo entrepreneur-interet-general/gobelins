@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Media } from "react-breakpoints";
-import FiltersMobile from "./FiltersMobile.jsx";
-import FilterPanelDesktop from "./FilterPanelDesktop.jsx";
+import FiltersMobile from "./FiltersMobile";
+import FilterPanelDesktop from "./FilterPanelDesktop";
 
 class FilterPanel extends Component {
   constructor(props) {

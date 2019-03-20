@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
 import { hotkeys } from "react-keyboard-shortcuts";
 
-import MagnifyingGlass from "./MagnifyingGlass.jsx";
-import CriteriaPhrase from "./CriteriaPhrase.jsx";
-import MnLogo from "./MnLogo.jsx";
-import Loader from "../../Loader.jsx";
-import ProductTypes from "./ProductTypes.jsx";
-import Authors from "./Authors.jsx";
-import Periods from "./Periods.jsx";
-import Styles from "./Styles.jsx";
-import Materials from "./Materials.jsx";
-import ProductionOrigins from "./ProductionOrigins.jsx";
-import Dimensions from "./Dimensions.jsx";
+import MagnifyingGlass from "../../icons/MagnifyingGlass";
+import CriteriaPhrase from "./CriteriaPhrase";
+import MnLogo from "../../icons/MnLogo";
+import Loader from "../../Loader";
+import ProductTypes from "./ProductTypes";
+import Authors from "./Authors";
+import Periods from "./Periods";
+import Styles from "./Styles";
+import Materials from "./Materials";
+import ProductionOrigins from "./ProductionOrigins";
+import Dimensions from "./Dimensions";
 import ResultCount from "../ResultCount";
 import DesktopOverlayZone from "./DesktopOverlayZone";
 

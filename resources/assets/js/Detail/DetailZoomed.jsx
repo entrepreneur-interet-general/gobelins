@@ -3,10 +3,10 @@ import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
 import folkloreImage from "../vendor/folklore-image.js";
 
-import Loader from "../Loader.jsx";
-import ZoomIn from "./ZoomIn";
-import ZoomOut from "./ZoomOut";
-import Cross from "./Cross";
+import Loader from "../Loader";
+import ZoomIn from "../icons/ZoomIn";
+import ZoomOut from "../icons/ZoomOut";
+import Cross from "../icons/Cross";
 
 class DetailZoomed extends Component {
   constructor(props) {

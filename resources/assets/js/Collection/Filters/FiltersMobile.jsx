@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import Headroom from "react-headroom";
 
 import CriteriaPhrase from "./CriteriaPhrase";
-import MnLogo from "./MnLogo";
-import MagnifyingGlass from "./MagnifyingGlass";
+import MnLogo from "../../icons/MnLogo";
+import MagnifyingGlass from "../../icons/MagnifyingGlass";
 import ScrollToTop from "../ScrollToTop";
 import MobileSearch from "./MobileSearch";
 import Loader from "../../Loader";

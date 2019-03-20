@@ -3,8 +3,8 @@ import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
 // import folkloreImage from "../vendor/folklore-image.js";
 
-import MagnifyingGlass from "./MagnifyingGlass";
-import Download from "./Download";
+import MagnifyingGlass from "../icons/MagnifyingGlass";
+import Download from "../icons/Download";
 import Loader from "../Loader";
 
 class MainImage extends Component {

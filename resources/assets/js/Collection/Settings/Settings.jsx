@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Eye from "./Eye.jsx";
-import EyeHover from "./EyeHover.jsx";
+import Eye from "../../icons/Eye";
+import EyeHover from "../../icons/EyeHover";
 
 class Settings extends Component {
   constructor(props) {

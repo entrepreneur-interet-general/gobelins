@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
-import MagnifyingGlass from "./MagnifyingGlass";
-import CrossLarge from "./CrossLarge";
+import MagnifyingGlass from "../../icons/MagnifyingGlass";
+import CrossLarge from "../../icons/CrossLarge";
 
 class MobileSearch extends Component {
   constructor(props) {

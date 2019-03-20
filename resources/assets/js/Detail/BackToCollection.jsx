@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ArrowBack from "./ArrowBack.jsx";
+import ArrowBack from "../icons/ArrowBack.jsx";
 
 class BackToCollection extends Component {
   constructor(props) {

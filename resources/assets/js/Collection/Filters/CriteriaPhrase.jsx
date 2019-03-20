@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import flatMap from "lodash/flatMap";
 import compact from "lodash/compact";
 const treeFlatten = require("tree-flatten");
-import Cross from "./Cross";
+import Cross from "../../icons/CrossCriterion";
 
 class Criterion extends Component {
   constructor(props) {

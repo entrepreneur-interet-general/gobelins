@@ -8,7 +8,7 @@
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "svgr": "svgr --svgo-config=\"svgo.json\" --ext=jsx -d resources/assets/js resources/assets/js"
+    "svgr": "svgr --svgo-config=\"svgo.json\" --ext=jsx -d resources/assets/js/icons resources/assets/svg/icons"
   },
   "devDependencies": {
     "@svgr/cli": "^2.4.1",

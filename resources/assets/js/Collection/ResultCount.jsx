@@ -1,5 +1,5 @@
 import React from "react";
-import ArrowDown from "./ArrowDown";
+import ArrowDown from "../icons/ArrowDown";
 
 const ResultCount = props => (
   <div className="ResultCount">

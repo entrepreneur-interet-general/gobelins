@@ -33,6 +33,7 @@
   flex-flow: column nowrap;
   justify-content: center;
   align-content: stretch;
+  overflow: hidden;
 }
 .FilterPanelMobile__close {
   position: absolute;
@@ -43,4 +44,34 @@
   border: none;
   padding: 10px;
   cursor: pointer;
+}
+
+.FilterPanelMobile__list-enter {
+  transition: transform 0.15s ease-in-out;
+  transform: translateX(-100%);
+  &.FilterPanelMobile__list-enter-active {
+    transform: translateX(0%);
+  }
+}
+.FilterPanelMobile__list-leave {
+  transition: transform 0.15s ease-in-out;
+  transform: translateX(0%);
+  &.FilterPanelMobile__list-leave-active {
+    transform: translateX(-100%);
+  }
+}
+
+.FilterPanelMobile__sliding-enter {
+  transition: transform 0.15s ease-in-out;
+  transform: translateX(100%);
+  &.FilterPanelMobile__sliding-enter-active {
+    transform: translateX(0%);
+  }
+}
+.FilterPanelMobile__sliding-leave {
+  transition: transform 0.15s ease-in-out;
+  transform: translateX(0%);
+  &.FilterPanelMobile__sliding-leave-active {
+    transform: translateX(100%);
+  }
 }

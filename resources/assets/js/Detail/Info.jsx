@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import nl2br from "react-nl2br";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import ShareFacebook from "./ShareFacebook";
-import SharePinterest from "./SharePinterest";
-import ShareTwitter from "./ShareTwitter";
-import ShareUrl from "./ShareUrl";
+import ShareFacebook from "../icons/ShareFacebook";
+import SharePinterest from "../icons/SharePinterest";
+import ShareTwitter from "../icons/ShareTwitter";
+import ShareUrl from "../icons/ShareUrl";
 
 function InfoUnitTemplate(props) {
   return (
