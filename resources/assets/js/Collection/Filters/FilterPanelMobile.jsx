@@ -26,7 +26,7 @@ class FilterPanelMobile extends Component {
       <div className="FilterPanelMobile">
         <div
           className="FilterPanelMobile__overlay"
-          onClick={this.props.onCloseSearch}
+          onClick={this.props.onCloseFilterPanel}
         >
           {this.props.overlayContent}
         </div>

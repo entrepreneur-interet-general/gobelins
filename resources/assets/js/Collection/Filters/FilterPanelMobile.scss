@@ -6,11 +6,12 @@
   width: 100%;
   overflow: hidden;
   z-index: 3;
+  --filter-panel-mobile-max-width: 420px;
 }
 .FilterPanelMobile__overlay {
   position: absolute;
   top: 0;
-  left: 288px;
+  left: var(--filter-panel-mobile-max-width);
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.3);
@@ -25,7 +26,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  max-width: 288px;
+  max-width: var(--filter-panel-mobile-max-width);
   background-color: #fff;
   z-index: 1;
   display: flex;
@@ -37,7 +38,7 @@
   position: absolute;
   z-index: 4;
   top: 5px;
-  left: calc(288px - 40px);
+  right: 5px;
   background-color: transparent;
   border: none;
   padding: 10px;
