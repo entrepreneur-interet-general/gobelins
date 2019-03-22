@@ -194,7 +194,7 @@ class FirstColMenuSubItem extends Component {
   }
   render() {
     const pt = this.props.productType;
-    let classes = "ProductType__col1-button";
+    let classes = "ProductTypes__col1-button";
     classes += this.props.selected ? " is-selected" : "";
     classes += pt.children.length > 0 ? " has-children" : "";
     classes += pt.id === this.props.expandedType.id ? " is-hovered" : "";
@@ -253,12 +253,12 @@ class SecondColMenu extends Component {
   }
   renderSecondColumnItem(pt, parentIsSelected, i) {
     return (
-      <li className="ProductType__col2-item" key={i}>
+      <li className="ProductTypes__col2-item" key={i}>
         <button
           type="button"
           onClick={ev => this.props.onSecondColClick(pt, ev)}
           className={
-            "ProductType__col2-button" +
+            "ProductTypes__col2-button" +
             (this.props.selectedIds.indexOf(pt.id) >= 0 ? " is-selected" : "")
           }
         >
@@ -271,15 +271,15 @@ class SecondColMenu extends Component {
     const parentIsSelected =
       this.props.selectedIds.indexOf(this.props.parentProductType.id) >= 0;
     return (
-      <ul className="ProductType__col2">
-        <li className="ProductType__col2-item" key="All">
+      <ul className="ProductTypes__col2">
+        <li className="ProductTypes__col2-item" key="All">
           <button
             type="button"
             onClick={ev =>
               this.props.onAddAllClick(this.props.parentProductType, ev)
             }
             className={
-              "ProductType__col2-button" +
+              "ProductTypes__col2-button" +
               (parentIsSelected ? " is-selected" : "")
             }
           >

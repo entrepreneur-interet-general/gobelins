@@ -39,14 +39,6 @@ class FilterPanelMobile extends Component {
           {this.props.overlayContent}
         </div>
         <div className="FilterPanelMobile__rootcolumn">
-          <button
-            type="button"
-            className="FilterPanelMobile__close"
-            onClick={this.props.onCloseFilterPanel}
-          >
-            <CrossLarge />
-          </button>
-
           <CSSTransitionGroup
             transitionName="FilterPanelMobile__list"
             transitionEnterTimeout={150}
@@ -54,6 +46,7 @@ class FilterPanelMobile extends Component {
           >
             {this.state.visiblePanel === null ? (
               <div className="Filters__list-container">
+                {<CloseButton onClose={this.props.onCloseFilterPanel} />}
                 <div className="Filters__list-label">Filtrer par :</div>
                 <ul>
                   <li>
@@ -129,6 +122,9 @@ class FilterPanelMobile extends Component {
                 onFilterChange={this.props.onFilterChange}
                 onFilterRemove={this.props.onFilterRemove}
                 selectedIds={this.props.filterObj.product_type_ids || []}
+                closeButton={
+                  <CloseButton onClose={this.props.onCloseFilterPanel} />
+                }
               />
             ) : null}
           </CSSTransitionGroup>
@@ -137,5 +133,15 @@ class FilterPanelMobile extends Component {
     );
   }
 }
+
+const CloseButton = props => (
+  <button
+    type="button"
+    className="FilterPanelMobile__close"
+    onClick={props.onClose}
+  >
+    <CrossLarge />
+  </button>
+);
 
 export default FilterPanelMobile;
