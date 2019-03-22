@@ -29,6 +29,10 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  -webkit-tap-highlight-color: #ffcecb;
+}
+.ProductTypesMobile .FilterPanelMobile__close {
+  -webkit-tap-highlight-color: #ffcecb;
 }
 .ProductTypesMobile__col-title {
   @include f-sans;

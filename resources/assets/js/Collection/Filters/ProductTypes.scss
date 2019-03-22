@@ -75,16 +75,23 @@
   text-align: left;
   border-right: 4px solid transparent;
 
-  &:hover {
+  -webkit-tap-highlight-color: #ffcecb;
+  &:active {
     background-color: #ffcecb;
   }
+  @media (hover: hover) {
+    &:hover {
+      background-color: #ffcecb;
+    }
+  }
+
   &.is-selected {
     font-weight: normal;
     &:before {
       content: "";
       position: absolute;
       top: 50%;
-      left: 30px;
+      margin-left: -20px;
       transform: translateY(-50%);
       background-color: rgba(255, 255, 255, 0.7);
       height: 6px;
@@ -110,6 +117,7 @@
 .ProductTypes__col1-set {
   display: block;
   font-weight: normal;
+  position: relative;
   padding: 10px 10px 10px 40px;
   @include breakpoint($medium-up) {
     padding: 10px 10px 10px 50px;
@@ -121,8 +129,22 @@
     font-size: rem(15px);
   }
   line-height: rem(18px);
+  background-color: transparent;
+  border: none;
+  text-align: left;
   & span {
     border-bottom: 1px solid black;
+  }
+  &.is-selected:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-left: -20px;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
   }
 }
 
@@ -169,11 +191,20 @@
   margin-bottom: 5px;
   padding-top: 40px;
 
-  button {
-    padding-left: 50px;
-  }
-
   & ~ .ProductTypes__col2-item {
     padding-top: 0;
+  }
+}
+.ProductTypes__col2-button {
+  padding-left: 50px;
+
+  -webkit-tap-highlight-color: #ffa1a1;
+  &:active {
+    background-color: #ffa1a1;
+  }
+  @media (hover: hover) {
+    &:hover {
+      background-color: #ffa1a1;
+    }
   }
 }

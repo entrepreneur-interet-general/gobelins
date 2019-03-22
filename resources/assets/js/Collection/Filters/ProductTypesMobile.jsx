@@ -15,14 +15,75 @@ class ProductTypesMobile extends Component {
 
     this.handleBackToFirstCol = this.handleBackToFirstCol.bind(this);
     this.handleFirstColClick = this.handleFirstColClick.bind(this);
+    this.handleSecondColClick = this.handleSecondColClick.bind(this);
+    this.handleAddAllClick = this.handleAddAllClick.bind(this);
   }
 
   handleBackToFirstCol() {
     this.setState({ expandedType: ProductTypeNullObject });
   }
 
-  handleFirstColClick(pt) {
-    this.setState({ expandedType: pt });
+  handleFirstColClick(pt, ev) {
+    if (pt.children.length > 0) {
+      // Slide to next column
+      this.setState({ expandedType: pt });
+    } else {
+      // Toggle on/off
+      if (this.props.selectedIds.indexOf(pt.id) >= 0) {
+        this.props.onFilterRemove({
+          type: "product_type",
+          ids: [pt.id],
+          paramName: "product_type_ids"
+        });
+      } else {
+        this.props.onFilterAdd({ product_type_ids: [pt.id] });
+      }
+    }
+  }
+  handleSecondColClick(pt, ev) {
+    // Is this product type's parent selected ?
+    if (this.props.selectedIds.indexOf(this.state.expandedType.id) >= 0) {
+      // Remove the parent id, and add the clicked item.
+      const filtersToDelete = {
+        type: "product_type",
+        ids: [this.state.expandedType.id],
+        paramName: "product_type_ids"
+      };
+      this.props.onFilterChange(
+        {
+          product_type_ids: [pt.id]
+        },
+        filtersToDelete
+      );
+    } else {
+      // Simply toggle this product type on/off
+      if (this.props.selectedIds.indexOf(pt.id) >= 0) {
+        this.props.onFilterRemove({
+          type: "product_type",
+          ids: [pt.id],
+          paramName: "product_type_ids"
+        });
+      } else {
+        this.props.onFilterAdd({
+          product_type_ids: [pt.id]
+        });
+      }
+    }
+  }
+  handleAddAllClick(group, ev) {
+    // ev.stopPropagation();
+    const filtersToDelete = {
+      type: "product_type",
+      ids: group.children.map(pt => pt.id),
+      paramName: "product_type_ids"
+    };
+
+    this.props.onFilterChange(
+      // Add this id.
+      { product_type_ids: [group.id] },
+      // Remove these ids.
+      filtersToDelete
+    );
   }
 
   render() {
@@ -32,6 +93,7 @@ class ProductTypesMobile extends Component {
           onBack={this.props.onBackToFiltersList}
           onFirstColClick={this.handleFirstColClick}
           secondColVisible={Boolean(this.state.expandedType.id)}
+          onAddAllClick={this.handleAddAllClick}
           {...this.props}
         />
         <CSSTransitionGroup
@@ -46,6 +108,8 @@ class ProductTypesMobile extends Component {
               items={this.state.expandedType.children}
               selectedIds={this.props.selectedIds}
               secondColVisible={Boolean(this.state.expandedType.id)}
+              onSecondColClick={this.handleSecondColClick}
+              onAddAllClick={this.handleAddAllClick}
               {...this.props}
             />
           ) : null}
@@ -74,28 +138,38 @@ const FirstColumn = props => {
         {props.closeButton}
       </div>
       <ul className="ProductTypes__col1">
-        {window.__INITIAL_STATE__.productTypes.map(pt => (
-          <li className="ProductTypes__col1-item" key={pt.id}>
-            <strong className="ProductTypes__col1-set">
-              <span>{pt.name}</span>
-            </strong>
-            {/* <span className="ProductTypesMobile__objcount">15340</span> */}
+        {window.__INITIAL_STATE__.productTypes.map(pt => {
+          let classes = ["ProductTypes__col1-set"];
+          if (props.selectedIds.indexOf(pt.id) >= 0) {
+            classes.push("is-selected");
+          }
 
-            {pt.children.length > 0 ? (
-              <ul className="ProductTypes__col1-subitems">
-                {pt.children.map(pt => (
-                  <FirstColMenuSubItem
-                    productType={pt}
-                    selected={props.selectedIds.indexOf(pt.id) >= 0}
-                    onFirstColClick={props.onFirstColClick}
-                    key={pt.id}
-                    {...props}
-                  />
-                ))}
-              </ul>
-            ) : null}
-          </li>
-        ))}
+          return (
+            <li className="ProductTypes__col1-item" key={pt.id}>
+              <button
+                onClick={ev => props.onAddAllClick(pt, ev)}
+                className={classes.join(" ")}
+              >
+                <span>{pt.name}</span>
+              </button>
+              {/* <span className="ProductTypesMobile__objcount">15340</span> */}
+
+              {pt.children.length > 0 ? (
+                <ul className="ProductTypes__col1-subitems">
+                  {pt.children.map(pt => (
+                    <FirstColMenuSubItem
+                      productType={pt}
+                      selected={props.selectedIds.indexOf(pt.id) >= 0}
+                      onFirstColClick={props.onFirstColClick}
+                      key={pt.id}
+                      {...props}
+                    />
+                  ))}
+                </ul>
+              ) : null}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
