@@ -31,7 +31,10 @@
     cursor: pointer;
 
     @include f-serif;
-    font-size: rem(15px);
+    font-size: rem(18px);
+    @include breakpoint($medium-up) {
+      font-size: rem(15px);
+    }
     line-height: rem(20px);
     text-align: left;
 
@@ -70,7 +73,10 @@
   padding-left: 40px;
   padding-bottom: 6px;
   @include f-serif;
-  font-size: rem(15px);
+  font-size: rem(18px);
+  @include breakpoint($medium-up) {
+    font-size: rem(15px);
+  }
   line-height: rem(17px);
   color: #767676;
 }

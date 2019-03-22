@@ -125,6 +125,10 @@ class FilterPanelMobile extends Component {
             {this.state.visiblePanel === "ProductTypes" ? (
               <ProductTypesMobile
                 onBackToFiltersList={this.handleBackToFiltersList}
+                onFilterAdd={this.props.onFilterAdd}
+                onFilterChange={this.props.onFilterChange}
+                onFilterRemove={this.props.onFilterRemove}
+                selectedIds={this.props.filterObj.product_type_ids || []}
               />
             ) : null}
           </CSSTransitionGroup>
