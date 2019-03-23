@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
+import { FixedSizeList as List } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 import DesktopOverlayZone from "./DesktopOverlayZone";
 
@@ -72,7 +74,7 @@ class Authors extends Component {
     return (
       <div className="Authors">
         <div className="Authors__alphabet">
-          {Object.keys(window.__INITIAL_STATE__.authors).map(letter => {
+          {/*Object.keys(window.__INITIAL_STATE__.authors).map(letter => {
             return (
               <button
                 className="Authors__alphabet-button"
@@ -86,13 +88,25 @@ class Authors extends Component {
                 {letter}
               </button>
             );
-          })}
+          })*/}
         </div>
         <div className="Authors__double-col">
-          {Object.keys(window.__INITIAL_STATE__.authors).map(
-            this.renderLetterList
-          )}
+          <AutoSizer>
+            {({ height, width }) => (
+              <List
+                height={height}
+                // itemData={this.props.authors}
+                itemCount={window.__INITIAL_STATE__.authors.length}
+                itemSize={43}
+                width={width}
+                scrollToRow={55}
+              >
+                {Author}
+              </List>
+            )}
+          </AutoSizer>
         </div>
+        {/* {Object.keys(this.props.authors).map(this.renderLetterList)} */}
         <CSSTransitionGroup
           transitionName="DesktopOverlayZone"
           transitionEnterTimeout={150}
@@ -112,5 +126,15 @@ class Authors extends Component {
     );
   }
 }
+
+const Author = ({ index, style }) => (
+  <div className="Authors__col-item" style={style}>
+    <button type="button">
+      <strong>{window.__INITIAL_STATE__.authors[index].last_name}</strong>
+      <span> {window.__INITIAL_STATE__.authors[index].first_name}</span>
+      {/* <span className="Authors__objcount">15340</span> */}
+    </button>
+  </div>
+);
 
 export default Authors;

@@ -34,13 +34,13 @@ class SearchController extends Controller
                                 ->map(function ($item) {
                                     $item->last_name = ucwords(strtolower($item->last_name));
                                     return $item;
-                                })
-                                ->groupBy(function ($item, $key) {
-                                    return strtoupper($item->last_name[0]);
-                                })
-                                ->sortBy(function ($item, $key) {
-                                    return $key;
                                 }),
+                                // ->groupBy(function ($item, $key) {
+                                //     return strtoupper($item->last_name[0]);
+                                // })
+                                // ->sortBy(function ($item, $key) {
+                                //     return $key;
+                                // }),
                 // 'periods' => Period::orderBy('start_year', 'asc')->get(),
                 // TODO: put this in a seeder…
                 'periods' => [
