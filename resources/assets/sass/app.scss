@@ -40,6 +40,8 @@
 
 :root {
   height: 100%;
+  // Disable double-tap to zoom in iOS.
+  touch-action: manipulation;
 }
 
 html,

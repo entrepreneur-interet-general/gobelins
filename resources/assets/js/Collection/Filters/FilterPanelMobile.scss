@@ -7,6 +7,7 @@
   overflow: hidden;
   z-index: 3;
   --filter-panel-mobile-max-width: 420px;
+  user-select: none;
 }
 .FilterPanelMobile__overlay {
   position: absolute;
