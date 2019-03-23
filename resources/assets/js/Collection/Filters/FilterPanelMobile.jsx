@@ -21,7 +21,6 @@ class FilterPanelMobile extends Component {
   }
 
   openPanel(panel, ev) {
-    console.log("woo hoo open panel ", panel);
     this.setState({ visiblePanel: panel });
   }
 

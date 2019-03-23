@@ -1,7 +1,8 @@
 import React from "react";
+import classNames from "classnames";
 
 const Loader = props => (
-  <div className={"Spinner__pgloading " + props.className}>
+  <div className={classNames("Spinner__pgloading", props.className)}>
     <div className="Spinner__loadingwrap">
       <ul className="Spinner__bokeh">
         <li key="1" />

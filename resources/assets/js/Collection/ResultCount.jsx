@@ -1,8 +1,10 @@
 import React from "react";
+import classNames from "classnames";
+
 import ArrowDown from "../icons/ArrowDown";
 
 const ResultCount = props => (
-  <div className="ResultCount">
+  <div className={classNames("ResultCount", props.className)}>
     <div
       className={`ResultCount__count ${props.totalHits > 0 ? "as-button" : ""}`}
     >

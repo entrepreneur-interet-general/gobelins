@@ -20,7 +20,12 @@
     color: black;
     border-radius: 25px;
     cursor: pointer;
-    border: 1px solid transparent;
+
+    border: 1px solid $lines;
+    @include breakpoint($medium-up) {
+      border-color: transparent;
+    }
+
     &:hover {
       border-color: black;
     }

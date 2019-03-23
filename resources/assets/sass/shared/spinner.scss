@@ -1,5 +1,7 @@
 .Spinner__pgloading {
   position: relative;
+  user-select: none;
+  pointer-events: none;
 }
 
 .Spinner__pgloading:after {

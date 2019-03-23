@@ -14,6 +14,7 @@ import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
 
 const breakpoints = {
+  xxsmall: 420,
   xsmall: 800,
   small: 1024,
   medium: 1440,

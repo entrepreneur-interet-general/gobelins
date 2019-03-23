@@ -20,6 +20,21 @@
   justify-content: center;
   align-items: center;
 }
+.FilterPanelMobile__resultcount,
+.FilterPanelMobile__loader {
+  @media screen and (max-width: 420px) {
+    position: fixed;
+    z-index: 99999;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.FilterPanelMobile__loader {
+  @media screen and (max-width: 420px) {
+    bottom: 50%;
+  }
+}
 .FilterPanelMobile__rootcolumn {
   position: absolute;
   top: 0;

@@ -54,12 +54,13 @@ class FiltersMobile extends Component {
 
   renderOverlayContent() {
     if (this.props.isLoading) {
-      return <Loader />;
+      return <Loader className="FilterPanelMobile__loader" />;
     } else {
       return (
         <ResultCount
           totalHits={this.props.totalHits}
           onFilterRemoveAll={this.props.onFilterRemoveAll}
+          className="FilterPanelMobile__resultcount"
         />
       );
     }
