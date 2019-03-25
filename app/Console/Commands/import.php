@@ -302,6 +302,23 @@ class Import extends Command
                         }
 
 
+                        // Entry mode
+                        // Entry modes might be updated in SCOM, so we udpate them based on the legacy_id
+                        if ($item->acquisition_mode && $item->acquisition_mode->id) {
+                            $acquisition_mode = \App\Models\EntryMode::updateOrCreate(
+                                ['legacy_id' => $item->acquisition_mode->id],
+                                [
+                                    'legacy_id' => $item->acquisition_mode->id,
+                                    'name' => $item->acquisition_mode->name,
+                                ]
+                            );
+
+                            if ($acquisition_mode) {
+                                $product->entryMode()->associate($acquisition_mode);
+                            }
+                        }
+
+
                         // Styles
                         // Also udpated based on the legacy_id
                         if ($item->product_style && $item->product_style->id) {

@@ -36,6 +36,11 @@ class Product extends Model
         return $this->belongsTo(Period::class);
     }
 
+    public function entryMode()
+    {
+        return $this->belongsTo(EntryMode::class);
+    }
+
     public function productType()
     {
         return $this->belongsTo(ProductType::class);
@@ -131,6 +136,7 @@ class Product extends Model
         'style_id',
         'is_published',
         'publication_code',
+        'entry_mode_id',
     ];
 
 
@@ -174,10 +180,11 @@ class Product extends Model
         return [
             'title_or_designation' => $this->title_or_designation,
             'denomination' => $this->denomination,
-            'description' => in_array($this->publication_code, ['P+D', 'P+D+P']) ? $this->description : null,
+            'description' => in_array($this->publication_code, ['P+D', 'P+D+P', 'P+D+O']) ? $this->description : null,
             'bibliography' => $this->bibliography,
-            'acquisition_origin' => $this->publication_code === 'P+D+P' ? $this->acquisition_origin : null,
+            'acquisition_origin' => $this->publication_code === 'P+D+O' ? $this->acquisition_origin : null,
             'acquisition_date' => $this->acquisition_date,
+            'acquisition_mode' => $this->entry_mode ? $this->entry_mode->name : null,
             'inventory_id' => $this->inventory_id,
             'inventory_id_as_keyword' => strtoupper($this->inventory_id),
             'product_types' => $this->searchableProductTypes,

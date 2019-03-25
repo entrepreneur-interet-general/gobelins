@@ -108,6 +108,18 @@ return [
                             'type' => 'text',
                             'analyzer' => 'standard',
                         ],
+                        'acquisition_mode' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'long',
+                                ],
+                                'name' => [
+                                    'type' => 'text',
+                                    'index' => false,
+                                ],
+                            ],
+                        ],
                         'inventory_id' => [
                             'type' => 'text',
                             'analyzer' => 'standard',
@@ -271,54 +283,54 @@ return [
                         ],
                         
                         // ALIASES
-                        'titre' => [
-                            'type' => 'alias',
-                            'path' => 'title_or_designation'
-                        ],
-                        'bibliographie' => [
-                            'type' => 'alias',
-                            'path' => 'bibliography'
-                        ],
-                        'biblio' => [
-                            'type' => 'alias',
-                            'path' => 'bibliography'
-                        ],
-                        'acquisition' => [
-                            'type' => 'alias',
-                            'path' => 'acquisition_origin'
-                        ],
-                        'date_acquisition' => [
-                            'type' => 'alias',
-                            'path' => 'acquisition_date'
-                        ],
-                        'inventaire' => [
-                            'type' => 'alias',
-                            'path' => 'inventory_id'
-                        ],
-                        'ancien_inventaire' => [
-                            'type' => 'alias',
-                            'path' => 'legacy_inventory_number'
-                        ],
-                        'auteur' => [
-                            'type' => 'alias',
-                            'path' => 'authors.last_name'
-                        ],
-                        'période' => [
-                            'type' => 'alias',
-                            'path' => 'period_name'
-                        ],
-                        'année' => [
-                            'type' => 'alias',
-                            'path' => 'conception_year'
-                        ],
-                        'matériaux' => [
-                            'type' => 'alias',
-                            'path' => 'materials.name'
-                        ],
-                        'type' => [
-                            'type' => 'alias',
-                            'path' => 'product_types.name'
-                        ],
+                        // 'titre' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'title_or_designation'
+                        // ],
+                        // 'bibliographie' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'bibliography'
+                        // ],
+                        // 'biblio' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'bibliography'
+                        // ],
+                        // 'acquisition' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'acquisition_origin'
+                        // ],
+                        // 'date_acquisition' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'acquisition_date'
+                        // ],
+                        // 'inventaire' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'inventory_id'
+                        // ],
+                        // 'ancien_inventaire' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'legacy_inventory_number'
+                        // ],
+                        // 'auteur' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'authors.last_name'
+                        // ],
+                        // 'période' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'period_name'
+                        // ],
+                        // 'année' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'conception_year'
+                        // ],
+                        // 'matériaux' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'materials.name'
+                        // ],
+                        // 'type' => [
+                        //     'type' => 'alias',
+                        //     'path' => 'product_types.name'
+                        // ],
                     ]
                 ]
             ]
