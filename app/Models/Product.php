@@ -184,7 +184,7 @@ class Product extends Model
             'bibliography' => $this->bibliography,
             'acquisition_origin' => $this->publication_code === 'P+D+O' ? $this->acquisition_origin : null,
             'acquisition_date' => $this->acquisition_date,
-            'acquisition_mode' => $this->entry_mode ? $this->entry_mode->name : null,
+            'acquisition_mode' => $this->entryMode ? $this->entryMode->name : null,
             'inventory_id' => $this->inventory_id,
             'inventory_id_as_keyword' => strtoupper($this->inventory_id),
             'product_types' => $this->searchableProductTypes,
