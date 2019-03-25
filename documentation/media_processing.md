@@ -57,7 +57,7 @@ the ImageMagick's `mogrify`, as their argument signature should be equivalent.
 Images are stored in `public/media/xl` directory.
 
 ```bash
-$ find /path/to/media/xl/ -type f -iname "*.jpg" | parallel gm mogrify -resize 1500x1500 -format jpg -strip {}
+$ find /path/to/media/xl/ -type f -iname "*.jpg" | parallel --eta -q gm mogrify -resize '1500x1500>' -format jpg -strip {}
 ```
 
 ### Warm the cache !
