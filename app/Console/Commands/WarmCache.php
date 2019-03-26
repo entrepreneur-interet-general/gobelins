@@ -59,7 +59,7 @@ class WarmCache extends Command
 
     private function processImages()
     {
-        $this->progress_bar = $this->output->createProgressBar(Product::count());
+        // $this->progress_bar = $this->output->createProgressBar(Product::count());
 
         Product::with(['images'])->chunk(100, function ($prods) {
             foreach ($prods as $prod) {
@@ -68,15 +68,16 @@ class WarmCache extends Command
                     $xl_path = '/media/xl/' . $img->path;
                     $thumb_path = public_path() . Image::url($xl_path, 600);
                     if (!file_exists($thumb_path)) {
+                        echo "Target: $xl_path\n";
                         Image::make($xl_path, ['width' => 600])->save($thumb_path);
                     }
                     #ImageOptimizer::optimize($thumb_path);
                 }
-                $this->progress_bar->advance();
+                // $this->progress_bar->advance();
             }
         });
 
 
-        $this->progress_bar->finish();
+        // $this->progress_bar->finish();
     }
 }
