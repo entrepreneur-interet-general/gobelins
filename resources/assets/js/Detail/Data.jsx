@@ -129,12 +129,21 @@ function Dimensions(props) {
 }
 
 function Acquisition(props) {
-  return props.acquisitionOrigin || props.acquisitionDate ? (
+  const acquisitionDate = props.acquisitionDate
+    ? new Date(props.acquisitionDate).toLocaleDateString("fr-FR", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+      })
+    : null;
+  return props.acquisitionOrigin ||
+    props.acquisitionDate ||
+    props.acquisitionMode ? (
     <DataUnitTemplate
       label="Acquisition"
-      value={[props.acquisitionDate, props.acquisitionOrigin]
+      value={[acquisitionDate, props.acquisitionMode, props.acquisitionOrigin]
         .filter(Boolean)
-        .join(" — ")}
+        .join(" – ")}
     />
   ) : null;
 }
@@ -181,6 +190,7 @@ function Data(props) {
       <Acquisition
         acquisitionDate={props.product.acquisition_date}
         acquisitionOrigin={props.product.acquisition_origin}
+        acquisitionMode={props.product.acquisition_mode}
       />
       <LegacyInventoryNumber
         legacyInventoryNumber={props.product.legacy_inventory_number}
