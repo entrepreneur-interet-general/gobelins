@@ -28,7 +28,6 @@
   @include breakpoint($medium-up) {
     width: 288px;
     height: 100vh;
-    height: 100%;
   }
   padding: 0;
   margin: 0;
@@ -144,7 +143,6 @@
     left: 288px;
     width: 288px;
     height: 100vh;
-    height: 100%;
   }
   background-color: $blue-dark;
   // padding-left: 25px;
