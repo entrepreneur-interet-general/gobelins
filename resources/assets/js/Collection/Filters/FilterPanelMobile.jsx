@@ -3,6 +3,7 @@ import { CSSTransitionGroup } from "react-transition-group";
 
 import CrossLarge from "../../icons/CrossLarge";
 import ProductTypesMobile from "./ProductTypesMobile";
+import MaterialsMobile from "./MaterialsMobile";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -121,6 +122,18 @@ class FilterPanelMobile extends Component {
                 onFilterChange={this.props.onFilterChange}
                 onFilterRemove={this.props.onFilterRemove}
                 selectedIds={this.props.filterObj.product_type_ids || []}
+                closeButton={
+                  <CloseButton onClose={this.props.onCloseFilterPanel} />
+                }
+              />
+            ) : null}
+            {this.state.visiblePanel === "Materials" ? (
+              <MaterialsMobile
+                onBackToFiltersList={this.handleBackToFiltersList}
+                onFilterAdd={this.props.onFilterAdd}
+                onFilterChange={this.props.onFilterChange}
+                onFilterRemove={this.props.onFilterRemove}
+                selectedIds={this.props.filterObj.material_ids || []}
                 closeButton={
                   <CloseButton onClose={this.props.onCloseFilterPanel} />
                 }
