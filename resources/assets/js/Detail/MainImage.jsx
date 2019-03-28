@@ -15,7 +15,9 @@ class MainImage extends Component {
 
   render() {
     let imgUrl = this.props.image
-      ? `/media/xl/${encodeURIComponent(this.props.image.path)}`
+      ? `/media/xl/${encodeURIComponent(
+          this.props.image.path.replace(".JPG", ".jpg")
+        )}`
       : "";
     let downloadFilename = "";
     let downloadFilenameRes = this.props.image
@@ -51,7 +53,7 @@ class MainImage extends Component {
               </Link>
               <a
                 href={`/media/orig/${encodeURIComponent(
-                  this.props.image.path
+                  this.props.image.path.replace(".JPG", ".jpg")
                 )}`}
                 download={downloadFilename}
                 onClick={this.props.onDownload}
