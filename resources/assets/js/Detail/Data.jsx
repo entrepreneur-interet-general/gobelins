@@ -1,6 +1,6 @@
 import React from "react";
 import nl2br from "react-nl2br";
-import uniq from "lodash/uniq";
+import { Media } from "react-breakpoints";
 
 function DataUnitTemplate(props) {
   return (
@@ -168,34 +168,43 @@ function Photographer(props) {
 function Data(props) {
   return (
     <section className="DetailData">
-      <InventoryId inventoryId={props.product.inventory_id} />
-      <Authors authors={props.product.authors} />
-      <ConceptionYear conceptionYear={props.product.conception_year} />
-      <Style style={props.product.style} />
-      <Types types={props.product.product_types} />
-      <Period
-        period={{
-          name: props.product.period_name,
-          startYear: props.product.period_start_year,
-          endYear: props.product.period_end_year
-        }}
-      />
-      <Materials materials={props.product.materials} />
-      <ProductionOrigin productionOrigin={props.product.production_origin} />
-      <Dimensions
-        l={props.product.length_or_diameter}
-        w={props.product.depth_or_width}
-        h={props.product.height_or_thickness}
-      />
-      <Acquisition
-        acquisitionDate={props.product.acquisition_date}
-        acquisitionOrigin={props.product.acquisition_origin}
-        acquisitionMode={props.product.acquisition_mode}
-      />
-      <LegacyInventoryNumber
-        legacyInventoryNumber={props.product.legacy_inventory_number}
-      />
-      <Photographer mainImage={props.mainImage} />
+      <Media>
+        {({ breakpoints, currentBreakpoint }) =>
+          breakpoints[currentBreakpoint] >= 768 &&
+          breakpoints[currentBreakpoint] < 1024 &&
+          props.title
+        }
+      </Media>
+      <div className="DetailData__columns">
+        <InventoryId inventoryId={props.product.inventory_id} />
+        <Authors authors={props.product.authors} />
+        <ConceptionYear conceptionYear={props.product.conception_year} />
+        <Style style={props.product.style} />
+        <Types types={props.product.product_types} />
+        <Period
+          period={{
+            name: props.product.period_name,
+            startYear: props.product.period_start_year,
+            endYear: props.product.period_end_year
+          }}
+        />
+        <Materials materials={props.product.materials} />
+        <ProductionOrigin productionOrigin={props.product.production_origin} />
+        <Dimensions
+          l={props.product.length_or_diameter}
+          w={props.product.depth_or_width}
+          h={props.product.height_or_thickness}
+        />
+        <Acquisition
+          acquisitionDate={props.product.acquisition_date}
+          acquisitionOrigin={props.product.acquisition_origin}
+          acquisitionMode={props.product.acquisition_mode}
+        />
+        <LegacyInventoryNumber
+          legacyInventoryNumber={props.product.legacy_inventory_number}
+        />
+        <Photographer mainImage={props.mainImage} />
+      </div>
     </section>
   );
 }

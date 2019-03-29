@@ -46,8 +46,10 @@
 }
 .DetailMainImage__fig {
   flex: 1 1 auto;
-  width: 100%;
-  height: 100%;
+  @include breakpoint($medium-up) {
+    width: 100%;
+    height: 100%;
+  }
   padding: 0;
   margin: 0;
   position: relative;
@@ -70,27 +72,43 @@
   transform: translate(-50%, -50%);
 }
 .DetailMainImage__img {
+  max-width: 100%;
+  @include breakpoint($medium-up) {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
   display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
   z-index: 1;
   object-fit: contain;
   object-position: right top;
 }
 .DetailMainImage__toolbar {
-  position: absolute;
-  top: 20px;
-  right: -25px;
-  z-index: 1;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  @include breakpoint($medium-up) {
+    flex-flow: column nowrap;
+    top: 20px;
+    bottom: unset;
+    right: -25px;
+    left: unset;
+    transform: unset;
+  }
+  z-index: 1;
   color: black;
 }
 .DetailMainImage__button {
   height: 50px;
   width: 50px;
-  margin: 0 0 15px 0;
+
+  margin: 0 15px 0 0;
+  @include breakpoint($medium-up) {
+    margin: 0 0 15px 0;
+  }
   padding: 0;
   border-radius: 50%;
   border: 1px solid $lines;
@@ -192,42 +210,70 @@
   font-size: rem(13px);
   color: #828282;
 }
+.DetailData__columns {
+  display: flex;
+  flex-flow: row wrap;
+  .DetailData__unit {
+    flex: 1 1 calc((100% - 20px) / 2);
+    width: calc((100% - 20px) / 2);
+    &:nth-child(odd) {
+      margin-right: 20px;
+    }
+  }
 
-////////////////////////////////////
-// Desktop versions of the layout //
-////////////////////////////////////
-
-.DetailDesktop__left-zone {
-  position: fixed;
-  top: 0;
-  left: 40px;
-  padding-top: 20px;
-  box-sizing: border-box;
+  @include breakpoint($medium-up) {
+    display: block;
+  }
 }
-.DetailDesktop__right-zone {
+
+.Detail__left-zone {
+  @include breakpoint($medium-up) {
+    position: fixed;
+    top: 0;
+    left: 40px;
+    padding-top: 20px;
+    box-sizing: border-box;
+  }
+}
+.Detail__right-zone {
   margin-top: 70px;
   .DetailTitle {
     margin-bottom: 30px;
   }
 }
-.DetailDesktop__right-zone-dblcol {
+.Detail__right-zone-dblcol {
   width: 100%;
   position: relative;
-  display: flex;
-  flex-flow: row nowrap;
+  @include breakpoint(768px) {
+    display: flex;
+    flex-flow: row nowrap;
+  }
   .DetailData {
-    flex: 0 0 auto;
-    width: calc((((100% - (40px * 5)) / 6) * 2) + (1 * 40px));
-    margin-right: 40px;
+    @include breakpoint(768px) {
+      flex: 0 0 auto;
+      width: calc((100% - 20px) / 2);
+      margin-right: 20px;
+    }
+    @include breakpoint($medium-up) {
+      flex: 0 0 auto;
+      width: calc((((100% - (40px * 5)) / 6) * 2) + (1 * 40px));
+      margin-right: 40px;
+    }
   }
   .DetailInfo {
-    flex: 1 1 auto;
-    padding-right:40px;
+    @include breakpoint(768px) {
+      flex: 0 0 auto;
+      width: calc((100% - 20px) / 2);
+    }
+    @include breakpoint($medium-up) {
+      flex: 1 1 auto;
+      padding-right: 40px;
+    }
   }
 }
 
-.DetailDesktop {
-  .DetailDesktop__left-zone {
+.Detail__left-zone {
+  @include breakpoint($medium-up) {
     height: 100vh;
     display: flex;
     .BackToCollection {
@@ -236,16 +282,18 @@
     .DetailMainImage {
       flex: 1 1 auto;
     }
-    .DetailImageList {
-      flex: 0 0 80px;
-      display: flex;
-    }
+  }
+  .DetailImageList {
+    flex: 0 0 80px;
+    display: flex;
   }
 }
 
-.DetailDesktop.has-landscape-poster {
-  .DetailDesktop__left-zone {
-    width: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+.Detail.has-landscape-poster {
+  .Detail__left-zone {
+    @include breakpoint($medium-up) {
+      width: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+    }
     flex-flow: column nowrap;
     .BackToCollection {
       flex: 0 0 45px;
@@ -259,24 +307,35 @@
       overflow-x: auto;
       overflow-y: hidden;
       flex-flow: row nowrap;
-      justify-content: flex-end;
+      justify-content: flex-start;
       margin-bottom: 60px;
       margin-top: 30px;
+      @include breakpoint($medium-up) {
+        justify-content: flex-end;
+      }
       li {
         margin-left: 10px;
+        &:first-child {
+          margin-left: 0;
+          @include breakpoint($medium-up) {
+            margin-left: 10px;
+          }
+        }
       }
       img {
         height: 80px;
       }
     }
   }
-  .DetailDesktop__right-zone {
-    margin-left: calc((((100% - (40px * 11)) / 12) * 7) + (7 * 40px));
+  .Detail__right-zone {
+    @include breakpoint($medium-up) {
+      margin-left: calc((((100% - (40px * 11)) / 12) * 7) + (7 * 40px));
+    }
   }
 }
 
-.DetailDesktop.has-portrait-poster {
-  .DetailDesktop__left-zone {
+.Detail.has-portrait-poster {
+  .Detail__left-zone {
     width: calc((((100% - (40px * 11)) / 12) * 6) + (5 * 40px));
     flex-flow: row nowrap;
     padding-top: calc(45px + 20px);
@@ -306,7 +365,7 @@
       }
     }
   }
-  .DetailDesktop__right-zone {
+  .Detail__right-zone {
     // margin-left: calc((100% / 12) * 7);
     margin-left: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
   }
