@@ -8,7 +8,13 @@
     @include('site/_beta')
 
     <div id="root">
-        Chargement…
+        {{--
+        @isset($product)
+            @include('site/_product')
+        @else
+            Chargement…
+        @endisset
+        --}}
     </div>
 
     <script>

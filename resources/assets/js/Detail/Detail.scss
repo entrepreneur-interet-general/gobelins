@@ -1,28 +1,45 @@
 .Detail {
-  padding: 0 40px;
+  padding: 0;
+  @include breakpoint(768) {
+    padding: 0 40px;
+  }
 }
 
 .BackToCollection {
   display: block;
 
   .BackToCollection__button {
-    display: inline-block;
-    padding: 10px;
-    margin-left: -10px;
-    color: inherit;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 60px;
+    padding: 0 30px;
     text-decoration: none;
     background-color: transparent;
-    border: 0;
+    border-bottom: 1px solid $lines;
     cursor: pointer;
+    color: inherit;
 
-    &:hover {
-      color: #606060;
+    @include breakpoint(768px) {
+      border: 0;
+    }
+    @include breakpoint(1024px) {
+      display: inline-block;
+      padding: 10px;
+      margin-left: -10px;
+
+      &:hover {
+        color: #606060;
+      }
     }
   }
   svg {
-    position: relative;
-    top: 4px;
     margin-right: 10px;
+    @include breakpoint(768px) {
+      position: relative;
+      top: 4px;
+    }
   }
   .BackToCollection__label {
     @include f-serif;
@@ -168,12 +185,19 @@
 }
 
 .DetailTitle {
-  margin: 0;
+  margin: 23px 0 30px;
   padding: 0;
   @include f-serif;
   font-weight: normal;
-  font-size: rem(30px);
-  line-height: rem(50px);
+  font-size: rem(25px);
+  line-height: rem(35px);
+  text-align: center;
+  @include breakpoint(768px) {
+    margin: 0;
+    font-size: rem(30px);
+    line-height: rem(50px);
+    text-align: left;
+  }
 }
 
 .DetailTitle__denomination,
@@ -236,7 +260,10 @@
   }
 }
 .Detail__right-zone {
-  margin-top: 70px;
+  margin: 40px 30px;
+  @include breakpoint(768px) {
+    margin-top: 70px;
+  }
   .DetailTitle {
     margin-bottom: 30px;
   }
@@ -300,7 +327,7 @@
     }
     .DetailMainImage {
       flex: 1 1 auto;
-      margin-top: 20px;
+      // margin-top: 20px;
     }
     .DetailImageList {
       width: 100%;
@@ -336,13 +363,17 @@
 
 .Detail.has-portrait-poster {
   .Detail__left-zone {
-    width: calc((((100% - (40px * 11)) / 12) * 6) + (5 * 40px));
-    flex-flow: row nowrap;
-    padding-top: calc(45px + 20px);
+    @include breakpoint($medium-up) {
+      width: calc((((100% - (40px * 11)) / 12) * 6) + (5 * 40px));
+      flex-flow: row nowrap;
+      padding-top: calc(45px + 20px);
+    }
     .BackToCollection {
-      position: absolute;
-      top: 10px;
-      left: 0;
+      @include breakpoint($medium-up) {
+        position: absolute;
+        top: 10px;
+        left: 0;
+      }
     }
     .DetailMainImage {
       flex: 1 1 auto;
@@ -366,8 +397,9 @@
     }
   }
   .Detail__right-zone {
-    // margin-left: calc((100% / 12) * 7);
-    margin-left: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+    @include breakpoint($medium-up) {
+      margin-left: calc((((100% - (40px * 11)) / 12) * 6) + (6 * 40px));
+    }
   }
 }
 
