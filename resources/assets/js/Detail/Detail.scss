@@ -28,6 +28,7 @@
       display: inline-block;
       padding: 10px;
       margin-left: -10px;
+      height: 45px;
 
       &:hover {
         color: #606060;
@@ -36,7 +37,7 @@
   }
   svg {
     margin-right: 10px;
-    @include breakpoint(768px) {
+    @include breakpoint(1024px) {
       position: relative;
       top: 4px;
     }
@@ -178,10 +179,12 @@
 }
 
 .DetailImageList--spacer {
-  flex: 0 0 auto;
-  display: block;
-  width: calc(((100vw - (40px * 13)) / 12) + 40px);
-  height: 40px;
+  @include breakpoint(1024px) {
+    flex: 0 0 auto;
+    display: block;
+    width: calc(((100vw - (40px * 13)) / 12) + 40px);
+    height: 40px;
+  }
 }
 
 .DetailTitle {
@@ -336,8 +339,13 @@
       flex-flow: row nowrap;
       justify-content: flex-start;
       margin-bottom: 60px;
-      margin-top: 30px;
-      @include breakpoint($medium-up) {
+      @include breakpoint(768px) {
+        margin-top: 60px;
+        margin-left: 30px;
+      }
+      @include breakpoint(1024px) {
+        margin-top: 30px;
+        margin-left: 0;
         justify-content: flex-end;
       }
       li {
@@ -366,12 +374,12 @@
     @include breakpoint($medium-up) {
       width: calc((((100% - (40px * 11)) / 12) * 6) + (5 * 40px));
       flex-flow: row nowrap;
-      padding-top: calc(45px + 20px);
+      padding-top: calc(45px + 40px);
     }
     .BackToCollection {
       @include breakpoint($medium-up) {
         position: absolute;
-        top: 10px;
+        top: 20px;
         left: 0;
       }
     }
