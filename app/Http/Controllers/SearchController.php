@@ -25,9 +25,10 @@ class SearchController extends Controller
     {
         $filters = Cache::rememberForever('collection_filters', function () {
             return collect([
-                'productTypes' => ProductType::get()->toTree(),
+                'productTypes' => ProductType::has('products')->get()->toTree(),
                 'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
-                'authors' => Author::orderBy('last_name', 'asc')
+                'authors' => Author::has('products')
+                                ->orderBy('last_name', 'asc')
                                 ->select('id', 'first_name', 'last_name')->get()
                                 ->map(function ($item) {
                                     $item->last_name = ucwords(strtolower($item->last_name));
@@ -103,7 +104,7 @@ class SearchController extends Controller
                         'end_year' => 1870,
                     ],
                 ],
-                'materials' => Material::get()->toTree(),
+                'materials' => Material::has('products')->get()->toTree(),
                 'productionOrigins' => ProductionOrigin::all(),
                 'dimensions' => [
                     'max_height_or_thickness' => ceil(Product::max('height_or_thickness')),
