@@ -15,6 +15,7 @@ import Detail from "./Detail/Detail";
 
 const breakpoints = {
   xxsmall: 420,
+  tablet: 768,
   xsmall: 800,
   small: 1024,
   medium: 1440,

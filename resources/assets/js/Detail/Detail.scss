@@ -245,6 +245,13 @@
     width: calc((100% - 20px) / 2);
     &:nth-child(odd) {
       margin-right: 20px;
+      @include breakpoint(1024px) {
+        margin-right: 0;
+      }
+    }
+    @include breakpoint(1024px) {
+      display: block;
+      width: auto;
     }
   }
 
@@ -316,6 +323,7 @@
   .DetailImageList {
     flex: 0 0 80px;
     display: flex;
+    filter: grayscale(1);
   }
 }
 
@@ -338,8 +346,12 @@
       overflow-y: hidden;
       flex-flow: row nowrap;
       justify-content: flex-start;
+      margin-top: 40px;
       margin-bottom: 60px;
+      margin-left: 30px;
+      margin-right: 30px;
       @include breakpoint(768px) {
+        margin-top: 0;
         margin-top: 60px;
         margin-left: 30px;
       }
@@ -387,20 +399,34 @@
       flex: 1 1 auto;
     }
     .DetailImageList {
-      width: calc((((100% - (40px * 6)) / 6) * 2) + (1 * 40px));
-      flex: 0 0 auto;
-      overflow-x: hidden;
-      overflow-y: auto;
-      flex-flow: column nowrap;
+      width: auto;
+      flex-flow: row wrap;
       justify-content: flex-start;
-      margin-left: 40px;
-      margin-right: 40px;
       align-items: center;
+      margin-right: 30px;
+      margin-left: 30px;
+      @include breakpoint(1024px) {
+        width: calc((((100% - (40px * 6)) / 6) * 2) + (1 * 40px));
+        flex: 0 0 auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+      }
       li {
         margin-bottom: 10px;
+        margin-right: 10px;
+        @include breakpoint(1024px) {
+          margin-right: 0;
+        }
       }
       img {
-        width: 80px;
+        height: 80px;
+        width: auto;
+        @include breakpoint(1024px) {
+          width: 80px;
+          height: auto;
+        }
       }
     }
   }

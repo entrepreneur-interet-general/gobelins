@@ -90,7 +90,8 @@ class Detail extends Component {
 
                 <Media>
                   {({ breakpoints, currentBreakpoint }) =>
-                    breakpoints[currentBreakpoint] < 768 && this.renderTitle()
+                    breakpoints[currentBreakpoint] < breakpoints.tablet &&
+                    this.renderTitle()
                   }
                 </Media>
                 <MainImage
@@ -120,7 +121,8 @@ class Detail extends Component {
               <div className="Detail__right-zone">
                 <Media>
                   {({ breakpoints, currentBreakpoint }) =>
-                    breakpoints[currentBreakpoint] >= 1024 && this.renderTitle()
+                    breakpoints[currentBreakpoint] >= breakpoints.small &&
+                    this.renderTitle()
                   }
                 </Media>
                 <div className="Detail__right-zone-dblcol">

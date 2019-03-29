@@ -170,8 +170,8 @@ function Data(props) {
     <section className="DetailData">
       <Media>
         {({ breakpoints, currentBreakpoint }) =>
-          breakpoints[currentBreakpoint] >= 768 &&
-          breakpoints[currentBreakpoint] < 1024 &&
+          breakpoints[currentBreakpoint] >= breakpoints.tablet &&
+          breakpoints[currentBreakpoint] < breakpoints.small &&
           props.title
         }
       </Media>
