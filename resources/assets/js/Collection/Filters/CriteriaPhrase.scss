@@ -28,7 +28,7 @@
   font-size: rem(15px);
   line-height: rem(25px);
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     margin: 0;
     padding: 1px 4px 3px 5px;
 
@@ -94,7 +94,7 @@
   border: 1px solid $lines;
   cursor: pointer;
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     height: 24px;
     width: 24px;
 

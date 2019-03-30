@@ -13,7 +13,7 @@ class FilterPanel extends Component {
     return (
       <Media>
         {({ breakpoints, currentBreakpoint }) =>
-          breakpoints[currentBreakpoint] <= breakpoints.small ? (
+          breakpoints[currentBreakpoint] < breakpoints.small ? (
             <FiltersMobile
               onFilterAdd={this.props.onFilterAdd}
               onFilterRemove={this.props.onFilterRemove}
