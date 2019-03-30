@@ -1,9 +1,22 @@
 .Authors {
-  position: absolute;
-  top: 0;
-  left: 288px;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex: 1 1 auto;
+  position: relative;
+  max-height: calc(100% - 60px);
+  @include breakpoint(1025px) {
+    flex-flow: row nowrap;
+    position: absolute;
+    top: 0;
+    left: 0;
+    left: 288px;
+    width: calc(288px + 80px);
+    height: 100vh;
+    max-height: 100%;
+  }
   z-index: 1;
-  height: 100vh;
   box-sizing: border-box;
   background-color: $green-medium;
 
@@ -16,8 +29,12 @@
   }
 }
 .Authors__alphabet {
-  height: 100vh;
-  width: 80px;
+  flex: 0 0 auto;
+  width: 60px;
+  @include breakpoint(1025px) {
+    height: 100vh;
+    width: 80px;
+  }
   box-sizing: border-box;
   padding: 30px 0 20px;
   display: flex;
@@ -41,27 +58,16 @@
   font-size: rem(11px);
   color: #0a3630;
   cursor: pointer;
-
-  &:hover {
-    font-weight: 600;
-  }
 }
 .Authors__double-col {
+  flex: 1 1 auto;
   display: block;
   box-sizing: border-box;
-  // width: 450px;
-  width: 288px;
-  height: 100vh;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-
   padding: 37px 0 30px;
-  margin: 0 0 0 80px;
-  position: absolute;
-  top: 0;
-  left: 0;
-
+  margin: 0;
   list-style: none;
   background-color: $green-dark;
 }
@@ -89,7 +95,10 @@
 .Authors__double-col button {
   display: block;
   width: 100%;
-  padding: 10px 30px 10px 50px;
+  padding: 10px 30px 10px 40px;
+  @include breakpoint(1025px) {
+    padding-left: 50px;
+  }
   margin: 0;
   position: relative;
   @include f-sans;

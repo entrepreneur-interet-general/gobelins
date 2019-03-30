@@ -7,7 +7,7 @@ class Authors extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-    Object.keys(this.props.authors).forEach(letter => {
+    Object.keys(window.__INITIAL_STATE__.authors).forEach(letter => {
       this["refLetter" + letter] = React.createRef();
     });
 
@@ -55,7 +55,7 @@ class Authors extends Component {
         key={letter}
         ref={this["refLetter" + letter]}
       >
-        {this.props.authors[letter].map(this.renderListItem)}
+        {window.__INITIAL_STATE__.authors[letter].map(this.renderListItem)}
       </div>
     );
   }
@@ -72,7 +72,7 @@ class Authors extends Component {
     return (
       <div className="Authors">
         <div className="Authors__alphabet">
-          {Object.keys(this.props.authors).map(letter => {
+          {Object.keys(window.__INITIAL_STATE__.authors).map(letter => {
             return (
               <button
                 className="Authors__alphabet-button"
@@ -89,7 +89,9 @@ class Authors extends Component {
           })}
         </div>
         <div className="Authors__double-col">
-          {Object.keys(this.props.authors).map(this.renderLetterList)}
+          {Object.keys(window.__INITIAL_STATE__.authors).map(
+            this.renderLetterList
+          )}
         </div>
         <CSSTransitionGroup
           transitionName="DesktopOverlayZone"
