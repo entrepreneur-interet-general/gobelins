@@ -6,6 +6,7 @@ import ProductTypesMobile from "./ProductTypesMobile";
 import MaterialsMobile from "./MaterialsMobile";
 import ProductionOriginsMobile from "./ProductionOriginsMobile";
 import AuthorsMobile from "./AuthorsMobile";
+import StylesMobile from "./StylesMobile";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -160,6 +161,18 @@ class FilterPanelMobile extends Component {
                 onFilterChange={this.props.onFilterChange}
                 onFilterRemove={this.props.onFilterRemove}
                 selectedIds={this.props.filterObj.author_ids || []}
+                closeButton={
+                  <CloseButton onClose={this.props.onCloseFilterPanel} />
+                }
+              />
+            ) : null}
+            {this.state.visiblePanel === "Styles" ? (
+              <StylesMobile
+                onBackToFiltersList={this.handleBackToFiltersList}
+                onFilterAdd={this.props.onFilterAdd}
+                onFilterChange={this.props.onFilterChange}
+                onFilterRemove={this.props.onFilterRemove}
+                selectedIds={this.props.filterObj.styles_ids || []}
                 closeButton={
                   <CloseButton onClose={this.props.onCloseFilterPanel} />
                 }

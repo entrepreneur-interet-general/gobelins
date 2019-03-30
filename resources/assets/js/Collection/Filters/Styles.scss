@@ -1,9 +1,12 @@
 .Styles {
-  position: absolute;
-  top: 0;
-  left: 288px;
-  z-index: 1;
-  height: 100vh;
+  height: calc(100% - 60px);
+  @include breakpoint(1025px) {
+    position: absolute;
+    top: 0;
+    left: 288px;
+    z-index: 1;
+    height: 100%;
+  }
   box-sizing: border-box;
   background-color: $yellow-medium;
 
@@ -17,29 +20,74 @@
 }
 .Styles__scrollable {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
+  position: relative;
+  padding: 25px 0;
+  box-sizing: border-box;
+  @include breakpoint(1025px) {
+    padding: 47px 0 40px;
+  }
 }
 .Styles__list {
-  display: block;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
   box-sizing: border-box;
-  width: 288px;
-  padding: 47px 0 40px 0px;
+  padding: 0 25px;
+  @include breakpoint(1025px) {
+    display: block;
+    width: 288px;
+    // padding: 47px 0 40px 0px;
+  }
   margin: 0;
 
   color: black;
   list-style: none;
 }
 .Styles__col-item {
+  flex: 1 1 auto;
   padding: 0;
   margin: 0;
   list-style: none;
+  width: calc((100% - 75px) / 2);
+  margin-bottom: 35px;
+  &:nth-child(odd) {
+    margin-right: 25px;
+  }
+  position: relative;
+  @include breakpoint(1025px) {
+    &:nth-child(odd) {
+      margin-right: 0;
+    }
+    &:last-child {
+      margin-bottom: 20px;
+    }
+    width: auto;
+    margin-bottom: 0;
+  }
 }
 
 .Styles__list button {
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: stretch;
   width: 100%;
-  padding: 12px 0 12px 50px;
+  height: 100%;
+  padding: 0;
+  text-align: center;
+  @include breakpoint(1025px) {
+    display: block;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    text-align: left;
+    padding: 12px 0 12px 50px;
+  }
   margin: 0;
   position: relative;
   @include f-sans;
@@ -48,10 +96,11 @@
   background-color: transparent;
   border: 0;
   cursor: pointer;
-  text-align: left;
 
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+  @supports (hover: hover) {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
   }
   &.is-selected {
     &:before {
@@ -67,6 +116,13 @@
     }
   }
 }
+.Styles__label {
+  flex: 0 0 auto;
+  margin-top: 14px;
+  @include breakpoint(1025px) {
+    margin-top: 0;
+  }
+}
 .Styles__list ul ul button {
   &:hover,
   &.is-selected {
@@ -79,18 +135,27 @@
 }
 
 .Styles__illustrations {
-  position: fixed;
-  top: 0;
-  left: calc(288px + 288px);
-  z-index: 2;
-  opacity: 0;
-  transition: opacity 0.15s ease-in-out;
+  @include breakpoint(1025px) {
+    position: fixed;
+    top: 0;
+    left: calc(288px + 288px);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+  }
   background-color: $yellow-medium;
 
   img {
-    display: block;
-    width: 130px;
+    width: 100%;
+    display: none;
     mix-blend-mode: multiply;
+    &:first-child {
+      display: block;
+    }
+    @include breakpoint(1025px) {
+      display: block;
+      width: 130px;
+    }
   }
 }
 .Styles__col-item:hover .Styles__illustrations {

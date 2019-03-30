@@ -34,7 +34,6 @@ class Styles extends Component {
             this.props.selectedIds.includes(style.id) ? "is-selected" : null
           }
         >
-          {style.name}
           {/* <span className="Styles__objcount">15340</span> */}
           <div className="Styles__illustrations">
             {style.illustration_paths.map((s, i) => {
@@ -47,6 +46,7 @@ class Styles extends Component {
               );
             })}
           </div>
+          <div className="Styles__label">{style.name}</div>
         </button>
       </li>
     );
@@ -57,7 +57,7 @@ class Styles extends Component {
       <div className="Styles">
         <div className="Styles__scrollable">
           <ul className="Styles__list">
-            {this.props.styles.map(this.renderListItem)}
+            {window.__INITIAL_STATE__.styles.map(this.renderListItem)}
           </ul>
         </div>
         <CSSTransitionGroup
