@@ -144,6 +144,15 @@ class ProductTypes extends Component {
             </DesktopOverlayZone>
           ) : null}
         </CSSTransitionGroup>
+        {this.state.expandedType.id ? (
+          <SecondColMenu
+            parentProductType={this.state.expandedType}
+            items={this.state.expandedType.children}
+            selectedIds={this.props.selectedIds}
+            onSecondColClick={this.handleSecondColClick}
+            onAddAllClick={this.handleAddAllClick}
+          />
+        ) : null}
       </div>
     );
   }
@@ -204,19 +213,6 @@ class FirstColMenuSubItem extends Component {
         ? " has-selected-children"
         : "";
 
-    let secondCol =
-      pt.children.length > 0 && this.props.expandedType.id === pt.id ? (
-        <SecondColMenu
-          parentProductType={pt}
-          items={pt.children}
-          selectedIds={this.props.selectedIds}
-          onSecondColClick={this.props.onSecondColClick}
-          onAddAllClick={this.props.onAddAllClick}
-          onAddAllClick={this.props.onAddAllClick}
-          expandedType={this.props.expandedType}
-        />
-      ) : null;
-
     return (
       <li
         className="ProductTypes__col1-subitem"
@@ -238,7 +234,6 @@ class FirstColMenuSubItem extends Component {
           </svg>
           {/* <span className="ProductTypes__objcount">15340</span> */}
         </button>
-        {secondCol}
       </li>
     );
   }

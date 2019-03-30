@@ -76,16 +76,6 @@ class FirstColMenuItem extends Component {
         ? " has-selected-children"
         : "";
 
-    let secondCol =
-      mat.children.length > 0 && this.props.expandedMaterial.id === mat.id ? (
-        <SecondColMenu
-          parentMat={mat}
-          items={mat.children}
-          selectedIds={this.props.selectedIds}
-          onSecondColumnClick={this.props.onSecondColumnClick}
-          onAddAllClick={this.props.onAddAllClick}
-        />
-      ) : null;
     return (
       <li className="Materials__lvl1-item" key={this.props.key}>
         <button
@@ -105,8 +95,6 @@ class FirstColMenuItem extends Component {
 
           {/* <span className="Materials__objcount">15340</span> */}
         </button>
-
-        {secondCol}
       </li>
     );
   }
@@ -246,6 +234,15 @@ class Materials extends Component {
             </DesktopOverlayZone>
           ) : null}
         </CSSTransitionGroup>
+        {this.state.expandedMaterial.id ? (
+          <SecondColMenu
+            parentMat={this.state.expandedMaterial}
+            items={this.state.expandedMaterial.children}
+            selectedIds={this.props.selectedIds}
+            onSecondColumnClick={this.handleSecondColumnClick}
+            onAddAllClick={this.handleAddAllClick}
+          />
+        ) : null}
       </div>
     );
   }
