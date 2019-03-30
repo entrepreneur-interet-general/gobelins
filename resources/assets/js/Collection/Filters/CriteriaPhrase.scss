@@ -8,7 +8,7 @@
   display: block;
   text-align: center;
   line-height: 52px;
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     text-align: left;
     line-height: inherit;
   }

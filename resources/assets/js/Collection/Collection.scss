@@ -20,7 +20,7 @@
     margin-left: 40px;
     margin-right: 40px;
   }
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     margin-left: 288px;
   }
 }
@@ -42,14 +42,14 @@
   @include breakpoint($xsmall) {
     width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
   }
-  @include breakpoint($small) {
+  @include breakpoint($small-up) {
     width: calc((100vw - (40px * 4)) / 3); // 3 columns, 40px gutters
 
     &:nth-child(2)::before {
       @include collection-spacer;
     }
   }
-  @include breakpoint($medium) {
+  @include breakpoint(1025px) {
     width: calc((100vw - 288px - (40px * 3)) / 3); // 3 columns, 40px gutters
     &:nth-child(2)::before {
       @include collection-spacer;

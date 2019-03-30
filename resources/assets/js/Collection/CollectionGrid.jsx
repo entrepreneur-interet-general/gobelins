@@ -52,8 +52,8 @@ class CollectionGrid extends Component {
                 sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),
                        (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),
                        (min-width: 1440px) and (max-width: 1599px) calc((100vw - 288px - (40px * 4)) / 4),
-                       (min-width: 1024px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
-                       (min-width: 800px) and (max-width: 1023px) calc((100vw - (40px * 4)) / 3),
+                       (min-width: 1025px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
+                       (min-width: 800px) and (max-width: 1024px) calc((100vw - (40px * 4)) / 3),
                        calc(100vw - (3 * 15px) / 2)"
                 srcSet={`${img330} 330w, ${img600} 600w`}
               />
