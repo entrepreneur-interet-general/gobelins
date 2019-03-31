@@ -7,6 +7,7 @@ import MaterialsMobile from "./MaterialsMobile";
 import ProductionOriginsMobile from "./ProductionOriginsMobile";
 import AuthorsMobile from "./AuthorsMobile";
 import StylesMobile from "./StylesMobile";
+import DimensionsMobile from "./DimensionsMobile";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -176,6 +177,19 @@ class FilterPanelMobile extends Component {
                 closeButton={
                   <CloseButton onClose={this.props.onCloseFilterPanel} />
                 }
+              />
+            ) : null}
+            {this.state.visiblePanel === "Dimensions" ? (
+              <DimensionsMobile
+                onBackToFiltersList={this.handleBackToFiltersList}
+                onFilterAdd={this.props.onFilterAdd}
+                onFilterChange={this.props.onFilterChange}
+                onFilterRemove={this.props.onFilterRemove}
+                selectedIds={this.props.filterObj.styles_ids || []}
+                closeButton={
+                  <CloseButton onClose={this.props.onCloseFilterPanel} />
+                }
+                {...this.props.filterObj}
               />
             ) : null}
           </CSSTransitionGroup>

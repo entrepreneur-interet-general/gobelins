@@ -91,3 +91,47 @@
     transform: translateX(100%);
   }
 }
+
+// Common styles for the panel of simple styles
+.FilterPanelMobile__filter-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.FilterPanelMobile__header {
+  flex: 0 0 60px;
+  position: relative;
+  height: 60px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.FilterPanelMobile__back-button {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+}
+.FilterPanelMobile__filter-container .FilterPanelMobile__close {
+}
+.FilterPanelMobile__col-title {
+  @include f-sans;
+  font-weight: normal;
+  font-size: rem(20px);
+  width: 100%;
+  text-align: center;
+}

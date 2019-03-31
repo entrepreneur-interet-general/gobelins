@@ -11,13 +11,15 @@ class Dimensions extends Component {
       height_or_thickness_gte: props.height_or_thickness_gte || 0,
       height_or_thickness_lte:
         props.height_or_thickness_lte ||
-        props.dimensions.max_height_or_thickness,
+        window.__INITIAL_STATE__.dimensions.max_height_or_thickness,
       depth_or_width_gte: props.depth_or_width_gte || 0,
       depth_or_width_lte:
-        props.depth_or_width_lte || props.dimensions.max_depth_or_width,
+        props.depth_or_width_lte ||
+        window.__INITIAL_STATE__.dimensions.max_depth_or_width,
       length_or_diameter_gte: props.length_or_diameter_gte || 0,
       length_or_diameter_lte:
-        props.length_or_diameter_lte || props.dimensions.max_length_or_diameter
+        props.length_or_diameter_lte ||
+        window.__INITIAL_STATE__.dimensions.max_length_or_diameter
     };
     this.renderFormBlock = this.renderFormBlock.bind(this);
   }
@@ -34,10 +36,12 @@ class Dimensions extends Component {
             min={this.state[dimension[0] + "_gte"] || 0}
             max={
               this.state[dimension[0] + "_lte"] ||
-              this.props.dimensions["max_" + dimension[0]]
+              window.__INITIAL_STATE__.dimensions["max_" + dimension[0]]
             }
             domainMin={0}
-            domainMax={this.props.dimensions["max_" + dimension[0]]}
+            domainMax={
+              window.__INITIAL_STATE__.dimensions["max_" + dimension[0]]
+            }
             onFilterAdd={this.props.onFilterAdd}
           />
         </div>
@@ -48,6 +52,13 @@ class Dimensions extends Component {
   render() {
     return (
       <div className="Dimensions">
+        <div className="Dimensions__form" onClick={ev => ev.stopPropagation()}>
+          {[
+            ["length_or_diameter", "Longueur"],
+            ["depth_or_width", "Largeur"],
+            ["height_or_thickness", "Hauteur"]
+          ].map(this.renderFormBlock)}
+        </div>
         <div
           className="Dimensions__illustrations"
           onClick={ev => ev.stopPropagation()}
@@ -58,13 +69,6 @@ class Dimensions extends Component {
             width="200"
             height="622"
           />
-        </div>
-        <div className="Dimensions__form" onClick={ev => ev.stopPropagation()}>
-          {[
-            ["length_or_diameter", "Longueur"],
-            ["depth_or_width", "Largeur"],
-            ["height_or_thickness", "Hauteur"]
-          ].map(this.renderFormBlock)}
         </div>
         <CSSTransitionGroup
           transitionName="DesktopOverlayZone"
