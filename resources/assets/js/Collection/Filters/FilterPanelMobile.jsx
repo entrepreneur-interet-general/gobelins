@@ -8,6 +8,7 @@ import ProductionOriginsMobile from "./ProductionOriginsMobile";
 import AuthorsMobile from "./AuthorsMobile";
 import StylesMobile from "./StylesMobile";
 import DimensionsMobile from "./DimensionsMobile";
+import PeriodsMobile from "./PeriodsMobile";
 
 class FilterPanelMobile extends Component {
   constructor(props) {
@@ -181,6 +182,19 @@ class FilterPanelMobile extends Component {
             ) : null}
             {this.state.visiblePanel === "Dimensions" ? (
               <DimensionsMobile
+                onBackToFiltersList={this.handleBackToFiltersList}
+                onFilterAdd={this.props.onFilterAdd}
+                onFilterChange={this.props.onFilterChange}
+                onFilterRemove={this.props.onFilterRemove}
+                selectedIds={this.props.filterObj.styles_ids || []}
+                closeButton={
+                  <CloseButton onClose={this.props.onCloseFilterPanel} />
+                }
+                {...this.props.filterObj}
+              />
+            ) : null}
+            {this.state.visiblePanel === "Periods" ? (
+              <PeriodsMobile
                 onBackToFiltersList={this.handleBackToFiltersList}
                 onFilterAdd={this.props.onFilterAdd}
                 onFilterChange={this.props.onFilterChange}

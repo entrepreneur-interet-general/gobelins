@@ -27,7 +27,6 @@ class MobileSearch extends Component {
   }
   handleFullTextSearch(ev) {
     ev.preventDefault();
-    console.log("Perform search for", this.state.searchFieldValue);
     this.props.onSearch(this.state.searchFieldValue);
   }
   handleReset(ev) {

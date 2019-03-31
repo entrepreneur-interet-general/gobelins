@@ -1,0 +1,109 @@
+.PeriodsMobile {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  height: 100%;
+}
+
+.PeriodsMobile__header {
+  background-color: #670000;
+}
+.PeriodsMobile__back-button {
+  -webkit-tap-highlight-color: #ff6363;
+  color: #fff;
+}
+.PeriodsMobile .FilterPanelMobile__close {
+  color: #fff;
+  -webkit-tap-highlight-color: #ff6363;
+}
+.PeriodsMobile__col-title {
+  color: #fff;
+}
+
+.PeriodsMobile__search-area {
+  height: 130px;
+  background-color: #670000;
+  color: #fff;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.PeriodsMobile__input-from,
+.PeriodsMobile__input-to {
+  width: calc((100% - (40px * 3)) / 2);
+  flex: 0 0 auto;
+  & > input {
+    @include f-sans;
+    font-size: 30px;
+    color: #fff;
+    border: none;
+    border-bottom: 1px dotted #fff;
+    width: 60px;
+    background-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    border-radius: 0;
+  }
+}
+.PeriodsMobile__input-from {
+  margin-left: 40px;
+  margin-right: 40px;
+  position: relative;
+}
+.PeriodsMobile__input-to {
+  margin-right: 40px;
+}
+.PeriodsMobile__input-chevron {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(12px, -50%);
+}
+.PeriodsMobile__hidden-submit {
+  visibility: hidden;
+}
+.PeriodsMobile__list-area {
+  background-color: $red-dark;
+  flex: 1 1 auto;
+
+  & > ul,
+  & > ul > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  & > ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 35px 40px;
+  }
+  & > ul > li {
+    flex: 1 1 auto;
+    width: calc((100% - 40px) / 2);
+    margin-bottom: 10px;
+    &:nth-child(odd) {
+      margin-right: 40px;
+    }
+  }
+}
+.PeriodsMobile__named-period-button {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  display: block;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  @include f-sans;
+  font-size: rem(15px);
+  text-align: left;
+  position: relative;
+
+  left: -10px;
+}

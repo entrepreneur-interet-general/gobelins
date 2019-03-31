@@ -3,7 +3,7 @@
   top: 0;
   left: 288px;
   z-index: 1;
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     bottom: 0;
   }
 
@@ -19,7 +19,7 @@
   width: 100%;
   height: 100%;
   flex: 1 1 100%;
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     width: 288px;
     height: 100%;
   }
@@ -61,14 +61,14 @@
   display: block;
   width: 100%;
   padding: 13px 25px 13px 40px;
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     padding: 10px 10px 10px 50px;
   }
   margin: 0;
   position: relative;
   @include f-sans;
   font-size: rem(18px);
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     font-size: rem(15px);
   }
   line-height: rem(18px);
@@ -122,13 +122,13 @@
   font-weight: normal;
   position: relative;
   padding: 10px 10px 10px 40px;
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     padding: 10px 10px 10px 50px;
   }
   margin: 0;
   @include f-sans;
   font-size: rem(18px);
-  @include breakpoint($medium-up) {
+  @include breakpoint(1025px) {
     font-size: rem(15px);
   }
   line-height: rem(18px);

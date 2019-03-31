@@ -53,7 +53,9 @@
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: flex-start;
-  width: 288px;
+  @include breakpoint(1025px) {
+    width: 288px;
+  }
   margin: 55px 0 0 0;
   padding: 0;
   box-sizing: border-box;
