@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SEO;
+
 use App\Models\Product;
 
 class ProductController extends Controller

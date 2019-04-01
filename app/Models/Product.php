@@ -168,6 +168,26 @@ class Product extends Model
         }
     }
 
+    public function getSeoTitleAttribute()
+    {
+        return implode(' – ', array_filter([$this->denomination, $this->title_or_designation]));
+    }
+    public function getSeoDescriptionAttribute()
+    {
+        return str_replace("\r", "", str_replace("\n", " ", $this->description));
+    }
+    public function getSeoImagesAttribute()
+    {
+        $images = $this->images()->published()->get();
+        $urls = [];
+        if ($images && sizeof($images) > 0) {
+            $urls = $images->map(function ($i) {
+                return url(\Folklore\Image\Facades\Image::url($i->path, 600));
+            })->all();
+        }
+        return $urls;
+    }
+
 
     /**
      * Get the indexable data array for the model.

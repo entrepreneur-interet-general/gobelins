@@ -9,6 +9,7 @@
   "type": "project",
   "require": {
     "php": "^7.1.3",
+    "artesaos/seotools": "^0.14.0",
     "basemkhirat/elasticsearch": "^1.3",
     "fideloper/proxy": "^4.0",
     "flynsarmy/csv-seeder": "^1.0",

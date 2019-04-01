@@ -12,6 +12,7 @@ use App\Models\Material;
 use App\Models\ProductionOrigin;
 use ES;
 use Illuminate\Support\Facades\Cache;
+use SEO;
 
 class SearchController extends Controller
 {
@@ -114,15 +115,24 @@ class SearchController extends Controller
             ]);
         });
 
-        $product = null;
+        $product_json = null;
         if ($inventory_id) {
             $product = Product::byInventory($inventory_id)->firstOrFail();
-            $product = json_encode($product->toSearchableArray());
+            
+            SEO::setTitle($product->seoTitle);
+            SEO::setDescription($product->seoDescription);
+            $seoImages = $product->seoImages;
+            if ($seoImages) {
+                SEO::opengraph()->addImages($seoImages);
+                SEO::twitter()->setImage($seoImages[0]);
+            }
+            
+            $product_json = json_encode($product->toSearchableArray());
         };
 
         return view('site.search', [
             'filters' => $filters,
-            'product' => $product,
+            'product' => $product_json,
         ]);
     }
 
