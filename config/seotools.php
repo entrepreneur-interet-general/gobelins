@@ -36,9 +36,9 @@ return [
             'type'        => 'website',
             'site_name'   => 'Collection du Mobilier national',
             'images'      => [
-                '/images/sharing/mobilier_campagne_napoleon.jpg',
-                '/images/sharing/mobilier_national-gobelins.jpg',
-                '/images/sharing/tissage_mobilier_national.jpg',
+                env('APP_URL').'/images/sharing/mobilier_campagne_napoleon.jpg',
+                env('APP_URL').'/images/sharing/mobilier_national-gobelins.jpg',
+                env('APP_URL').'/images/sharing/tissage_mobilier_national.jpg',
             ],
             'locale'      => 'fr_FR',
         ],
