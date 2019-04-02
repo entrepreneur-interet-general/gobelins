@@ -194,7 +194,11 @@ class FirstColMenuItem extends Component {
 
 @source({
   mouseEnter: (props, component) => {
-    props.onActiveSecondCol(props.productType);
+    if (props.productType.children.length) {
+      props.onActiveSecondCol(props.productType);
+    } else {
+      props.onActiveSecondCol(ProductTypeNullObject);
+    }
   }
 })
 class FirstColMenuSubItem extends Component {

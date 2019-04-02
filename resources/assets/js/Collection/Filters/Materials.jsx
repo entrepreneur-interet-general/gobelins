@@ -58,7 +58,13 @@ class SecondColMenu extends Component {
 }
 
 @source({
-  mouseEnter: (props, component) => props.onActiveSecondCol(props.mat)
+  mouseEnter: (props, component) => {
+    if (props.mat.children.length) {
+      props.onActiveSecondCol(props.mat);
+    } else {
+      props.onActiveSecondCol(MaterialNullObject);
+    }
+  }
 })
 class FirstColMenuItem extends Component {
   constructor(props) {
