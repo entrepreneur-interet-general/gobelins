@@ -236,7 +236,7 @@ class CriteriaPhrase extends Component {
               <Criterion
                 type="author"
                 paramName="author_ids"
-                label={s.first_name + " " + s.last_name}
+                label={[s.first_name, s.last_name].filter(Boolean).join(" ")}
                 id={s.id}
                 key={"author_" + s.id}
                 onFilterRemove={this.props.onFilterRemove}
