@@ -75,7 +75,7 @@ class FilterPanelMobile extends Component {
                       className="is-period is-open"
                       onClick={ev => this.openPanel("Periods", ev)}
                     >
-                      Période de création
+                      Époque
                     </button>
                   </li>
                   <li>
@@ -88,18 +88,18 @@ class FilterPanelMobile extends Component {
                   </li>
                   <li>
                     <button
-                      className="is-material is-open"
-                      onClick={ev => this.openPanel("Materials", ev)}
+                      className="is-production_origin is-open"
+                      onClick={ev => this.openPanel("ProductionOrigins", ev)}
                     >
-                      Matière
+                      Manufacture et atelier
                     </button>
                   </li>
                   <li>
                     <button
-                      className="is-production_origin is-open"
-                      onClick={ev => this.openPanel("ProductionOrigins", ev)}
+                      className="is-material is-open"
+                      onClick={ev => this.openPanel("Materials", ev)}
                     >
-                      Lieu de production
+                      Matière
                     </button>
                   </li>
                   <li>

@@ -171,7 +171,7 @@ class FilterPanelDesktop extends Component {
                   }
                   onClick={ev => this.openPanel("Periods", ev)}
                 >
-                  Période de création
+                  Époque
                 </button>
               </li>
               <li>
@@ -191,6 +191,20 @@ class FilterPanelDesktop extends Component {
               <li>
                 <button
                   className={
+                    "is-production_origin" +
+                    (this.state.filterPanelOpen &&
+                    this.state.openPanel === "ProductionOrigins"
+                      ? " is-open"
+                      : "")
+                  }
+                  onClick={ev => this.openPanel("ProductionOrigins", ev)}
+                >
+                  Manufacture et atelier
+                </button>
+              </li>
+              <li>
+                <button
+                  className={
                     "is-material" +
                     (this.state.filterPanelOpen &&
                     this.state.openPanel === "Materials"
@@ -200,20 +214,6 @@ class FilterPanelDesktop extends Component {
                   onClick={ev => this.openPanel("Materials", ev)}
                 >
                   Matière
-                </button>
-              </li>
-              <li>
-                <button
-                  className={
-                    "is-production_origin" +
-                    (this.state.filterPanelOpen &&
-                    this.state.openPanel === "ProductionOrigins"
-                      ? " is-open"
-                      : "")
-                  }
-                  onClick={ev => this.openPanel("ProductionOrigins", ev)}
-                >
-                  Lieu de production
                 </button>
               </li>
               <li>

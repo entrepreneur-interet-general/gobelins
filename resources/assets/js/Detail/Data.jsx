@@ -70,7 +70,7 @@ function Types(props) {
 
 function Period(props) {
   return props.period && props.period.name ? (
-    <DataUnitTemplate label="Époque de conception" value={props.period.name} />
+    <DataUnitTemplate label="Époque" value={props.period.name} />
   ) : null;
 }
 
@@ -97,7 +97,7 @@ function Materials(props) {
 function ProductionOrigin(props) {
   return props.productionOrigin && props.productionOrigin.name ? (
     <DataUnitTemplate
-      label="Lieu de production"
+      label="Manufacture et atelier"
       value={props.productionOrigin.name}
     />
   ) : null;

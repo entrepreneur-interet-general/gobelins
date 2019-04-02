@@ -65,7 +65,7 @@ class ProductionOriginsMobile extends Component {
             <ArrowBack />
           </button>
           <div className="ProductionOriginsMobile__col-title">
-            Lieu de production
+            Manufacture et atelier
           </div>
           {this.props.closeButton}
         </div>
