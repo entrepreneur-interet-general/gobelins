@@ -1,9 +1,16 @@
-
+@php
+$first_img = $product['images'] ? $product['images'][0] : null;
+$num_images = sizeof($product['images']);
+$orientation = 'landscape';
+if ($first_img) {
+    $orientation = $first_img['width'] < $first_img['height'] ? 'portrait' : 'landscape';
+}
+@endphp
 <article class="Detail">
 
-    <div class="DetailDesktop has-portrait-poster">
+    <div class="Detail has-{{ $orientation }}-poster {{ $num_images === 1 ? 'has-single-image' : '' }}">
         
-        <div class="DetailDesktop__left-zone">
+        <div class="Detail__left-zone">
 
             <div class="BackToCollection">
                 <a href="{{route('search')}}" class="BackToCollection__button">
@@ -21,9 +28,10 @@
     
     
             <section class="DetailMainImage">
-                <figure class="DetailMainImage__fig">
+                <figure class="DetailMainImage__fig {{ $num_images === 0 ? 'has_no_image' : ''}}">
 
-                    <img src="{{ Image::url('/media/xl/' . $product, 600) }}" alt="" class="DetailMainImage__img">
+                    @if($num_images)
+                    <img src="{{ Image::url('/media/xl/' . $product['images'][0]['path'], 600) }}" alt="" class="DetailMainImage__img">
     
                     <div class="DetailMainImage__toolbar">
                         <button type="button" class="DetailMainImage__button">
@@ -41,65 +49,139 @@
                             </svg>
                         </button>
                     </div>
+                    @endif
     
                 </figure>
             </section><!-- /.DetailMainImage -->
     
-    
+            @if($num_images > 1)
             <ul class="DetailImageList">
+                @foreach($product['images'] as $img)
                 <li>
-                    <img src="https://dummyimage.com/160x160" alt="" width="80" height="80">
+                    <img src="{{ Image::url('/media/xl/' . $img['path'], 160) }}" alt="">
+                    <link rel="preload" href="{{ Image::url('/media/xl/' . $img['path'], 600) }}" as="image">
                 </li>
-                <li>
-                    <img src="https://dummyimage.com/160x160" alt="" width="80" height="80">
-                </li>
-                <li>
-                    <img src="https://dummyimage.com/160x160" alt="" width="80" height="80">
-                </li>
+                @endforeach
             </ul><!-- /.DetailImageList -->
+            @endif
 
-        </div><!-- /.DetailDesktop__left-zone -->
+        </div><!-- /.Detail__left-zone -->
 
 
-        <div class="DetailDesktop__right-zone">
+        <div class="Detail__right-zone">
             
 
             <h1 class="DetailTitle">
-                <span class="DetailTitle__denomination">Dénomination chaise</span>
-                <span  class="DetailTitle__title_or_designation">appelation modèle Tina</span>
+                <span class="DetailTitle__denomination">{{ $product['denomination'] }}</span>
+                <span  class="DetailTitle__title_or_designation">{{ $product['title_or_designation'] }}</span>
             </h1><!-- /.DetailTitle -->
 
-            <div class="DetailDesktop__right-zone-dblcol">
+            <div class="Detail__right-zone-dblcol">
 
                 <section class="DetailData">
                     <div class="DetailData__unit">
                         <span class="DetailData__label">Numéro d’inventaire</span>
-                        <span class="DetailData__datum">GMC 6789 906</span>
+                        <span class="DetailData__datum">{{ $product['inventory_id'] }}</span>
                     </div>
+                    @isset($product['authors'])
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Auteur</span>
-                        <span class="DetailData__datum">Henriette Magnier</span>
+                        <span class="DetailData__label">Auteurs</span>
+                        <span class="DetailData__datum">
+                            {{ 
+                                collect($product['authors'])
+                                ->map(function($a) {
+                                    return $a['first_name'] . ' ' . $a['last_name'];
+                                })->implode(', ')
+                            }}
+                        </span>
                     </div>
+                    @endisset
+                    @isset($product['conception_year'])
                     <div class="DetailData__unit">
                         <span class="DetailData__label">Année de conception</span>
-                        <span class="DetailData__datum">1200</span>
+                        <span class="DetailData__datum">{{ $product['conception_year'] }}</span>
                     </div>
+                    @endisset
+                    @isset($product['style'])
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Époque de conception</span>
-                        <span class="DetailData__datum">Louis XV</span>
+                        <span class="DetailData__label">Style</span>
+                        <span class="DetailData__datum">{{ $product['style']['name'] }}</span>
                     </div>
+                    @endisset
+                    @isset($product['product_types'])
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Types</span>
+                        <span class="DetailData__datum">
+                            {{ 
+                                collect($product['product_types'])
+                                ->map(function($pt) {
+                                    return $pt['name'];
+                                })->implode(', ')
+                            }}
+                        </span>
+                    </div>
+                    @endisset
+                    @isset($product['period'])
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Époque</span>
+                        <span class="DetailData__datum">{{ $product['period']['name'] }}</span>
+                    </div>
+                    @endisset
+                    @if(null !== isset($product['materials']) && sizeof($product['materials']))
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Types</span>
+                        <span class="DetailData__datum">
+                            {{ 
+                                collect($product['materials'])
+                                ->map(function($pt) {
+                                    return $pt['name'];
+                                })->implode(', ')
+                            }}
+                        </span>
+                    </div>
+                    @endif
+                    @if(null !== isset($product['production_origin']) && sizeof($product['production_origin']))
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Manufacture et atelier</span>
+                        <span class="DetailData__datum">{{ $product['production_origin']['name'] }}</span>
+                    </div>
+                    @endif
+                    @if(0 !== sizeof(array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])) )
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Dimensions (L × l × h) en mètres</span>
+                        <span class="DetailData__datum">{{ join(' × ',array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])) }}</span>
+                    </div>
+                    @endif
+                    @isset($product['acquisition_date'])
+                    <div class="DetailData__unit">
+                        <span class="DetailData__label">Acquisition</span>
+                        <span class="DetailData__datum">
+                            {{ $product['acquisition_date'] }}
+                            {{ $product['acquisition_mode'] }}
+                        </span>
+                    </div>
+                    @endisset
+                    
                 </section><!-- /.DetailData -->
 
 
                 <section class="DetailInfo">
+                    @isset($product['description'])
                     <div class="DetailInfo__unit">
                         <span class="DetailData__label">Description</span>
-                        <span class="DetailData__datum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </span>
+                        <span class="DetailData__datum">
+                            {!! nl2br($product['description']) !!}
+                        </span>
                     </div>
+                    @endisset
+                    @isset($product['bibliography'])
                     <div class="DetailInfo__unit">
-                        <span class="DetailData__label">Biographie</span>
-                        <span class="DetailData__datum">Remy (Gérald), l’Esprit et la Main, Paris, 2015, p.69. Marie-France Dupuy-Baylet, cat. exp. Beauvais, 2000, p.143,  n° 114.</span>
+                        <span class="DetailData__label">Bibliographie</span>
+                        <span class="DetailData__datum">
+                            {!! nl2br($product['bibliography']) !!}
+                        </span>
                     </div>
+                    @endisset
                 </section><!-- /.DetailInfo -->
 
             </div>

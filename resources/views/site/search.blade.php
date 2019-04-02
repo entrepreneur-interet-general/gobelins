@@ -5,16 +5,18 @@
 
 @section('content')
     
-    @include('site/_beta')
+    @empty($product)
+        @include('site/_beta')
+    @endempty
 
     <div id="root">
-        {{--
+        
         @isset($product)
             @include('site/_product')
         @else
             Chargement…
         @endisset
-        --}}
+        
     </div>
 
     <script>
@@ -22,7 +24,7 @@
 
 
         @isset($product)
-            var PRODUCT = {!! $product !!};
+            var PRODUCT = {!! json_encode($product) !!};
         @endisset
 
     </script>

@@ -115,7 +115,7 @@ class SearchController extends Controller
             ]);
         });
 
-        $product_json = null;
+        $product = null;
         if ($inventory_id) {
             $product = Product::byInventory($inventory_id)->firstOrFail();
             
@@ -126,13 +126,13 @@ class SearchController extends Controller
                 SEO::opengraph()->addImages($seoImages);
                 SEO::twitter()->setImage($seoImages[0]);
             }
-            
-            $product_json = json_encode($product->toSearchableArray());
+
+            $product = $product->toSearchableArray();
         };
 
         return view('site.search', [
             'filters' => $filters,
-            'product' => $product_json,
+            'product' => $product,
         ]);
     }
 
