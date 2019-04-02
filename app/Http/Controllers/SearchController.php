@@ -253,10 +253,20 @@ class SearchController extends Controller
                 ];
             } else {
                 // Full text search
+
+                // Pre-launch hotfix to refine the multi-term multi-match
+                // searches such as:
+                // commode riesener, cartonnier boulle, lits directoire,
+                // chaises paulin, fauteuil corbusiser, etc.
+                // Not using 'default_operator' => 'AND' because of this:
+                // https://github.com/elastic/elasticsearch/issues/29148#issuecomment-376458216
+                $q =  (preg_match('/( AND | OR )/', $request->input('q'))) ?
+                    $request->input('q')
+                : str_replace(' ', ' AND ', $request->input('q'));
+                
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'query_string' => [
-                        'query' => $request->input('q'),
-                        'default_operator' => 'AND',
+                        'query' => $q,
                         'fields' => [
                             'authors.last_name^3',
                             'product_types.name^10',
