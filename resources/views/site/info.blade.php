@@ -166,7 +166,7 @@
         </p>
 
         <p>
-            Une partie des contenus (textes et images) sont utilisables en Licence Ouverte 2.0. Vous êtes autorisés à les reproduire, les copier, les adapter, les modifier, les extraire et les transformer, pour créer des « informations dérivées », des produits ou des services, de les communiquer, les diffuser, les redistribuer, les publier, les transmettre, les exploiter à titre commercial, par exemple en les combinant avec d’autres informations, ou en les incluant dans son propre produit.
+            Une partie des contenus (textes et images) sont utilisables en Licence Ouverte 2.0. Vous êtes autorisés à les reproduire, les copier, les adapter, les modifier, les extraire et les transformer, pour créer des « informations dérivées », des produits ou des services, de les communiquer, les diffuser, les redistribuer, les publier, les transmettre, les exploiter à titre commercial, par exemple en les combinant avec d’autres informations, ou en les incluant dans votre propre produit.
         </p>
 
         <p>
