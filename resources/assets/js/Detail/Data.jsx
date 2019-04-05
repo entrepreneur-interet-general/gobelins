@@ -5,8 +5,8 @@ import { Media } from "react-breakpoints";
 function DataUnitTemplate(props) {
   return (
     <div className="DetailData__unit">
-      <span className="DetailData__label">{props.label}</span>
-      <span className="DetailData__datum">{props.value}</span>
+      <dt className="DetailData__label">{props.label}</dt>
+      <dd className="DetailData__datum">{props.value}</dd>
     </div>
   );
 }
@@ -167,7 +167,7 @@ function Photographer(props) {
 
 function Data(props) {
   return (
-    <section className="DetailData">
+    <dl className="DetailData">
       <Media>
         {({ breakpoints, currentBreakpoint }) =>
           breakpoints[currentBreakpoint] >= breakpoints.tablet &&
@@ -205,7 +205,7 @@ function Data(props) {
         />
         <Photographer mainImage={props.mainImage} />
       </div>
-    </section>
+    </dl>
   );
 }
 

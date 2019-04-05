@@ -63,6 +63,8 @@ if ($first_img) {
                 </li>
                 @endforeach
             </ul><!-- /.DetailImageList -->
+            @else
+            <div class="DetailImageList--spacer"></div>
             @endif
 
         </div><!-- /.Detail__left-zone -->
@@ -78,111 +80,111 @@ if ($first_img) {
 
             <div class="Detail__right-zone-dblcol">
 
-                <section class="DetailData">
+                <dl class="DetailData">
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Numéro d’inventaire</span>
-                        <span class="DetailData__datum">{{ $product['inventory_id'] }}</span>
+                        <dt class="DetailData__label">Numéro d’inventaire</dt>
+                        <dd class="DetailData__datum">{{ $product['inventory_id'] }}</dd>
                     </div>
-                    @isset($product['authors'])
+                    @unless(empty($product['authors']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Auteurs</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Auteurs</dt>
+                        <dd class="DetailData__datum">
                             {{ 
                                 collect($product['authors'])
                                 ->map(function($a) {
                                     return $a['first_name'] . ' ' . $a['last_name'];
                                 })->implode(', ')
                             }}
-                        </span>
+                        </dd>
                     </div>
-                    @endisset
-                    @isset($product['conception_year'])
+                    @endunless
+                    @unless(empty($product['conception_year']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Année de conception</span>
-                        <span class="DetailData__datum">{{ $product['conception_year'] }}</span>
+                        <dt class="DetailData__label">Année de conception</dt>
+                        <dd class="DetailData__datum">{{ $product['conception_year'] }}</dd>
                     </div>
-                    @endisset
-                    @isset($product['style'])
+                    @endunless
+                    @unless(empty($product['style']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Style</span>
-                        <span class="DetailData__datum">{{ $product['style']['name'] }}</span>
+                        <dt class="DetailData__label">Style</dt>
+                        <dd class="DetailData__datum">{{ $product['style']['name'] }}</dd>
                     </div>
-                    @endisset
-                    @isset($product['product_types'])
+                    @endunless
+                    @unless(empty($product['product_types']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Types</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Types</dt>
+                        <dd class="DetailData__datum">
                             {{ 
                                 collect($product['product_types'])
                                 ->map(function($pt) {
                                     return $pt['name'];
                                 })->implode(', ')
                             }}
-                        </span>
+                        </dd>
                     </div>
-                    @endisset
-                    @isset($product['period'])
+                    @endunless
+                    @unless(empty($product['period']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Époque</span>
-                        <span class="DetailData__datum">{{ $product['period']['name'] }}</span>
+                        <dt class="DetailData__label">Époque</dt>
+                        <dd class="DetailData__datum">{{ $product['period']['name'] }}</dd>
                     </div>
-                    @endisset
-                    @if(null !== isset($product['materials']) && sizeof($product['materials']))
+                    @endunless
+                    @unless(empty($product['materials']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Types</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Types</dt>
+                        <dd class="DetailData__datum">
                             {{ 
                                 collect($product['materials'])
                                 ->map(function($pt) {
                                     return $pt['name'];
                                 })->implode(', ')
                             }}
-                        </span>
+                        </dd>
                     </div>
-                    @endif
-                    @if(null !== isset($product['production_origin']) && sizeof($product['production_origin']))
+                    @endunless
+                    @unless(empty($product['production_origin']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Manufacture et atelier</span>
-                        <span class="DetailData__datum">{{ $product['production_origin']['name'] }}</span>
+                        <dt class="DetailData__label">Manufacture et atelier</dt>
+                        <dd class="DetailData__datum">{{ $product['production_origin']['name'] }}</dd>
                     </div>
-                    @endif
-                    @if(0 !== sizeof(array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])) )
+                    @endunless
+                    @unless(empty(array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Dimensions (L × l × h) en mètres</span>
-                        <span class="DetailData__datum">{{ join(' × ',array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])) }}</span>
+                        <dt class="DetailData__label">Dimensions (L × l × h) mètres</dt>
+                        <dd class="DetailData__datum">{{ join(' × ',array_filter([ $product['length_or_diameter'], $product['height_or_thickness'], $product['depth_or_width'] ])) }}</dd>
                     </div>
-                    @endif
-                    @isset($product['acquisition_date'])
+                    @endunless
+                    @unless(empty($product['acquisition_date']))
                     <div class="DetailData__unit">
-                        <span class="DetailData__label">Acquisition</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Acquisition</dt>
+                        <dd class="DetailData__datum">
                             {{ $product['acquisition_date'] }}
                             {{ $product['acquisition_mode'] }}
-                        </span>
+                        </dd>
                     </div>
-                    @endisset
+                    @endunless
                     
-                </section><!-- /.DetailData -->
+                </dl><!-- /.DetailData -->
 
 
-                <section class="DetailInfo">
-                    @isset($product['description'])
+                <dl class="DetailInfo">
+                    @unless(empty($product['description']))
                     <div class="DetailInfo__unit">
-                        <span class="DetailData__label">Description</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Description</dt>
+                        <dd class="DetailData__datum">
                             {!! nl2br($product['description']) !!}
-                        </span>
+                        </dd>
                     </div>
-                    @endisset
-                    @isset($product['bibliography'])
+                    @endunless
+                    @unless(empty($product['bibliography']))
                     <div class="DetailInfo__unit">
-                        <span class="DetailData__label">Bibliographie</span>
-                        <span class="DetailData__datum">
+                        <dt class="DetailData__label">Bibliographie</dt>
+                        <dd class="DetailData__datum">
                             {!! nl2br($product['bibliography']) !!}
-                        </span>
+                        </dd>
                     </div>
-                    @endisset
-                </section><!-- /.DetailInfo -->
+                    @endunless
+                </dl><!-- /.DetailInfo -->
 
             </div>
         </div>

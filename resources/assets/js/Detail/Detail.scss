@@ -209,6 +209,8 @@
 }
 
 .DetailData {
+  margin: 0;
+  padding: 0;
 }
 .DetailData__unit,
 .DetailData__label,
@@ -217,6 +219,9 @@
 .DetailInfo__label,
 .DetailInfo__datum {
   display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .DetailData__unit,
 .DetailInfo__unit {
@@ -298,6 +303,8 @@
     }
   }
   .DetailInfo {
+    margin: 0;
+    padding: 0;
     @include breakpoint(768px) {
       flex: 0 0 auto;
       width: calc((100% - 20px) / 2);

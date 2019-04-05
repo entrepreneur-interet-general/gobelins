@@ -10,8 +10,8 @@ import ShareUrl from "../icons/ShareUrl";
 function InfoUnitTemplate(props) {
   return (
     <div className="DetailInfo__unit">
-      <span className="DetailInfo__label">{props.label}</span>
-      <span className="DetailInfo__datum">{props.value}</span>
+      <dt className="DetailInfo__label">{props.label}</dt>
+      <dd className="DetailInfo__datum">{props.value}</dd>
     </div>
   );
 }
@@ -69,7 +69,7 @@ class Info extends Component {
       : "";
 
     return (
-      <section className="DetailInfo">
+      <dl className="DetailInfo">
         <Description description={this.props.product.description} />
         <Bibliography bibliography={this.props.product.bibliography} />
         <div className="DetailInfo__unit DetailInfo__sharing">
@@ -126,7 +126,7 @@ class Info extends Component {
             Lien copié !
           </div>
         </div>
-      </section>
+      </dl>
     );
   }
 }
