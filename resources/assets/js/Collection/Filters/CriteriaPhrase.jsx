@@ -260,12 +260,16 @@ class CriteriaPhrase extends Component {
       this.props.filterObj.hasOwnProperty("period_start_year") &&
       this.props.filterObj.hasOwnProperty("period_end_year")
     ) {
-      out = ["entre "];
+      out = [];
+      if (this.props.asPhrase) {
+        out.push("entre ");
+      }
       out.push(
         <Criterion
           type="period"
           paramName="period_start_year"
           label={
+            (this.props.asPhrase ? "" : "entre ") +
             this.props.filterObj.period_start_year +
             " et " +
             this.props.filterObj.period_end_year
@@ -293,31 +297,54 @@ class CriteriaPhrase extends Component {
       this.props.filterObj.hasOwnProperty(dim + "_gte")
     ) {
       out = out || [];
-      out.push("entre ");
+      if (this.props.asPhrase) {
+        out.push("entre ");
+      }
+      const min = (this.props.filterObj[dim + "_gte"] || 0).toLocaleString();
+      const max = (this.props.filterObj[dim + "_lte"] || 0).toLocaleString();
+      const prepend = this.props.asPhrase ? "" : "entre ";
+      const append = this.props.asPhrase ? "" : " de " + dims[dim];
+      const unit = String.fromCharCode(160) + "m";
       out.push(
         <Criterion
           type="dimension"
           paramName={dim + "_gte"}
-          label={
-            (this.props.filterObj[dim + "_gte"] || 0) +
-            " et " +
-            this.props.filterObj[dim + "_lte"] +
-            "m"
-          }
+          label={prepend + min + " et " + max + unit + append}
           id={this.props.filterObj[dim + "_gte"]}
           key={dim}
           onFilterRemove={this.props.onFilterRemove}
           displayAsHovered={this.state.hoverRemoveAll}
         />
       );
-      out.push(" de " + dims[dim]);
+      if (this.props.asPhrase) {
+        out.push(" de " + dims[dim]);
+      }
     }
     return out;
   }
 
   sentencize(arr, op) {
     let last = null;
-    if (arr.length >= 2) {
+    if (arr.length === 2) {
+      arr.splice(1, 0, " " + op + " ");
+    } else if (arr.length > 2) {
+      last = arr.pop();
+      arr = arr.reduce((r, a, idx) => r.concat(a, ", "), []);
+      arr.push(" " + op + " ");
+      arr.push(last);
+    }
+    return arr;
+  }
+
+  sentencizeGroups(arr, op) {
+    let last = null;
+    if (arr.length === 2) {
+      if (arr[1] && arr[1][0] && arr[1][0].match(/.*(entre|de|par|en).*/)) {
+        arr.splice(1, 0, " ");
+      } else {
+        arr.splice(1, 0, " et ");
+      }
+    } else if (arr.length > 2) {
       last = arr.pop();
       arr = arr.reduce((r, a, idx) => r.concat(a, ", "), []);
       arr.push(" " + op + " ");
@@ -340,12 +367,13 @@ class CriteriaPhrase extends Component {
       this.extractDimension("length_or_diameter")
     ]);
     let out = this.props.asPhrase
-      ? this.sentencize(paramsArr, "et")
-      : paramsArr;
+      ? this.sentencizeGroups(paramsArr, "et")
+      : paramsArr.reduce((r, a, idx) => r.concat(a, " "), []);
     if (
       out.length > 0 &&
       !this.props.filterObj.hasOwnProperty("product_type_ids") &&
-      !this.props.filterObj.hasOwnProperty("q")
+      !this.props.filterObj.hasOwnProperty("q") &&
+      this.props.asPhrase
     ) {
       out.unshift("Objets ");
     }
