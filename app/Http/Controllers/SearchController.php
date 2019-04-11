@@ -260,7 +260,7 @@ class SearchController extends Controller
                 // chaises paulin, fauteuil corbusiser, etc.
                 // Not using 'default_operator' => 'AND' because of this:
                 // https://github.com/elastic/elasticsearch/issues/29148#issuecomment-376458216
-                $q =  (preg_match('/( AND | OR )/', $request->input('q'))) ?
+                $q =  (preg_match('/( AND | OR | NOT )/', $request->input('q'))) ?
                     $request->input('q')
                 : str_replace(' ', ' AND ', $request->input('q'));
                 
