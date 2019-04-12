@@ -16,7 +16,7 @@
         </li>
         <li><a href="#project">Projet</a></li>
         <li><a href="#credits">Crédits et mentions légales</a></li>
-        <li><a href="#cgu">Conditions générale d’utilisation</a></li>
+        <li><a href="#cgu">Conditions générales d’utilisation</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
@@ -115,7 +115,7 @@
 
     <section id="cgu">
 
-        <h1><span>Conditions générale d’utilisation</span></h1>
+        <h1><span>Conditions générales d’utilisation</span></h1>
 
         <h2>Responsabilités</h2>
 
