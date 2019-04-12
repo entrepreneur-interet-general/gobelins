@@ -182,16 +182,11 @@
         </p>
 
 
-        <h2>Disponibilité des objets pour l’ameublement</h2>
+        <h2>Disponibilité des biens</h2>
 
         <p>
             Si vous êtes dépositaire du Mobilier national, nous vous informons que les objets présentés sur ce site sont actuellement utilisés dans de nombreux lieux. Ainsi leur disponibilité ne peut vous être assurée.
         </p>
-
-        <p>
-            Pour toute demande de dépôt il sera nécessaire de vous mettre en relation avec notre service ameublement qui vous conseillera en fonction des disponibilités.
-        </p>
-
 
     <section id="contact">
     
