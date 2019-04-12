@@ -61,6 +61,13 @@
     @include breakpoint($small-up) {
     }
   }
+  .BetaWelcome__logo-marianne {
+    height: 27px;
+    width: 46px;
+    margin-right: 10px;
+    position: relative;
+    top: 2px;
+  }
 
   .BetaWelcome__purple {
     color: $purple;

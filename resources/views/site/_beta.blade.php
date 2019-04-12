@@ -2,6 +2,7 @@
 <section class="BetaWelcome">
         <div class="BetaWelcome__inner">
             <header class="BetaWelcome__logo">
+                <img src="/images/logos/Mariane@3x.png" alt="République Française" class="BetaWelcome__logo-marianne">
                 @svg('logo_mn')
             </header>
             <div class="BetaWelcome__intro">
