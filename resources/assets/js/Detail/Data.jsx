@@ -61,7 +61,9 @@ function Types(props) {
     const label = props.types.length > 1 ? label_plural : label_singular;
     const val = props.types
       .filter(t => t.is_leaf)[0]
-      .mapping_key.replace(/ > /g, ", ");
+      .mapping_key.split(" > ")
+      .filter((v, i, a) => a.indexOf(v) === i)
+      .join(", ");
     return <DataUnitTemplate label={label} value={val} />;
   } else {
     return null;
