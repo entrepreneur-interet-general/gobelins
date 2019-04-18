@@ -231,7 +231,7 @@
             </p>
 
             <p>
-                <span>Avec le soutient de :</span>
+                <span>Avec le soutien de :</span>
                 <a href="https://www.gouvernement.fr/une-mission-investir-l-avenir">
                     <img src="/images/logos/label-IA-2018@3x.png" width="52" height="52" alt="Logo Investir l'Avenir">
                 </a>
