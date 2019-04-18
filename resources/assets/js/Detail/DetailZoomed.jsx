@@ -98,7 +98,7 @@ class DetailZoomed extends Component {
   }
 
   render() {
-    let imageUrl = `/media/xl/${encodeURIComponent(
+    let imageUrl = `/media/orig/${encodeURIComponent(
       this.state.zoomedImage.path
     )}`;
 
