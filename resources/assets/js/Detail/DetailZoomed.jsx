@@ -2,24 +2,85 @@ import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
 import folkloreImage from "../vendor/folklore-image.js";
+import PinchZoomPan from "../vendor/react-responsive-pinch-zoom-pan/PinchZoomPan";
 
 import Loader from "../Loader";
 import ZoomIn from "../icons/ZoomIn";
 import ZoomOut from "../icons/ZoomOut";
 import Cross from "../icons/Cross";
+import ArrowPrev from "../icons/ArrowPrev";
+import ArrowNext from "../icons/ArrowNext";
+
+const CustomZoomButtons = ({
+  scale,
+  minScale,
+  maxScale,
+  onZoomInClick,
+  onZoomOutClick
+}) => {
+  return (
+    <div className="DetailZoomed__toolbar">
+      <button
+        type="button"
+        className="DetailZoomed__button DetailZoomed__button--zoom-out"
+        onClick={onZoomOutClick}
+        disabled={scale <= minScale}
+        title="Zoom arrière"
+      >
+        <ZoomOut />
+      </button>
+      <button
+        type="button"
+        className="DetailZoomed__button DetailZoomed__button--zoom-in"
+        onClick={onZoomInClick}
+        disabled={scale >= maxScale}
+        title="Zoom avant"
+      >
+        <ZoomIn />
+      </button>
+    </div>
+  );
+};
 
 class DetailZoomed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zoomedImage: props.zoomedImage
+      zoomedImage: props.zoomedImage,
+      currentIndex: props.images.indexOf(props.zoomedImage)
     };
+
     this.renderListItem = this.renderListItem.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePrev = this.handlePrev.bind(this);
+    this.handleNext = this.handleNext.bind(this);
   }
 
   handleClick(index) {
     this.setState({ zoomedImage: this.props.images[index] });
+  }
+
+  handlePrev() {
+    const nextIndex =
+      this.state.currentIndex === 0
+        ? this.props.images.length - 1
+        : this.state.currentIndex - 1;
+
+    this.setState({
+      zoomedImage: this.props.images[nextIndex],
+      currentIndex: nextIndex
+    });
+  }
+
+  handleNext() {
+    const nextIndex =
+      this.state.currentIndex === this.props.images.length - 1
+        ? 0
+        : this.state.currentIndex + 1;
+    this.setState({
+      zoomedImage: this.props.images[nextIndex],
+      currentIndex: nextIndex
+    });
   }
 
   renderListItem(image, index) {
@@ -40,14 +101,25 @@ class DetailZoomed extends Component {
     let imageUrl = `/media/xl/${encodeURIComponent(
       this.state.zoomedImage.path
     )}`;
+
     return (
       <section className="DetailZoomed">
-        <figure className="DetailZoomed__fig">
+        <figure
+          className={`DetailZoomed__fig ${
+            this.props.images.length > 1 ? "has-thumbnails" : ""
+          }`}
+        >
           <ImageLoader
             src={imageUrl}
             alt=""
             image={props => (
-              <img src={imageUrl} alt="" className="DetailZoomed__img" />
+              <PinchZoomPan
+                position="center"
+                zoomButtons={false}
+                customZoomButtons={CustomZoomButtons}
+              >
+                <img src={imageUrl} alt="" className="DetailZoomed__img" />
+              </PinchZoomPan>
             )}
             loading={() => <Loader className="DetailZoomed__spinner" />}
             error={() => <div>Error</div>}
@@ -55,18 +127,22 @@ class DetailZoomed extends Component {
           />
 
           <div className="DetailZoomed__toolbar">
-            <button
-              type="button"
-              className="DetailZoomed__button DetailZoomed__button--magnifying-glass"
-            >
-              <ZoomIn />
-            </button>
-            <button
-              type="button"
-              className="DetailZoomed__button DetailZoomed__button--download"
-            >
-              <ZoomOut />
-            </button>
+            {this.props.images && this.props.images.length > 1 ? (
+              <React.Fragment>
+                <button
+                  type="button"
+                  className="DetailZoomed__button DetailZoomed__button--prev"
+                >
+                  <ArrowPrev onClick={this.handlePrev} />
+                </button>
+                <button
+                  type="button"
+                  className="DetailZoomed__button DetailZoomed__button--next"
+                >
+                  <ArrowNext onClick={this.handleNext} />
+                </button>
+              </React.Fragment>
+            ) : null}
           </div>
         </figure>
         {this.props.images && this.props.images.length > 1 ? (
