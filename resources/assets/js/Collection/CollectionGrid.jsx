@@ -44,8 +44,7 @@ class CollectionGrid extends Component {
             <div
               className="Collection__image-container"
               style={{
-                "--aspect-ratio":
-                  datum.images[0].width + "/" + datum.images[0].height
+                "--aspect-ratio": datum.images[0].width / datum.images[0].height
               }}
             >
               <img

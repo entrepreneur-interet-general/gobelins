@@ -464,6 +464,10 @@
   height: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   @include breakpoint(1025px) {
     flex: 1 1 auto;
     &.has-thumbnails {
