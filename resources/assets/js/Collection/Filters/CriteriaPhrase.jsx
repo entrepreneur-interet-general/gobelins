@@ -227,24 +227,20 @@ class CriteriaPhrase extends Component {
       this.props.filterObj.hasOwnProperty("author_ids") &&
       this.props.filterObj.author_ids.length > 0
     ) {
-      out = [];
-      Object.keys(this.state.authors).forEach(letter => {
-        out = out.concat(
-          this.state.authors[letter]
-            .filter(s => this.props.filterObj.author_ids.includes(s.id))
-            .map(s => (
-              <Criterion
-                type="author"
-                paramName="author_ids"
-                label={[s.first_name, s.last_name].filter(Boolean).join(" ")}
-                id={s.id}
-                key={"author_" + s.id}
-                onFilterRemove={this.props.onFilterRemove}
-                displayAsHovered={this.state.hoverRemoveAll}
-              />
-            ))
-        );
-      });
+      out = this.state.authors
+        .filter(a => this.props.filterObj.author_ids.includes(a.id))
+        .map(a => (
+          <Criterion
+            type="author"
+            paramName="author_ids"
+            label={[a.first_name, a.last_name].filter(Boolean).join(" ")}
+            id={a.id}
+            key={"author_" + a.id}
+            onFilterRemove={this.props.onFilterRemove}
+            displayAsHovered={this.state.hoverRemoveAll}
+          />
+        ));
+
       if (this.props.asPhrase) {
         out = this.sentencize(out, "ou");
         out.unshift(" par ");

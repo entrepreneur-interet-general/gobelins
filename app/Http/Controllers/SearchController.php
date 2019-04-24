@@ -25,24 +25,26 @@ class SearchController extends Controller
     public function index(Request $request, $inventory_id = null)
     {
         $filters = Cache::rememberForever('collection_filters', function () {
-            return collect([
-                'productTypes' => ProductType::has('products')->get()->toTree(),
-                'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
-                'authors' => Author::has('products')
+            $authors = Author::has('products')
                                 ->orderBy('last_name', 'asc')
                                 ->select('id', 'first_name', 'last_name')->get()
                                 ->map(function ($item) {
                                     $item->last_name = ucwords(strtolower($item->last_name));
                                     return $item;
-                                }),
-                                // ->groupBy(function ($item, $key) {
-                                //     return strtoupper($item->last_name[0]);
-                                // })
-                                // ->sortBy(function ($item, $key) {
-                                //     return $key;
-                                // }),
-                // 'periods' => Period::orderBy('start_year', 'asc')->get(),
-                // TODO: put this in a seeder…
+                                });
+            $i = 0;
+            $authors_offsets = $authors->reduce(function ($offsets, $item) use (&$i) {
+                if ($offsets->count() === 0 || $item->last_name[0] !== $offsets->keys()->last()) {
+                    $offsets->put($item->last_name[0], $i);
+                }
+                $i++;
+                return $offsets;
+            }, collect([]));
+            return collect([
+                'productTypes' => ProductType::has('products')->get()->toTree(),
+                'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
+                'authors' => $authors,
+                'authors_offsets' => $authors_offsets,
                 'periods' => [
                     [
                         'name' => 'Henri IV',
