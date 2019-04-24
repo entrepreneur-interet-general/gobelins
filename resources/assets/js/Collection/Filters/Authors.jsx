@@ -1,23 +1,49 @@
 import React, { Component } from "react";
 import { CSSTransitionGroup } from "react-transition-group";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 import DesktopOverlayZone from "./DesktopOverlayZone";
+import AuthorsList from "./AuthorsList";
 
 class Authors extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    Object.keys(window.__INITIAL_STATE__.authors).forEach(letter => {
-      this["refLetter" + letter] = React.createRef();
-    });
-
-    this.handleClick = this.handleClick.bind(this);
-    this.renderListItem = this.renderListItem.bind(this);
-    this.renderLetterList = this.renderLetterList.bind(this);
-    this.handleAlphabetClick = this.handleAlphabetClick.bind(this);
+    this.state = {
+      isAnimating: false,
+      scrollToItem: null
+    };
   }
 
-  handleClick(author, ev) {
+  alphabet = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+  ];
+
+  handleClick = (ev, author) => {
     ev.stopPropagation(); // To not close the filter panel.
     if (this.props.selectedIds.indexOf(author.id) >= 0) {
       this.props.onFilterRemove({
@@ -28,59 +54,35 @@ class Authors extends Component {
     } else {
       this.props.onFilterAdd({ author_ids: [author.id] });
     }
-  }
+  };
 
-  renderListItem(author) {
-    return (
-      <div className="Authors__col-item" key={author.id}>
-        <button
-          type="button"
-          onClick={ev => this.handleClick(author, ev)}
-          className={
-            this.props.selectedIds.includes(author.id) ? "is-selected" : null
-          }
-        >
-          <strong>{author.last_name}</strong>
-          <span> {author.first_name}</span>
-          {/* <span className="Authors__objcount">15340</span> */}
-        </button>
-      </div>
-    );
-  }
-
-  renderLetterList(letter) {
-    return (
-      <div
-        className="Authors__letter-container"
-        key={letter}
-        ref={this["refLetter" + letter]}
-      >
-        {window.__INITIAL_STATE__.authors[letter].map(this.renderListItem)}
-      </div>
-    );
-  }
-
-  handleAlphabetClick(letter, ev) {
-    ev.stopPropagation();
-    this["refLetter" + letter].current.scrollIntoView({
-      behavior: "auto", // could be "smooth".
-      block: "start"
+  animationComplete = () =>
+    this.setState({
+      isAnimating: false
     });
-  }
+
+  scrollToLetter = (ev, letter) => {
+    ev.stopPropagation();
+    if (this.state.isAnimating === true) {
+      return;
+    }
+    const scrollToItem = window.__INITIAL_STATE__.authors_offsets[letter];
+    this.setState({
+      isAnimating: true,
+      scrollToItem
+    });
+  };
 
   render() {
     return (
       <div className="Authors">
         <div className="Authors__alphabet">
-          {Object.keys(window.__INITIAL_STATE__.authors).map(letter => {
+          {this.alphabet.map(letter => {
             return (
               <button
                 className="Authors__alphabet-button"
                 type="button"
-                onClick={this.handleAlphabetClick.bind(
-                  this.handleAlphabetClick,
-                  letter
-                )}
+                onClick={ev => this.scrollToLetter(ev, letter)}
                 key={"alpha-" + letter}
               >
                 {letter}
@@ -89,10 +91,24 @@ class Authors extends Component {
           })}
         </div>
         <div className="Authors__double-col">
-          {Object.keys(window.__INITIAL_STATE__.authors).map(
-            this.renderLetterList
-          )}
+          <AutoSizer>
+            {({ height, width }) => (
+              <AuthorsList
+                height={height}
+                width={width}
+                duration={800}
+                onAnimationComplete={this.animationComplete}
+                itemCount={window.__INITIAL_STATE__.authors.length}
+                itemSize={43}
+                scrollToItem={this.state.scrollToItem}
+                itemData={{ onItemClick: this.handleClick }}
+              >
+                {Author}
+              </AuthorsList>
+            )}
+          </AutoSizer>
         </div>
+
         <CSSTransitionGroup
           transitionName="DesktopOverlayZone"
           transitionEnterTimeout={150}
@@ -112,5 +128,20 @@ class Authors extends Component {
     );
   }
 }
+
+const Author = ({ index, style, data }) => (
+  <div className="Authors__col-item" style={style}>
+    <button
+      type="button"
+      onClick={ev =>
+        data.onItemClick(ev, window.__INITIAL_STATE__.authors[index])
+      }
+    >
+      <span>{window.__INITIAL_STATE__.authors[index].first_name} </span>
+      <strong>{window.__INITIAL_STATE__.authors[index].last_name}</strong>
+      {/* <span className="Authors__objcount">15340</span> */}
+    </button>
+  </div>
+);
 
 export default Authors;
