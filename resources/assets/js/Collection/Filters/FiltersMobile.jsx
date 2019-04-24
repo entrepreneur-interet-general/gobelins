@@ -41,6 +41,9 @@ class FiltersMobile extends Component {
     this.setState({
       currentMode: "default"
     });
+    if (this.props.totalHits === 0) {
+      this.props.onFilterRemoveAll();
+    }
   }
   handleCloseFilterPanel() {
     this.setState({
@@ -100,6 +103,8 @@ class FiltersMobile extends Component {
             onCloseSearch={this.handleCloseSearch}
             onSearch={this.handleFullTextSearch}
             overlayContent={this.renderOverlayContent()}
+            onFilterRemoveAll={this.props.onFilterRemoveAll}
+            totalHits={this.props.totalHits}
           />
         ) : null}
 
@@ -111,7 +116,9 @@ class FiltersMobile extends Component {
             onFilterRemoveAll={this.props.onFilterRemoveAll}
             onFilterChange={this.props.onFilterChange}
             filterObj={this.props.filterObj}
+            totalHits={this.props.totalHits}
             overlayContent={this.renderOverlayContent()}
+            onFilterRemoveAll={this.props.onFilterRemoveAll}
           />
         ) : null}
 

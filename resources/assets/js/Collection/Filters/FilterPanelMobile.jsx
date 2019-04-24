@@ -34,12 +34,20 @@ class FilterPanelMobile extends Component {
     this.setState({ visiblePanel: null });
   }
 
+  handleOverlayClick = () => {
+    // No results? Reset all filters!
+    if (this.props.totalHits === 0) {
+      this.props.onFilterRemoveAll();
+    }
+    this.props.onCloseFilterPanel();
+  };
+
   render() {
     return (
       <div className="FilterPanelMobile">
         <div
           className="FilterPanelMobile__overlay"
-          onClick={this.props.onCloseFilterPanel}
+          onClick={this.handleOverlayClick}
         >
           {this.props.overlayContent}
         </div>

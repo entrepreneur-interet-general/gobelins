@@ -134,7 +134,7 @@ class ProductTypes extends Component {
         >
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
-              onClick={this.props.onClickOverlay}
+              onClickOverlay={this.props.onClickOverlay}
               offsetLeft={this.isSecondColVisible() ? 288 + 288 : 288}
               filterPanelsWidth={
                 this.isSecondColVisible() ? 288 + 288 + 288 : 288 + 288

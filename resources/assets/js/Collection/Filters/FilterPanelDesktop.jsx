@@ -90,6 +90,14 @@ class FilterPanelDesktop extends Component {
     }
   }
 
+  handleOverlayClick = () => {
+    // No results? Reset all filters!
+    if (this.props.totalHits === 0) {
+      this.props.onFilterRemoveAll();
+    }
+    this.closeFilterPanels();
+  };
+
   render() {
     return (
       <div
@@ -249,15 +257,15 @@ class FilterPanelDesktop extends Component {
           transitionEnterTimeout={150}
           transitionLeaveTimeout={150}
         >
-          {this.state.isLoadingFullTextSearch ? (
+          {this.state.isLoadingFullTextSearch && (
             <DesktopOverlayZone
-              onClick={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
               offsetLeft={288}
               filterPanelsWidth={288}
             >
               {this.renderOverlayContent()}
             </DesktopOverlayZone>
-          ) : null}
+          )}
         </CSSTransitionGroup>
 
         <CSSTransitionGroup
@@ -276,7 +284,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -289,7 +297,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -302,7 +310,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -315,7 +323,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -330,7 +338,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -344,7 +352,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
 
@@ -370,7 +378,7 @@ class FilterPanelDesktop extends Component {
               totalHitsComponent={this.renderOverlayContent()}
               filterPanelOpen={this.state.filterPanelOpen}
               isLoading={this.props.isLoading}
-              onClickOverlay={this.closeFilterPanels}
+              onClickOverlay={this.handleOverlayClick}
             />
           ) : null}
         </CSSTransitionGroup>

@@ -77,7 +77,7 @@ class Dimensions extends Component {
         >
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
-              onClick={this.props.onClickOverlay}
+              onClickOverlay={this.props.onClickOverlay}
               offsetLeft={288 + 288}
               filterPanelsWidth={288 + 288 + 288}
             >

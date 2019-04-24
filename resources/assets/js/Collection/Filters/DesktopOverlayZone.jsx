@@ -7,6 +7,7 @@ const DesktopOverlayZone = props => (
       left: props.offsetLeft,
       width: `calc(100vw - ${props.filterPanelsWidth}px)`
     }}
+    onClick={props.onClickOverlay}
   >
     <div className="DesktopOverlayZone__inner">{props.children}</div>
   </div>

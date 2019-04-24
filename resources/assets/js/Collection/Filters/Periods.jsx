@@ -135,7 +135,7 @@ class Periods extends Component {
         >
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
-              onClick={this.props.onClickOverlay}
+              onClickOverlay={this.props.onClickOverlay}
               offsetLeft={368}
               filterPanelsWidth={288 + 368}
             >

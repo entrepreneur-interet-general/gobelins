@@ -65,7 +65,7 @@ class ProductionOrigins extends Component {
         >
           {this.props.filterPanelOpen ? (
             <DesktopOverlayZone
-              onClick={this.props.onClickOverlay}
+              onClickOverlay={this.props.onClickOverlay}
               offsetLeft={288}
               filterPanelsWidth={288 + 288}
             >
