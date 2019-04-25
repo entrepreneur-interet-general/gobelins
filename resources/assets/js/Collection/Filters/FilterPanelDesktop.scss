@@ -95,10 +95,16 @@
     border: 0;
     background-color: transparent;
     text-align: right;
+    cursor: pointer;
     & > svg {
       position: relative;
       right: -1px;
       top: 1px;
+      overflow: visible;
+    }
+    &:hover > svg path,
+    &:focus > svg path {
+      stroke-width: 2px;
     }
   }
 }

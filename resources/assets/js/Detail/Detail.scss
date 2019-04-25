@@ -576,15 +576,29 @@
   }
 }
 .DetailZoom__close {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 10px;
   right: 30px;
-  padding: 10px;
   border: 0;
   background-color: transparent;
   -webkit-appearance: none;
+  border-radius: 50%;
   cursor: pointer;
   color: black;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    & path {
+      stroke-width: 2px;
+    }
+  }
 }
 
 .DetailDownloadModal {
@@ -653,8 +667,8 @@
     align-items: center;
     cursor: pointer;
     &:hover {
-      color: #606060;
-      border-color: #606060;
+      color: #fff;
+      border-color: #fff;
     }
   }
 }

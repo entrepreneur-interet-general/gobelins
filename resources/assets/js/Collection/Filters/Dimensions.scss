@@ -123,12 +123,17 @@
 .Dimensions__slider-handle {
   position: absolute;
   left: 0;
-  top: -11px;
-  margin-left: -12px;
+  top: -18px;
+  margin-left: -19px;
   z-index: 2;
-  width: 24px;
-  height: 24px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 .Dimensions__slider-handle-dot {
   height: 12px;
@@ -155,7 +160,7 @@
 }
 .Dimensions__slider-label {
   position: absolute;
-  bottom: -30px;
+  bottom: -40px;
   left: 0;
   padding: 0;
   z-index: 3;

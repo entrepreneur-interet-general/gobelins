@@ -7,7 +7,7 @@ import PinchZoomPan from "../vendor/react-responsive-pinch-zoom-pan/PinchZoomPan
 import Loader from "../Loader";
 import ZoomIn from "../icons/ZoomIn";
 import ZoomOut from "../icons/ZoomOut";
-import Cross from "../icons/Cross";
+import CrossSimple from "../icons/CrossSimple";
 import ArrowPrev from "../icons/ArrowPrev";
 import ArrowNext from "../icons/ArrowNext";
 
@@ -151,7 +151,7 @@ class DetailZoomed extends Component {
           </ul>
         ) : null}
         <Link className="DetailZoom__close" to={this.props.detailPath}>
-          <Cross />
+          <CrossSimple />
         </Link>
       </section>
     );
