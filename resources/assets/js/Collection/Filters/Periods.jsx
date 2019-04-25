@@ -9,9 +9,9 @@ class Periods extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      min: props.periods[0].start_year,
+      min: 1500,
       max: new Date().getFullYear(),
-      min_value: props.periodStartYear || props.periods[0].start_year,
+      min_value: props.periodStartYear || 1500,
       max_value: props.periodEndYear || new Date().getFullYear()
     };
     this.handleClick = this.handleClick.bind(this);
