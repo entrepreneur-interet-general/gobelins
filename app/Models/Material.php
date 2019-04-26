@@ -13,7 +13,7 @@ class Material extends Model
 
     protected $touches = ['products'];
 
-    protected $visible = ['name', 'id', 'children'];
+    protected $visible = ['name', 'id', 'is_textile_technique', 'children'];
 
     public function products()
     {

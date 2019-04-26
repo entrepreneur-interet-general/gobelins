@@ -46,9 +46,17 @@
     padding-top: 0;
   }
 }
-.Materials__lvl1-item,
-.Materials__lvl2-item {
-  // margin-bottom: 5px;
+.Materials__lvl2-item.is-textile-technique-banner {
+  margin-top: 50px;
+  @include f-sans;
+  font-weight: normal;
+  font-size: rem(18px);
+  padding: 13px 25px 13px 40px;
+  line-height: rem(18px);
+  @include breakpoint(1025px) {
+    padding: 10px 10px 15px 60px;
+    font-size: rem(15px);
+  }
 }
 .Materials__lvl1-chevron {
   display: none;

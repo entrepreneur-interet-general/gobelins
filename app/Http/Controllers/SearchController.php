@@ -107,7 +107,9 @@ class SearchController extends Controller
                         'end_year' => 1870,
                     ],
                 ],
-                'materials' => Material::has('products')->get()->toTree(),
+                'materials' => Material::has('products')
+                                ->orderBy('is_textile_technique', 'asc')
+                                ->orderBy('name', 'asc')->get()->toTree(),
                 'productionOrigins' => ProductionOrigin::all(),
                 'dimensions' => [
                     'max_height_or_thickness' => ceil(Product::max('height_or_thickness')),

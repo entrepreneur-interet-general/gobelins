@@ -182,56 +182,82 @@ const FirstColMenuItem = props => {
   );
 };
 
-const SecondColumn = props => {
-  const parentIsSelected =
-    props.selectedIds.indexOf(props.parentMaterial.id) >= 0;
+class SecondColumn extends React.PureComponent {
+  hasRenderedTextileBanner = false;
 
-  return (
-    <div
-      className={
-        "MaterialsMobile__col-container MaterialsMobile__col-container--second " +
-        (props.secondColVisible ? "has-second-col-visible" : "")
-      }
-    >
-      <div className="MaterialsMobile__header">
-        <button onClick={props.onBack} className="MaterialsMobile__back-button">
-          <ArrowBack />
-        </button>
-        <div className="MaterialsMobile__col-title">
-          {props.parentMaterial.name}
-        </div>
-        {props.closeButton}
-      </div>
-      <ul className="Materials__lvl2">
-        <li className="Materials__lvl2-item" key="All">
-          <button
-            type="button"
-            onClick={ev => props.onAddAllClick(props.parentMaterial, ev)}
-            className={
-              "Materials__lvl2-button" +
-              (parentIsSelected ? " is-selected" : "")
-            }
-          >
-            Tous
-          </button>
+  renderTextileBanner = mat => {
+    if (mat.is_textile_technique && this.hasRenderedTextileBanner === false) {
+      this.hasRenderedTextileBanner = true;
+      return (
+        <li className="Materials__lvl2-item is-textile-technique-banner">
+          Techniques de tissage :
         </li>
-        {props.items.map((mat, i) => (
-          <li className="Materials__lvl2-item" key={i}>
+      );
+    }
+  };
+
+  render() {
+    this.hasRenderedTextileBanner = false;
+    const parentIsSelected =
+      this.props.selectedIds.indexOf(this.props.parentMaterial.id) >= 0;
+
+    return (
+      <div
+        className={
+          "MaterialsMobile__col-container MaterialsMobile__col-container--second " +
+          (this.props.secondColVisible ? "has-second-col-visible" : "")
+        }
+      >
+        <div className="MaterialsMobile__header">
+          <button
+            onClick={this.props.onBack}
+            className="MaterialsMobile__back-button"
+          >
+            <ArrowBack />
+          </button>
+          <div className="MaterialsMobile__col-title">
+            {this.props.parentMaterial.name}
+          </div>
+          {this.props.closeButton}
+        </div>
+        <ul className="Materials__lvl2">
+          <li className="Materials__lvl2-item" key="All">
             <button
               type="button"
-              onClick={ev => props.onSecondColClick(mat, ev)}
+              onClick={ev =>
+                this.props.onAddAllClick(this.props.parentMaterial, ev)
+              }
               className={
                 "Materials__lvl2-button" +
-                (props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "")
+                (parentIsSelected ? " is-selected" : "")
               }
             >
-              {mat.name}
+              Tous
             </button>
           </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+          {this.props.items.map((mat, i) => (
+            <React.Fragment key={i}>
+              {this.renderTextileBanner(mat)}
+              <li className="Materials__lvl2-item">
+                <button
+                  type="button"
+                  onClick={ev => this.props.onSecondColClick(mat, ev)}
+                  className={
+                    "Materials__lvl2-button" +
+                    (this.props.selectedIds.indexOf(mat.id) >= 0
+                      ? " is-selected"
+                      : "")
+                  }
+                >
+                  {mat.name}
+                </button>
+              </li>
+            </React.Fragment>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default MaterialsMobile;

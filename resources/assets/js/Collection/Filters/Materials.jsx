@@ -16,23 +16,43 @@ class SecondColMenu extends Component {
     this.state = {};
     this.renderSecondColumnItem = this.renderSecondColumnItem.bind(this);
   }
+
+  hasRenderedTextileBanner = false;
+
+  renderTextileBanner = mat => {
+    if (mat.is_textile_technique && this.hasRenderedTextileBanner === false) {
+      this.hasRenderedTextileBanner = true;
+      return (
+        <li className="Materials__lvl2-item is-textile-technique-banner">
+          Techniques de tissage :
+        </li>
+      );
+    }
+  };
+
   renderSecondColumnItem(mat, parentIsSelected, i) {
     return (
-      <li className="Materials__lvl2-item" key={i}>
-        <button
-          type="button"
-          onClick={ev => this.props.onSecondColumnClick(mat, ev)}
-          className={
-            "Materials__lvl2-button" +
-            (this.props.selectedIds.indexOf(mat.id) >= 0 ? " is-selected" : "")
-          }
-        >
-          {mat.name}
-        </button>
-      </li>
+      <React.Fragment key={i}>
+        {this.renderTextileBanner(mat)}
+        <li className="Materials__lvl2-item">
+          <button
+            type="button"
+            onClick={ev => this.props.onSecondColumnClick(mat, ev)}
+            className={
+              "Materials__lvl2-button" +
+              (this.props.selectedIds.indexOf(mat.id) >= 0
+                ? " is-selected"
+                : "")
+            }
+          >
+            {mat.name}
+          </button>
+        </li>
+      </React.Fragment>
     );
   }
   render() {
+    this.hasRenderedTextileBanner = false;
     const parentIsSelected =
       this.props.selectedIds.indexOf(this.props.parentMat.id) >= 0;
     return (
