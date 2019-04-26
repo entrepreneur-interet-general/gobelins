@@ -255,16 +255,25 @@ class SearchController extends Controller
                 ];
             } else {
                 // Full text search
-
-                // Pre-launch hotfix to refine the multi-term multi-match
-                // searches such as:
+                // Refine the multi-term multi-match searches such as:
                 // commode riesener, cartonnier boulle, lits directoire,
-                // chaises paulin, fauteuil corbusiser, etc.
+                // chaises paulin, fauteuil corbusiser,
+                // Coquillages au bord de la mer, etc.
                 // Not using 'default_operator' => 'AND' because of this:
                 // https://github.com/elastic/elasticsearch/issues/29148#issuecomment-376458216
-                $q =  (preg_match('/( AND | OR | NOT )/', $request->input('q'))) ?
-                    $request->input('q')
-                : str_replace(' ', ' AND ', $request->input('q'));
+                if (preg_match('/([(:"]| +| -)/', $request->input('q')) || preg_match('/\b(AND|OR|NOT)\b/', $request->input('q'))) {
+                    $q = $request->input('q');
+                } else {
+                    $a = explode(' ', strtolower($request->input('q')));
+                    $stopwords = ['de','du','le','la',
+                    'et','da','l','d','van',
+                    'von','der','au','pour',
+                    'sur','à','a','en','par'];
+                    $f = array_filter($a, function ($item) use ($stopwords) {
+                        return ! in_array($item, $stopwords);
+                    });
+                    $q = implode(' AND ', $f);
+                }
                 
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'query_string' => [
