@@ -40,6 +40,17 @@ class SearchController extends Controller
                 $i++;
                 return $offsets;
             }, collect([]));
+
+            $materials = Material::withCount('products')
+                                        ->with('descendants')
+                                        ->orderBy('is_textile_technique', 'asc')
+                                        ->orderBy('name', 'asc')
+                                        ->get()
+                                        // We must filter manually, because using ::has('products') will remove root items.
+                                        ->filter(function ($mat) {
+                                            return $mat->children->isNotEmpty() ||  ($mat->children->isEmpty() && $mat->products_count > 0);
+                                        })->toTree();
+
             return collect([
                 'productTypes' => ProductType::has('products')->get()->toTree(),
                 'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
@@ -107,9 +118,7 @@ class SearchController extends Controller
                         'end_year' => 1870,
                     ],
                 ],
-                'materials' => Material::has('products')
-                                ->orderBy('is_textile_technique', 'asc')
-                                ->orderBy('name', 'asc')->get()->toTree(),
+                'materials' => $materials,
                 'productionOrigins' => ProductionOrigin::all(),
                 'dimensions' => [
                     'max_height_or_thickness' => ceil(Product::max('height_or_thickness')),
