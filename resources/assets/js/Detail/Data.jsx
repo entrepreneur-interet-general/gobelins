@@ -88,7 +88,13 @@ function Materials(props) {
     return (
       <DataUnitTemplate
         label={label}
-        value={props.materials.map(m => m.name).join(", ")}
+        value={props.materials
+          // Annoying corner-case: don't repeat "cuir" and "skaï".
+          // Fortunately, we don't have any products classified in
+          // the generic "cuir et skaï" category…
+          .filter(m => m.name != "Cuir et skaï")
+          .map(m => m.name)
+          .join(", ")}
       />
     );
   } else {
