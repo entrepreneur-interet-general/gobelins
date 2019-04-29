@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Slider, Handles, Tracks, Rail } from "react-compound-slider";
+import { Slider, Handles, Tracks, Rail, Ticks } from "react-compound-slider";
 import { CSSTransitionGroup } from "react-transition-group";
 
 import DesktopOverlayZone from "./DesktopOverlayZone";
@@ -8,11 +8,20 @@ import { Handle, Track } from "./SliderComponents.jsx";
 class Periods extends Component {
   constructor(props) {
     super(props);
+
+    let ticksValues = [];
+    for (let i = 1500; i < new Date().getFullYear(); i++) {
+      if (i % 25 === 0) {
+        ticksValues.push(i);
+      }
+    }
+
     this.state = {
       min: 1500,
       max: new Date().getFullYear(),
       min_value: props.periodStartYear || 1500,
-      max_value: props.periodEndYear || new Date().getFullYear()
+      max_value: props.periodEndYear || new Date().getFullYear(),
+      ticksValues
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -100,17 +109,21 @@ class Periods extends Component {
               )}
             </Rail>
             <Handles>
-              {({ handles, getHandleProps }) => (
-                <div className="Periods__slider-handles">
-                  {handles.map(handle => (
-                    <Handle
-                      key={handle.id}
-                      handle={handle}
-                      getHandleProps={getHandleProps}
-                    />
-                  ))}
-                </div>
-              )}
+              {({ handles, getHandleProps }) => {
+                const diffRange = handles[1].value - handles[0].value;
+                const isContracted = diffRange < 18 ? "is-contracted" : "";
+                return (
+                  <div className={"Periods__slider-handles " + isContracted}>
+                    {handles.map(handle => (
+                      <Handle
+                        key={handle.id}
+                        handle={handle}
+                        getHandleProps={getHandleProps}
+                      />
+                    ))}
+                  </div>
+                );
+              }}
             </Handles>
             <Tracks left={false} right={false}>
               {({ tracks, getTrackProps }) => (
@@ -126,6 +139,15 @@ class Periods extends Component {
                 </div>
               )}
             </Tracks>
+            <Ticks values={this.state.ticksValues}>
+              {({ ticks }) => (
+                <div className="Periods__slider-ticks">
+                  {ticks.map(tick => (
+                    <Tick key={tick.id} tick={tick} count={ticks.length} />
+                  ))}
+                </div>
+              )}
+            </Ticks>
           </Slider>
         </div>
         <CSSTransitionGroup
@@ -146,6 +168,25 @@ class Periods extends Component {
       </div>
     );
   }
+}
+
+function Tick({ tick, count }) {
+  const tickStyles = {
+    marginTop: `${-(100 / count) / 2}%`,
+    height: `${100 / count}%`,
+    top: `${tick.percent}%`
+  };
+  return (
+    <div>
+      {tick.value % 50 === 0 ? (
+        <div className="Periods__tick-value" style={tickStyles}>
+          <span>{tick.value}</span>
+        </div>
+      ) : (
+        <div className="Periods__tick-mark" style={tickStyles} />
+      )}
+    </div>
+  );
 }
 
 export default Periods;

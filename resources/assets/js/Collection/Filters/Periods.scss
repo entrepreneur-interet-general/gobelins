@@ -6,7 +6,7 @@
   z-index: 1;
   height: 100vh;
   box-sizing: border-box;
-  background-color: $red-dark;
+  background-color: $red-darker;
 
   transition: opacity 0.2s ease-in-out;
   &.desktopFilterPanel-enter {
@@ -48,6 +48,7 @@
   left: 0;
   top: 0;
   margin: 0;
+  box-sizing: border-box;
   padding: 0 0 0 60px;
   border: 0;
   text-align: left;
@@ -64,6 +65,17 @@
   //   }
 
   &:hover {
+    background-color: #ff6363;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 1px;
     background-color: #ff6363;
   }
 }
@@ -116,13 +128,28 @@
 }
 .Periods__slider-handle-label {
   position: absolute;
-  margin-left: calc(100% + 10px);
-  padding: 3px 5px 3px 0;
+  margin-left: calc(100% + 3px);
+  padding: 0 10px;
+  height: 26px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
   z-index: 3;
   @include f-sans;
   font-size: rem(15px);
-  color: white;
+  background-color: white;
+  color: $red-darker;
+  border-radius: 13px;
+  transition: transform 0.15s ease-in-out;
+  .is-contracted .Periods__slider-handle:first-child & {
+    transform: translateY(-50%);
+  }
+  .is-contracted .Periods__slider-handle:last-child & {
+    transform: translateY(50%);
+  }
 }
+
 .Periods__slider-track {
   position: absolute;
   z-index: 1;
@@ -130,4 +157,34 @@
   cursor: pointer;
   width: 3px;
   margin-left: -1px;
+}
+
+.Periods__slider-ticks {
+  color: white;
+  @include f-sans;
+  font-size: rem(15px);
+  user-select: none;
+}
+.Periods__tick-mark,
+.Periods__tick-value {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+.Periods__tick-mark {
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    width: 8px;
+    background-color: white;
+  }
+}
+
+.Periods__tick-value span {
+  display: block;
+  transform: translateY(-50%);
 }
