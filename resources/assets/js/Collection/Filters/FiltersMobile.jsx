@@ -72,7 +72,7 @@ class FiltersMobile extends Component {
   render() {
     return (
       <div className="FiltersMobile">
-        <Headroom>
+        <Headroom disableInlineStyles>
           <div className="FiltersMobile__header">
             <div className="FiltersMobile__firstline">
               <MnLogo width={43} height={13} className="FiltersMobile__logo" />

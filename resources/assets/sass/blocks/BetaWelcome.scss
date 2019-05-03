@@ -9,10 +9,10 @@
   background-color: black;
   color: #fff;
 
-  position: fixed;
+  // position: fixed;
   width: 100%;
-  height: calc(100vh - 200px);
-  z-index: -1;
+  height: calc(100vh - 80px);
+  // z-index: -1;
 
   .BetaWelcome__inner {
     display: flex;
