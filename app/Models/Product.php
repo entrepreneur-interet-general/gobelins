@@ -111,6 +111,11 @@ class Product extends Model
     {
         return $this->productionOrigin ? $this->productionOrigin->toSearchableArray() : [];
     }
+
+    public function getSearchableEntryModeAttribute()
+    {
+        return $this->entryMode ? $this->entryMode->toSearchableArray() : [];
+    }
     
     // Fillables
 
@@ -144,7 +149,12 @@ class Product extends Model
 
     public function scopeByInventory($query, $inventory)
     {
-        $query->where('inventory_id', '=', $inventory);
+        return $query->where('inventory_id', '=', $inventory);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', true);
     }
 
     // Temporary addition for demo purposes.
@@ -187,8 +197,7 @@ class Product extends Model
         }
         return $urls;
     }
-
-
+    
     /**
      * Get the indexable data array for the model.
      * This data will be stored in Elasticsearch.
@@ -204,7 +213,7 @@ class Product extends Model
             'bibliography' => $this->bibliography,
             'acquisition_origin' => $this->publication_code === 'P+D+O' ? $this->acquisition_origin : null,
             'acquisition_date' => $this->acquisition_date,
-            'acquisition_mode' => $this->entryMode ? $this->entryMode->name : null,
+            'acquisition_mode' => $this->searchableEntryMode,
             'inventory_id' => $this->inventory_id,
             'inventory_id_as_keyword' => strtoupper($this->inventory_id),
             'product_types' => $this->searchableProductTypes,

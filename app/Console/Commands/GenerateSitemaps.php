@@ -45,6 +45,7 @@ class GenerateSitemaps extends Command
         $sitemapCounter = 0;
 
         \App\Models\Product::with('images')
+            ->published()
             ->orderBy('id', 'asc')
             ->take(1000)
             ->chunk(10000, function ($products) use (&$sitemap, &$counter, &$sitemapCounter) {

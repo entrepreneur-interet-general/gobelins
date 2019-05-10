@@ -130,7 +130,7 @@ class SearchController extends Controller
 
         $product = null;
         if ($inventory_id) {
-            $product = Product::byInventory($inventory_id)->firstOrFail();
+            $product = Product::published()->byInventory($inventory_id)->firstOrFail();
             
             SEO::setTitle($product->seoTitle);
             SEO::setDescription($product->seoDescription);
@@ -157,6 +157,7 @@ class SearchController extends Controller
 
         $inventory_roots = Cache::rememberForever('distinct_inventory_roots', function () {
             $out = Product::select('inventory_root')
+                ->published()
                 ->distinct()
                 ->get()
                 ->map(function ($p) {

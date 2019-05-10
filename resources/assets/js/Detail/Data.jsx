@@ -146,10 +146,14 @@ function Acquisition(props) {
     : null;
   return props.acquisitionOrigin ||
     props.acquisitionDate ||
-    props.acquisitionMode ? (
+    (props.acquisitionMode && props.acquisitionMode.name) ? (
     <DataUnitTemplate
       label="Acquisition"
-      value={[acquisitionDate, props.acquisitionMode, props.acquisitionOrigin]
+      value={[
+        acquisitionDate,
+        props.acquisitionMode.name,
+        props.acquisitionOrigin
+      ]
         .filter(Boolean)
         .join(" – ")}
     />
