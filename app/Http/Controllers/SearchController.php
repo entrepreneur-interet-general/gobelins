@@ -273,7 +273,7 @@ class SearchController extends Controller
                 // Coquillages au bord de la mer, etc.
                 // Not using 'default_operator' => 'AND' because of this:
                 // https://github.com/elastic/elasticsearch/issues/29148#issuecomment-376458216
-                if (preg_match('/([(:"]| +| -)/', $request->input('q')) || preg_match('/\b(AND|OR|NOT)\b/', $request->input('q'))) {
+                if (preg_match('/([(:"]| \+| -)/', $request->input('q')) || preg_match('/\b(AND|OR|NOT)\b/', $request->input('q'))) {
                     $q = $request->input('q');
                 } else {
                     $a = explode(' ', strtolower($request->input('q')));
