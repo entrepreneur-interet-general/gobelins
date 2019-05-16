@@ -159,7 +159,9 @@ if ($first_img) {
                         <dt class="DetailData__label">Acquisition</dt>
                         <dd class="DetailData__datum">
                             {{ $product['acquisition_date'] }}
-                            {{ $product['acquisition_mode'] }}
+                            @unless(empty($product['acquisition_mode']))
+                                {{ isset($product['acquisition_mode']['name']) ?: $product['acquisition_mode']['name'] }}
+                            @endunless
                         </dd>
                     </div>
                     @endunless
