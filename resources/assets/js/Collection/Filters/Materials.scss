@@ -47,15 +47,20 @@
   }
 }
 .Materials__lvl2-item.is-textile-technique-banner {
-  margin-top: 50px;
+  margin-top: 43px;
   @include f-sans;
   font-weight: normal;
+
   font-size: rem(18px);
   padding: 13px 25px 13px 40px;
   line-height: rem(18px);
   @include breakpoint(1025px) {
     padding: 10px 10px 15px 60px;
     font-size: rem(15px);
+
+    span {
+      border-bottom: 1px solid white;
+    }
   }
 }
 .Materials__lvl1-chevron {
@@ -165,5 +170,11 @@
   }
   &.desktopFilterPanel-enter.desktopFilterPanel-enter-active {
     opacity: 1;
+  }
+}
+
+@media (hover: hover) {
+  .Materials__lvl2-button:hover {
+    background-color: #404f8b;
   }
 }

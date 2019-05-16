@@ -24,7 +24,7 @@ class SecondColMenu extends Component {
       this.hasRenderedTextileBanner = true;
       return (
         <li className="Materials__lvl2-item is-textile-technique-banner">
-          Techniques de tissage :
+          <span>Techniques de tissage :</span>
         </li>
       );
     }
