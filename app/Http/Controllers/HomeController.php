@@ -3,17 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SEO;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return view('site.home', [
-        ]);
+        $this->middleware('auth');
     }
 
-    public function info(Request $request)
+    /**
+     * Show the homepage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('site.home');
+    }
+
+    /**
+     * Show the information page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function info()
     {
         return view('site.info');
     }

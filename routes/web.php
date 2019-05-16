@@ -18,3 +18,5 @@ Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')->where('inven
 Route::get('/objet/{inventory_id}', 'SearchController@index')->name('product')->where('inventory_id', '.*');
 
 Route::get('/info', 'HomeController@info');
+
+Auth::routes();
