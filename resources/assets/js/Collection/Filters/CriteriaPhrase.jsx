@@ -335,7 +335,12 @@ class CriteriaPhrase extends Component {
   sentencizeGroups(arr, op) {
     let last = null;
     if (arr.length === 2) {
-      if (arr[1] && arr[1][0] && arr[1][0].match(/.*(entre|de|par|en).*/)) {
+      if (
+        arr[1] &&
+        arr[1][0] &&
+        typeof arr[1][0] === "string" &&
+        arr[1][0].match(/.*(entre|de|par|en).*/)
+      ) {
         arr.splice(1, 0, " ");
       } else {
         arr.splice(1, 0, " et ");
