@@ -137,8 +137,8 @@ const Author = ({ index, style, data }) => (
         data.onItemClick(ev, window.__INITIAL_STATE__.authors[index])
       }
     >
-      <span>{window.__INITIAL_STATE__.authors[index].first_name} </span>
-      <strong>{window.__INITIAL_STATE__.authors[index].last_name}</strong>
+      <strong>{window.__INITIAL_STATE__.authors[index].last_name} </strong>
+      <span>{window.__INITIAL_STATE__.authors[index].first_name}</span>
       {/* <span className="Authors__objcount">15340</span> */}
     </button>
   </div>
