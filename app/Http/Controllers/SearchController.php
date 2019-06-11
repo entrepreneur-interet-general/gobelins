@@ -51,8 +51,17 @@ class SearchController extends Controller
                                             return $mat->children->isNotEmpty() ||  ($mat->children->isEmpty() && $mat->products_count > 0);
                                         })->toTree();
 
+            $product_types = ProductType::withCount('products')
+                                        ->with('descendants')
+                                        ->orderBy('id', 'asc')
+                                        ->get()
+                                        // We must filter manually, because using ::has('products') will remove root items.
+                                        ->filter(function ($pt) {
+                                            return $pt->children->isNotEmpty() ||  ($pt->children->isEmpty() && $pt->products_count > 0);
+                                        })->toTree();
+
             return collect([
-                'productTypes' => ProductType::has('products')->get()->toTree(),
+                'productTypes' => $product_types,
                 'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
                 'authors' => $authors,
                 'authors_offsets' => $authors_offsets,
