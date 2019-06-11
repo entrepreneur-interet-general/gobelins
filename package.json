@@ -24,7 +24,7 @@
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.18.0",
     "sass-loader": "^7.1.0",
-    "webpack-bundle-analyzer": "^3.0.3"
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
