@@ -34,20 +34,22 @@ class SecondColMenu extends Component {
     return (
       <React.Fragment key={i}>
         {this.renderTextileBanner(mat)}
-        <li className="Materials__lvl2-item">
-          <button
-            type="button"
-            onClick={ev => this.props.onSecondColumnClick(mat, ev)}
-            className={
-              "Materials__lvl2-button" +
-              (this.props.selectedIds.indexOf(mat.id) >= 0
-                ? " is-selected"
-                : "")
-            }
-          >
-            {mat.name}
-          </button>
-        </li>
+        {mat.name !== "Moleskine" && (
+          <li className="Materials__lvl2-item">
+            <button
+              type="button"
+              onClick={ev => this.props.onSecondColumnClick(mat, ev)}
+              className={
+                "Materials__lvl2-button" +
+                (this.props.selectedIds.indexOf(mat.id) >= 0
+                  ? " is-selected"
+                  : "")
+              }
+            >
+              {mat.name}
+            </button>
+          </li>
+        )}
       </React.Fragment>
     );
   }
