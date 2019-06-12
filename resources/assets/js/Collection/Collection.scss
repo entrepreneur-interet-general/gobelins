@@ -150,11 +150,12 @@
 
 .Collection__spinner {
   position: fixed;
-  bottom: 80px;
+  bottom: 50%;
   right: 50%;
-  transform: translateX(-25px);
+  transform: translate(-50%, -50%);
   z-index: 999;
   @include breakpoint($medium-up) {
+    bottom: 80px;
     right: calc((100vw - 248px) / 2);
   }
 }
