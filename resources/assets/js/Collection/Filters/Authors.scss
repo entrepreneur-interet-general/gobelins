@@ -59,6 +59,12 @@
   font-size: rem(11px);
   color: #0a3630;
   cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 .Authors__double-col {
   flex: 1 1 auto;
