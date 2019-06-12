@@ -42,6 +42,52 @@ class FilterPanelMobile extends Component {
     this.props.onCloseFilterPanel();
   };
 
+  countActiveParams = paramName => {
+    if (
+      this.props.filterObj.hasOwnProperty(paramName) &&
+      Array.isArray(this.props.filterObj[paramName])
+    ) {
+      return (
+        <React.Fragment>
+          {String.fromCharCode(160) + "(" + String.fromCharCode(8239)}
+          {this.props.filterObj[paramName].length}
+          {String.fromCharCode(8239) + ")"}
+        </React.Fragment>
+      );
+    }
+  };
+
+  currentPeriod = () => {
+    return (
+      this.props.filterObj.hasOwnProperty("period_start_year") &&
+      this.props.filterObj.hasOwnProperty("period_end_year") && (
+        <React.Fragment>
+          {String.fromCharCode(160) + "(" + String.fromCharCode(8239)}
+          {this.props.filterObj.period_start_year +
+            "—" +
+            this.props.filterObj.period_end_year}
+          {String.fromCharCode(8239) + ")"}
+        </React.Fragment>
+      )
+    );
+  };
+
+  currentDimensions = () => {
+    let count = 0;
+    if (this.props.filterObj.hasOwnProperty("depth_or_width_lte")) count++;
+    if (this.props.filterObj.hasOwnProperty("height_or_thickness_lte")) count++;
+    if (this.props.filterObj.hasOwnProperty("length_or_diameter_lte")) count++;
+    return (
+      count > 0 && (
+        <React.Fragment>
+          {String.fromCharCode(160) + "(" + String.fromCharCode(8239)}
+          {count}
+          {String.fromCharCode(8239) + ")"}
+        </React.Fragment>
+      )
+    );
+  };
+
   render() {
     return (
       <div className="FilterPanelMobile">
@@ -68,6 +114,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("ProductTypes", ev)}
                     >
                       Type d’objet
+                      {this.countActiveParams("product_type_ids")}
                     </button>
                   </li>
                   <li>
@@ -76,6 +123,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("Authors", ev)}
                     >
                       Auteur
+                      {this.countActiveParams("author_ids")}
                     </button>
                   </li>
                   <li>
@@ -84,6 +132,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("Periods", ev)}
                     >
                       Époque
+                      {this.currentPeriod()}
                     </button>
                   </li>
                   <li>
@@ -92,6 +141,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("Styles", ev)}
                     >
                       Style
+                      {this.countActiveParams("style_ids")}
                     </button>
                   </li>
                   <li>
@@ -100,6 +150,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("ProductionOrigins", ev)}
                     >
                       Manufacture et atelier
+                      {this.countActiveParams("production_origin_ids")}
                     </button>
                   </li>
                   <li>
@@ -108,6 +159,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("Materials", ev)}
                     >
                       Matière
+                      {this.countActiveParams("material_ids")}
                     </button>
                   </li>
                   <li>
@@ -116,6 +168,7 @@ class FilterPanelMobile extends Component {
                       onClick={ev => this.openPanel("Dimensions", ev)}
                     >
                       Dimension
+                      {this.currentDimensions()}
                     </button>
                   </li>
                 </ul>
