@@ -1,4 +1,6 @@
 import React from "react";
+import flatten from "lodash/flatten";
+
 import Loader from "../Loader";
 import { AuthContext } from "../context/auth-context";
 
@@ -22,11 +24,14 @@ export default class AuthModal extends React.Component {
 const DefaultAction = props => {
   return (
     <div>
+      Pour sauvegarder cet objet, identifiez-vous :
       <br />
       <br />
-      <button onClick={() => props.switchToAction(LoginAction)}>Login</button>
+      <button onClick={() => props.switchToAction(LoginAction)}>
+        se connecter
+      </button>
       <button onClick={() => props.switchToAction(RegisterAction)}>
-        Register
+        créer un compte
       </button>
     </div>
   );
@@ -47,6 +52,7 @@ class RegisterAction extends React.Component {
     this.state = {
       loading: false,
       errorMessage: false,
+      errors: [],
       name: "",
       email: "",
       password: "",
@@ -75,7 +81,11 @@ class RegisterAction extends React.Component {
         console.log("Finished registering.", this.context.data);
       })
       .catch(error => {
-        this.setState({ loading: false, errorMessage: error.message });
+        this.setState({
+          loading: false,
+          errorMessage: error.message,
+          errors: flatten(Object.values(error.errors))
+        });
       });
   };
 
@@ -84,9 +94,14 @@ class RegisterAction extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <fieldset disabled={this.state.loading}>
-            <legend>Register</legend>
+            <legend>Créer votre compte :</legend>
             {this.state.errorMessage && (
-              <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+              <div style={{ color: "red" }}>
+                Impossible de créer le compte :
+                {this.state.errors.map(e => (
+                  <div>{e}</div>
+                ))}
+              </div>
             )}
             <br />
             <input
@@ -107,7 +122,7 @@ class RegisterAction extends React.Component {
               value={this.state.password}
               onChange={this.handleInputChange}
             />
-            <button type="submit">Envoyer</button>
+            <button type="submit">Valider</button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}
@@ -162,7 +177,7 @@ class LoginAction extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <fieldset disabled={this.state.loading}>
-            <legend>Login</legend>
+            <legend>Vous connecter :</legend>
             {this.state.errorMessage && (
               <div style={{ color: "red" }}>{this.state.errorMessage}</div>
             )}
@@ -179,7 +194,7 @@ class LoginAction extends React.Component {
               value={this.state.password}
               onChange={this.handleInputChange}
             />
-            <button type="submit">Envoyer</button>
+            <button type="submit">Valider</button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}
