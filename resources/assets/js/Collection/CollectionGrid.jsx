@@ -1,13 +1,20 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
 import isEqual from "lodash/isEqual";
+import folkloreImage from "../vendor/folklore-image.js";
+
 import TirelessMason from "./TirelessMason.jsx";
 import Loader from "../Loader.jsx";
-import folkloreImage from "../vendor/folklore-image.js";
+import Heart from "../icons/Heart";
+import AddToSelectionModal from "../Selection/AddToSelectionModal";
+import CrossSimple from "../icons/CrossSimple.jsx";
 
 class CollectionGrid extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      addingToSelection: null
+    };
     this.infiniteScroll = React.createRef();
     this.forceLayout = this.forceLayout.bind(this);
   }
@@ -20,7 +27,16 @@ class CollectionGrid extends Component {
     }
   }
 
-  renderGridElements() {
+  handleSelectionClick = (product, ev) => {
+    console.log("handle selection click", product.inventory_id);
+
+    ev.stopPropagation();
+    ev.preventDefault();
+    // this.props.onAddToSelection();
+    this.setState({ addingToSelection: product });
+  };
+
+  renderGridElements = () => {
     return this.props.hits.map((datum, index) => {
       let hasImages = datum.images && datum.images.length > 0;
 
@@ -41,7 +57,7 @@ class CollectionGrid extends Component {
           className="Collection__cell"
         >
           {hasImages ? (
-            <div
+            <figure
               className="Collection__image-container"
               style={{
                 "--aspect-ratio": datum.images[0].width / datum.images[0].height
@@ -74,7 +90,14 @@ class CollectionGrid extends Component {
                   "760 760w"
                 }
               /> */}
-            </div>
+              <button
+                type="button"
+                className="Collection__image-selection-button"
+                onClick={this.handleSelectionClick.bind(this, datum)}
+              >
+                <Heart />
+              </button>
+            </figure>
           ) : (
             <div className="Collection__image-container--empty" />
           )}
@@ -92,11 +115,15 @@ class CollectionGrid extends Component {
         </a>
       );
     });
-  }
+  };
 
   forceLayout() {
     this.infiniteScroll.current.forcePack();
   }
+
+  handleCloseAddToSelection = () => {
+    this.setState({ addingToSelection: null });
+  };
 
   render() {
     return (
@@ -124,6 +151,20 @@ class CollectionGrid extends Component {
         {this.props.isLoadingMore ? (
           <Loader className="Collection__spinner" />
         ) : null}
+        {this.state.addingToSelection && (
+          <AddToSelectionModal
+            product={this.state.addingToSelection}
+            onClose={this.handleCloseAddToSelection}
+            closeButton={
+              <button
+                className="SelectionModal__close"
+                onClick={this.handleCloseAddToSelection}
+              >
+                <CrossSimple />
+              </button>
+            }
+          />
+        )}
       </div>
     );
   }

@@ -20,7 +20,6 @@
 @import "../js/Collection/Collection.scss";
 @import "../js/Collection/ScrollToTop.scss";
 @import "../js/Collection/ResultCount.scss";
-@import "../js/Detail/Detail.scss";
 @import "../js/Collection/Filters/Authors.scss";
 @import "../js/Collection/Filters/AuthorsMobile.scss";
 @import "../js/Collection/Filters/Periods.scss";
@@ -43,6 +42,9 @@
 @import "../js/Collection/Filters/Styles.scss";
 @import "../js/Collection/Filters/StylesMobile.scss";
 @import "../js/Collection/Settings/Settings.scss";
+@import "../js/Detail/Detail.scss";
+@import "../js/Modal.scss";
+@import "../js/Selection/SelectionModal.scss";
 
 :root {
   height: 100%;

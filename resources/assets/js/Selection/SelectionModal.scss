@@ -1,0 +1,22 @@
+.SelectionModal__overlay {
+}
+.SelectionModal__content {
+  position: relative;
+  background-color: #131313;
+  color: white;
+  padding: 40px;
+}
+.SelectionModal__close {
+  position: absolute;
+  top: 29px;
+  right: 29px;
+  background-color: transparent;
+  color: white;
+  border: 0;
+  padding: 10px;
+  -webkit-appearance: none;
+
+  svg {
+    display: block;
+  }
+}

@@ -40,6 +40,7 @@ class Collection extends Component {
               onObjectClick={this.props.onObjectClick}
               isLoading={this.props.isLoading}
               isLoadingMore={this.props.isLoadingMore}
+              onAddToSelection={this.props.onAddToSelection}
             />
           ) : (
             <CollectionList hits={this.props.hits} />
