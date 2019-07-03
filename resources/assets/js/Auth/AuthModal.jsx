@@ -152,14 +152,9 @@ class LoginAction extends React.Component {
     this.setState({ loading: true });
 
     // authClient
-    this.context
-      .login(this.state)
-      .then(arg => {
-        console.log("Finished login.", this.context.data);
-      })
-      .catch(error => {
-        this.setState({ loading: false, errorMessage: error.message });
-      });
+    this.context.login(this.state).catch(error => {
+      this.setState({ loading: false, errorMessage: error.message });
+    });
   };
 
   handleInputChange = ev => {

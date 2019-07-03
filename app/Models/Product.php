@@ -9,6 +9,8 @@ class Product extends Model
 {
     use Searchable;
 
+    protected $hidden = ['pivot'];
+
     // Eloquent relationships
 
     public function authorships()
@@ -59,6 +61,11 @@ class Product extends Model
     public function productionOrigin()
     {
         return $this->belongsTo(ProductionOrigin::class);
+    }
+
+    public function selections()
+    {
+        return $this->belongsToMany(Selection::class);
     }
 
     // Accessors

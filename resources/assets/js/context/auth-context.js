@@ -10,16 +10,30 @@ class AuthProvider extends React.Component {
     this.state = {
       authenticated: false,
       user: {
+        id: "",
         name: "",
         email: ""
       }
     };
   }
 
+  componentDidMount = () => {
+    // Eagerly load user profile info.
+    const token = authClient.getToken();
+    if (token) {
+      authClient.getProfile().then(data => {
+        this.setState({
+          user: { ...data },
+          authenticated: true
+        });
+      });
+    }
+  };
+
   login = form => {
     return authClient.login(form).then(data => {
       this.setState({
-        user: { ...data },
+        user: data.user,
         authenticated: true
       });
     });
@@ -28,7 +42,7 @@ class AuthProvider extends React.Component {
   register = form => {
     return authClient.register(form).then(data => {
       this.setState({
-        user: { ...data },
+        user: data,
         authenticated: true
       });
     });

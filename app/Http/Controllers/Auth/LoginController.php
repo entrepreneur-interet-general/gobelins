@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -50,7 +51,7 @@ class LoginController extends Controller
         return response()->json([
             'status' => 'ok',
             'token' => $user->api_token,
-            'user' => $user->toArray()
+            'user' => $user->toArray(),
         ]);
     }
 

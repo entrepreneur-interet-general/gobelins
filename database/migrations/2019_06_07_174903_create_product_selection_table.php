@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSelectionUserTable extends Migration
+class CreateProductSelectionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSelectionUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('selection_user', function (Blueprint $table) {
-            // $table->integer('order')->nullable();
+        Schema::create('product_selection', function (Blueprint $table) {
+            // $table->integer('order');
+            $table->integer('product_id');
             $table->integer('selection_id');
-            $table->integer('user_id');
+            $table->foreign('product_id')->references('id')->on('products');
             $table->foreign('selection_id')->references('id')->on('selections');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateSelectionUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('selection_user');
+        Schema::dropIfExists('product_selection');
     }
 }

@@ -4,7 +4,7 @@ const localStorageKey = "__auth_token__";
 
 function handleUserResponse(data) {
   window.localStorage.setItem(localStorageKey, data.token);
-  return data.user;
+  return data;
 }
 
 function login({ email, password, csrfToken }) {
@@ -30,8 +30,12 @@ function logout() {
   return Promise.resolve();
 }
 
+function getProfile() {
+  return client("api/user/profile");
+}
+
 function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-export { login, register, logout, getToken };
+export { login, register, logout, getToken, getProfile };

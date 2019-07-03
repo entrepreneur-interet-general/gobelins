@@ -25,7 +25,10 @@ export default class AddToSelectionModal extends React.Component {
               <React.Fragment>
                 {this.props.closeButton}
                 {auth.data.authenticated ? (
-                  <AddToSelectionSteps />
+                  <AddToSelectionSteps
+                    user={auth.data.user}
+                    product={this.props.product}
+                  />
                 ) : (
                   <AuthModal />
                 )}
