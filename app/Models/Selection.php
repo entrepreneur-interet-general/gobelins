@@ -16,6 +16,10 @@ class Selection extends Model
 
     protected $with = ['products'];
 
+    protected $attributes = [
+        'public' => true, // Default value.
+    ];
+
     public function users()
     {
         return $this->belongsToMany(\App\User::class);

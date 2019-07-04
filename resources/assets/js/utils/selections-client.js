@@ -4,7 +4,12 @@ function list() {
   return client("api/selections");
 }
 
-function create(selection) {}
+function create(product_ids, selection) {
+  return client("api/selections", {
+    method: "POST",
+    body: { selection, product_ids }
+  });
+}
 
 function add(product_id, selection_id) {
   return client(`api/selections/${selection_id}/add/${product_id}`);

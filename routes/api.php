@@ -23,14 +23,20 @@ Route::get('/product/{inventory_id}', [
     'as' => 'product_endpoint', 'uses' => 'ProductController@show'
 ]);
 
-Route::middleware('auth:api')->get('/user/profile', function (Request $request) {
-    return $request->user();
-});
 
-Route::middleware('auth:api')->get('selections', [
-    'as' => 'selections', 'uses' => 'SelectionsController@index'
-]);
-Route::middleware('auth:api')->get('selections/{selection_id}/add/{product_id}', 'SelectionsController@add')->where([
-    'selection_id' => '[0-9]+',
-    'product_id' => '[0-9]+',
-]);
+Route::middleware('auth:api', 'throttle:60,1')->group(function () {
+    Route::get('/user/profile', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::get('selections', [
+        'as' => 'selections', 'uses' => 'SelectionsController@index'
+    ]);
+
+    Route::get('selections/{selection_id}/add/{product_id}', 'SelectionsController@add')->where([
+        'selection_id' => '[0-9]+',
+        'product_id' => '[0-9]+',
+    ]);
+    
+    Route::post('selections', 'SelectionsController@create');
+});

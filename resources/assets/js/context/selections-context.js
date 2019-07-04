@@ -61,6 +61,18 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  createAndAdd = (product_ids, selection) => {
+    this.setState({ loading: true });
+    return selectionsClient.create(product_ids, selection).then(data => {
+      this.setState({
+        inited: true,
+        loading: false,
+        selections: data.selections
+      });
+      return data;
+    });
+  };
+
   render() {
     return (
       <SelectionsContext.Provider
@@ -69,7 +81,8 @@ class SelectionsProvider extends React.Component {
           loading: this.state.loading,
           selections: this.state.selections,
           list: this.list,
-          add: this.add
+          add: this.add,
+          createAndAdd: this.createAndAdd
         }}
         {...this.props}
       />

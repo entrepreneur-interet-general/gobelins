@@ -12,9 +12,14 @@ export default class SelectionInput extends React.Component {
     this.setState({ newSelectionName: ev.target.value });
   };
 
+  handleSubmit = ev => {
+    ev.preventDefault();
+    this.props.onSubmit(this.state.newSelectionName);
+  };
+
   render() {
     return (
-      <form onSubmit={this.props.onSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <fieldset>
           <legend>
             {this.props.isFirst

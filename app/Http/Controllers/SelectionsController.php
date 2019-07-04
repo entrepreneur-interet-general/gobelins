@@ -23,6 +23,37 @@ class SelectionsController extends Controller
     }
 
     /**
+     * Create a selection.
+     *
+     * @param  Request  $request
+     * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+
+    public function create(Request $request)
+    {
+        $this->authorize('create', Selection::class);
+
+        $request->validate([
+            'selection' => 'required',
+            'selection.name' => 'required|max:255',
+            'product_ids' => 'sometimes|required|array',
+            'product_ids.*' => 'integer',
+        ]);
+        
+        $selection = new Selection;
+        $selection->name = $request->selection['name'];
+        $selection->save();
+        $selection->users()->attach(Auth::user());
+
+        if ($request->product_ids) {
+            $selection->products()->attach($request->product_ids);
+        }
+
+        return $this->listSelections();
+    }
+
+    /**
      * Add a product to a given selection.
      *
      * @param  Request  $request

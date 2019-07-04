@@ -15,9 +15,13 @@ export default class AddToSelectionSteps extends React.Component {
     this.state = { doneAddingProduct: false };
   }
 
-  handleSubmitNewSelection = ev => {
-    ev.preventDefault();
+  handleSubmitNewSelection = name => {
     console.log("Submit this selection !");
+    this.context
+      .createAndAdd([this.props.product["_id"]], { name })
+      .then(() => {
+        this.setState({ doneAddingProduct: true });
+      });
   };
 
   handleSelectionPick = selection => {

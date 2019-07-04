@@ -1,3 +1,5 @@
+import qs from "qs";
+
 function client(endpoint, { body, ...customConfig } = {}) {
   const token = window.localStorage.getItem("__auth_token__");
   const headers = {
@@ -22,9 +24,7 @@ function client(endpoint, { body, ...customConfig } = {}) {
         config.body = JSON.stringify(body);
         break;
       case "application/x-www-form-urlencoded":
-        const data = new URLSearchParams();
-        Object.entries(body).map(([k, v]) => data.append(k, v));
-        config.body = data.toString();
+        config.body = qs.stringify(body);
         break;
     }
   }
