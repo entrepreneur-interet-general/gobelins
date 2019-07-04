@@ -182,12 +182,14 @@ class LoginAction extends React.Component {
               name="email"
               value={this.state.email}
               onChange={this.handleInputChange}
+              required
             />
             <input
               type="password"
               name="password"
               value={this.state.password}
               onChange={this.handleInputChange}
+              required
             />
             <button type="submit">Valider</button>
           </fieldset>

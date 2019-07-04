@@ -12,8 +12,27 @@ export default class AddToSelectionSteps extends React.Component {
   static contextType = SelectionsContext;
   constructor(props) {
     super(props);
-    this.state = { doneAddingProduct: false };
+    this.state = {
+      doneAddingProduct: false,
+      errorMessage: false,
+      loading: false
+    };
   }
+
+  componentDidMount = () => {
+    if (this.context.loading === false && this.context.inited === false) {
+      this.setState({ loading: true });
+      this.context.list().then(() => this.setState({ loading: false }));
+    } else if (this.context.loading === true) {
+      this.setState({ loading: true });
+    }
+  };
+
+  componentDidUpdate = () => {
+    if (this.state.loading && this.context.loading === false) {
+      this.setState({ loading: false });
+    }
+  };
 
   handleSubmitNewSelection = name => {
     console.log("Submit this selection !");
@@ -21,6 +40,11 @@ export default class AddToSelectionSteps extends React.Component {
       .createAndAdd([this.props.product["_id"]], { name })
       .then(() => {
         this.setState({ doneAddingProduct: true });
+      })
+      .catch(error => {
+        console.log("catch ettor !");
+
+        this.setState({ loading: false, errorMessage: error.message });
       });
   };
 
@@ -33,10 +57,10 @@ export default class AddToSelectionSteps extends React.Component {
   render() {
     return (
       <SelectionsContext.Consumer>
-        {({ selections, loading, inited }) => {
+        {({ selections, inited }) => {
           //   const { selections, loading, inited } = context;
-          return inited === false || loading === true ? (
-            <SelectionsLoader />
+          return this.state.loading === true ? (
+            <Loader />
           ) : this.state.doneAddingProduct ? (
             <DoneAddingProduct />
           ) : (
@@ -50,12 +74,14 @@ export default class AddToSelectionSteps extends React.Component {
                   />
                   <SelectionInput
                     onSubmit={this.handleSubmitNewSelection}
+                    errorMessage={this.state.errorMessage}
                     isFirst={false}
                   />
                 </>
               ) : (
                 <SelectionInput
                   onSubmit={this.handleSubmitNewSelection}
+                  errorMessage={this.state.errorMessage}
                   isFirst={true}
                 />
               )}
@@ -65,14 +91,6 @@ export default class AddToSelectionSteps extends React.Component {
       </SelectionsContext.Consumer>
     );
   }
-}
-
-function SelectionsLoader(props) {
-  const context = useSelections();
-  if (context.inited === false) {
-    context.list();
-  }
-  return <Loader />;
 }
 
 function DoneAddingProduct(props) {
