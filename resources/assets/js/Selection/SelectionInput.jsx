@@ -1,5 +1,7 @@
 import React from "react";
 
+import Plus from "../icons/Plus";
+
 export default class SelectionInput extends React.Component {
   constructor(props) {
     super(props);
@@ -21,19 +23,23 @@ export default class SelectionInput extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <fieldset disabled={this.state.loading}>
-          <legend>
+      <form className="SelectionModal__input-form" onSubmit={this.handleSubmit}>
+        <fieldset
+          className="SelectionModal__input-fieldset"
+          disabled={this.state.loading}
+        >
+          <legend className="SelectionModal__input-legend">
             {this.props.isFirst
-              ? "Nommez votre première sélection :"
-              : "Créer une nouvelle sélection"}
+              ? "Nommez votre première sélection\u00a0:"
+              : "Créer une nouvelle sélection\u00a0:"}
           </legend>
-          <div>
+          <div className="SelectionModal__input-wrapper">
             {this.props.errorMessage && (
               <div style={{ color: "red" }}>{this.props.errorMessage}</div>
             )}
 
             <input
+              className="SelectionModal__input-input"
               type="text"
               value={this.state.newSelectionName}
               onChange={this.handleChange}
@@ -41,7 +47,9 @@ export default class SelectionInput extends React.Component {
               required
               maxLength="255"
             />
-            <button type="submit">+</button>
+            <button className="SelectionModal__input-submit" type="submit">
+              <Plus />
+            </button>
           </div>
         </fieldset>
       </form>

@@ -64,7 +64,7 @@ export default class AddToSelectionSteps extends React.Component {
           ) : this.state.doneAddingProduct ? (
             <DoneAddingProduct />
           ) : (
-            <div>
+            <div className="SelectionModal__wrapper">
               {selections && selections.length > 0 ? (
                 <>
                   <SelectionPick

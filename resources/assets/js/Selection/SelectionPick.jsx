@@ -2,19 +2,25 @@ import React from "react";
 
 export default function SelectionPick(props) {
   return (
-    <div>
-      <div>
+    <fieldset className="SelectionModal__pick-fieldset">
+      <legend className="SelectionModal__pick-legend">
         {props.username
           ? `${
               props.username
-            } à quelle sélection souhaitez-vous ajouter cet objet ?`
-          : "À quelle sélection souhaitez-vous ajouter cet objet ?"}
-      </div>
+            }, à quelle sélection souhaitez-vous l’ajouter\u00a0?`
+          : "À quelle sélection souhaitez-vous l’ajouter\u00a0?"}
+      </legend>
       {props.selections.map((s, i) => (
-        <button onClick={() => props.onPick(s)} key={i}>
+        <span
+          tabIndex="0"
+          role="button"
+          className="SelectionModal__pick-button"
+          onClick={() => props.onPick(s)}
+          key={i}
+        >
           {s.name}
-        </button>
+        </span>
       ))}
-    </div>
+    </fieldset>
   );
 }

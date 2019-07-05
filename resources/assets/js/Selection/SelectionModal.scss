@@ -1,22 +1,135 @@
 .SelectionModal__overlay {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }
 .SelectionModal__content {
+  flex: 1 1 auto;
+  margin: 20px;
+  padding: 20px;
+  @include breakpoint(760px) {
+    flex: 0 0 auto;
+    margin: auto;
+    width: 740px;
+    min-height: 425px;
+  }
+  box-sizing: border-box;
   position: relative;
-  background-color: #131313;
+  background-color: #000;
   color: white;
-  padding: 40px;
 }
 .SelectionModal__close {
   position: absolute;
-  top: 29px;
-  right: 29px;
+  top: 10px;
+  right: 10px;
   background-color: transparent;
   color: white;
   border: 0;
   padding: 10px;
   -webkit-appearance: none;
+  cursor: pointer;
 
   svg {
     display: block;
+  }
+}
+
+.SelectionModal__wrapper {
+  padding: 50px 0;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  @include breakpoint(760px) {
+    padding: 35px 100px 60px;
+  }
+}
+
+.SelectionModal__pick-fieldset,
+.SelectionModal__input-fieldset {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.SelectionModal__pick-legend,
+.SelectionModal__input-legend {
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  margin-bottom: 15px;
+}
+.SelectionModal__pick-button {
+  box-sizing: border-box;
+  padding: 6px 10px;
+  margin: 0 10px 10px 0;
+  background: #373737;
+  color: #fff;
+  border: 1px solid #373737;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: left;
+  box-decoration-break: clone;
+
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(43px);
+
+  &:hover {
+    border-color: white;
+  }
+}
+
+/* Inputing a new selection */
+.SelectionModal__input-form {
+  display: block;
+  width: 100%;
+}
+.SelectionModal__input-fieldset {
+  margin-top: 30px;
+}
+.SelectionModal__input-legend {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.SelectionModal__input-wrapper {
+}
+.SelectionModal__input-input {
+  width: calc(100% - 50px);
+  background-color: transparent;
+  margin: 0;
+  padding: 0 30px 0 13px;
+  color: #fff;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #373737;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+}
+.SelectionModal__input-submit {
+  background-color: #000;
+  border: 1px solid #373737;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  position: relative;
+  left: -18px;
+  top: 2px;
+  cursor: pointer;
+  &:hover {
+    border-color: #fff;
+  }
+
+  & > svg {
+    display: block;
+    margin: auto;
   }
 }

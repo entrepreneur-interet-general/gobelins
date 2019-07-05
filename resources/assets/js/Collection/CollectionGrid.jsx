@@ -28,12 +28,10 @@ class CollectionGrid extends Component {
   }
 
   handleSelectionClick = (product, ev) => {
-    console.log("handle selection click", product.inventory_id);
-
     ev.stopPropagation();
     ev.preventDefault();
-    // this.props.onAddToSelection();
     this.setState({ addingToSelection: product });
+    document.documentElement.classList.add("prevent-scroll");
   };
 
   renderGridElements = () => {
@@ -123,6 +121,7 @@ class CollectionGrid extends Component {
 
   handleCloseAddToSelection = () => {
     this.setState({ addingToSelection: null });
+    document.documentElement.classList.remove("prevent-scroll");
   };
 
   render() {

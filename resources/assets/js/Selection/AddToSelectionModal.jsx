@@ -13,9 +13,8 @@ export default class AddToSelectionModal extends React.Component {
   }
   render() {
     return (
-      <Gateway into="modal" className="SelectionModal">
+      <Gateway into="modal">
         <ReactModal2
-          className="SelectionModal"
           modalClassName="Modal__content SelectionModal__content"
           backdropClassName="Modal__overlay SelectionModal__overlay"
           onClose={this.props.onClose}
