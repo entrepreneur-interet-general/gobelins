@@ -4,6 +4,7 @@ import flatten from "lodash/flatten";
 import Loader from "../Loader";
 import { AuthContext } from "../context/auth-context";
 import Button from "../ui/Button";
+import InputField from "../ui/InputField";
 
 export default class AuthModal extends React.Component {
   constructor(props) {
@@ -180,29 +181,38 @@ class LoginAction extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset disabled={this.state.loading}>
-            <legend>Vous connecter :</legend>
+      <div className="AuthModal__action-login">
+        <form onSubmit={this.handleSubmit} className="AuthModal__login-form">
+          <fieldset
+            disabled={this.state.loading}
+            className="AuthModal__login-fieldset"
+          >
+            <legend className="AuthModal__login-legend">Se connecter :</legend>
             {this.state.errorMessage && (
-              <div style={{ color: "red" }}>{this.state.errorMessage}</div>
+              <div className="AuthModal__login-error">
+                {this.state.errorMessage}
+              </div>
             )}
-            <br />
-            <input
+
+            <InputField
+              className="AuthModal__login-input"
               type="email"
               name="email"
+              label="e-mail"
               value={this.state.email}
               onChange={this.handleInputChange}
               required
             />
-            <input
+            <InputField
+              className="AuthModal__login-input"
               type="password"
               name="password"
+              label="mot de passe"
               value={this.state.password}
               onChange={this.handleInputChange}
               required
             />
-            <button type="submit">Valider</button>
+            <Button className="AuthModal__login-submit">Valider</Button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}

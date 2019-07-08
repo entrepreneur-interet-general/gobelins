@@ -47,8 +47,8 @@
   top: 30px;
   right: 30px;
   @include breakpoint(760px) {
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
   }
   z-index: 1;
   background-color: transparent;

@@ -1,0 +1,48 @@
+/* The InputField is actually a <label> element. */
+.InputField {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-items: center;
+
+  height: 36px;
+
+  border: 1px solid #373737;
+  border-radius: 3px;
+
+  margin-bottom: 20px;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+  color: #a6a6a6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* …and the label is a <span> */
+.InputField__label {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.InputField__input {
+  height: 100%;
+  flex: 1 1 auto;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  color: #fff;
+}
+.InputField__toggle-visibility {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  margin-left: 10px;
+
+  .ToggleVisibility__strike {
+    visibility: hidden;
+  }
+  &.is-visible .ToggleVisibility__strike {
+    visibility: visible;
+  }
+}
