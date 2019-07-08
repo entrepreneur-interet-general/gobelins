@@ -7,6 +7,9 @@ import {
 import SelectionInput from "./SelectionInput";
 import SelectionPick from "./SelectionPick";
 import Loader from "../Loader";
+import AddedToSelection from "../icons/AddedToSelection";
+import ArrowBack from "../icons/ArrowBack";
+import ArrowDown from "../icons/ArrowDown";
 
 export default class AddToSelectionSteps extends React.Component {
   static contextType = SelectionsContext;
@@ -95,10 +98,17 @@ export default class AddToSelectionSteps extends React.Component {
 
 function DoneAddingProduct(props) {
   return (
-    <div>
-      L’Objet a été sauvegardé !
-      <br />
-      Retrouvez-le ici.
+    <div className="SelectionModal__added-confirm">
+      <div className="SelectionModal__added-illu">
+        <AddedToSelection />
+      </div>
+      <p>
+        <ArrowBack className="SelectionModal__added-arrow-back" />
+        L’objet a été sauvegardé !
+        <br />
+        Retrouvez-le ici.
+        <ArrowDown className="SelectionModal__added-arrow-down" />
+      </p>
     </div>
   );
 }

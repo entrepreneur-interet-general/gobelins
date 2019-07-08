@@ -1,0 +1,48 @@
+.AuthModal {
+  padding: 50px 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  @include breakpoint(760px) {
+    padding: 35px 100px 60px;
+  }
+}
+
+.AuthModal__action-default {
+  display: flex;
+  flex-flow: column nowrap;
+
+  @include breakpoint(760px) {
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+}
+
+.AuthModal__default-label {
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin-bottom: 65px;
+  margin-right: 40px;
+  @include breakpoint(760px) {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+.AuthModal__default-buttons {
+  width: 190px;
+}
+.AuthModal__default-top-button {
+  margin-bottom: 20px;
+  @include breakpoint(760px) {
+    margin-bottom: 40px;
+  }
+}

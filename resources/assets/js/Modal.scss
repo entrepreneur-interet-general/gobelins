@@ -12,7 +12,9 @@
   z-index: 666;
 }
 .Modal__content {
-  max-width: 740px;
-  overflow: auto;
   z-index: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
 }

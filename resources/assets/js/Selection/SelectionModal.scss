@@ -5,24 +5,52 @@
   justify-content: center;
 }
 .SelectionModal__content {
+  position: relative;
   flex: 1 1 auto;
-  margin: 20px;
-  padding: 20px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
   @include breakpoint(760px) {
     flex: 0 0 auto;
     margin: auto;
     width: 740px;
     min-height: 425px;
   }
+}
+.SelectionModal__content-scrollable {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 740px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  margin: 20px;
+  padding: 20px;
   box-sizing: border-box;
   position: relative;
   background-color: #000;
   color: white;
+  max-height: 100%;
+  @include breakpoint(760px) {
+    flex: 0 0 auto;
+    margin: auto;
+    width: 740px;
+    min-height: 425px;
+  }
 }
 .SelectionModal__close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 30px;
+  right: 30px;
+  @include breakpoint(760px) {
+    top: 10px;
+    right: 10px;
+  }
+  z-index: 1;
   background-color: transparent;
   color: white;
   border: 0;
@@ -38,7 +66,7 @@
 .SelectionModal__wrapper {
   padding: 50px 0;
   box-sizing: border-box;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -48,6 +76,9 @@
   }
 }
 
+.SelectionModal__pick-container {
+  font-size: 0px;
+}
 .SelectionModal__pick-fieldset,
 .SelectionModal__input-fieldset {
   display: block;
@@ -131,5 +162,56 @@
   & > svg {
     display: block;
     margin: auto;
+  }
+}
+
+/* Confirmation dialog */
+
+.SelectionModal__added-confirm {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column-reverse;
+  @include breakpoint(760px) {
+    flex-flow: row nowrap;
+    flex-direction: initial;
+    align-items: center;
+  }
+
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  & p {
+    margin: 0;
+    padding: 0;
+  }
+}
+.SelectionModal__added-illu {
+  display: block;
+  float: left;
+  margin-top: 30px;
+  @include breakpoint(760px) {
+    margin-top: 0;
+    margin-right: 20px;
+  }
+}
+.SelectionModal__added-arrow-back {
+  display: none;
+  @include breakpoint(760px) {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+.SelectionModal__added-arrow-down {
+  display: inline-block;
+  margin-left: 10px;
+  @include breakpoint(760px) {
+    display: none;
   }
 }

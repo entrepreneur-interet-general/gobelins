@@ -3,6 +3,7 @@ import flatten from "lodash/flatten";
 
 import Loader from "../Loader";
 import { AuthContext } from "../context/auth-context";
+import Button from "../ui/Button";
 
 export default class AuthModal extends React.Component {
   constructor(props) {
@@ -17,22 +18,32 @@ export default class AuthModal extends React.Component {
   };
   render() {
     const ComponentFunc = this.state.action;
-    return <ComponentFunc switchToAction={this.switchToAction} />;
+    return (
+      <div className="AuthModal">
+        <ComponentFunc switchToAction={this.switchToAction} />
+      </div>
+    );
   }
 }
 
 const DefaultAction = props => {
   return (
-    <div>
-      Pour sauvegarder cet objet, identifiez-vous :
-      <br />
-      <br />
-      <button onClick={() => props.switchToAction(LoginAction)}>
-        se connecter
-      </button>
-      <button onClick={() => props.switchToAction(RegisterAction)}>
-        créer un compte
-      </button>
+    <div className="AuthModal__action-default">
+      <div className="AuthModal__default-label">
+        Pour sauvegarder cet objet,
+        <br /> identifiez-vous :
+      </div>
+      <div className="AuthModal__default-buttons">
+        <Button
+          onClick={() => props.switchToAction(RegisterAction)}
+          className="AuthModal__default-top-button"
+        >
+          créer un compte
+        </Button>
+        <Button onClick={() => props.switchToAction(LoginAction)}>
+          se connecter
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 
@@ -21,17 +21,19 @@ export default class AddToSelectionModal extends React.Component {
         >
           <AuthContext.Consumer>
             {auth => (
-              <React.Fragment>
+              <Fragment>
                 {this.props.closeButton}
-                {auth.data.authenticated ? (
-                  <AddToSelectionSteps
-                    user={auth.data.user}
-                    product={this.props.product}
-                  />
-                ) : (
-                  <AuthModal />
-                )}
-              </React.Fragment>
+                <div className="SelectionModal__content-scrollable">
+                  {auth.data.authenticated ? (
+                    <AddToSelectionSteps
+                      user={auth.data.user}
+                      product={this.props.product}
+                    />
+                  ) : (
+                    <AuthModal />
+                  )}
+                </div>
+              </Fragment>
             )}
           </AuthContext.Consumer>
         </ReactModal2>

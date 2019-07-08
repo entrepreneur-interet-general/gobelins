@@ -17,6 +17,7 @@
 @import "blocks/Info";
 
 // React components
+@import "../js/Auth/AuthModal.scss";
 @import "../js/Collection/Collection.scss";
 @import "../js/Collection/ScrollToTop.scss";
 @import "../js/Collection/ResultCount.scss";
@@ -45,6 +46,7 @@
 @import "../js/Detail/Detail.scss";
 @import "../js/Modal.scss";
 @import "../js/Selection/SelectionModal.scss";
+@import "../js/ui/Button.scss";
 
 :root {
   height: 100%;
