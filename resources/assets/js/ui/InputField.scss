@@ -17,6 +17,10 @@
   color: #a6a6a6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &.with-submit {
+    width: calc(100% - 18px);
+  }
 }
 
 /* …and the label is a <span> */
@@ -58,5 +62,25 @@
   .ToggleVisibility__non-strike,
   &.is-visible .ToggleVisibility__strike {
     visibility: hidden;
+  }
+}
+
+.InputField__plus-submit {
+  background-color: #000;
+  border: 1px solid #373737;
+  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  position: relative;
+  left: 17px;
+  top: 0;
+  cursor: pointer;
+  &:hover {
+    border-color: #fff;
+  }
+
+  & > svg {
+    display: block;
+    margin: auto;
   }
 }

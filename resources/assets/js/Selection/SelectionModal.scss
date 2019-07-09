@@ -218,3 +218,8 @@
     display: none;
   }
 }
+
+.SelectionModal__error-msg {
+  // Eww, dirty.
+  @extend .AuthModal__error-msg;
+}
