@@ -104,38 +104,57 @@ class RegisterAction extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <fieldset disabled={this.state.loading}>
-            <legend>Créer votre compte :</legend>
+      <div className="AuthModal__action-register">
+        <form onSubmit={this.handleSubmit} className="AuthModal__register-form">
+          <fieldset
+            disabled={this.state.loading}
+            className="AuthModal__register-fieldset"
+          >
+            <legend className="AuthModal__register-legend">
+              Créer votre compte :
+            </legend>
             {this.state.errorMessage && (
-              <div style={{ color: "red" }}>
+              <div className="AuthModal__error-msg">
                 Impossible de créer le compte :
                 {this.state.errors.map(e => (
                   <div>{e}</div>
                 ))}
               </div>
             )}
-            <br />
-            <input
+            <InputField
+              className="AuthModal__register-input"
               type="text"
               name="name"
+              label="nom"
               value={this.state.name}
               onChange={this.handleInputChange}
+              required
+              maxLength="255"
             />
-            <input
+            <InputField
+              className="AuthModal__register-input"
               type="email"
               name="email"
+              label="e-mail"
               value={this.state.email}
               onChange={this.handleInputChange}
+              required
             />
-            <input
+            <InputField
+              className="AuthModal__register-input"
               type="password"
               name="password"
+              label="mot de passe"
               value={this.state.password}
               onChange={this.handleInputChange}
+              required
             />
-            <button type="submit">Valider</button>
+            <div className="AuthModal__register-info">
+              Ces informations seront seulement utilisées pour accéder
+              <br />
+              aux fonctionnalités de ce site.
+            </div>
+            <Button className="AuthModal__register-submit">Valider</Button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}

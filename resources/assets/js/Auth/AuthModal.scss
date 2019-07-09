@@ -54,9 +54,10 @@
   }
 }
 
-/* Login dialog */
+/* Login and Register dialogs */
 
-.AuthModal__action-login {
+.AuthModal__action-login,
+.AuthModal__action-register {
   display: flex;
   flex-flow: column nowrap;
 
@@ -65,13 +66,15 @@
 }
 .AuthModal__login-form {
 }
-.AuthModal__login-fieldset {
+.AuthModal__login-fieldset,
+.AuthModal__register-fieldset {
   display: block;
   margin: 0;
   padding: 0;
   border: 0;
 }
-.AuthModal__login-legend {
+.AuthModal__login-legend,
+.AuthModal__register-legend {
   margin: 0;
   padding: 0;
   @include f-sans;
@@ -80,7 +83,8 @@
   margin-bottom: 25px;
 }
 
-.AuthModal__login-input {
+.AuthModal__login-input,
+.AuthModal__register-input {
   display: block;
   width: 100%;
   padding: 0;
@@ -89,7 +93,8 @@
   border: 1px solid #373737;
 }
 
-.AuthModal__login-submit.AuthModal__login-submit {
+.AuthModal__login-submit.AuthModal__login-submit,
+.AuthModal__register-submit.AuthModal__register-submit {
   position: absolute;
   bottom: 30px;
   right: 30px;
@@ -104,7 +109,7 @@
   min-height: 36px;
   margin: 0;
   margin-bottom: 25px;
-  padding: 0;
+  padding: 10px;
   position: relative;
   border-radius: 3px;
   background-color: #b7abff;
@@ -112,6 +117,11 @@
   @include f-sans;
   font-size: rem(13px);
   line-height: rem(16px);
+
+  & > div {
+    position: relative;
+    z-index: 2;
+  }
 
   &:before {
     content: "";
@@ -122,5 +132,16 @@
     width: 14px;
     transform: rotate(45deg);
     background-color: #b7abff;
+    z-index: 1;
   }
+}
+
+/* Register dialog */
+
+.AuthModal__register-info {
+  color: #a6a6a6;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(16px);
+  text-align: left;
 }
