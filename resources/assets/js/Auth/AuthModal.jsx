@@ -38,10 +38,11 @@ const DefaultAction = props => {
         <Button
           onClick={() => props.switchToAction(RegisterAction)}
           className="AuthModal__default-top-button"
+          icon="arrow"
         >
           créer un compte
         </Button>
-        <Button onClick={() => props.switchToAction(LoginAction)}>
+        <Button onClick={() => props.switchToAction(LoginAction)} icon="arrow">
           se connecter
         </Button>
       </div>
@@ -189,7 +190,7 @@ class LoginAction extends React.Component {
           >
             <legend className="AuthModal__login-legend">Se connecter :</legend>
             {this.state.errorMessage && (
-              <div className="AuthModal__login-error">
+              <div className="AuthModal__error-msg">
                 {this.state.errorMessage}
               </div>
             )}

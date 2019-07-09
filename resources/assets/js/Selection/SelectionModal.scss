@@ -19,6 +19,9 @@
     min-height: 425px;
   }
 }
+.SelectionModal__loader {
+  transform: translate(-25px, -25px);
+}
 .SelectionModal__content-scrollable {
   display: flex;
   flex-flow: column nowrap;

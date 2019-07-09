@@ -3,6 +3,12 @@ import React from "react";
 const ToggleVisibility = props => (
   <svg width={17} height={17} viewBox="0 0 17 17" fill="none" {...props}>
     <path
+      d="M16.34 3L15 4.434"
+      stroke="#fff"
+      strokeMiterlimit={10}
+      className="ToggleVisibility__non-strike"
+    />
+    <path
       d="M.415 15.341L16.17 2.903"
       stroke="#fff"
       className="ToggleVisibility__strike"

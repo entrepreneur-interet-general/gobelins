@@ -6,9 +6,12 @@ export default function Button(props) {
   return (
     <button onClick={props.onClick} className={classNames}>
       <div className="Button__inner">
-        <div className="Button__icon">
-          <ArrowCta />
-        </div>
+        {props.icon && (
+          <div className="Button__icon">
+            {props.icon === "arrow" && <ArrowCta />}
+          </div>
+        )}
+
         <div className="Button__label">{props.children}</div>
       </div>
     </button>

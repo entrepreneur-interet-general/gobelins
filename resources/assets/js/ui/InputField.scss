@@ -36,13 +36,27 @@
 }
 .InputField__toggle-visibility {
   flex: 0 0 auto;
-  margin-right: 10px;
-  margin-left: 10px;
+  height: 100%;
+  padding: 0 10px;
+  margin: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 2px;
+  background-color: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
 
+  &.is-visible .ToggleVisibility__non-strike,
   .ToggleVisibility__strike {
-    visibility: hidden;
-  }
-  &.is-visible .ToggleVisibility__strike {
     visibility: visible;
+  }
+
+  .ToggleVisibility__non-strike,
+  &.is-visible .ToggleVisibility__strike {
+    visibility: hidden;
   }
 }

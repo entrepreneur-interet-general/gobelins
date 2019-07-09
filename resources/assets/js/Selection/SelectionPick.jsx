@@ -12,13 +12,12 @@ export default function SelectionPick(props) {
       </legend>
       <div className="SelectionModal__pick-container">
         {props.selections.map((s, i) => (
-          <Fragment>
+          <Fragment key={i}>
             <span
               tabIndex="0"
               role="button"
               className="SelectionModal__pick-button"
               onClick={() => props.onPick(s)}
-              key={i}
             >
               {s.name}
             </span>{" "}

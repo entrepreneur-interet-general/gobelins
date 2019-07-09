@@ -10,12 +10,15 @@ export default function InputField(props) {
       <span className="InputField__label">{props.label}</span>
       <input {...props} type={type} className="InputField__input" />
       {props.type === "password" && (
-        <ToggleVisibility
+        <button
+          type="button"
+          onClick={() => setVisible(!visible)}
           className={`InputField__toggle-visibility ${
             visible ? "is-visible" : ""
           }`}
-          onClick={() => setVisible(!visible)}
-        />
+        >
+          <ToggleVisibility />
+        </button>
       )}
     </label>
   );
