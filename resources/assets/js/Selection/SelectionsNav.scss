@@ -1,0 +1,38 @@
+.SelectionsNav {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  margin: 0;
+  @include breakpoint(1025px) {
+    height: 54px;
+    width: 54px;
+    position: fixed;
+    top: 38px;
+    right: 12px;
+  }
+  border: 1px solid #f0f0f0;
+  background-color: #fff;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    border-color: black;
+
+    .SelectionsIcon__heart {
+      fill: #f24747;
+    }
+  }
+}
+
+/* Simplify the icon for low-resolution devices,
+   to avoid blury gray aliasing. */
+@media (max-resolution: 100dpi) {
+  .SelectionsIcon__inner-page {
+    visibility: hidden;
+  }
+}

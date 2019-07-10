@@ -110,6 +110,9 @@ html:not(.has-uninitialized-BetaWelcome) .headroom--pinned {
   &.FiltersMobile__toggleholder--center {
     flex: 0 0 50px;
     margin: 0 15px;
+    & + .FiltersMobile__toggleholder--center {
+      margin-left: 0;
+    }
   }
   &.FiltersMobile__toggleholder--left {
     display: flex;
