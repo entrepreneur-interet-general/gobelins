@@ -15,6 +15,7 @@ ReactModal2.getApplicationElement = () => document.getElementById("App__main");
 import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
+import SelectionsIndex from "./Selection/SelectionsIndex";
 
 const breakpoints = {
   xxsmall: 420,
@@ -480,6 +481,15 @@ class App extends Component {
                       <Detail
                         {...props}
                         product={this.state.productDetail}
+                        onBackToCollection={this.handleBackToCollection}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/selections/"
+                    render={props => (
+                      <SelectionsIndex
+                        {...props}
                         onBackToCollection={this.handleBackToCollection}
                       />
                     )}

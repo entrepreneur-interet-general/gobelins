@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import Selections from "../icons/Selections";
+import StackHeart from "../icons/StackHeart";
 
 export default function SelectionsNav(props) {
   return (
-    <button type="button" className="SelectionsNav" onClick={props.onClick}>
-      <Selections />
-    </button>
+    <Link to="/selections/" className="SelectionsNav">
+      <StackHeart />
+    </Link>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Selections = props => (
+const StackHeart = props => (
   <svg width={54} height={54} viewBox="0 0 54 54" fill="none" {...props}>
     <path
       fill="#fff"
@@ -12,7 +12,7 @@ const Selections = props => (
       fill="#fff"
       stroke="#000"
       strokeLinejoin="round"
-      className="SelectionsIcon__inner-page"
+      className="SelectionsNav__inner-page"
       d="M20.874 16.286h14.041v21.799H20.874z"
     />
     <path
@@ -27,9 +27,9 @@ const Selections = props => (
       stroke="#fff"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="SelectionsIcon__heart"
+      className="SelectionsNav__heart"
     />
   </svg>
 );
 
-export default Selections;
+export default StackHeart;

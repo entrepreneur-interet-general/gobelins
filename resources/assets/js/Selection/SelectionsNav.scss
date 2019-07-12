@@ -23,7 +23,7 @@
   &:active {
     border-color: black;
 
-    .SelectionsIcon__heart {
+    .SelectionsNav__heart {
       fill: #f24747;
     }
   }
@@ -32,7 +32,7 @@
 /* Simplify the icon for low-resolution devices,
    to avoid blury gray aliasing. */
 @media (max-resolution: 100dpi) {
-  .SelectionsIcon__inner-page {
+  .SelectionsNav__inner-page {
     visibility: hidden;
   }
 }

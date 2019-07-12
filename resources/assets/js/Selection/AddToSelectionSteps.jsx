@@ -67,11 +67,11 @@ export default class AddToSelectionSteps extends React.Component {
       <DoneAddingProduct />
     ) : (
       <div className="SelectionModal__wrapper">
-        {this.context.selections && this.context.selections.length > 0 ? (
+        {this.context.mySelections && this.context.mySelections.length > 0 ? (
           <>
             <SelectionPick
               onPick={this.handleSelectionPick}
-              selections={this.context.selections}
+              selections={this.context.mySelections}
               username={this.props.user.name}
             />
             <SelectionInput

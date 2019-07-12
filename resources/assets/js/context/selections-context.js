@@ -10,6 +10,7 @@ class SelectionsProvider extends React.Component {
     this.state = {
       loading: false,
       inited: false,
+      mySelections: [],
       selections: []
     };
   }
@@ -25,9 +26,9 @@ class SelectionsProvider extends React.Component {
     ) {
       console.log("Selection context list them all !!");
       this.setState({ loading: true }, () => {
-        selectionsClient.list().then(data => {
+        selectionsClient.listMine().then(data => {
           this.setState({
-            selections: data.selections,
+            mySelections: data.selections,
             loading: false,
             inited: true
           });
@@ -36,14 +37,14 @@ class SelectionsProvider extends React.Component {
     }
   };
 
-  list = () => {
-    return selectionsClient.list().then(data => {
-      console.log("Received selection list, updating state.", data);
+  listMine = () => {
+    return selectionsClient.listMine().then(data => {
+      console.log("Received my selections list", data);
 
       this.setState({
         inited: true,
         loading: false,
-        selections: data.selections
+        mySelections: data.selections
       });
     });
   };
@@ -55,7 +56,7 @@ class SelectionsProvider extends React.Component {
       this.setState({
         inited: true,
         loading: false,
-        selections: data.selections
+        mySelections: data.selections
       });
       return data;
     });
@@ -67,7 +68,7 @@ class SelectionsProvider extends React.Component {
       this.setState({
         inited: true,
         loading: false,
-        selections: data.selections
+        mySelections: data.selections
       });
       return data;
     });
@@ -79,8 +80,9 @@ class SelectionsProvider extends React.Component {
         value={{
           inited: this.state.inited,
           loading: this.state.loading,
+          mySelections: this.state.mySelections,
           selections: this.state.selections,
-          list: this.list,
+          listMine: this.listMine,
           add: this.add,
           createAndAdd: this.createAndAdd
         }}

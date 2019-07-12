@@ -16,7 +16,16 @@ export default function InputField(props) {
       )}
     >
       <span className="InputField__label">{props.label}</span>
-      <input {...props} type={type} className="InputField__input" />
+      <input
+        name={props.name}
+        value={props.namevalue}
+        required={props.namerequired}
+        placeholder={props.nameplaceholder}
+        onChange={props.onChange}
+        maxLength={props.maxLength}
+        type={type}
+        className="InputField__input"
+      />
       {props.type === "password" && (
         <button
           type="button"

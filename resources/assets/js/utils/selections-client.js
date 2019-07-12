@@ -1,6 +1,6 @@
 import client from "./api-client";
 
-function list() {
+function listMine() {
   return client("api/selections");
 }
 
@@ -15,4 +15,4 @@ function add(product_id, selection_id) {
   return client(`api/selections/${selection_id}/add/${product_id}`);
 }
 
-export { list, add, create };
+export { listMine, add, create };
