@@ -10,7 +10,12 @@ export default class AuthModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      action: DefaultAction,
+      action:
+        props.action && props.action === "login"
+          ? LoginAction
+          : props.action && props.action === "register"
+          ? RegisterAction
+          : DefaultAction,
       loading: true
     };
   }
@@ -26,6 +31,12 @@ export default class AuthModal extends React.Component {
     );
   }
 }
+
+const ActionComponents = {
+  default: DefaultAction,
+  login: LoginAction,
+  register: RegisterAction
+};
 
 const DefaultAction = props => {
   return (
