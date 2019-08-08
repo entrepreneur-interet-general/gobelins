@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: center;
   max-height: 100%;
+  background-color: #000;
   @include breakpoint(760px) {
     flex: 0 0 auto;
     margin: auto;

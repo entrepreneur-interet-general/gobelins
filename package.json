@@ -19,7 +19,7 @@
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.2.0",
     "laravel-mix": "^4.0.15",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "request": "^2.88.0",
     "resolve-url-loader": "^2.3.1",
     "sass": "^1.18.0",
