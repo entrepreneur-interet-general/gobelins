@@ -6,15 +6,29 @@ import Button from "../ui/Button";
 import { useSelections } from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
+import SelectionsList from "./SelectionsList";
 
 export default function UserSelections(props) {
   //   const selectionsContext = useSelections();
   const authContext = useAuth();
 
   return authContext.data.authenticated ? (
-    <div>Authenticated</div>
+    <UserSelectionsList />
   ) : (
     <NotAuthenticated />
+  );
+}
+
+function UserSelectionsList(props) {
+  const selectionsContext = useSelections();
+  const authContext = useAuth();
+  return (
+    <div className="UserSelectionsList">
+      Selections de {authContext.data.user.name}
+      <ul className="SelectionsList">
+        <SelectionsList selections={selectionsContext.mySelections} />
+      </ul>
+    </div>
   );
 }
 
