@@ -1,0 +1,23 @@
+.Selections {
+}
+
+.Selections__close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  @include breakpoint(760px) {
+    top: 20px;
+    right: 20px;
+  }
+  z-index: 1;
+  background-color: transparent;
+  color: white;
+  border: 0;
+  padding: 10px;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  svg {
+    display: block;
+  }
+}

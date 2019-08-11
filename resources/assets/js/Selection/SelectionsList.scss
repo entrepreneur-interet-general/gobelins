@@ -1,0 +1,38 @@
+.SelectionsList {
+  --selection-list-ext-gutter: 15px;
+  margin: 130px var(--selection-list-ext-gutter);
+  padding: 0;
+  display: grid;
+
+  @include breakpoint(500px) {
+    --selection-list-ext-gutter: 40px;
+    grid-template-columns: repeat(9, 1fr 40px) 1fr;
+    grid-template-areas: ". left left left left left left left gutter gutter gutter right right right right right right right .";
+    grid-auto-rows: auto;
+    // grid-column-gap: 200px;
+  }
+
+  @include breakpoint(1780px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.SelectionsListItem {
+  grid-row: auto;
+}
+.SelectionsListItem:nth-child(odd) {
+  grid-area: auto / left;
+  margin-top: -30px;
+}
+.SelectionsListItem:nth-child(even) {
+  grid-area: auto / right;
+  margin-top: calc(70px + 30px);
+  @include breakpoint(1024px) {
+    margin-top: calc(100px + 30px);
+  }
+}
+.SelectionsListItem:first-child {
+  margin-top: 0;
+}

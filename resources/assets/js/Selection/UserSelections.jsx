@@ -23,7 +23,7 @@ function UserSelectionsList(props) {
   const selectionsContext = useSelections();
   const authContext = useAuth();
   return (
-    <div className="UserSelectionsList">
+    <div className="UserSelections">
       Selections de {authContext.data.user.name}
       <ul className="SelectionsList">
         <SelectionsList selections={selectionsContext.mySelections} />

@@ -11,7 +11,7 @@ class SelectionsController extends Controller
 {
     private function listSelections()
     {
-        $selections = Auth::user()->selections()->with(['products', 'users'])->get()->map(function ($s) {
+        $selections = Auth::user()->selections()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
             return $s->toSearchableArray();
         });
         return ['selections' => $selections];

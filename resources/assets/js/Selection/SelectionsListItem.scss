@@ -1,0 +1,77 @@
+:root {
+  --selections-list-text-color: #000;
+}
+
+.SelectionsListItem {
+  width: 100%;
+}
+
+.SelectionsListItem__images-wrapper {
+  width: 100%;
+  height: 0;
+  /* Ratio extracted from desktop large designs. */
+  padding-bottom: calc(336 / 664 * 100%);
+  position: relative;
+}
+.SelectionsListItem__images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  --gutter: 10px;
+
+  & img {
+    display: block;
+    flex: 1 1 auto;
+    height: 100%;
+    width: calc(25% - (3 * var(--gutter)));
+    object-fit: cover;
+    object-position: center;
+  }
+  & img + img {
+    margin-left: var(--gutter);
+  }
+}
+.SelectionsListItem__title-line {
+  margin-top: 20px;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(18px);
+  color: var(--selections-list-text-color);
+
+  & > * + * {
+    margin-left: 12px;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: var(--selections-list-text-color);
+      width: 1px;
+      height: 1em;
+      top: 2px;
+      left: -7px;
+    }
+  }
+}
+.SelectionsListItem__name {
+  font-weight: 600;
+}
+.SelectionsListItem__count {
+}
+.SelectionsListItem__desc {
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(18px);
+  color: #7c7c7c;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}

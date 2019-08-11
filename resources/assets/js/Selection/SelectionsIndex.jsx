@@ -12,7 +12,7 @@ class SelectionsIndex extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="Selections">
         <Link className="Selections__close" to="/recherche">
           <CrossSimple />
         </Link>
