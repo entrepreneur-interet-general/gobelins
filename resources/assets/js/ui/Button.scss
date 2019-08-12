@@ -1,11 +1,18 @@
 .Button {
   height: 44px;
   width: 100%;
+  &.Button__round {
+    width: 44px;
+  }
   padding: 0;
   border-radius: 22px;
   border: 0;
   background-color: #fff;
   color: #000;
+  &.Button__dark {
+    background-color: #000;
+    color: #fff;
+  }
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(44px);
@@ -13,16 +20,41 @@
 }
 .Button__inner {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   padding: 0 22px;
 }
 .Button__icon {
-  flex: 0 0 15px;
-  width: 15px;
+  flex: 0 0 auto;
   position: relative;
-  top: 2px;
+  top: 1px;
 }
 .Button__label {
   flex: 1 1 auto;
   text-align: center;
+}
+
+.Button.Button__small {
+  display: inline-block;
+  width: auto;
+  height: 36px;
+  border-radius: 18px;
+  border: 1px solid #000;
+  font-size: rem(15px);
+  line-height: rem(15px);
+
+  &.Button__dark {
+    border-color: #373737;
+  }
+  &.Button__round {
+    width: 36px;
+    & .Button__inner {
+      padding: 0;
+    }
+  }
+
+  & .Button__inner {
+    padding: 0 18px;
+  }
 }

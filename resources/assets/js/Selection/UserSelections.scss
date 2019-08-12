@@ -1,8 +1,35 @@
 .UserSelections {
+  position: relative;
+  padding: 130px 0;
   background-color: #000;
   color: #fff;
 
   --selections-list-text-color: #fff;
+}
 
-  padding-bottom: 130px;
+.UserSelections__header {
+  color: #fff;
+  position: relative;
+  top: -140px;
+
+  & h1 {
+    margin: 0;
+    padding: 0;
+    @include f-sans;
+    font-size: rem(30px);
+    line-height: rem(38px);
+    font-weight: normal;
+  }
+}
+
+.UserSelections__header-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.UserSelections__button {
+  flex: 0 0 auto;
+  margin-right: 10px;
 }

@@ -19,14 +19,61 @@ export default function UserSelections(props) {
   );
 }
 
-function UserSelectionsList(props) {
-  const selectionsContext = useSelections();
+function handleAddSelection(ev) {
+  console.log("handleAddSelection");
+}
+function handleEditSelection(ev) {
+  console.log("handleAddSelection");
+}
+function handleLogout() {
+  console.log("handleLogout");
+}
+
+function UserSelectionsHeader(props) {
   const authContext = useAuth();
   return (
+    <hgroup className="UserSelections__header">
+      <h1>Selections de {authContext.data.user.name}</h1>
+      <div className="UserSelections__header-buttons">
+        <Button
+          round
+          small
+          dark
+          icon="plus"
+          onClick={handleAddSelection}
+          className="UserSelections__button"
+        />
+        <Button
+          round
+          small
+          dark
+          icon="gear"
+          onClick={handleEditSelection}
+          className="UserSelections__button"
+        />
+        <Button
+          small
+          dark
+          onClick={handleLogout}
+          className="UserSelections__button"
+        >
+          se déconnecter
+        </Button>
+      </div>
+    </hgroup>
+  );
+}
+
+function UserSelectionsList(props) {
+  const selectionsContext = useSelections();
+
+  return (
     <div className="UserSelections">
-      Selections de {authContext.data.user.name}
       <ul className="SelectionsList">
-        <SelectionsList selections={selectionsContext.mySelections} />
+        <SelectionsList
+          selections={selectionsContext.mySelections}
+          rightHeader={<UserSelectionsHeader />}
+        />
       </ul>
     </div>
   );

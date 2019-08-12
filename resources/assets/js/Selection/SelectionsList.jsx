@@ -2,7 +2,13 @@ import React from "react";
 import folkloreImage from "../vendor/folklore-image.js";
 
 export default function SelectionsList(props) {
-  return props.selections.map(SelectionsListItem);
+  return props.selections.map((sel, i) => (
+    <SelectionsListItem
+      selection={sel}
+      extraHeader={i === 1 && props.rightHeader}
+      key={sel.id}
+    />
+  ));
 }
 
 function collectImages(selection) {
@@ -14,11 +20,12 @@ function collectImages(selection) {
     .slice(0, 4);
 }
 
-function SelectionsListItem(props) {
-  const illustrativeImages = collectImages(props);
+function SelectionsListItem({ selection, extraHeader }) {
+  const illustrativeImages = collectImages(selection);
 
   return (
-    <div className="SelectionsListItem" key={props.id}>
+    <div className="SelectionsListItem">
+      {extraHeader}
       <div className="SelectionsListItem__images-wrapper">
         <div className="SelectionsListItem__images">
           {illustrativeImages.map((image, i) => {
@@ -31,15 +38,16 @@ function SelectionsListItem(props) {
         </div>
       </div>
       <div className="SelectionsListItem__title-line">
-        <strong className="SelectionsListItem__name">{props.name}</strong>{" "}
-        {props.products && props.products.length && (
+        <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
+        {selection.products && selection.products.length && (
           <span className="SelectionsListItem__count">
-            {props.products.length} objet{props.products.length > 1 ? "s" : ""}
+            {selection.products.length} objet
+            {selection.products.length > 1 ? "s" : ""}
           </span>
         )}{" "}
-        <span>par {props.users[0].name}</span>
+        <span>par {selection.users[0].name}</span>
       </div>
-      <div className="SelectionsListItem__desc">{props.description}</div>
+      <div className="SelectionsListItem__desc">{selection.description}</div>
     </div>
   );
 }
