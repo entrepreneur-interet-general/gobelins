@@ -9,8 +9,12 @@ class SelectionsProvider extends React.Component {
     super(props);
     this.state = {
       loading: false,
-      inited: false,
-      mySelections: [],
+      inited: window.SELECTIONS ? true : false,
+      mySelections: (window.SELECTIONS && window.SELECTIONS.mySelections) || [],
+      mobNatSelections:
+        (window.SELECTIONS && window.SELECTIONS.mobNatSelections) || [],
+      userSelections:
+        (window.SELECTIONS && window.SELECTIONS.userSelections) || [],
       selections: []
     };
   }
@@ -81,6 +85,8 @@ class SelectionsProvider extends React.Component {
           inited: this.state.inited,
           loading: this.state.loading,
           mySelections: this.state.mySelections,
+          userSelections: this.state.userSelections,
+          mobNatSelections: this.state.mobNatSelections,
           selections: this.state.selections,
           listMine: this.listMine,
           add: this.add,

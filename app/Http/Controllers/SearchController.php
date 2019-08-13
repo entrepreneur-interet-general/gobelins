@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Author;
@@ -10,6 +11,7 @@ use App\Models\Period;
 use App\Models\Style;
 use App\Models\Material;
 use App\Models\ProductionOrigin;
+use App\Models\Selection;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
@@ -152,9 +154,37 @@ class SearchController extends Controller
             $product = $product->toSearchableArray();
         };
 
+        $selections = null;
+        if ($request->route()->named('selections')) {
+            $selections = [
+                'mySelections' => Auth::user()
+                                    ->selections()
+                                    ->orderBy('updated_at', 'DESC')
+                                    ->with(['products', 'users'])
+                                    ->get()->map(function ($s) {
+                                        return $s->toSearchableArray();
+                                    }),
+                'mobNatSelections' => [],
+                'userSelections' => Selection::orderBy('updated_at', 'DESC')
+                                        ->limit(10)
+                                        ->with(['products', 'users'])
+                                        ->get()->map(function ($s) {
+                                            return $s->toSearchableArray();
+                                        })
+            ];
+        }
+
+        $currentUser = null;
+        if (Auth::check()) {
+            $currentUser = Auth::user();
+        }
+
+
         return view('site.search', [
             'filters' => $filters,
             'product' => $product,
+            'selections' => $selections,
+            'currentUser' => $currentUser,
         ]);
     }
 

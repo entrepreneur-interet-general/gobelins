@@ -46,6 +46,9 @@
 
   &.Button__dark {
     border-color: #373737;
+    &:hover {
+      border-color: white;
+    }
   }
   &.Button__round {
     width: 36px;

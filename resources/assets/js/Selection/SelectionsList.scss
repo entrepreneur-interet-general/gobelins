@@ -30,7 +30,7 @@
   grid-area: auto / right;
   margin-top: calc(70px + 30px);
   @include breakpoint(1024px) {
-    margin-top: calc(100px + 30px);
+    margin-top: calc(115px + 30px);
   }
 }
 .SelectionsListItem:first-child {

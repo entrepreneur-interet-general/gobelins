@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useSelections } from "../context/selections-context";
 import CrossSimple from "../icons/CrossSimple";
-import UserSelections from "./UserSelections";
+import MySelections from "./MySelections";
+import SelectionsList from "./SelectionsList";
 
 class SelectionsIndex extends React.Component {
   constructor(props) {
@@ -17,10 +19,30 @@ class SelectionsIndex extends React.Component {
           <CrossSimple />
         </Link>
 
+        <MySelections />
         <UserSelections />
       </div>
     );
   }
+}
+
+function UserSelections(props) {
+  const selectionsContext = useSelections();
+
+  return (
+    <div className="Selections__users">
+      <ul className="SelectionsList">
+        <SelectionsList
+          selections={selectionsContext.userSelections}
+          rightHeader={
+            <h1 className="Selections__inset-header">
+              Explorer les sélections du Mobilier national
+            </h1>
+          }
+        />
+      </ul>
+    </div>
+  );
 }
 
 export default SelectionsIndex;

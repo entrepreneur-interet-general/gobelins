@@ -1,16 +1,16 @@
-.UserSelections {
+.MySelections {
   position: relative;
-  padding: 130px 0;
+  padding: 100px 0;
   background-color: #000;
   color: #fff;
 
   --selections-list-text-color: #fff;
 }
 
-.UserSelections__header {
+.MySelections__header {
   color: #fff;
-  position: relative;
-  top: -140px;
+  position: absolute;
+  top: -155px;
 
   & h1 {
     margin: 0;
@@ -22,14 +22,14 @@
   }
 }
 
-.UserSelections__header-buttons {
-  margin-top: 10px;
+.MySelections__header-buttons {
+  margin-top: 15px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
   align-items: center;
 }
-.UserSelections__button {
+.MySelections__button {
   flex: 0 0 auto;
   margin-right: 10px;
 }

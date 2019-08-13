@@ -27,6 +27,14 @@
             var PRODUCT = {!! json_encode($product) !!};
         @endisset
 
+        @isset($selections)
+            var SELECTIONS = {!! json_encode($selections) !!};
+        @endisset
+
+        @isset($currentUser)
+            var CURRENT_USER = {!! json_encode($currentUser) !!};
+        @endisset
+
     </script>
 
     <script>

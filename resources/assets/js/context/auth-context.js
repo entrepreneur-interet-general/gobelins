@@ -8,8 +8,8 @@ class AuthProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false,
-      user: {
+      authenticated: window.CURRENT_USER ? true : false,
+      user: window.CURRENT_USER || {
         id: "",
         name: "",
         email: ""
@@ -19,8 +19,8 @@ class AuthProvider extends React.Component {
 
   componentDidMount = () => {
     // Eagerly load user profile info.
-    const token = authClient.getToken();
-    if (token) {
+    if (!this.state.authenticated) {
+      const token = authClient.getToken();
       authClient.getProfile().then(data => {
         this.setState({
           user: { ...data },

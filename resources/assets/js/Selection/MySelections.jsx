@@ -8,12 +8,12 @@ import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import SelectionsList from "./SelectionsList";
 
-export default function UserSelections(props) {
+export default function MySelections(props) {
   //   const selectionsContext = useSelections();
   const authContext = useAuth();
 
   return authContext.data.authenticated ? (
-    <UserSelectionsList />
+    <MySelectionsList />
   ) : (
     <NotAuthenticated />
   );
@@ -29,19 +29,19 @@ function handleLogout() {
   console.log("handleLogout");
 }
 
-function UserSelectionsHeader(props) {
+function MySelectionsHeader(props) {
   const authContext = useAuth();
   return (
-    <hgroup className="UserSelections__header">
+    <hgroup className="MySelections__header">
       <h1>Selections de {authContext.data.user.name}</h1>
-      <div className="UserSelections__header-buttons">
+      <div className="MySelections__header-buttons">
         <Button
           round
           small
           dark
           icon="plus"
           onClick={handleAddSelection}
-          className="UserSelections__button"
+          className="MySelections__button"
         />
         <Button
           round
@@ -49,13 +49,13 @@ function UserSelectionsHeader(props) {
           dark
           icon="gear"
           onClick={handleEditSelection}
-          className="UserSelections__button"
+          className="MySelections__button"
         />
         <Button
           small
           dark
           onClick={handleLogout}
-          className="UserSelections__button"
+          className="MySelections__button"
         >
           se déconnecter
         </Button>
@@ -64,15 +64,15 @@ function UserSelectionsHeader(props) {
   );
 }
 
-function UserSelectionsList(props) {
+function MySelectionsList(props) {
   const selectionsContext = useSelections();
 
   return (
-    <div className="UserSelections">
+    <div className="MySelections">
       <ul className="SelectionsList">
         <SelectionsList
           selections={selectionsContext.mySelections}
-          rightHeader={<UserSelectionsHeader />}
+          rightHeader={<MySelectionsHeader />}
         />
       </ul>
     </div>
@@ -92,7 +92,7 @@ function NotAuthenticated(props) {
     setAuthModalOpen(true);
   };
   return (
-    <div>
+    <div className="MySelections">
       <div>
         Identifiez-vous pour consulter ou créer vos sélections d’objets
         <Button onClick={handleRegisterClick} icon="arrow">
@@ -117,6 +117,6 @@ function NotAuthenticated(props) {
   );
 }
 
-function BlankSlateUserSelections(props) {
+function BlankSlateMySelections(props) {
   return <div>Blank slate user selections</div>;
 }
