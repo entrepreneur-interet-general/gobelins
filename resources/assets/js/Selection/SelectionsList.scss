@@ -1,4 +1,4 @@
-.SelectionsList {
+%selections-grid {
   --selection-list-ext-gutter: 15px;
   margin: 0 var(--selection-list-ext-gutter);
   padding: 0;
@@ -9,7 +9,6 @@
     grid-template-columns: repeat(9, 1fr 40px) 1fr;
     grid-template-areas: ". left left left left left left left gutter gutter gutter right right right right right right right .";
     grid-auto-rows: auto;
-    // grid-column-gap: 200px;
   }
 
   @include breakpoint(1780px) {
@@ -17,6 +16,10 @@
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+.SelectionsList {
+  @extend %selections-grid;
 }
 
 .SelectionsListItem {

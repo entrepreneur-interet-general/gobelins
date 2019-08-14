@@ -48,7 +48,17 @@ class AuthProvider extends React.Component {
     });
   };
 
-  logout = () => authClient.logout();
+  logout = payload =>
+    authClient.logout(payload).then(() => {
+      this.setState({
+        authenticated: false,
+        user: {
+          id: "",
+          name: "",
+          email: ""
+        }
+      });
+    });
 
   render() {
     return (

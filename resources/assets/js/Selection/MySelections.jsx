@@ -7,6 +7,8 @@ import { useSelections } from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import SelectionsList from "./SelectionsList";
+import PlusLarge from "../icons/PlusLarge";
+import Loader from "../Loader";
 
 export default function MySelections(props) {
   //   const selectionsContext = useSelections();
@@ -25,12 +27,26 @@ function handleAddSelection(ev) {
 function handleEditSelection(ev) {
   console.log("handleAddSelection");
 }
-function handleLogout() {
-  console.log("handleLogout");
-}
 
 function MySelectionsHeader(props) {
   const authContext = useAuth();
+
+  function handleLogout() {
+    console.log("handleLogout");
+    const tok = document
+      .querySelector("meta[name=csrf-token]")
+      .getAttribute("content");
+    authContext
+      .logout({ csrfToken: tok })
+      .then(() => {
+        console.log("TODO: logout notification");
+      })
+      .catch(error => {
+        console.log("LOGOUT ERROR: ", error.message);
+        console.log("TODO: logout notification");
+      });
+  }
+
   return (
     <hgroup className="MySelections__header">
       <h1>Selections de {authContext.data.user.name}</h1>
@@ -69,17 +85,22 @@ function MySelectionsList(props) {
 
   return (
     <div className="MySelections">
-      <ul className="SelectionsList">
-        <SelectionsList
-          selections={selectionsContext.mySelections}
-          rightHeader={<MySelectionsHeader />}
-        />
-      </ul>
+      {selectionsContext.loading ? (
+        <Loader />
+      ) : (
+        <ul className="SelectionsList">
+          <SelectionsList
+            selections={selectionsContext.mySelections}
+            rightHeader={<MySelectionsHeader />}
+          />
+        </ul>
+      )}
     </div>
   );
 }
 
 function NotAuthenticated(props) {
+  const selectionsContext = useSelections();
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState("login");
 
@@ -91,16 +112,42 @@ function NotAuthenticated(props) {
     setAuthModalMode("login");
     setAuthModalOpen(true);
   };
+  const handleLoginCallback = () => {
+    console.log("gonna list mine, could display loader now.");
+    selectionsContext.listMine();
+  };
   return (
     <div className="MySelections">
-      <div>
-        Identifiez-vous pour consulter ou créer vos sélections d’objets
-        <Button onClick={handleRegisterClick} icon="arrow">
-          créer un compte
-        </Button>
-        <Button onClick={handleLoginClick} icon="arrow">
-          se connecter
-        </Button>
+      <div className="MySelections__unauthenticated">
+        <div className="MySelections__blank-slate">
+          <div className="MySelections__blank-slate-wrapper">
+            <div className="MySelections__blank-slate-inner">
+              <span>
+                <PlusLarge />
+              </span>
+              <span>
+                <PlusLarge />
+              </span>
+              <span>
+                <PlusLarge />
+              </span>
+              <span>
+                <PlusLarge />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="MySelections__auth-panel">
+          Identifiez-vous pour consulter ou créer vos sélections d’objets
+          <div className="MySelections__auth-panel-buttons">
+            <Button onClick={handleRegisterClick} icon="arrow">
+              créer un compte
+            </Button>
+            <Button onClick={handleLoginClick} icon="arrow">
+              se connecter
+            </Button>
+          </div>
+        </div>
       </div>
       {authModalOpen && (
         <Gateway into="modal">
@@ -109,14 +156,10 @@ function NotAuthenticated(props) {
             backdropClassName="Modal__overlay SelectionModal__overlay"
             onClose={() => setAuthModalOpen(false)}
           >
-            <AuthModal action={authModalMode} />
+            <AuthModal action={authModalMode} onLogin={handleLoginCallback} />
           </ReactModal2>
         </Gateway>
       )}
     </div>
   );
-}
-
-function BlankSlateMySelections(props) {
-  return <div>Blank slate user selections</div>;
 }

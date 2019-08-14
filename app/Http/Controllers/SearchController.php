@@ -157,13 +157,13 @@ class SearchController extends Controller
         $selections = null;
         if ($request->route()->named('selections')) {
             $selections = [
-                'mySelections' => Auth::user()
+                'mySelections' => Auth::check() ? Auth::user()
                                     ->selections()
                                     ->orderBy('updated_at', 'DESC')
                                     ->with(['products', 'users'])
                                     ->get()->map(function ($s) {
                                         return $s->toSearchableArray();
-                                    }),
+                                    }) : null,
                 'mobNatSelections' => [],
                 'userSelections' => Selection::orderBy('updated_at', 'DESC')
                                         ->limit(10)

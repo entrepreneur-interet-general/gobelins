@@ -26,7 +26,8 @@
   align-items: flex-start;
   --gutter: 10px;
 
-  & img {
+  & img,
+  & span {
     display: block;
     flex: 1 1 auto;
     height: 100%;
@@ -34,7 +35,8 @@
     object-fit: cover;
     object-position: center;
   }
-  & img + img {
+  & img + img,
+  & span + span {
     margin-left: var(--gutter);
   }
 }

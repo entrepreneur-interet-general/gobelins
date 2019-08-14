@@ -23,11 +23,10 @@ export default class AddToSelectionSteps extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.context.loading === false && this.context.inited === false) {
-      console.log("OK, we are not inited, calling list() on selection context");
-      this.context.list().then(() => {
-        console.log("list() done, switch off loading anim.");
-
+    if (this.context.loading === false && this.context.initedMine === false) {
+      console.log("OK, we are not inited, calling listMine()");
+      this.context.listMine().then(() => {
+        console.log("listMine() done, switch off loading anim.");
         this.setState({ loading: false });
       });
     } else if (this.context.loading === false && this.state.loading === true) {

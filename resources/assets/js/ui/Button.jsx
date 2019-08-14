@@ -29,8 +29,9 @@ export default function Button(props) {
             {props.icon === "pencil" && <Pencil />}
           </div>
         )}
-
-        <div className="Button__label">{props.children}</div>
+        {props.children && (
+          <div className="Button__label">{props.children}</div>
+        )}
       </div>
     </button>
   );

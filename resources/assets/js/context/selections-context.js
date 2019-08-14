@@ -9,7 +9,8 @@ class SelectionsProvider extends React.Component {
     super(props);
     this.state = {
       loading: false,
-      inited: window.SELECTIONS ? true : false,
+      initedMine:
+        window.SELECTIONS && window.SELECTIONS.mySelections ? true : false,
       mySelections: (window.SELECTIONS && window.SELECTIONS.mySelections) || [],
       mobNatSelections:
         (window.SELECTIONS && window.SELECTIONS.mobNatSelections) || [],
@@ -24,7 +25,7 @@ class SelectionsProvider extends React.Component {
 
     // Eagerly load selections info.
     if (
-      this.state.inited === false &&
+      this.state.initedMine === false &&
       this.state.loading === false &&
       authClient.getToken()
     ) {
@@ -34,19 +35,27 @@ class SelectionsProvider extends React.Component {
           this.setState({
             mySelections: data.selections,
             loading: false,
-            inited: true
+            initedMine: true
           });
         });
       });
     }
+
+    // Upon logout, purge mySelections.
+    if (!authClient.getToken() && this.state.initedMine === true) {
+      this.setState({ initedMine: false, mySelections: [] });
+    }
   };
 
   listMine = () => {
+    this.setState({
+      loading: true
+    });
     return selectionsClient.listMine().then(data => {
       console.log("Received my selections list", data);
 
       this.setState({
-        inited: true,
+        initedMine: true,
         loading: false,
         mySelections: data.selections
       });
@@ -58,7 +67,7 @@ class SelectionsProvider extends React.Component {
     return selectionsClient.add(product_id, selection_id).then(data => {
       console.log("Products added to selection", data);
       this.setState({
-        inited: true,
+        initedMine: true,
         loading: false,
         mySelections: data.selections
       });
@@ -70,7 +79,7 @@ class SelectionsProvider extends React.Component {
     this.setState({ loading: true });
     return selectionsClient.create(product_ids, selection).then(data => {
       this.setState({
-        inited: true,
+        initedMine: true,
         loading: false,
         mySelections: data.selections
       });
@@ -82,7 +91,7 @@ class SelectionsProvider extends React.Component {
     return (
       <SelectionsContext.Provider
         value={{
-          inited: this.state.inited,
+          initedMine: this.state.initedMine,
           loading: this.state.loading,
           mySelections: this.state.mySelections,
           userSelections: this.state.userSelections,

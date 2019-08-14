@@ -26,7 +26,7 @@ export default class AuthModal extends React.Component {
     const ComponentFunc = this.state.action;
     return (
       <div className="AuthModal">
-        <ComponentFunc switchToAction={this.switchToAction} />
+        <ComponentFunc switchToAction={this.switchToAction} {...this.props} />
       </div>
     );
   }
@@ -195,9 +195,16 @@ class LoginAction extends React.Component {
     this.setState({ loading: true });
 
     // authClient
-    this.context.login(this.state).catch(error => {
-      this.setState({ loading: false, errorMessage: error.message });
-    });
+    this.context
+      .login(this.state)
+      .then(() => {
+        if (this.props.onLogin) {
+          this.props.onLogin();
+        }
+      })
+      .catch(error => {
+        this.setState({ loading: false, errorMessage: error.message });
+      });
   };
 
   handleInputChange = ev => {

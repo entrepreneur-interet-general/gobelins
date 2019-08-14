@@ -4,7 +4,9 @@ function client(endpoint, { body, ...customConfig } = {}) {
   const token = window.localStorage.getItem("__auth_token__");
   const headers = {
     "Content-Type": "application/json",
-    Accept: "application/json"
+    Accept: "application/json",
+    "X-CSRF-TOKEN": document.head.querySelector('meta[name="csrf-token"]')
+      .content
   };
   if (token) {
     headers.Authorization = `Bearer ${token}`;

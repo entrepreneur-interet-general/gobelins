@@ -33,3 +33,41 @@
   flex: 0 0 auto;
   margin-right: 10px;
 }
+
+/* The default state when the user isn't authenticated. */
+.MySelections__unauthenticated {
+  @extend %selections-grid;
+}
+.MySelections__blank-slate {
+  grid-area: left;
+
+  & span {
+    border: 1px dotted #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.MySelections__blank-slate-wrapper {
+  @extend .SelectionsListItem__images-wrapper;
+}
+.MySelections__blank-slate-inner {
+  @extend .SelectionsListItem__images;
+}
+.MySelections__auth-panel {
+  grid-area: right;
+
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(41px);
+}
+.MySelections__auth-panel-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 30px;
+  & button:first-child {
+    margin-right: 25px;
+  }
+}

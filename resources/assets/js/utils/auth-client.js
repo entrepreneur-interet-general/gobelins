@@ -7,13 +7,21 @@ function handleUserResponse(data) {
   return data;
 }
 
+function refreshCSRFToken(data) {
+  document.head.querySelector('meta[name="csrf-token"]').content =
+    data.csrfToken;
+  return data;
+}
+
 function login({ email, password, csrfToken }) {
   return client("login", {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
     body: { email, password, _token: csrfToken }
-  }).then(handleUserResponse);
+  })
+    .then(refreshCSRFToken)
+    .then(handleUserResponse);
 }
 
 function register({ name, email, password, csrfToken }) {
@@ -25,9 +33,15 @@ function register({ name, email, password, csrfToken }) {
   }).then(handleUserResponse);
 }
 
-function logout() {
+function logout({ csrfToken }) {
   window.localStorage.removeItem(localStorageKey);
-  return Promise.resolve();
+  return client("logout", {
+    method: "POST",
+    credentials: "include",
+    mode: "same-origin",
+    body: { _token: csrfToken }
+  }).then(refreshCSRFToken);
+  // return Promise.resolve();
 }
 
 function getProfile() {

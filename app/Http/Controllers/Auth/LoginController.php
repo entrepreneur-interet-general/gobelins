@@ -40,6 +40,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return response()->json([
+            'status' => 'ok',
+            'csrfToken' => csrf_token(),
+        ]);
+    }
+
     /**
      * The user has been authenticated.
      *
@@ -49,9 +60,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        Auth::loginUsingId($user->id, true);
+        Auth::loginUsingId($user->id);
         return response()->json([
             'status' => 'ok',
+            'csrfToken' => csrf_token(),
             'token' => $user->api_token,
             'user' => $user->toArray(),
         ]);
