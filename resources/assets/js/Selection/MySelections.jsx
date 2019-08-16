@@ -47,8 +47,12 @@ function MySelectionsHeader(props) {
     console.log("handleAddSelection");
   }
   function openAddSelectionModal(ev) {
-    console.log("openAddSelectionModal");
+    document.documentElement.classList.add("prevent-scroll");
     setSelectionInputOpen(true);
+  }
+  function onCloseAddSelectionModal() {
+    document.documentElement.classList.remove("prevent-scroll");
+    setSelectionInputOpen(false);
   }
 
   return (
@@ -82,7 +86,7 @@ function MySelectionsHeader(props) {
       </div>
 
       {selectionInputOpen && (
-        <SelectionInputModal onClose={() => setSelectionInputOpen(false)} />
+        <SelectionInputModal onClose={onCloseAddSelectionModal} />
       )}
     </hgroup>
   );
@@ -97,7 +101,8 @@ function SelectionInputModal(props) {
     selectionsContext
       .createAndAdd([], { name })
       .then(() => {
-        props.onClose();
+        /* No need to close, because the modal will be closed by parent. */
+        document.documentElement.classList.remove("prevent-scroll");
       })
       .catch(error => {
         setLoading(false);
@@ -114,15 +119,17 @@ function SelectionInputModal(props) {
         <>
           {props.closeButton}
           <div className="SelectionModal__content-scrollable">
-            {loading ? (
-              <Loader />
-            ) : (
-              <SelectionInput
-                onSubmit={handleSubmitNewSelection}
-                errorMessage={errorMessage}
-                isFirst={false}
-              />
-            )}
+            <div className="SelectionModal__wrapper">
+              {loading ? (
+                <Loader />
+              ) : (
+                <SelectionInput
+                  onSubmit={handleSubmitNewSelection}
+                  errorMessage={errorMessage}
+                  isFirst={false}
+                />
+              )}
+            </div>
           </div>
         </>
       </ReactModal2>
@@ -135,7 +142,8 @@ function MySelectionsList(props) {
 
   return (
     <div className="MySelections">
-      {selectionsContext.loading ? (
+      {selectionsContext.loading &&
+      selectionsContext.mySelections.length === 0 ? (
         <Loader />
       ) : selectionsContext.mySelections.length ? (
         <ul className="SelectionsList">

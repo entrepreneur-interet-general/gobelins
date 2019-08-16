@@ -21,8 +21,6 @@ class SelectionsProvider extends React.Component {
   }
 
   componentDidUpdate = () => {
-    console.log("Selection context componentDidUpdate");
-
     // Eagerly load selections info.
     if (
       this.state.initedMine === false &&
