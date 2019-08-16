@@ -1,7 +1,8 @@
 import React from "react";
 import folkloreImage from "../vendor/folklore-image.js";
 
-import ImagesPlaceholder from "./ImagesPlaceholder.jsx";
+import ImagesPlaceholder from "./ImagesPlaceholder";
+import PadlockTiny from "../icons/PadlockTiny";
 
 export default function SelectionsList(props) {
   return props.selections.map((sel, i) => (
@@ -53,6 +54,7 @@ function SelectionsListItem({ selection, extraHeader }) {
             </span>
           )}{" "}
         <span>par {selection.users[0].name}</span>
+        {selection.public !== true && <PadlockTiny />}
       </div>
       <div className="SelectionsListItem__desc">{selection.description}</div>
     </div>
