@@ -37,10 +37,16 @@
 /* The default state when the user isn't authenticated. */
 .MySelections__unauthenticated {
   @extend %selections-grid;
+
+  & .MySelections__blank-slate {
+    grid-area: left;
+    display: none;
+    @include breakpoint(1024px) {
+      display: block;
+    }
+  }
 }
 .MySelections__blank-slate {
-  grid-area: left;
-
   & span {
     border: 1px dotted #fff;
     display: flex;
@@ -54,20 +60,39 @@
 .MySelections__blank-slate-inner {
   @extend .SelectionsListItem__images;
 }
-.MySelections__auth-panel {
-  grid-area: right;
 
+.MySelections__auth-panel {
+  @include breakpoint(1024px) {
+    grid-area: right;
+  }
+}
+.MySelections__auth-panel-title {
+  font-weight: normal;
   @include f-sans;
   font-size: rem(30px);
   line-height: rem(41px);
+  grid-area: left;
+  @include breakpoint(1024px) {
+    grid-area: right;
+  }
 }
 .MySelections__auth-panel-buttons {
+  grid-area: right;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
   margin-top: 30px;
+  max-width: 180px;
+  @include breakpoint(1024px) {
+    max-width: unset;
+    flex-flow: row nowrap;
+  }
   & button:first-child {
-    margin-right: 25px;
+    margin-bottom: 25px;
+    @include breakpoint(1024px) {
+      margin-bottom: 0;
+      margin-right: 25px;
+    }
   }
 }

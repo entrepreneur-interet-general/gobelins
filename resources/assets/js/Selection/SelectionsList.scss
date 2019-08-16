@@ -2,9 +2,9 @@
   --selection-list-ext-gutter: 15px;
   margin: 0 var(--selection-list-ext-gutter);
   padding: 0;
-  display: grid;
 
-  @include breakpoint(500px) {
+  @include breakpoint(600px) {
+    display: grid;
     --selection-list-ext-gutter: 40px;
     grid-template-columns: repeat(9, 1fr 40px) 1fr;
     grid-template-areas: ". left left left left left left left gutter gutter gutter right right right right right right right .";
@@ -25,17 +25,71 @@
 .SelectionsListItem {
   grid-row: auto;
 }
-.SelectionsListItem:nth-child(odd) {
-  grid-area: auto / left;
-  margin-top: -30px;
-}
-.SelectionsListItem:nth-child(even) {
-  grid-area: auto / right;
-  margin-top: calc(70px + 30px);
-  @include breakpoint(1024px) {
-    margin-top: calc(115px + 30px);
+@include breakpoint(600px) {
+  .SelectionsListItem:nth-child(odd) {
+    grid-area: auto / left;
+    margin-top: -30px;
+  }
+  .SelectionsListItem:nth-child(even) {
+    grid-area: auto / right;
+    margin-top: calc(70px + 30px);
+    @include breakpoint(1024px) {
+      margin-top: calc(115px + 30px);
+    }
+  }
+  .SelectionsListItem:first-child {
+    margin-top: 0;
   }
 }
-.SelectionsListItem:first-child {
-  margin-top: 0;
+
+.SelectionsListBlankSlate {
+  color: #fff;
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  font-weight: normal;
+  @extend %selections-grid;
+}
+.SelectionsListBlankSlate__new,
+.SelectionsListBlankSlate__label-heart {
+  display: block;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.SelectionsListBlankSlate__buttons,
+.SelectionsListBlankSlate__top-left,
+.SelectionsListBlankSlate__bottom-left {
+  @include breakpoint(600px) {
+    grid-area: auto/left;
+  }
+}
+
+.SelectionsListBlankSlate__new {
+  margin-bottom: 40px;
+}
+.SelectionsListBlankSlate__label-heart {
+  & svg {
+    margin-left: 10px;
+  }
+}
+
+.SelectionsListBlankSlate__right {
+}
+
+.SelectionsListBlankSlate__header.SelectionsListBlankSlate__header {
+  @include breakpoint(600px) {
+    grid-area: auto/right;
+    margin-bottom: 60px;
+  }
+  position: static;
+}
+.SelectionsListBlankSlate__illu {
+  max-width: 100%;
+  @include breakpoint(600px) {
+    grid-area: auto/right;
+  }
 }

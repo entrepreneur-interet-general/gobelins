@@ -33,6 +33,7 @@
 .Button__label {
   flex: 1 1 auto;
   text-align: center;
+  white-space: nowrap;
 }
 
 .Button.Button__small {
