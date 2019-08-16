@@ -39,31 +39,17 @@
   @extend %selections-grid;
 
   & .MySelections__blank-slate {
-    grid-area: left;
+    grid-area: span 2 / left;
     display: none;
     @include breakpoint(1024px) {
       display: block;
     }
   }
 }
-.MySelections__blank-slate {
-  & span {
-    border: 1px dotted #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-.MySelections__blank-slate-wrapper {
-  @extend .SelectionsListItem__images-wrapper;
-}
-.MySelections__blank-slate-inner {
-  @extend .SelectionsListItem__images;
-}
 
 .MySelections__auth-panel {
   @include breakpoint(1024px) {
-    grid-area: right;
+    grid-area: auto / right;
   }
 }
 .MySelections__auth-panel-title {
@@ -73,11 +59,11 @@
   line-height: rem(41px);
   grid-area: left;
   @include breakpoint(1024px) {
-    grid-area: right;
+    grid-area: auto / right;
   }
 }
 .MySelections__auth-panel-buttons {
-  grid-area: right;
+  grid-area: auto / right;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;

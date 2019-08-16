@@ -1,6 +1,8 @@
 import React from "react";
 import folkloreImage from "../vendor/folklore-image.js";
 
+import ImagesPlaceholder from "./ImagesPlaceholder.jsx";
+
 export default function SelectionsList(props) {
   return props.selections.map((sel, i) => (
     <SelectionsListItem
@@ -28,23 +30,28 @@ function SelectionsListItem({ selection, extraHeader }) {
       {extraHeader}
       <div className="SelectionsListItem__images-wrapper">
         <div className="SelectionsListItem__images">
-          {illustrativeImages.map((image, i) => {
-            const thumbUrl = folkloreImage.url(
-              `/media/xl/${encodeURIComponent(image.path)}`,
-              330
-            );
-            return <img src={thumbUrl} alt="" key={i} />;
-          })}
+          {illustrativeImages.length ? (
+            illustrativeImages.map((image, i) => {
+              const thumbUrl = folkloreImage.url(
+                `/media/xl/${encodeURIComponent(image.path)}`,
+                330
+              );
+              return <img src={thumbUrl} alt="" key={i} />;
+            })
+          ) : (
+            <ImagesPlaceholder />
+          )}
         </div>
       </div>
       <div className="SelectionsListItem__title-line">
         <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
-        {selection.products && selection.products.length && (
-          <span className="SelectionsListItem__count">
-            {selection.products.length} objet
-            {selection.products.length > 1 ? "s" : ""}
-          </span>
-        )}{" "}
+        {Boolean(selection.products) &&
+          Boolean(selection.products.length) && (
+            <span className="SelectionsListItem__count">
+              {selection.products.length} objet
+              {selection.products.length > 1 ? "s" : ""}
+            </span>
+          )}{" "}
         <span>par {selection.users[0].name}</span>
       </div>
       <div className="SelectionsListItem__desc">{selection.description}</div>

@@ -35,6 +35,11 @@
     object-fit: cover;
     object-position: center;
   }
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   & img + img,
   & span + span {
     margin-left: var(--gutter);

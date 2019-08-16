@@ -8,10 +8,11 @@ import { useSelections } from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import SelectionsList from "./SelectionsList";
-import PlusLarge from "../icons/PlusLarge";
+import SelectionInput from "./SelectionInput";
+import Loader from "../Loader";
 import Heart from "../icons/Heart";
 import SelectionsBlank from "../icons/SelectionsBlank";
-import Loader from "../Loader";
+import ImagesPlaceholder from "./ImagesPlaceholder";
 
 export default function MySelections(props) {
   //   const selectionsContext = useSelections();
@@ -24,15 +25,9 @@ export default function MySelections(props) {
   );
 }
 
-function handleAddSelection(ev) {
-  console.log("handleAddSelection");
-}
-function handleEditSelection(ev) {
-  console.log("handleAddSelection");
-}
-
 function MySelectionsHeader(props) {
   const authContext = useAuth();
+  const [selectionInputOpen, setSelectionInputOpen] = useState(false);
 
   function handleLogout() {
     const tok = document
@@ -48,6 +43,13 @@ function MySelectionsHeader(props) {
         console.log("TODO: logout notification");
       });
   }
+  function handleEditSelection(ev) {
+    console.log("handleAddSelection");
+  }
+  function openAddSelectionModal(ev) {
+    console.log("openAddSelectionModal");
+    setSelectionInputOpen(true);
+  }
 
   return (
     <hgroup className={classNames("MySelections__header", props.className)}>
@@ -58,7 +60,7 @@ function MySelectionsHeader(props) {
           small
           dark
           icon="plus"
-          onClick={handleAddSelection}
+          onClick={openAddSelectionModal}
           className="MySelections__button"
         />
         <Button
@@ -78,7 +80,53 @@ function MySelectionsHeader(props) {
           se déconnecter
         </Button>
       </div>
+
+      {selectionInputOpen && (
+        <SelectionInputModal onClose={() => setSelectionInputOpen(false)} />
+      )}
     </hgroup>
+  );
+}
+
+function SelectionInputModal(props) {
+  const selectionsContext = useSelections();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleSubmitNewSelection = name => {
+    setLoading(true);
+    selectionsContext
+      .createAndAdd([], { name })
+      .then(() => {
+        props.onClose();
+      })
+      .catch(error => {
+        setLoading(false);
+        setErrorMessage(error.message);
+      });
+  };
+  return (
+    <Gateway into="modal">
+      <ReactModal2
+        modalClassName="Modal__content SelectionModal__content"
+        backdropClassName="Modal__overlay SelectionModal__overlay"
+        onClose={props.onClose}
+      >
+        <>
+          {props.closeButton}
+          <div className="SelectionModal__content-scrollable">
+            {loading ? (
+              <Loader />
+            ) : (
+              <SelectionInput
+                onSubmit={handleSubmitNewSelection}
+                errorMessage={errorMessage}
+                isFirst={false}
+              />
+            )}
+          </div>
+        </>
+      </ReactModal2>
+    </Gateway>
   );
 }
 
@@ -143,24 +191,7 @@ function NotAuthenticated(props) {
   return (
     <div className="MySelections">
       <div className="MySelections__unauthenticated">
-        <div className="MySelections__blank-slate">
-          <div className="MySelections__blank-slate-wrapper">
-            <div className="MySelections__blank-slate-inner">
-              <span>
-                <PlusLarge />
-              </span>
-              <span>
-                <PlusLarge />
-              </span>
-              <span>
-                <PlusLarge />
-              </span>
-              <span>
-                <PlusLarge />
-              </span>
-            </div>
-          </div>
-        </div>
+        <ImagesPlaceholder className="MySelections__blank-slate" />
 
         <h1 className="MySelections__auth-panel-title">
           Identifiez-vous pour consulter ou créer vos sélections d’objets

@@ -37,7 +37,7 @@ class SelectionsController extends Controller
         $request->validate([
             'selection' => 'required',
             'selection.name' => 'required|max:255',
-            'product_ids' => 'sometimes|required|array',
+            'product_ids' => 'nullable|array',
             'product_ids.*' => 'integer',
         ]);
         

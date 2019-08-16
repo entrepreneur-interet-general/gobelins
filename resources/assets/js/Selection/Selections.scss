@@ -21,3 +21,16 @@
     display: block;
   }
 }
+
+.Selections__images-placeholder {
+  flex: 1 1 auto;
+  & span {
+    border: 1px dotted currentColor;
+  }
+}
+.Selections__images-placeholder-wrapper {
+  @extend .SelectionsListItem__images-wrapper;
+}
+.Selections__images-placeholder-inner {
+  @extend .SelectionsListItem__images;
+}
