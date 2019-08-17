@@ -20,10 +20,30 @@ class SelectionsIndex extends React.Component {
         </Link>
 
         <MySelections />
+        <MobNatSelections />
         <UserSelections />
       </div>
     );
   }
+}
+
+function MobNatSelections(props) {
+  const selectionsContext = useSelections();
+
+  return (
+    <div className="Selections__users">
+      <ul className="SelectionsList">
+        <SelectionsList
+          selections={selectionsContext.mobNatSelections}
+          rightHeader={
+            <h1 className="Selections__inset-header">
+              Explorer les sélections du Mobilier national
+            </h1>
+          }
+        />
+      </ul>
+    </div>
+  );
 }
 
 function UserSelections(props) {
@@ -36,7 +56,7 @@ function UserSelections(props) {
           selections={selectionsContext.userSelections}
           rightHeader={
             <h1 className="Selections__inset-header">
-              Explorer les sélections du Mobilier national
+              Dernières sélections des utilisateurs
             </h1>
           }
         />

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Selection extends Model
 {
@@ -22,7 +23,12 @@ class Selection extends Model
 
     public function users()
     {
-        return $this->belongsToMany(\App\User::class);
+        return $this->belongsToMany(User::class);
+    }
+
+    public function notMobNatUsers()
+    {
+        return $this->belongsToMany(User::class)->where('identity_code', '<>', User::IDENTITY_MOBILIER_NATIONAL);
     }
 
     public function products()

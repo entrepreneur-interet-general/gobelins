@@ -29,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token', 'created_at', 'updated_at', 'pivot'
+        'password', 'remember_token', 'api_token', 'created_at', 'updated_at', 'pivot', 'identity_code'
     ];
 
     public function selections()

@@ -12,6 +12,7 @@ use App\Models\Style;
 use App\Models\Material;
 use App\Models\ProductionOrigin;
 use App\Models\Selection;
+use App\User;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
@@ -155,6 +156,7 @@ class SearchController extends Controller
         };
 
         $selections = null;
+        $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
         if ($request->route()->named('selections')) {
             $selections = [
                 'mySelections' => Auth::check() ? Auth::user()
@@ -164,13 +166,23 @@ class SearchController extends Controller
                                     ->get()->map(function ($s) {
                                         return $s->toSearchableArray();
                                     }) : null,
-                'mobNatSelections' => [],
-                'userSelections' => Selection::orderBy('updated_at', 'DESC')
-                                        ->limit(10)
-                                        ->with(['products', 'users'])
-                                        ->get()->map(function ($s) {
-                                            return $s->toSearchableArray();
-                                        })
+                'mobNatSelections' => $mob_nat_user->selections()
+                                    ->orderBy('updated_at', 'DESC')
+                                    ->with(['products', 'users'])
+                                    ->get()->map(function ($s) {
+                                        return $s->toSearchableArray();
+                                    }),
+                'userSelections' => Selection::with(['products', 'users'])
+                    ->whereHas('users', function ($q) {
+                        // FIXME. Negative doesn't work:
+                        // identity_code <> User::IDENTITY_MOBILIER_NATIONAL
+                        $q->where('identity_code', null);
+                    })
+                    ->orderBy('selections.updated_at', 'DESC')
+                    ->limit(10)
+                    ->get()->map(function ($s) {
+                        return $s->toSearchableArray();
+                    })
             ];
         }
 
