@@ -10,6 +10,11 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * Identity codes, used in the identity_flag db column.
+     */
+    const IDENTITY_MOBILIER_NATIONAL = 1;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -30,5 +35,10 @@ class User extends Authenticatable
     public function selections()
     {
         return $this->belongsToMany('App\Models\Selection');
+    }
+
+    public function isMobNat()
+    {
+        return $this->identityCode === self::IDENTITY_MOBILIER_NATIONAL;
     }
 }
