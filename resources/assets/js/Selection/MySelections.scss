@@ -9,8 +9,7 @@
 
 .MySelections__header {
   color: #fff;
-  // position: absolute;
-  // top: -155px;
+  grid-row: 1;
   @include breakpoint(600px) {
     grid-area: 1 / right;
   }
@@ -100,7 +99,13 @@
       margin-top: 0;
     }
     &:nth-child(2) {
-      margin-top: -90px;
+      margin-top: 0px;
+      @include breakpoint(1024px) {
+        margin-top: -20px;
+      }
+      @include breakpoint(1200px) {
+        margin-top: -90px;
+      }
     }
   }
 }
