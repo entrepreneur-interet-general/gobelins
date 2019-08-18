@@ -31,16 +31,17 @@ function MobNatSelections(props) {
   const selectionsContext = useSelections();
 
   return (
-    <div className="Selections__users">
+    <div className="Selections__mobnat">
       <ul className="SelectionsList">
-        <SelectionsList
-          selections={selectionsContext.mobNatSelections}
-          rightHeader={
-            <h1 className="Selections__inset-header">
-              Explorer les sélections du Mobilier national
-            </h1>
-          }
-        />
+        <SelectionsList selections={selectionsContext.mobNatSelections} />
+        <h1 className="Selections__inset-header">
+          Explorer les sélections
+          <br />
+          du Mobilier national
+        </h1>
+        <fieldset className="Selections__inset-search">
+          <input type="search" />
+        </fieldset>
       </ul>
     </div>
   );
@@ -52,14 +53,10 @@ function UserSelections(props) {
   return (
     <div className="Selections__users">
       <ul className="SelectionsList">
-        <SelectionsList
-          selections={selectionsContext.userSelections}
-          rightHeader={
-            <h1 className="Selections__inset-header">
-              Dernières sélections des utilisateurs
-            </h1>
-          }
-        />
+        <SelectionsList selections={selectionsContext.userSelections} />
+        <h1 className="Selections__inset-header">
+          Dernières sélections des utilisateurs
+        </h1>
       </ul>
     </div>
   );

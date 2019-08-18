@@ -149,8 +149,10 @@ function MySelectionsList(props) {
         <ul className="SelectionsList">
           <SelectionsList
             selections={selectionsContext.mySelections}
-            rightHeader={<MySelectionsHeader />}
+            className="MySelections__list-item"
+            rightHeader={null}
           />
+          <MySelectionsHeader />
         </ul>
       ) : (
         <UserHasNoSelections />

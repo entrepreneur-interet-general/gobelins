@@ -1,5 +1,6 @@
 import React from "react";
 import folkloreImage from "../vendor/folklore-image.js";
+import classNames from "classnames";
 
 import ImagesPlaceholder from "./ImagesPlaceholder";
 import PadlockTiny from "../icons/PadlockTiny";
@@ -10,6 +11,7 @@ export default function SelectionsList(props) {
       selection={sel}
       extraHeader={i === 1 && props.rightHeader}
       key={sel.id}
+      {...props}
     />
   ));
 }
@@ -23,11 +25,11 @@ function collectImages(selection) {
     .slice(0, 4);
 }
 
-function SelectionsListItem({ selection, extraHeader }) {
+function SelectionsListItem({ selection, extraHeader, className }) {
   const illustrativeImages = collectImages(selection);
 
   return (
-    <div className="SelectionsListItem">
+    <div className={classNames("SelectionsListItem", className)}>
       {extraHeader}
       <div className="SelectionsListItem__images-wrapper">
         <div className="SelectionsListItem__images">

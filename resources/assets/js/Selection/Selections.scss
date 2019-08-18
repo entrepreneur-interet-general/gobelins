@@ -34,3 +34,25 @@
 .Selections__images-placeholder-inner {
   @extend .SelectionsListItem__images;
 }
+.Selections__inset-header {
+  grid-area: 1 / left;
+
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+  margin: 0;
+}
+.Selections__inset-search {
+  visibility: hidden;
+  grid-area: 1 / right;
+}
+
+.Selections__mobnat {
+  padding-top: 105px;
+  margin-bottom: 115px;
+}
+.Selections__users {
+  padding-top: 105px;
+  border-top: 1px solid #c5c5c5;
+}

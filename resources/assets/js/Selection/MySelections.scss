@@ -9,8 +9,11 @@
 
 .MySelections__header {
   color: #fff;
-  position: absolute;
-  top: -155px;
+  // position: absolute;
+  // top: -155px;
+  @include breakpoint(600px) {
+    grid-area: 1 / right;
+  }
 
   & h1 {
     margin: 0;
@@ -79,6 +82,25 @@
     @include breakpoint(1024px) {
       margin-bottom: 0;
       margin-right: 25px;
+    }
+  }
+}
+
+.MySelections__list-item {
+  @include breakpoint(600px) {
+    &:nth-child(odd) {
+      grid-area: auto / left;
+      margin-top: -30px;
+    }
+    &:nth-child(even) {
+      grid-area: auto / right;
+      margin-top: calc(65px + 30px);
+    }
+    &:first-child {
+      margin-top: 0;
+    }
+    &:nth-child(2) {
+      margin-top: -90px;
     }
   }
 }

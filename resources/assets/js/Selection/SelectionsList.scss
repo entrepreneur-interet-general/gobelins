@@ -28,16 +28,13 @@
 @include breakpoint(600px) {
   .SelectionsListItem:nth-child(odd) {
     grid-area: auto / left;
-    margin-top: -30px;
+    margin-top: calc(65px + 30px);
   }
   .SelectionsListItem:nth-child(even) {
     grid-area: auto / right;
-    margin-top: calc(70px + 30px);
-    @include breakpoint(1024px) {
-      margin-top: calc(115px + 30px);
-    }
+    margin-top: -30px;
   }
-  .SelectionsListItem:first-child {
+  .SelectionsListItem:nth-child(2) {
     margin-top: 0;
   }
 }
