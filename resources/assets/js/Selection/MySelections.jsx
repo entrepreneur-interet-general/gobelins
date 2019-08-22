@@ -101,7 +101,7 @@ function SelectionInputModal(props) {
     selectionsContext
       .createAndAdd([], { name })
       .then(() => {
-        /* No need to close, because the modal will be closed by parent. */
+        props.onClose();
         document.documentElement.classList.remove("prevent-scroll");
       })
       .catch(error => {
@@ -195,8 +195,7 @@ function NotAuthenticated(props) {
     setAuthModalOpen(true);
   };
   const handleLoginCallback = () => {
-    console.log("gonna list mine, could display loader now.");
-    selectionsContext.listMine();
+    selectionsContext.fetchMine();
   };
   return (
     <div className="MySelections">

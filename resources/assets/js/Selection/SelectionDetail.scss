@@ -1,0 +1,95 @@
+.SelectionDetail {
+  background-color: #fff;
+  color: #000;
+  padding: 90px 0;
+  &.SelectionDetail--is-mine {
+    background-color: #141414;
+    color: #fff;
+  }
+}
+.SelectionDetail__back-to-selections {
+  @extend .Selections__close;
+  right: auto;
+  left: 30px;
+  @include breakpoint(760px) {
+    left: 20px;
+  }
+}
+.SelectionDetail__header {
+  @extend %selections-grid;
+  margin-bottom: 90px !important;
+}
+.SelectionDetail__header-left {
+  grid-area: auto / left;
+}
+.SelectionDetail__header-right {
+  grid-area: auto / right;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(20px);
+}
+.SelectionDetail__header-line {
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+  margin-top: 30px;
+
+  & h1 {
+    display: inline;
+    font-weight: 600;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  & > * + * {
+    margin-left: 21px;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: currentColor;
+      width: 2px;
+      height: 1em;
+      top: 6px;
+      left: -10px;
+    }
+  }
+}
+.SelectionDetail__edit-button {
+  background-color: inherit;
+}
+
+.SelectionDetail__grid {
+  @extend %selections-grid;
+}
+
+.SelectionDetail__masonry-container {
+  grid-column-start: 2;
+  grid-column-end: -2;
+  position: relative;
+}
+
+.SelectionDetail__grid-item.SelectionDetail__grid-item {
+  position: absolute;
+  width: calc((100% - 15px) / 2);
+
+  .SelectionDetail--is-mine & {
+    color: white;
+
+    &:hover {
+      color: #ccc; // Just a guess.
+    }
+  }
+  @include breakpoint(1024px) {
+    width: calc((100% - (2 * 40px)) / 3);
+  }
+  @include breakpoint(1600px) {
+    width: calc((100% - (3 * 40px)) / 4);
+  }
+  @include breakpoint(2200px) {
+    width: calc((100% - (4 * 40px)) / 5);
+  }
+}

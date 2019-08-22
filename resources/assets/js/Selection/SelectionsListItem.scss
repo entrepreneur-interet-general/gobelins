@@ -25,6 +25,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   --gutter: 10px;
+  color: var(--selections-list-text-color);
 
   & img,
   & span {

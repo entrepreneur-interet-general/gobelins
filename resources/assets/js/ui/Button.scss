@@ -36,6 +36,10 @@
   white-space: nowrap;
 }
 
+.Button__icon + .Button__label {
+  margin-left: 10px;
+}
+
 .Button.Button__small {
   display: inline-block;
   width: auto;

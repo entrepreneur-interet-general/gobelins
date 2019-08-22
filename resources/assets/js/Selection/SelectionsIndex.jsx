@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelections } from "../context/selections-context";
@@ -6,25 +6,29 @@ import CrossSimple from "../icons/CrossSimple";
 import MySelections from "./MySelections";
 import SelectionsList from "./SelectionsList";
 
-class SelectionsIndex extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+function SelectionsIndex(props) {
+  const selectionsContext = useSelections();
 
-  render() {
-    return (
-      <div className="Selections">
-        <Link className="Selections__close" to="/recherche">
-          <CrossSimple />
-        </Link>
+  useEffect(() => {
+    if (
+      selectionsContext.loading === false &&
+      selectionsContext.userSelections.length < 1
+    ) {
+      selectionsContext.fetchAll();
+    }
+  }, []);
 
-        <MySelections />
-        <MobNatSelections />
-        <UserSelections />
-      </div>
-    );
-  }
+  return (
+    <div className="Selections">
+      <Link className="Selections__close" to="/recherche">
+        <CrossSimple />
+      </Link>
+
+      <MySelections />
+      <MobNatSelections />
+      <UserSelections />
+    </div>
+  );
 }
 
 function MobNatSelections(props) {

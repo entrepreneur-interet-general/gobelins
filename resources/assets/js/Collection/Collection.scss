@@ -39,7 +39,7 @@
 .Collection__cell {
   display: block;
   text-decoration: none;
-  color: inherit;
+  color: $dark-gray;
   cursor: pointer;
   @include breakpoint($xsmall) {
     width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
@@ -153,7 +153,7 @@
   font-size: rem(13px);
   line-height: rem(18px);
   font-weight: 600;
-  color: $dark-gray;
+  color: inherit;
 
   &:empty {
     display: none;
@@ -165,7 +165,7 @@
   font-size: rem(13px);
   line-height: rem(20px);
   font-weight: normal;
-  color: $dark-gray;
+  color: inherit;
 }
 
 .Collection__scrollToTop {

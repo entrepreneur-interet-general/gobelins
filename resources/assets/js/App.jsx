@@ -16,6 +16,7 @@ import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
 import SelectionsIndex from "./Selection/SelectionsIndex";
+import SelectionDetail from "./Selection/SelectionDetail";
 
 const breakpoints = {
   xxsmall: 420,
@@ -490,6 +491,16 @@ class App extends Component {
                     render={props => (
                       <SelectionsIndex
                         {...props}
+                        onBackToCollection={this.handleBackToCollection}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/selection/:selection_id"
+                    render={props => (
+                      <SelectionDetail
+                        {...props}
+                        // selection={this.state.selectionDetail}
                         onBackToCollection={this.handleBackToCollection}
                       />
                     )}

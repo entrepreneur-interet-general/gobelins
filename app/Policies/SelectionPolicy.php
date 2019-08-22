@@ -15,18 +15,18 @@ class SelectionPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Models\Selection  $selection
-     * @return mixed
+     * @return bool
      */
-    public function view(User $user, Selection $selection)
+    public function view(?User $user, Selection $selection)
     {
-        return $selection->users->contains($user);
+        return $selection->public || $selection->users->contains($user);
     }
 
     /**
      * Determine whether the user can create selections.
      *
      * @param  \App\User  $user
-     * @return mixed
+     * @return bool
      */
     public function create(User $user)
     {
@@ -38,7 +38,7 @@ class SelectionPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Models\Selection  $selection
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Selection $selection)
     {
@@ -50,7 +50,7 @@ class SelectionPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Models\Selection  $selection
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user, Selection $selection)
     {
@@ -62,7 +62,7 @@ class SelectionPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Models\Selection  $selection
-     * @return mixed
+     * @return bool
      */
     public function restore(User $user, Selection $selection)
     {
@@ -74,7 +74,7 @@ class SelectionPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Models\Selection  $selection
-     * @return mixed
+     * @return bool
      */
     public function forceDelete(User $user, Selection $selection)
     {

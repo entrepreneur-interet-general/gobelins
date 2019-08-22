@@ -6,20 +6,64 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \App\Models\Selection;
 use \App\Models\Product;
+use \App\User;
 
 class SelectionsController extends Controller
 {
-    private function listSelections()
+    private function listMySelections(Request $request)
     {
-        $selections = Auth::user()->selections()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
+        $user = Auth::user() ?? Auth::guard('api')->user();
+        $mySelections = $user ?
+        $user->selections()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
+            return $s->toSearchableArray();
+        }) : [];
+        return $mySelections;
+    }
+
+    private function listMobNatSelections(Request $request)
+    {
+        $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
+
+        $userSelections = $mob_nat_user->selections()->public()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
             return $s->toSearchableArray();
         });
-        return ['selections' => $selections];
+        return $userSelections;
+    }
+
+    private function listUserSelections(Request $request)
+    {
+        $userSelections = Selection::with(['products', 'users'])
+                    ->public()
+                    ->whereHas('users', function ($q) {
+                        // FIXME. Negative doesn't work:
+                        // identity_code <> User::IDENTITY_MOBILIER_NATIONAL
+                        $q->where('identity_code', null);
+                    })
+                    ->orderBy('selections.updated_at', 'DESC')
+                    ->limit(10)
+                    ->get()->map(function ($s) {
+                        return $s->toSearchableArray();
+                    });
+        return $userSelections;
+    }
+
+    private function listAllSelections(Request $request)
+    {
+        return [
+            'mySelections' => $this->listMySelections($request),
+            'mobNatSelections' => $this->listMobNatSelections($request),
+            'userSelections' => $this->listUserSelections($request),
+        ];
     }
 
     public function index(Request $request)
     {
-        return $this->listSelections();
+        return $this->listAllSelections($request);
+    }
+
+    public function mine(Request $request)
+    {
+        return ['mySelections' =>$this->listMySelections($request)];
     }
 
     /**
@@ -50,7 +94,7 @@ class SelectionsController extends Controller
             $selection->products()->attach($request->product_ids);
         }
 
-        return $this->listSelections();
+        return ['mySelections' => $this->listMySelections()];
     }
 
     /**
@@ -72,6 +116,18 @@ class SelectionsController extends Controller
         
         $selection->products()->attach($product);
 
-        return $this->listSelections();
+        return ['mySelections' => $this->listMySelections()];
+    }
+
+
+    public function show(Request $request, $selection_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+
+        // $this->authorize('view', $selection);
+
+        return view('site.selection', [
+            'selection' => $selection,
+        ]);
     }
 }

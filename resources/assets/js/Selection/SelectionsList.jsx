@@ -1,18 +1,14 @@
 import React from "react";
 import folkloreImage from "../vendor/folklore-image.js";
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 
 import ImagesPlaceholder from "./ImagesPlaceholder";
 import PadlockTiny from "../icons/PadlockTiny";
 
 export default function SelectionsList(props) {
   return props.selections.map((sel, i) => (
-    <SelectionsListItem
-      selection={sel}
-      extraHeader={i === 1 && props.rightHeader}
-      key={sel.id}
-      {...props}
-    />
+    <SelectionsListItem selection={sel} key={sel.id} {...props} />
   ));
 }
 
@@ -30,22 +26,28 @@ function SelectionsListItem({ selection, extraHeader, className }) {
 
   return (
     <div className={classNames("SelectionsListItem", className)}>
-      {extraHeader}
-      <div className="SelectionsListItem__images-wrapper">
-        <div className="SelectionsListItem__images">
-          {illustrativeImages.length ? (
-            illustrativeImages.map((image, i) => {
-              const thumbUrl = folkloreImage.url(
-                `/media/xl/${encodeURIComponent(image.path)}`,
-                330
-              );
-              return <img src={thumbUrl} alt="" key={i} />;
-            })
-          ) : (
-            <ImagesPlaceholder />
-          )}
+      <Link
+        to={{
+          pathname: `/selection/${selection.id}`,
+          state: { selection: selection }
+        }}
+      >
+        <div className="SelectionsListItem__images-wrapper">
+          <div className="SelectionsListItem__images">
+            {illustrativeImages.length ? (
+              illustrativeImages.map((image, i) => {
+                const thumbUrl = folkloreImage.url(
+                  `/media/xl/${encodeURIComponent(image.path)}`,
+                  330
+                );
+                return <img src={thumbUrl} alt="" key={i} />;
+              })
+            ) : (
+              <ImagesPlaceholder />
+            )}
+          </div>
         </div>
-      </div>
+      </Link>
       <div className="SelectionsListItem__title-line">
         <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
         {Boolean(selection.products) &&

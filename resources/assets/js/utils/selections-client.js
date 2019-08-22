@@ -1,7 +1,11 @@
 import client from "./api-client";
 
-function listMine() {
+function fetchAll() {
   return client("api/selections");
+}
+
+function fetchMine() {
+  return client("api/selections/mine");
 }
 
 function create(product_ids, selection) {
@@ -15,4 +19,4 @@ function add(product_id, selection_id) {
   return client(`api/selections/${selection_id}/add/${product_id}`);
 }
 
-export { listMine, add, create };
+export { fetchAll, fetchMine, add, create };

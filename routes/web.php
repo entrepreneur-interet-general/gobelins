@@ -13,11 +13,28 @@
 
 Route::redirect('/', '/recherche', 302);
 
-Route::get('/recherche', 'SearchController@index')->name('search');
-Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')->where('inventory_id', '.*');
-Route::get('/objet/{inventory_id}', 'SearchController@index')->name('product')->where('inventory_id', '.*');
-Route::get('/selections', 'SearchController@index')->name('selections');
+/* Products routes */
+Route::get('/recherche', 'SearchController@index')
+        ->name('search');
 
+Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')
+        ->where('inventory_id', '.*');
+
+Route::get('/objet/{inventory_id}', 'SearchController@index')
+        ->name('product')
+        ->where('inventory_id', '.*');
+
+
+/* Selections routes */
+Route::get('/selections', 'SearchController@index')
+        ->name('selections');
+
+Route::get('/selection/{selection_id}', 'SelectionsController@show')
+        ->name('selection_detail')
+        ->where('selection_id', '[0-9]+');
+
+        
+/* Static pages routes */
 Route::get('/info', 'HomeController@info');
 
 Auth::routes();

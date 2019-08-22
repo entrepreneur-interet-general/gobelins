@@ -36,6 +36,11 @@ class Selection extends Model
         return $this->belongsToMany(Product::class);
     }
 
+    public function scopePublic($query)
+    {
+        return $query->where('public', true);
+    }
+
     public function toSearchableArray()
     {
         return [

@@ -29,9 +29,11 @@ class SelectionsProvider extends React.Component {
     ) {
       console.log("Selection context list them all !!");
       this.setState({ loading: true }, () => {
-        selectionsClient.listMine().then(data => {
+        selectionsClient.fetchAll().then(data => {
           this.setState({
-            mySelections: data.selections,
+            mySelections: data.mySelections,
+            mobNatSelections: data.mobNatSelections,
+            userSelections: data.userSelections,
             loading: false,
             initedMine: true
           });
@@ -45,17 +47,30 @@ class SelectionsProvider extends React.Component {
     }
   };
 
-  listMine = () => {
+  fetchAll = () => {
     this.setState({
       loading: true
     });
-    return selectionsClient.listMine().then(data => {
-      console.log("Received my selections list", data);
-
+    return selectionsClient.fetchAll().then(data => {
       this.setState({
         initedMine: true,
         loading: false,
-        mySelections: data.selections
+        mySelections: data.mySelections,
+        mobNatSelections: data.mobNatSelections,
+        userSelections: data.userSelections
+      });
+    });
+  };
+
+  fetchMine = () => {
+    this.setState({
+      loading: true
+    });
+    return selectionsClient.fetchMine().then(data => {
+      this.setState({
+        initedMine: true,
+        loading: false,
+        mySelections: data.mySelections
       });
     });
   };
@@ -67,7 +82,7 @@ class SelectionsProvider extends React.Component {
       this.setState({
         initedMine: true,
         loading: false,
-        mySelections: data.selections
+        mySelections: data.mySelections
       });
       return data;
     });
@@ -79,7 +94,7 @@ class SelectionsProvider extends React.Component {
       this.setState({
         initedMine: true,
         loading: false,
-        mySelections: data.selections
+        mySelections: data.mySelections
       });
       return data;
     });
@@ -95,7 +110,8 @@ class SelectionsProvider extends React.Component {
           userSelections: this.state.userSelections,
           mobNatSelections: this.state.mobNatSelections,
           selections: this.state.selections,
-          listMine: this.listMine,
+          fetchAll: this.fetchAll,
+          fetchMine: this.fetchMine,
           add: this.add,
           createAndAdd: this.createAndAdd
         }}
