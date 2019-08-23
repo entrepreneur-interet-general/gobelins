@@ -41,6 +41,11 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
         'selection_id' => '[0-9]+',
         'product_id' => '[0-9]+',
     ]);
+
+    Route::delete('selections/{selection_id}/products/{inventory_id}', 'SelectionsController@removeProduct')->where([
+        'selection_id' => '[0-9]+',
+        'inventory_id' => '.+',
+    ]);
     
     Route::post('selections', 'SelectionsController@create');
 });

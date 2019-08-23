@@ -29,7 +29,7 @@ Route::get('/objet/{inventory_id}', 'SearchController@index')
 Route::get('/selections', 'SearchController@index')
         ->name('selections');
 
-Route::get('/selection/{selection_id}', 'SelectionsController@show')
+Route::get('/selections/{selection_id}', 'SelectionsController@show')
         ->name('selection_detail')
         ->where('selection_id', '[0-9]+');
 

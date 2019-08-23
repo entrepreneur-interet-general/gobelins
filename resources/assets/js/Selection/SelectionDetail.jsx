@@ -12,15 +12,23 @@ import Button from "../ui/Button";
 import CollectionGridItem from "../Collection/CollectionGridItem";
 
 function SelectionDetail(props) {
-  const selection = props.location.state.selection;
+  // const selection = props.location.state.selection;
   const authContext = useAuth();
+  const selectionsContext = useSelections();
+  const selection_id = parseInt(props.match.params.selection_id, 10);
+  const selection = [
+    ...selectionsContext.mySelections,
+    ...selectionsContext.mobNatSelections,
+    ...selectionsContext.userSelections
+  ].find(sel => sel.id === selection_id);
+
   const userId = authContext.data.authenticated && authContext.data.user.id;
   const isMine = Boolean(userId && selection.users.find(u => u.id === userId));
 
   let masonryContainerRef = React.createRef();
-
+  let bricksInstance;
   useEffect(() => {
-    let instance = Bricks({
+    bricksInstance = Bricks({
       container: masonryContainerRef.current,
       packed: "packed",
       sizes: [
@@ -31,8 +39,15 @@ function SelectionDetail(props) {
       ],
       position: true
     });
-    instance.pack();
-  }, []);
+    bricksInstance.pack();
+  }, [selection.products]);
+
+  function handleRemoveFromSelection(product) {
+    console.log("handleRemoveFromSelection yo", product);
+    selectionsContext.remove(product.inventory_id, selection.id).then(() => {
+      console.log("ok product removed from selection");
+    });
+  }
 
   return (
     <div
@@ -40,7 +55,10 @@ function SelectionDetail(props) {
         "SelectionDetail--is-mine": isMine
       })}
     >
-      <Link className="Selections__close" to="/recherche">
+      <Link
+        className="Selections__close SelectionDetail__close"
+        to="/recherche"
+      >
         <CrossSimple />
       </Link>
       <Link className="SelectionDetail__back-to-selections" to="/selections/">
@@ -81,7 +99,8 @@ function SelectionDetail(props) {
                   className="SelectionDetail__grid-item"
                   datum={prod}
                   onObjectClick={() => null}
-                  onSelectionClick={() => null}
+                  onSelectionClick={null}
+                  onRemoveFromSelection={isMine && handleRemoveFromSelection}
                   key={i}
                 />
               );

@@ -10,7 +10,7 @@ use \App\User;
 
 class SelectionsController extends Controller
 {
-    private function listMySelections(Request $request)
+    private function listMySelections()
     {
         $user = Auth::user() ?? Auth::guard('api')->user();
         $mySelections = $user ?
@@ -20,7 +20,7 @@ class SelectionsController extends Controller
         return $mySelections;
     }
 
-    private function listMobNatSelections(Request $request)
+    private function listMobNatSelections()
     {
         $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
 
@@ -30,7 +30,7 @@ class SelectionsController extends Controller
         return $userSelections;
     }
 
-    private function listUserSelections(Request $request)
+    private function listUserSelections()
     {
         $userSelections = Selection::with(['products', 'users'])
                     ->public()
@@ -47,12 +47,12 @@ class SelectionsController extends Controller
         return $userSelections;
     }
 
-    private function listAllSelections(Request $request)
+    private function listAllSelections()
     {
         return [
-            'mySelections' => $this->listMySelections($request),
-            'mobNatSelections' => $this->listMobNatSelections($request),
-            'userSelections' => $this->listUserSelections($request),
+            'mySelections' => $this->listMySelections(),
+            'mobNatSelections' => $this->listMobNatSelections(),
+            'userSelections' => $this->listUserSelections(),
         ];
     }
 
@@ -63,8 +63,9 @@ class SelectionsController extends Controller
 
     public function mine(Request $request)
     {
-        return ['mySelections' =>$this->listMySelections($request)];
+        return ['mySelections' =>$this->listMySelections()];
     }
+
 
     /**
      * Create a selection.
@@ -115,6 +116,29 @@ class SelectionsController extends Controller
         $this->authorize('update', $selection);
         
         $selection->products()->attach($product);
+
+        return ['mySelections' => $this->listMySelections()];
+    }
+
+
+    /**
+     * Remove a product from a given selection.
+     *
+     * @param  Request  $request
+     * @param  Integer  $selection_id
+     * @param  String   $inventory_id
+     * @return Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+
+    public function removeProduct(Request $request, $selection_id, $inventory_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+        $product = Product::byInventory($inventory_id)->firstOrFail();
+
+        $this->authorize('update', $selection);
+        
+        $selection->products()->detach($product->id);
 
         return ['mySelections' => $this->listMySelections()];
     }

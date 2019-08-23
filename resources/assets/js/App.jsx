@@ -488,6 +488,7 @@ class App extends Component {
                   />
                   <Route
                     path="/selections/"
+                    exact
                     render={props => (
                       <SelectionsIndex
                         {...props}
@@ -496,7 +497,7 @@ class App extends Component {
                     )}
                   />
                   <Route
-                    path="/selection/:selection_id"
+                    path="/selections/:selection_id"
                     render={props => (
                       <SelectionDetail
                         {...props}

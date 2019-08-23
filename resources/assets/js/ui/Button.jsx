@@ -5,8 +5,10 @@ import ArrowCta from "../icons/ArrowCta";
 import Plus from "../icons/Plus";
 import Gear from "../icons/Gear";
 import Pencil from "../icons/Pencil";
+import CrossSimple from "../icons/CrossSimple";
 
 export default function Button(props) {
+  const tinyIconSizes = props.tiny ? { width: "8px", height: "8px" } : {};
   return (
     <button
       onClick={props.onClick}
@@ -14,8 +16,10 @@ export default function Button(props) {
         "Button",
         {
           Button__small: props.small,
+          Button__tiny: props.tiny,
           Button__round: props.round,
-          Button__dark: props.dark
+          Button__dark: props.dark,
+          Button__red: props.red
         },
         props.className
       )}
@@ -27,6 +31,7 @@ export default function Button(props) {
             {props.icon === "plus" && <Plus />}
             {props.icon === "gear" && <Gear />}
             {props.icon === "pencil" && <Pencil />}
+            {props.icon === "cross" && <CrossSimple {...tinyIconSizes} />}
           </div>
         )}
         {props.children && (

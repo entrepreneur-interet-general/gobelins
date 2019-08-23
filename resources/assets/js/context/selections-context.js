@@ -88,6 +88,19 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  remove = (inventory_id, selection_id) => {
+    this.setState({ loading: true });
+    return selectionsClient.remove(inventory_id, selection_id).then(data => {
+      console.log("Product removed from selection", data);
+      this.setState({
+        initedMine: true,
+        loading: false,
+        mySelections: data.mySelections
+      });
+      return data;
+    });
+  };
+
   createAndAdd = (product_ids, selection) => {
     this.setState({ loading: true });
     return selectionsClient.create(product_ids, selection).then(data => {
@@ -113,6 +126,7 @@ class SelectionsProvider extends React.Component {
           fetchAll: this.fetchAll,
           fetchMine: this.fetchMine,
           add: this.add,
+          remove: this.remove,
           createAndAdd: this.createAndAdd
         }}
         {...this.props}

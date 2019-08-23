@@ -28,7 +28,7 @@ function SelectionsListItem({ selection, extraHeader, className }) {
     <div className={classNames("SelectionsListItem", className)}>
       <Link
         to={{
-          pathname: `/selection/${selection.id}`,
+          pathname: `/selections/${selection.id}`,
           state: { selection: selection }
         }}
       >

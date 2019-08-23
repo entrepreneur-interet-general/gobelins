@@ -9,15 +9,30 @@
   border: 0;
   background-color: #fff;
   color: #000;
-  &.Button__dark {
-    background-color: #000;
-    color: #fff;
-  }
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(44px);
   cursor: pointer;
+
+  &.Button__dark {
+    background-color: #000;
+    border-color: #373737;
+    color: #fff;
+    &:hover {
+      border-color: #fff;
+    }
+  }
+
+  &.Button__red {
+    background-color: #f24747;
+    border-color: #f24747;
+    color: white;
+    &:hover {
+      // border-color: white;
+    }
+  }
 }
+
 .Button__inner {
   display: flex;
   flex-flow: row nowrap;
@@ -25,11 +40,13 @@
   align-items: center;
   padding: 0 22px;
 }
+
 .Button__icon {
   flex: 0 0 auto;
   position: relative;
   top: 1px;
 }
+
 .Button__label {
   flex: 1 1 auto;
   text-align: center;
@@ -40,21 +57,17 @@
   margin-left: 10px;
 }
 
-.Button.Button__small {
+.Button.Button__small,
+.Button.Button__tiny {
   display: inline-block;
   width: auto;
   height: 36px;
   border-radius: 18px;
-  border: 1px solid #000;
+  border-width: 1px;
+  border-style: solid;
   font-size: rem(15px);
   line-height: rem(15px);
 
-  &.Button__dark {
-    border-color: #373737;
-    &:hover {
-      border-color: white;
-    }
-  }
   &.Button__round {
     width: 36px;
     & .Button__inner {
@@ -64,5 +77,20 @@
 
   & .Button__inner {
     padding: 0 18px;
+  }
+}
+
+.Button.Button__tiny {
+  height: 26px;
+  border-radius: 13px;
+  &.Button__round {
+    width: 26px;
+  }
+  &.Button__dark:hover {
+    border-color: #000;
+  }
+  .Button__icon {
+    position: relative;
+    top: -1px;
   }
 }

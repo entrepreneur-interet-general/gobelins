@@ -3,12 +3,14 @@ import folkloreImage from "../vendor/folklore-image.js";
 import classNames from "classnames";
 
 import Heart from "../icons/Heart";
+import RemoveButton from "../ui/RemoveButton";
 
 export default function CollectionGridItem({
   onObjectClick,
   onSelectionClick,
   datum,
-  className
+  className,
+  onRemoveFromSelection
 }) {
   let hasImages = datum.images && datum.images.length > 0;
 
@@ -62,13 +64,21 @@ export default function CollectionGridItem({
                   "760 760w"
                 }
               /> */}
-          <button
-            type="button"
-            className="Collection__image-selection-button"
-            onClick={onSelectionClick.bind(this, datum)}
-          >
-            <Heart />
-          </button>
+          {onSelectionClick && (
+            <button
+              type="button"
+              className="Collection__image-selection-button"
+              onClick={onSelectionClick.bind(this, datum)}
+            >
+              <Heart />
+            </button>
+          )}
+          {onRemoveFromSelection && (
+            <RemoveButton
+              onRemove={onRemoveFromSelection.bind(this, datum)}
+              className="Collection__remove-button"
+            />
+          )}
         </figure>
       ) : (
         <div className="Collection__image-container--empty" />

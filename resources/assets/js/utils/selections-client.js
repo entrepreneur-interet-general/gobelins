@@ -19,4 +19,10 @@ function add(product_id, selection_id) {
   return client(`api/selections/${selection_id}/add/${product_id}`);
 }
 
-export { fetchAll, fetchMine, add, create };
+function remove(inventory_id, selection_id) {
+  return client(`api/selections/${selection_id}/products/${inventory_id}`, {
+    method: "DELETE"
+  });
+}
+
+export { fetchAll, fetchMine, add, create, remove };

@@ -133,6 +133,16 @@
     }
   }
 }
+.Collection__remove-button {
+  transition: opacity 0.15s ease-in-out;
+
+  @media (hover: hover) {
+    opacity: 0;
+    .Collection__cell:hover & {
+      opacity: 1;
+    }
+  }
+}
 .Collection__cell img {
   position: absolute;
   top: 0;

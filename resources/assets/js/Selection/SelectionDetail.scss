@@ -9,12 +9,19 @@
 }
 .SelectionDetail__back-to-selections {
   @extend .Selections__close;
+}
+.SelectionDetail .SelectionDetail__back-to-selections {
+  color: inherit;
   right: auto;
   left: 30px;
   @include breakpoint(760px) {
     left: 20px;
   }
 }
+.SelectionDetail .SelectionDetail__close {
+  color: inherit;
+}
+
 .SelectionDetail__header {
   @extend %selections-grid;
   margin-bottom: 90px !important;
