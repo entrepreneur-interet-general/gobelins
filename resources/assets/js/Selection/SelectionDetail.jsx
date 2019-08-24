@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Bricks from "bricks.js";
@@ -26,6 +26,7 @@ import PadlockTiny from "../icons/PadlockTiny";
 import Button from "../ui/Button";
 import CollectionGridItem from "../Collection/CollectionGridItem";
 import Notification from "../ui/Notification";
+import EditSelectionModal from "./EditSelectionModal";
 
 function SelectionDetail(props) {
   const authContext = useAuth();
@@ -56,6 +57,8 @@ function SelectionDetail(props) {
     });
     bricksInstance.pack();
   }, [selection.products]);
+
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
   function handleRemoveFromSelection(product) {
     selectionsContext.remove(product.inventory_id, selection.id).then(() => {
@@ -90,14 +93,23 @@ function SelectionDetail(props) {
       </Link>
       <div className="SelectionDetail__header">
         <div className="SelectionDetail__header-left">
-          <Button
-            dark
-            small
-            icon="pencil"
-            className="SelectionDetail__edit-button"
-          >
-            modifier
-          </Button>
+          {isMine && (
+            <Button
+              dark
+              small
+              icon="pencil"
+              className="SelectionDetail__edit-button"
+              onClick={() => setEditModalOpen(true)}
+            >
+              modifier
+            </Button>
+          )}
+          {editModalOpen && (
+            <EditSelectionModal
+              selection={selection}
+              onClose={() => setEditModalOpen(false)}
+            />
+          )}
           <hgroup className="SelectionDetail__header-line">
             <h1>{selection.name}</h1>
             {Boolean(selection.products) && Boolean(selection.products.length) && (

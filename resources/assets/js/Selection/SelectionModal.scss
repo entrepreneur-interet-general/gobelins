@@ -225,3 +225,27 @@
   // Eww, dirty.
   @extend .AuthModal__error-msg;
 }
+
+/* Edit modal form. */
+
+.SelectionModal__edit-form {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30px 60px;
+  color: #fff;
+}
+.SelectionModal__edit-form-buttons-row {
+  width: 100%;
+  margin-top: 45px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.SelectionModal__edit-deletion {
+  flex: 1 1 auto;
+}
+.SelectionModal__edit-submit {
+  width: 140px;
+  flex: 0 0 140px;
+}

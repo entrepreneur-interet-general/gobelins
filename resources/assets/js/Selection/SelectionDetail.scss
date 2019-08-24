@@ -40,7 +40,6 @@
   font-size: rem(30px);
   font-weight: normal;
   line-height: rem(41px);
-  margin-top: 30px;
 
   & h1 {
     display: inline;
@@ -67,6 +66,7 @@
 }
 .SelectionDetail__edit-button {
   background-color: inherit;
+  margin-bottom: 30px;
 }
 
 .SelectionDetail__grid {

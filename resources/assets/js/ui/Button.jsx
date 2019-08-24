@@ -6,6 +6,7 @@ import Plus from "../icons/Plus";
 import Gear from "../icons/Gear";
 import Pencil from "../icons/Pencil";
 import CrossSimple from "../icons/CrossSimple";
+import TrashCan from "../icons/TrashCan";
 
 export default function Button(props) {
   const tinyIconSizes = props.tiny ? { width: "8px", height: "8px" } : {};
@@ -31,6 +32,7 @@ export default function Button(props) {
             {props.icon === "plus" && <Plus />}
             {props.icon === "gear" && <Gear />}
             {props.icon === "pencil" && <Pencil />}
+            {props.icon === "trashcan" && <TrashCan />}
             {props.icon === "cross" && <CrossSimple {...tinyIconSizes} />}
           </div>
         )}

@@ -18,9 +18,9 @@ export default function InputField(props) {
       <span className="InputField__label">{props.label}</span>
       <input
         name={props.name}
-        value={props.namevalue}
-        required={props.namerequired}
-        placeholder={props.nameplaceholder}
+        value={props.value}
+        required={props.required}
+        placeholder={props.placeholder}
         onChange={props.onChange}
         maxLength={props.maxLength}
         type={type}
