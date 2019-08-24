@@ -1,6 +1,7 @@
 import React from "react";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
+import Textarea from "../ui/Textarea";
 import Plus from "../icons/Plus";
 
 export default class SelectionEditForm extends React.Component {
@@ -55,6 +56,15 @@ export default class SelectionEditForm extends React.Component {
             required
             maxLength="255"
           />
+
+          <Textarea
+            className="SelectionModal__textarea"
+            name="description"
+            label="Description"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+
           <div className="SelectionModal__edit-form-buttons-row">
             <div className="SelectionModal__edit-deletion">
               <Button
