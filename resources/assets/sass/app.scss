@@ -2,6 +2,7 @@
 @import "~normalize.css";
 @import "~sass-rem";
 @import "~breakpoint-sass";
+@import "~simple-react-notifications/dist/index.css";
 
 // Shared utilities
 @import "shared/aspect-ratio";
@@ -53,6 +54,7 @@
 @import "../js/Selection/SelectionsListItem.scss";
 @import "../js/Selection/MySelections.scss";
 @import "../js/ui/Button.scss";
+@import "../js/ui/Notification.scss";
 @import "../js/ui/InputField.scss";
 @import "../js/ui/RemoveButton.scss";
 
