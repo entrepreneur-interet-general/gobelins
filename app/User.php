@@ -41,4 +41,12 @@ class User extends Authenticatable
     {
         return $this->identityCode === self::IDENTITY_MOBILIER_NATIONAL;
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }

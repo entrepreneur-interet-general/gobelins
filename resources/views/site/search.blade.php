@@ -31,6 +31,10 @@
             var SELECTIONS = {!! json_encode($selections) !!};
         @endisset
 
+        @isset($selection_detail)
+            var SELECTION_DETAIL = {!! json_encode($selection_detail) !!};
+        @endisset
+
         @isset($currentUser)
             var CURRENT_USER = {!! json_encode($currentUser) !!};
         @endisset

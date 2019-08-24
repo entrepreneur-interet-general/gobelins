@@ -48,7 +48,9 @@ class Selection extends Model
             'name' => $this->name,
             'description' => $this->description,
             'public' => $this->public,
-            'users' => $this->users,
+            'users' => $this->users->map(function ($u) {
+                return $u->toSearchableArray();
+            }),
             'products' => $this->products->map(function ($p) {
                 return $p->toSearchableArray();
             }),

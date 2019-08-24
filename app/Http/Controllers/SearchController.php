@@ -141,7 +141,7 @@ class SearchController extends Controller
         });
 
         $product = null;
-        if ($inventory_id) {
+        if ($request->route()->named('product')) {
             $product = Product::published()->byInventory($inventory_id)->firstOrFail();
             
             SEO::setTitle($product->seoTitle);
@@ -186,6 +186,13 @@ class SearchController extends Controller
             ];
         }
 
+        $selection_detail = null;
+        if ($request->route()->named('selection_detail')) {
+            $selection_id = (int) $request->selection_id;
+            $selection_detail = Selection::find($selection_id);
+            $selection_detail = $selection_detail ? $selection_detail->toSearchableArray() : null;
+        }
+
         $currentUser = null;
         if (Auth::check()) {
             $currentUser = Auth::user();
@@ -196,6 +203,7 @@ class SearchController extends Controller
             'filters' => $filters,
             'product' => $product,
             'selections' => $selections,
+            'selection_detail' => $selection_detail,
             'currentUser' => $currentUser,
         ]);
     }

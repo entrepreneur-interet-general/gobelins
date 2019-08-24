@@ -32,11 +32,14 @@ function SelectionDetail(props) {
   const authContext = useAuth();
   const selectionsContext = useSelections();
   const selection_id = parseInt(props.match.params.selection_id, 10);
-  const selection = [
-    ...selectionsContext.mySelections,
-    ...selectionsContext.mobNatSelections,
-    ...selectionsContext.userSelections
-  ].find(sel => sel.id === selection_id);
+
+  const selection =
+    window.SELECTION_DETAIL ||
+    [
+      ...selectionsContext.mySelections,
+      ...selectionsContext.mobNatSelections,
+      ...selectionsContext.userSelections
+    ].find(sel => sel.id === selection_id);
 
   const userId = authContext.data.authenticated && authContext.data.user.id;
   const isMine = Boolean(userId && selection.users.find(u => u.id === userId));
