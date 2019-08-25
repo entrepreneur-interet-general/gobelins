@@ -137,6 +137,20 @@ class SelectionsController extends Controller
     }
 
 
+    public function destroy(Request $request, $selection_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+
+        $this->authorize('update', $selection);
+        
+        $selection->users()->detach();
+        $selection->products()->detach();
+        $selection->delete();
+
+        return ['mySelections' => $this->listMySelections()];
+    }
+
+
     /**
      * Remove a product from a given selection.
      *

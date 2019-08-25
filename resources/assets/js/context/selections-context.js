@@ -133,6 +133,18 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  destroy = selection => {
+    this.setState({ loading: true });
+    return selectionsClient.destroy(selection).then(data => {
+      this.setState({
+        loading: false,
+        mySelections: data.mySelections,
+        detailSelection: null
+      });
+      return data;
+    });
+  };
+
   setDetailSelection = selection_id => {
     const sel = [
       ...this.state.mySelections,
@@ -161,7 +173,8 @@ class SelectionsProvider extends React.Component {
           remove: this.remove,
           createAndAdd: this.createAndAdd,
           update: this.update,
-          setDetailSelection: this.setDetailSelection
+          setDetailSelection: this.setDetailSelection,
+          destroy: this.destroy
         }}
         {...this.props}
       />

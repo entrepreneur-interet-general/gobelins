@@ -96,6 +96,7 @@ export default class SelectionEditForm extends React.Component {
                 round
                 className="SelectionModal__edit-delete-button"
                 icon="trashcan"
+                onClick={this.props.onDelete}
               />
             </div>
             <Button className="SelectionModal__edit-submit">Enregistrer</Button>

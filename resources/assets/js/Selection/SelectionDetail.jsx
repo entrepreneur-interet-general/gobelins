@@ -50,6 +50,20 @@ function SelectionDetail(props) {
     });
   }
 
+  function handleDeleteSelection(ev) {
+    ev.preventDefault();
+    if (
+      window.confirm(
+        "⚠️ Supprimer la sélection ? \nCette action est irréversible."
+      )
+    ) {
+      props.history.push("/selections");
+      selectionsContext.destroy(selection).then(() => {
+        notifier("La sélection a bien été supprimée");
+      });
+    }
+  }
+
   return (
     <div
       className={classNames("SelectionDetail", {
@@ -82,6 +96,7 @@ function SelectionDetail(props) {
             <EditSelectionModal
               selection={selection}
               onClose={() => setEditModalOpen(false)}
+              onDelete={handleDeleteSelection}
             />
           )}
           <hgroup className="SelectionDetail__header-line">

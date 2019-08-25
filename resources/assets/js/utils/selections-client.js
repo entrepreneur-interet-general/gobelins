@@ -32,4 +32,10 @@ function update(selection) {
   });
 }
 
-export { fetchAll, fetchMine, add, create, remove, update };
+function destroy(selection) {
+  return client(`api/selections/${selection.id}`, {
+    method: "DELETE"
+  });
+}
+
+export { fetchAll, fetchMine, add, create, remove, update, destroy };

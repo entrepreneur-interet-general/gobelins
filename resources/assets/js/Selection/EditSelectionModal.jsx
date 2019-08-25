@@ -27,6 +27,7 @@ export default function EditSelectionModal(props) {
           <EditSelectionForm
             selection={props.selection}
             onClose={props.onClose}
+            onDelete={props.onDelete}
           />
         </Fragment>
       </ReactModal2>
