@@ -1,0 +1,62 @@
+.Switch {
+  height: 36px;
+  display: inline-flex;
+  flex-flow: row nowrap;
+
+  border: 1px solid #131313;
+  border-radius: 3px;
+}
+
+.Switch__input {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* added line */
+}
+
+.Switch__on,
+.Switch__off {
+  flex: 1 0 50%;
+  padding: 0 15px;
+  text-align: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  border: 1px solid #131313;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+  cursor: pointer;
+}
+.Switch__on {
+  border-radius: 3px 0px 0px 3px;
+}
+.Switch__off {
+  border-radius: 0px 3px 3px 0px;
+  margin-left: -1px;
+}
+
+/****** States On / Off ******/
+
+// Unchecked, i.e. "Off" state.
+.Switch__on {
+  background-color: #131313;
+  color: #a6a6a6;
+}
+.Switch__off {
+  background-color: #fff;
+  color: #373737;
+}
+
+// Checked, i.e. "On" state.
+.Switch__input:checked ~ .Switch__on {
+  background-color: #fff;
+  color: #373737;
+}
+.Switch__input:checked ~ .Switch__off {
+  background-color: #131313;
+  color: #a6a6a6;
+}

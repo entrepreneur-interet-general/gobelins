@@ -5,6 +5,7 @@ import { SelectionsContext } from "../context/selections-context";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import Textarea from "../ui/Textarea";
+import Switch from "../ui/Switch";
 
 export default class SelectionEditForm extends React.Component {
   static contextType = SelectionsContext;
@@ -13,7 +14,7 @@ export default class SelectionEditForm extends React.Component {
     this.state = {
       name: props.selection.name || "",
       description: props.selection.description || "",
-      public: props.selection.public || true,
+      public: props.selection.public,
       loading: false,
       errorMessage: false
     };
@@ -76,6 +77,14 @@ export default class SelectionEditForm extends React.Component {
             name="description"
             label="Description"
             value={this.state.description}
+            onChange={this.handleChange}
+          />
+
+          <Switch
+            name="public"
+            checked={this.state.public}
+            labelOn="Publique"
+            labelOff="Privé"
             onChange={this.handleChange}
           />
 
