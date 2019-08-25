@@ -9,9 +9,11 @@ import { useAuth } from "../context/auth-context";
 import CrossSimple from "../icons/CrossSimple";
 import ArrowPrev from "../icons/ArrowPrev";
 import PadlockTiny from "../icons/PadlockTiny";
+import Heart from "../icons/Heart";
 import Button from "../ui/Button";
 import CollectionGridItem from "../Collection/CollectionGridItem";
 import EditSelectionModal from "./EditSelectionModal";
+import SelectionsBlank from "../icons/SelectionsBlank";
 
 function SelectionDetail(props) {
   const authContext = useAuth();
@@ -25,7 +27,13 @@ function SelectionDetail(props) {
 
   let masonryContainerRef = React.createRef();
   let bricksInstance;
+
   useEffect(() => {
+    // If we aren't displaying the container (because no products)
+    // then bail.
+    if (!masonryContainerRef.current) {
+      return;
+    }
     bricksInstance = Bricks({
       container: masonryContainerRef.current,
       packed: "packed",
@@ -116,22 +124,32 @@ function SelectionDetail(props) {
         </div>
       </div>
       <div className="SelectionDetail__grid">
-        <div className="SelectionDetail__masonry-container">
-          <div ref={masonryContainerRef}>
-            {selection.products.map((prod, i) => {
-              return (
-                <CollectionGridItem
-                  className="SelectionDetail__grid-item"
-                  datum={prod}
-                  onObjectClick={() => null}
-                  onSelectionClick={null}
-                  onRemoveFromSelection={isMine && handleRemoveFromSelection}
-                  key={i}
-                />
-              );
-            })}
+        {selection.products.length ? (
+          <div className="SelectionDetail__masonry-container">
+            <div ref={masonryContainerRef}>
+              {selection.products.map((prod, i) => {
+                return (
+                  <CollectionGridItem
+                    className="SelectionDetail__grid-item"
+                    datum={prod}
+                    onObjectClick={() => null}
+                    onSelectionClick={null}
+                    onRemoveFromSelection={isMine && handleRemoveFromSelection}
+                    key={i}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="SelectionDetail__blankslate">
+            <SelectionsBlank />
+            <span className="SelectionDetail__blankslate-txt">
+              Commencer à ajouter des objets en cliquant sur les
+              <Heart />
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

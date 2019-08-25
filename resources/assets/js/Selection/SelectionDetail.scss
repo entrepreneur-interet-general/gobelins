@@ -100,3 +100,18 @@
     width: calc((100% - (4 * 40px)) / 5);
   }
 }
+
+.SelectionDetail__blankslate {
+  grid-area: right;
+}
+.SelectionDetail__blankslate-txt {
+  color: #fff;
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  font-weight: normal;
+
+  & svg {
+    margin-left: 10px;
+  }
+}
