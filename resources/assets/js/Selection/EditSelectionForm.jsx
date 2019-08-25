@@ -1,10 +1,13 @@
 import React from "react";
+
+import notifier from "../utils/notifier";
+import { SelectionsContext } from "../context/selections-context";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import Textarea from "../ui/Textarea";
-import Plus from "../icons/Plus";
 
 export default class SelectionEditForm extends React.Component {
+  static contextType = SelectionsContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +32,18 @@ export default class SelectionEditForm extends React.Component {
   handleSubmit = ev => {
     ev.preventDefault();
     this.setState({ loading: true });
-    console.log("OK honky dory, do the fetch call now.");
+    this.context
+      .update({
+        id: this.props.selection.id,
+        name: this.state.name,
+        description: this.state.description,
+        public: this.state.public
+      })
+      .then(() => {
+        this.setState({ loading: false });
+        notifier("La sélection a bien été mise à jour");
+        this.props.onClose();
+      });
   };
 
   render() {

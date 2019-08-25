@@ -121,6 +121,22 @@ class SelectionsController extends Controller
     }
 
 
+    public function update(Request $request, $selection_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+
+        $this->authorize('update', $selection);
+        
+        $selection->name = $request->name;
+        $selection->description = $request->description;
+        $selection->public = $request->public;
+
+        $selection->save();
+
+        return ['mySelections' => $this->listMySelections()];
+    }
+
+
     /**
      * Remove a product from a given selection.
      *

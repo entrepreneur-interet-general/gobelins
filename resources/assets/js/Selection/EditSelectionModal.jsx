@@ -24,7 +24,10 @@ export default function EditSelectionModal(props) {
           <button className="SelectionModal__close" onClick={props.onClose}>
             <CrossSimple />
           </button>
-          <EditSelectionForm selection={props.selection} />
+          <EditSelectionForm
+            selection={props.selection}
+            onClose={props.onClose}
+          />
         </Fragment>
       </ReactModal2>
     </Gateway>

@@ -8,7 +8,7 @@ export default function Notification(props) {
       <button
         type="button"
         onClick={props.onClosePanel}
-        ariaLabel="Fermer la notification"
+        aria-label="Fermer la notification"
       >
         <CrossSimple />
       </button>

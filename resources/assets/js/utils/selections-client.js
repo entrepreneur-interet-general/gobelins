@@ -25,4 +25,11 @@ function remove(inventory_id, selection_id) {
   });
 }
 
-export { fetchAll, fetchMine, add, create, remove };
+function update(selection) {
+  return client(`api/selections/${selection.id}`, {
+    method: "PATCH",
+    body: { ...selection }
+  });
+}
+
+export { fetchAll, fetchMine, add, create, remove, update };

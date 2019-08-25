@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import ImagesPlaceholder from "./ImagesPlaceholder";
 import PadlockTiny from "../icons/PadlockTiny";
+import { useSelections } from "../context/selections-context";
 
 export default function SelectionsList(props) {
   return props.selections.map((sel, i) => (
@@ -23,6 +24,7 @@ function collectImages(selection) {
 
 function SelectionsListItem({ selection, extraHeader, className }) {
   const illustrativeImages = collectImages(selection);
+  const selectionContext = useSelections();
 
   return (
     <div className={classNames("SelectionsListItem", className)}>
@@ -31,6 +33,7 @@ function SelectionsListItem({ selection, extraHeader, className }) {
           pathname: `/selections/${selection.id}`,
           state: { selection: selection }
         }}
+        onClick={() => selectionContext.setDetailSelection(selection.id)}
       >
         <div className="SelectionsListItem__images-wrapper">
           <div className="SelectionsListItem__images">

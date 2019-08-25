@@ -33,13 +33,7 @@ function SelectionDetail(props) {
   const selectionsContext = useSelections();
   const selection_id = parseInt(props.match.params.selection_id, 10);
 
-  const selection =
-    window.SELECTION_DETAIL ||
-    [
-      ...selectionsContext.mySelections,
-      ...selectionsContext.mobNatSelections,
-      ...selectionsContext.userSelections
-    ].find(sel => sel.id === selection_id);
+  let selection = selectionsContext.detailSelection;
 
   const userId = authContext.data.authenticated && authContext.data.user.id;
   const isMine = Boolean(userId && selection.users.find(u => u.id === userId));

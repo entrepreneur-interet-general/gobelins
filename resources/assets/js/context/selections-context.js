@@ -9,6 +9,7 @@ class SelectionsProvider extends React.Component {
     super(props);
     this.state = {
       loading: false,
+      detailSelection: window.SELECTION_DETAIL || null,
       initedMine:
         window.SELECTIONS && window.SELECTIONS.mySelections ? true : false,
       mySelections: (window.SELECTIONS && window.SELECTIONS.mySelections) || [],
@@ -91,11 +92,14 @@ class SelectionsProvider extends React.Component {
   remove = (inventory_id, selection_id) => {
     this.setState({ loading: true });
     return selectionsClient.remove(inventory_id, selection_id).then(data => {
-      console.log("Product removed from selection", data);
+      const updatedDetailData = data.mySelections.find(
+        s => s.id === selection_id
+      );
       this.setState({
         initedMine: true,
         loading: false,
-        mySelections: data.mySelections
+        mySelections: data.mySelections,
+        detailSelection: updatedDetailData
       });
       return data;
     });
@@ -113,6 +117,33 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  update = selection => {
+    this.setState({ loading: true });
+    return selectionsClient.update(selection).then(data => {
+      const updatedDetailData = data.mySelections.find(
+        s => s.id === selection.id
+      );
+      this.setState({
+        initedMine: true,
+        loading: false,
+        mySelections: data.mySelections,
+        detailSelection: updatedDetailData
+      });
+      return data;
+    });
+  };
+
+  setDetailSelection = selection_id => {
+    const sel = [
+      ...this.state.mySelections,
+      ...this.state.mobNatSelections,
+      ...this.state.userSelections
+    ].find(sel => sel.id === selection_id);
+    this.setState({
+      detailSelection: sel
+    });
+  };
+
   render() {
     return (
       <SelectionsContext.Provider
@@ -122,12 +153,15 @@ class SelectionsProvider extends React.Component {
           mySelections: this.state.mySelections,
           userSelections: this.state.userSelections,
           mobNatSelections: this.state.mobNatSelections,
+          detailSelection: this.state.detailSelection,
           selections: this.state.selections,
           fetchAll: this.fetchAll,
           fetchMine: this.fetchMine,
           add: this.add,
           remove: this.remove,
-          createAndAdd: this.createAndAdd
+          createAndAdd: this.createAndAdd,
+          update: this.update,
+          setDetailSelection: this.setDetailSelection
         }}
         {...this.props}
       />

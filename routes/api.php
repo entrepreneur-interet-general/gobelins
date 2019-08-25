@@ -48,4 +48,6 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     ]);
     
     Route::post('selections', 'SelectionsController@create');
+    
+    Route::patch('selections/{selection_id}', 'SelectionsController@update');
 });
