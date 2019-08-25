@@ -2,22 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Bricks from "bricks.js";
-import notifier from "simple-react-notifications";
 
-notifier.configure({
-  autoClose: 3500,
-  single: true,
-  onlyLast: true,
-  animation: {
-    in: "notificationSlideDown",
-    out: "notificationSlideUp",
-    duration: 400,
-    timingFunction: "ease-in-out"
-  },
-  delay: 0,
-  width: "100%"
-});
-
+import notifier from "../utils/notifier";
 import { useSelections } from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import CrossSimple from "../icons/CrossSimple";
@@ -25,7 +11,6 @@ import ArrowPrev from "../icons/ArrowPrev";
 import PadlockTiny from "../icons/PadlockTiny";
 import Button from "../ui/Button";
 import CollectionGridItem from "../Collection/CollectionGridItem";
-import Notification from "../ui/Notification";
 import EditSelectionModal from "./EditSelectionModal";
 
 function SelectionDetail(props) {
@@ -59,17 +44,9 @@ function SelectionDetail(props) {
 
   function handleRemoveFromSelection(product) {
     selectionsContext.remove(product.inventory_id, selection.id).then(() => {
-      notifier({
-        render: ({ id, onClose }) => (
-          <Notification
-            key={id}
-            onClosePanel={onClose}
-            message={`L’objet ${
-              product.inventory_id
-            } a bien été retiré de la sélection`}
-          />
-        )
-      });
+      notifier(
+        `L’objet ${product.inventory_id} a bien été retiré de la sélection`
+      );
     });
   }
 
