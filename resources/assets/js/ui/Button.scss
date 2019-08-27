@@ -1,6 +1,8 @@
 .Button {
   height: 44px;
   width: 100%;
+  position: relative;
+
   &.Button__round {
     width: 44px;
   }
@@ -92,5 +94,55 @@
   .Button__icon {
     position: relative;
     top: -1px;
+  }
+}
+
+.Button__pop-over {
+  display: block;
+  box-sizing: border-box;
+  width: auto;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+
+  background-color: #373737;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: rem(13px);
+  line-height: rem(16px);
+  text-align: center;
+  color: #fff;
+
+  // By default, placed above.
+  bottom: calc(100% + 18px);
+
+  &.Button__pop-over--at-bottom {
+    bottom: unset;
+    top: calc(100% + 18px);
+
+    &:after {
+      top: unset;
+      bottom: 100%;
+      transform: rotate(180deg);
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: calc(50% - 3px);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: #373737 transparent transparent transparent;
+
+    pointer-events: none;
+  }
+}
+@media (hover: hover) {
+  .Button:hover .Button__pop-over {
+    opacity: 1;
   }
 }

@@ -1,0 +1,58 @@
+.LibraryBoard {
+  padding: 200px 40px;
+
+  h1 {
+    @include f-sans;
+    font-size: rem(20px);
+    line-height: rem(31px);
+    margin: 40px 0 20px 0;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    &:first-of-type {
+      margin-top: 0;
+      border-top: 0;
+      padding-top: 0;
+    }
+  }
+  & .is-format-s {
+    max-width: 200px;
+  }
+  & .is-format-m {
+    max-width: 350px;
+  }
+  & .is-format-l {
+    max-width: 500px;
+  }
+  & .is-dark {
+    background-color: #131313;
+    color: #fff;
+  }
+}
+.LibraryBoard__zone {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.LibraryBoard__item {
+  margin-left: 10px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+.LibraryBoard__display {
+  padding: 80px;
+}
+.LibraryBoard__legend {
+  margin-bottom: 10px;
+  @include f-sans;
+  font-size: rem(14px);
+  line-height: rem(20px);
+  color: #131313;
+
+  & tt {
+    background-color: #eee;
+    border-radius: 2px;
+    padding: 2px 4px;
+  }
+}

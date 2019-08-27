@@ -51,10 +51,16 @@ const DefaultAction = props => {
           onClick={() => props.switchToAction(RegisterAction)}
           className="AuthModal__default-top-button"
           icon="arrow"
+          popOver="première visite"
         >
           créer un compte
         </Button>
-        <Button onClick={() => props.switchToAction(LoginAction)} icon="arrow">
+        <Button
+          onClick={() => props.switchToAction(LoginAction)}
+          icon="arrow"
+          popOver="déjà inscrit"
+          popOverPlacement="bottom"
+        >
           se connecter
         </Button>
       </div>

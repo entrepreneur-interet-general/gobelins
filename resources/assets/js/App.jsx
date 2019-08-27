@@ -17,6 +17,7 @@ import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
 import SelectionsIndex from "./Selection/SelectionsIndex";
 import SelectionDetail from "./Selection/SelectionDetail";
+import LibraryBoard from "./ui/LibraryBoard";
 
 const breakpoints = {
   xxsmall: 420,
@@ -485,6 +486,11 @@ class App extends Component {
                         onBackToCollection={this.handleBackToCollection}
                       />
                     )}
+                  />
+                  <Route
+                    path="/ui"
+                    exact
+                    render={props => <LibraryBoard {...props} />}
                   />
                   <Route
                     path="/selections/"

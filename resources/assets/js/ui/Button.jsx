@@ -39,6 +39,17 @@ export default function Button(props) {
         {props.children && (
           <div className="Button__label">{props.children}</div>
         )}
+        {props.popOver && (
+          <div
+            className={classNames(
+              "Button__pop-over",
+              props.popOverPlacement &&
+                `Button__pop-over--at-${props.popOverPlacement}`
+            )}
+          >
+            {props.popOver}
+          </div>
+        )}
       </div>
     </button>
   );
