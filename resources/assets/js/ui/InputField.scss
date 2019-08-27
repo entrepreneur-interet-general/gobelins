@@ -21,6 +21,15 @@
   &.with-submit {
     width: calc(100% - 18px);
   }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: #fff;
+    }
+  }
+  &.is-active {
+    border-color: #fff;
+  }
 }
 
 /* …and the label is a <span> */
@@ -38,6 +47,14 @@
   border: 0;
   padding: 0;
   color: #fff;
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 300px #000 inset !important;
+    -webkit-text-fill-color: #fff;
+  }
 }
 .InputField__toggle-visibility {
   flex: 0 0 auto;

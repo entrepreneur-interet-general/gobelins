@@ -46,7 +46,7 @@
 }
 
 .AuthModal__default-buttons {
-  width: 190px;
+  width: 165px;
 }
 .AuthModal__default-top-button {
   margin-bottom: 20px;
@@ -144,6 +144,6 @@
   color: #a6a6a6;
   @include f-sans;
   font-size: rem(13px);
-  line-height: rem(16px);
+  line-height: rem(21px);
   text-align: left;
 }

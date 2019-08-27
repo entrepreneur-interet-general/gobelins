@@ -136,6 +136,9 @@
 }
 .SelectionModal__input-wrapper {
 }
+.SelectionModal__input.SelectionModal__input--at-bottom {
+  margin-bottom: 0;
+}
 .SelectionModal__input-input {
   width: calc(100% - 50px);
   background-color: transparent;

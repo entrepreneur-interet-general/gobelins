@@ -40,7 +40,7 @@ export default class SelectionInput extends React.Component {
           )}
 
           <InputField
-            className="SelectionModal__input"
+            className="SelectionModal__input SelectionModal__input--at-bottom"
             type="text"
             name="name"
             label="intitulé"
