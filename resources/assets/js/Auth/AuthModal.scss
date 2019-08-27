@@ -25,6 +25,7 @@
   @include breakpoint(760px) {
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: space-between;
   }
 }
 

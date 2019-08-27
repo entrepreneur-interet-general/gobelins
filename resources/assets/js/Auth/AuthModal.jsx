@@ -42,8 +42,9 @@ const DefaultAction = props => {
   return (
     <div className="AuthModal__action-default">
       <div className="AuthModal__default-label">
-        Pour sauvegarder cet objet,
-        <br /> identifiez-vous :
+        Pour sauvegarder
+        <br /> cet objet,
+        <br /> identifiez-vous&nbsp;:
       </div>
       <div className="AuthModal__default-buttons">
         <Button
