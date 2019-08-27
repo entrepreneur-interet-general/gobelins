@@ -116,8 +116,11 @@
   font-size: rem(15px);
   line-height: rem(43px);
 
-  &:hover {
-    border-color: white;
+  &:hover,
+  &:focus {
+    background-color: #fff;
+    color: #000;
+    outline: none;
   }
 }
 

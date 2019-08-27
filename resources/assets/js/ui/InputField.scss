@@ -27,6 +27,7 @@
       border-color: #fff;
     }
   }
+  &:focus-within,
   &.is-active {
     border-color: #fff;
   }
@@ -47,6 +48,10 @@
   border: 0;
   padding: 0;
   color: #fff;
+
+  &:focus {
+    outline: none;
+  }
 
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -93,8 +98,13 @@
   left: 17px;
   top: 0;
   cursor: pointer;
-  &:hover {
+
+  .InputField__input:focus ~ &,
+  &:hover,
+  &:focus,
+  .InputField:hover & {
     border-color: #fff;
+    outline: none;
   }
 
   & > svg {
