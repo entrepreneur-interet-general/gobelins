@@ -57,7 +57,7 @@ function MySelectionsHeader(props) {
 
   return (
     <hgroup className={classNames("MySelections__header", props.className)}>
-      <h1>Selections de {authContext.data.user.name}</h1>
+      <h1>Sélections de {authContext.data.user.name}</h1>
       <div className="MySelections__header-buttons">
         <Button
           round
