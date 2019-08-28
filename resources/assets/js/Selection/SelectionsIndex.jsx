@@ -43,9 +43,11 @@ function MobNatSelections(props) {
           <br />
           du Mobilier national
         </h1>
-        <fieldset className="Selections__inset-search">
-          <input type="search" />
-        </fieldset>
+        {/*
+          <fieldset className="Selections__inset-search">
+            <input type="search" />
+          </fieldset>
+        )*/}
       </ul>
     </div>
   );

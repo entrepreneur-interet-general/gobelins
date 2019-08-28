@@ -1,7 +1,7 @@
 .MySelections {
   position: relative;
   padding: 100px 0;
-  background-color: #000;
+  background-color: #141414;
   color: #fff;
 
   --selections-list-text-color: #fff;
@@ -73,7 +73,7 @@
   margin-top: 30px;
   max-width: 180px;
   @include breakpoint(1024px) {
-    max-width: unset;
+    max-width: 350px;
     flex-flow: row nowrap;
   }
   & button:first-child {

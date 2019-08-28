@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   max-height: 100%;
-  background-color: #000;
+  background-color: #131313;
   @include breakpoint(760px) {
     flex: 0 0 auto;
     margin: auto;
@@ -36,7 +36,7 @@
   padding: 20px;
   box-sizing: border-box;
   position: relative;
-  background-color: #000;
+  background-color: #131313;
   color: white;
   max-height: 100%;
   @include breakpoint(760px) {

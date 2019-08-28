@@ -7,7 +7,7 @@ import notifier from "../utils/notifier";
 import { useSelections } from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import CrossSimple from "../icons/CrossSimple";
-import ArrowPrev from "../icons/ArrowPrev";
+import ArrowBack from "../icons/ArrowBack";
 import PadlockTiny from "../icons/PadlockTiny";
 import Heart from "../icons/Heart";
 import Button from "../ui/Button";
@@ -39,9 +39,9 @@ function SelectionDetail(props) {
       packed: "packed",
       sizes: [
         { columns: 2, gutter: 15 },
-        { mq: "800px", columns: 3, gutter: 40 },
-        { mq: "1600px", columns: 4, gutter: 40 },
-        { mq: "2200px", columns: 5, gutter: 40 }
+        { mq: "800px", columns: 3, gutter: 80 },
+        { mq: "1600px", columns: 4, gutter: 80 },
+        { mq: "2200px", columns: 5, gutter: 80 }
       ],
       position: true
     });
@@ -85,7 +85,7 @@ function SelectionDetail(props) {
         <CrossSimple />
       </Link>
       <Link className="SelectionDetail__back-to-selections" to="/selections/">
-        <ArrowPrev />
+        <ArrowBack />
       </Link>
       <div className="SelectionDetail__header">
         <div className="SelectionDetail__header-left">
@@ -116,7 +116,13 @@ function SelectionDetail(props) {
               </span>
             )}
             <span> par {selection.users[0].name}</span>
-            {selection.public !== true && <PadlockTiny />}
+            {selection.public !== true && (
+              <PadlockTiny
+                width="17"
+                height="17"
+                className="SelectionDetail__padlock"
+              />
+            )}
           </hgroup>
         </div>
         <div className="SelectionDetail__header-right">

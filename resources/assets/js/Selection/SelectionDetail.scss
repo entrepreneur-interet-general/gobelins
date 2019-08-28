@@ -27,10 +27,12 @@
   margin-bottom: 90px !important;
 }
 .SelectionDetail__header-left {
-  grid-area: auto / left;
+  grid-column-start: 2;
+  grid-column-end: 10;
 }
 .SelectionDetail__header-right {
-  grid-area: auto / right;
+  grid-column-start: 11;
+  grid-column-end: 19;
   @include f-sans;
   font-size: rem(13px);
   line-height: rem(20px);
@@ -63,6 +65,9 @@
       left: -10px;
     }
   }
+  .SelectionDetail__padlock {
+    margin-left: 10px;
+  }
 }
 .SelectionDetail__edit-button {
   background-color: inherit;
@@ -91,24 +96,42 @@
     }
   }
   @include breakpoint(1024px) {
-    width: calc((100% - (2 * 40px)) / 3);
+    width: calc((100% - (2 * 80px)) / 3);
+    &:nth-child(2)::before {
+      height: 60px;
+    }
   }
   @include breakpoint(1600px) {
-    width: calc((100% - (3 * 40px)) / 4);
+    width: calc((100% - (3 * 80px)) / 4);
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      height: 60px;
+    }
   }
   @include breakpoint(2200px) {
-    width: calc((100% - (4 * 40px)) / 5);
+    width: calc((100% - (4 * 80px)) / 5);
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      height: 60px;
+    }
   }
 }
 
 .SelectionDetail__blankslate {
-  grid-area: right;
+  grid-column-start: 11;
+  grid-column-end: 19;
+
+  > svg {
+    display: block;
+  }
 }
 .SelectionDetail__blankslate-txt {
   @include f-sans;
   font-size: rem(30px);
   line-height: rem(45px);
   font-weight: normal;
+  margin-top: 25px;
+  display: block;
 
   & svg {
     margin-left: 10px;

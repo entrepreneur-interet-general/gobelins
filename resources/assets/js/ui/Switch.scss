@@ -25,11 +25,15 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
-  border: 1px solid #131313;
+  border: 1px solid #373737;
   @include f-sans;
   font-size: rem(15px);
   line-height: rem(21px);
   cursor: pointer;
+
+  .Switch:hover & {
+    border-color: #fff;
+  }
 }
 .Switch__on {
   border-radius: 3px 0px 0px 3px;

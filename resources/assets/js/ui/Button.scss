@@ -17,7 +17,7 @@
   cursor: pointer;
 
   &.Button__dark {
-    background-color: #000;
+    background-color: #141414;
     border-color: #373737;
     color: #fff;
     &:hover {
@@ -98,10 +98,10 @@
   &.Button__dark:hover {
     border-color: #000;
   }
-  .Button__icon {
-    position: relative;
-    top: -1px;
-  }
+  // .Button__icon {
+  //   position: relative;
+  //   top: -1px;
+  // }
 }
 
 .Button__pop-over {
