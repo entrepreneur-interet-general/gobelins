@@ -211,6 +211,22 @@
     margin-top: 0;
     margin-right: 20px;
   }
+
+  .AddedToSelection__heart {
+    animation-name: IntroduceHeart;
+    animation-duration: 1.5s;
+    animation-delay: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+@keyframes IntroduceHeart {
+  from {
+    fill: #000;
+  }
+  to {
+    fill: #f24747;
+  }
 }
 .SelectionModal__added-arrow-back {
   display: none;
