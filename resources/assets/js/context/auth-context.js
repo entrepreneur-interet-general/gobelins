@@ -60,6 +60,18 @@ class AuthProvider extends React.Component {
       });
     });
 
+  updateMyself = user => {
+    this.setState({ loading: true });
+    return authClient.updateMyself(user).then(data => {
+      this.setState({
+        authenticated: true,
+        loading: false,
+        user: data.user
+      });
+      return data;
+    });
+  };
+
   render() {
     return (
       <AuthContext.Provider
@@ -67,7 +79,8 @@ class AuthProvider extends React.Component {
           data: this.state,
           login: this.login,
           logout: this.logout,
-          register: this.register
+          register: this.register,
+          updateMyself: this.updateMyself
         }}
         {...this.props}
       />

@@ -246,6 +246,7 @@
 .SelectionModal__error-msg {
   // Eww, dirty.
   @extend .AuthModal__error-msg;
+  text-align: center;
 }
 
 /* Edit modal form. */
@@ -270,4 +271,13 @@
 .SelectionModal__edit-submit {
   width: 140px;
   flex: 0 0 140px;
+}
+
+.SelectionModal__form-label-sep {
+  display: block;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+  margin-top: 30px;
+  margin-bottom: 27px;
 }

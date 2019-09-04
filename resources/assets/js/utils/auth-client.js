@@ -33,6 +33,13 @@ function register({ name, email, password, csrfToken }) {
   }).then(handleUserResponse);
 }
 
+function updateMyself({ name, email, password, newPassword }) {
+  return client("api/user/me", {
+    method: "PATCH",
+    body: { name, email, password, newPassword }
+  });
+}
+
 function logout({ csrfToken }) {
   window.localStorage.removeItem(localStorageKey);
   return client("logout", {
@@ -45,11 +52,11 @@ function logout({ csrfToken }) {
 }
 
 function getProfile() {
-  return client("api/user/profile");
+  return client("api/user/me");
 }
 
 function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-export { login, register, logout, getToken, getProfile };
+export { login, register, logout, getToken, getProfile, updateMyself };

@@ -31,6 +31,10 @@
   &.is-active {
     border-color: #fff;
   }
+
+  &.is-invalid {
+    border-color: #b7abff !important;
+  }
 }
 
 /* …and the label is a <span> */
@@ -41,9 +45,14 @@
   user-select: none;
 }
 
-.InputField__input {
+.InputField__input-wrapper {
   height: 100%;
   flex: 1 1 auto;
+}
+
+.InputField__input {
+  height: 100%;
+  width: 100%;
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -51,6 +60,12 @@
 
   &:focus {
     outline: none;
+  }
+
+  &:invalid {
+    // We handle validation state in the parent level.
+    outline: none;
+    box-shadow: none;
   }
 
   &:-webkit-autofill,
@@ -70,12 +85,16 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  top: 2px;
   background-color: transparent;
   border: 0;
   color: inherit;
   cursor: pointer;
+
+  & > svg {
+    display: block;
+    position: relative;
+    top: 2px;
+  }
 
   &.is-visible .ToggleVisibility__non-strike,
   .ToggleVisibility__strike {
@@ -86,6 +105,10 @@
   &.is-visible .ToggleVisibility__strike {
     visibility: hidden;
   }
+}
+.InputField__toggle-visibility.focus-visible {
+  background-color: #373737;
+  outline: none;
 }
 
 .InputField__plus-submit {

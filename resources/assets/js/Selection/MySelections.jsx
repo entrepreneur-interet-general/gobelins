@@ -13,6 +13,7 @@ import Loader from "../Loader";
 import Heart from "../icons/Heart";
 import SelectionsBlank from "../icons/SelectionsBlank";
 import ImagesPlaceholder from "./ImagesPlaceholder";
+import EditUserModal from "../Auth/EditUserModal";
 
 export default function MySelections(props) {
   //   const selectionsContext = useSelections();
@@ -28,6 +29,7 @@ export default function MySelections(props) {
 function MySelectionsHeader(props) {
   const authContext = useAuth();
   const [selectionInputOpen, setSelectionInputOpen] = useState(false);
+  const [editUserOpen, setEditUserOpen] = useState(false);
 
   function handleLogout() {
     const tok = document
@@ -43,9 +45,6 @@ function MySelectionsHeader(props) {
         console.log("TODO: logout notification");
       });
   }
-  function handleEditSelection(ev) {
-    console.log("handleAddSelection");
-  }
   function openAddSelectionModal(ev) {
     document.documentElement.classList.add("prevent-scroll");
     setSelectionInputOpen(true);
@@ -53,6 +52,14 @@ function MySelectionsHeader(props) {
   function onCloseAddSelectionModal() {
     document.documentElement.classList.remove("prevent-scroll");
     setSelectionInputOpen(false);
+  }
+  function openEditUserModal(ev) {
+    document.documentElement.classList.add("prevent-scroll");
+    setEditUserOpen(true);
+  }
+  function onCloseEditUserModal() {
+    document.documentElement.classList.remove("prevent-scroll");
+    setEditUserOpen(false);
   }
 
   return (
@@ -72,7 +79,7 @@ function MySelectionsHeader(props) {
           small
           dark
           icon="gear"
-          onClick={handleEditSelection}
+          onClick={openEditUserModal}
           className="MySelections__button"
         />
         <Button
@@ -88,6 +95,7 @@ function MySelectionsHeader(props) {
       {selectionInputOpen && (
         <SelectionInputModal onClose={onCloseAddSelectionModal} />
       )}
+      {editUserOpen && <EditUserModal onClose={onCloseEditUserModal} />}
     </hgroup>
   );
 }

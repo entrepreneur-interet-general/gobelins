@@ -1,0 +1,11 @@
+/* 
+    Rules to override the reset library (normalize.css),
+    that don't make sense in this context.
+*/
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: unset;
+}

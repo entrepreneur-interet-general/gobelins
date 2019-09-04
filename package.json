@@ -33,7 +33,7 @@
     "deepmerge": "^2.1.1",
     "focus-visible": "^4.1.5",
     "lodash.debounce": "^4.0.8",
-    "normalize.css": "^8.0.0",
+    "normalize.css": "^8.0.1",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "react": "^16.8.6",
