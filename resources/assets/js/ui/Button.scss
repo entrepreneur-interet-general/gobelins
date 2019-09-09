@@ -20,7 +20,8 @@
     background-color: #141414;
     border-color: #373737;
     color: #fff;
-    &:hover {
+    &:hover,
+    &.is-hovered {
       border-color: #fff;
     }
   }
@@ -29,9 +30,10 @@
     background-color: #f24747;
     border-color: #f24747;
     color: white;
-    &:hover {
-      // border-color: white;
-    }
+  }
+
+  &.Button__warning {
+    color: #f24747;
   }
 }
 
@@ -95,7 +97,8 @@
   &.Button__round {
     width: 26px;
   }
-  &.Button__dark:hover {
+  &.Button__dark:hover,
+  &.Button__dark.is-hovered {
     border-color: #000;
   }
   // .Button__icon {
@@ -111,6 +114,7 @@
   position: absolute;
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
 
   background-color: #373737;
   border-radius: 4px;

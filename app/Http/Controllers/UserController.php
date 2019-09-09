@@ -24,7 +24,7 @@ class UserController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email:rfc',
+            'email' => 'required|unique:users,email,'.$user->id.'|email:rfc',
             'password' => 'nullable|required_with:newPassword',
             'newPassword' => 'nullable|required_with:password|min:6'
         ]);
@@ -48,5 +48,25 @@ class UserController extends Controller
         return [
             'user' => $user,
         ];
+    }
+
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user->delete()) {
+            $payload = [
+                'status' => 'ok',
+                'message' => 'Votre compte a bien été supprimé'
+            ];
+            $status_code = 200;
+        } else {
+            $payload = [
+                'status' => 'error',
+                'message' => 'Votre compte n’a pas pu être supprimé, veuillez réessayer ultérieurement'
+            ];
+            $status_code = 500;
+        }
+        return response()->json($payload, $status_code);
     }
 }

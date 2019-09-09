@@ -133,9 +133,10 @@ class SelectionsProvider extends React.Component {
     });
   };
 
-  destroy = selection => {
+  destroy = (selection, cb) => {
     this.setState({ loading: true });
     return selectionsClient.destroy(selection).then(data => {
+      cb();
       this.setState({
         loading: false,
         mySelections: data.mySelections,

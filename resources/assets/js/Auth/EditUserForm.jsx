@@ -1,13 +1,16 @@
 import React from "react";
 import flatten from "lodash/flatten";
+import { withRouter } from "react-router";
 
 import notifier from "../utils/notifier";
 import { AuthContext } from "../context/auth-context";
 import InputField from "../ui/InputField";
 import Button from "../ui/Button";
+import ConfirmedDelete from "../ui/ConfirmedDelete";
 
-export default class UserEditForm extends React.Component {
-  static contextType = AuthContext;
+class UserEditForm extends React.Component {
+  // See export for this.
+  //   static contextType = AuthContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -55,9 +58,19 @@ export default class UserEditForm extends React.Component {
       });
   };
 
+  handleDeleteUser = () => {
+    this.context.destroy(data => {
+      this.props.history.replace("/recherche");
+      notifier(data.message);
+    });
+  };
+
   render() {
     return (
-      <form className="SelectionModal__edit-form" onSubmit={this.handleSubmit}>
+      <form
+        className="SelectionModal__edit-form SelectionModal__edit-form--user"
+        onSubmit={this.handleSubmit}
+      >
         <fieldset
           className="SelectionModal__input-fieldset"
           disabled={this.state.loading}
@@ -126,19 +139,20 @@ export default class UserEditForm extends React.Component {
 
           <div className="SelectionModal__edit-form-buttons-row">
             <div className="SelectionModal__edit-deletion">
-              <Button
-                small
-                dark
-                round
-                className="SelectionModal__edit-delete-button"
-                icon="trashcan"
-                onClick={this.props.onDelete}
+              <ConfirmedDelete
+                onDelete={this.handleDeleteUser}
+                deleteLabel="Supprimer le profil"
               />
             </div>
-            <Button className="SelectionModal__edit-submit">Enregistrer</Button>
+            <Button type="submit" className="SelectionModal__edit-submit">
+              Enregistrer
+            </Button>
           </div>
         </fieldset>
       </form>
     );
   }
 }
+
+export default withRouter(UserEditForm);
+UserEditForm.contextType = AuthContext;

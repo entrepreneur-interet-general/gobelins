@@ -40,6 +40,12 @@ function updateMyself({ name, email, password, newPassword }) {
   });
 }
 
+function destroy() {
+  return client(`api/user/me`, {
+    method: "DELETE"
+  });
+}
+
 function logout({ csrfToken }) {
   window.localStorage.removeItem(localStorageKey);
   return client("logout", {
@@ -59,4 +65,4 @@ function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-export { login, register, logout, getToken, getProfile, updateMyself };
+export { login, register, logout, getToken, getProfile, updateMyself, destroy };

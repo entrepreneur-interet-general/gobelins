@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import Bricks from "bricks.js";
+import arrayToSentence from "array-to-sentence";
 
 import notifier from "../utils/notifier";
 import { useSelections } from "../context/selections-context";
@@ -58,18 +59,11 @@ function SelectionDetail(props) {
     });
   }
 
-  function handleDeleteSelection(ev) {
-    ev.preventDefault();
-    if (
-      window.confirm(
-        "⚠️ Supprimer la sélection ? \nCette action est irréversible."
-      )
-    ) {
-      props.history.push("/selections");
-      selectionsContext.destroy(selection).then(() => {
-        notifier("La sélection a bien été supprimée");
-      });
-    }
+  function handleDeleteSelection() {
+    selectionsContext.destroy(selection, () => {
+      props.history.replace("/selections");
+      notifier("La sélection a bien été supprimée");
+    });
   }
 
   return (
@@ -115,7 +109,13 @@ function SelectionDetail(props) {
                 {selection.products.length > 1 ? "s" : ""}
               </span>
             )}
-            <span> par {selection.users[0].name}</span>
+            <span>
+              {" "}
+              par{" "}
+              {arrayToSentence(selection.users.map(u => u.name), {
+                lastSeparator: " et "
+              })}
+            </span>
             {selection.public !== true && (
               <PadlockTiny
                 width="17"

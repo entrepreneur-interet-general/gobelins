@@ -79,6 +79,11 @@
   @include breakpoint(760px) {
     padding: 35px 100px 60px;
   }
+
+  &.SelectionModal__wrapper--user {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
 }
 
 .SelectionModal__pick-container {
@@ -256,6 +261,9 @@
   width: 100%;
   padding: 30px 60px;
   color: #fff;
+  &.SelectionModal__edit-form--user {
+    padding: 0;
+  }
 }
 .SelectionModal__edit-form-buttons-row {
   width: 100%;

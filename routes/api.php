@@ -31,6 +31,7 @@ Route::get('selections', [
 Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     Route::get('/user/me', 'UserController@me');
     Route::patch('/user/me', 'UserController@update');
+    Route::delete('/user/me', 'UserController@destroy');
 
     Route::get('selections/mine', [
         'as' => 'mySelections', 'uses' => 'SelectionsController@mine'

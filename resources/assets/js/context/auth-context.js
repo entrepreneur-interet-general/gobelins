@@ -4,16 +4,18 @@ import * as authClient from "../utils/auth-client";
 
 const AuthContext = React.createContext();
 
+const NullUser = {
+  id: "",
+  name: "",
+  email: ""
+};
+
 class AuthProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       authenticated: window.CURRENT_USER ? true : false,
-      user: window.CURRENT_USER || {
-        id: "",
-        name: "",
-        email: ""
-      }
+      user: window.CURRENT_USER || NullUser
     };
   }
 
@@ -42,7 +44,7 @@ class AuthProvider extends React.Component {
   register = form => {
     return authClient.register(form).then(data => {
       this.setState({
-        user: data,
+        user: data.user,
         authenticated: true
       });
     });
@@ -72,6 +74,19 @@ class AuthProvider extends React.Component {
     });
   };
 
+  destroy = cb => {
+    this.setState({ loading: true });
+    return authClient.destroy().then(data => {
+      cb(data);
+      this.setState({
+        loading: false,
+        authenticated: false,
+        user: NullUser
+      });
+      return data;
+    });
+  };
+
   render() {
     return (
       <AuthContext.Provider
@@ -80,7 +95,8 @@ class AuthProvider extends React.Component {
           login: this.login,
           logout: this.logout,
           register: this.register,
-          updateMyself: this.updateMyself
+          updateMyself: this.updateMyself,
+          destroy: this.destroy
         }}
         {...this.props}
       />

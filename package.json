@@ -27,6 +27,7 @@
     "webpack-bundle-analyzer": "^3.3.2"
   },
   "dependencies": {
+    "array-to-sentence": "^2.0.0",
     "breakpoint-sass": "^2.7.1",
     "bricks.js": "^1.8.0",
     "classnames": "^2.2.6",

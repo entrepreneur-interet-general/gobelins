@@ -20,7 +20,7 @@ export default function EditUserModal(props) {
         <>
           {props.closeButton}
           <div className="SelectionModal__content-scrollable">
-            <div className="SelectionModal__wrapper">
+            <div className="SelectionModal__wrapper SelectionModal__wrapper--user">
               {loading ? (
                 <Loader />
               ) : (

@@ -6,6 +6,7 @@ import InputField from "../ui/InputField";
 import Button from "../ui/Button";
 import Textarea from "../ui/Textarea";
 import Switch from "../ui/Switch";
+import ConfirmedDelete from "../ui/ConfirmedDelete";
 
 export default class SelectionEditForm extends React.Component {
   static contextType = SelectionsContext;
@@ -90,16 +91,14 @@ export default class SelectionEditForm extends React.Component {
 
           <div className="SelectionModal__edit-form-buttons-row">
             <div className="SelectionModal__edit-deletion">
-              <Button
-                small
-                dark
-                round
-                className="SelectionModal__edit-delete-button"
-                icon="trashcan"
-                onClick={this.props.onDelete}
+              <ConfirmedDelete
+                onDelete={this.props.onDelete}
+                deleteLabel="Supprimer la sélection"
               />
             </div>
-            <Button className="SelectionModal__edit-submit">Enregistrer</Button>
+            <Button type="submit" className="SelectionModal__edit-submit">
+              Enregistrer
+            </Button>
           </div>
         </fieldset>
       </form>

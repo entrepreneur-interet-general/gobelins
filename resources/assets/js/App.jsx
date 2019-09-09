@@ -507,7 +507,6 @@ class App extends Component {
                     render={props => (
                       <SelectionDetail
                         {...props}
-                        // selection={this.state.selectionDetail}
                         onBackToCollection={this.handleBackToCollection}
                       />
                     )}

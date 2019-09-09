@@ -20,10 +20,13 @@ export default function Button(props) {
           Button__tiny: props.tiny,
           Button__round: props.round,
           Button__dark: props.dark,
-          Button__red: props.red
+          Button__red: props.red,
+          Button__warning: props.warning,
+          "is-hovered": props.forceHover
         },
         props.className
       )}
+      type={props.type || "button"}
     >
       <div className="Button__inner">
         {props.icon && (

@@ -134,8 +134,8 @@ class RegisterAction extends React.Component {
             {this.state.errorMessage && (
               <div className="AuthModal__error-msg">
                 Impossible de créer le compte :
-                {this.state.errors.map(e => (
-                  <div>{e}</div>
+                {this.state.errors.map((e, i) => (
+                  <div key={i}>{e}</div>
                 ))}
               </div>
             )}
@@ -172,7 +172,9 @@ class RegisterAction extends React.Component {
               <br />
               aux fonctionnalités de ce site.
             </div>
-            <Button className="AuthModal__register-submit">Valider</Button>
+            <Button type="submit" className="AuthModal__register-submit">
+              Valider
+            </Button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}
@@ -257,7 +259,9 @@ class LoginAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
-            <Button className="AuthModal__login-submit">Valider</Button>
+            <Button type="submit" className="AuthModal__login-submit">
+              Valider
+            </Button>
           </fieldset>
         </form>
         {this.state.loading && <LoaderOverlay />}
