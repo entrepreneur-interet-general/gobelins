@@ -27,7 +27,7 @@ export default function CollectionGridItem({
   return (
     <a
       href={`/objet/${datum.inventory_id}`}
-      onClick={ev => onObjectClick(datum, ev)}
+      onClick={onObjectClick.bind(this, datum)}
       className={classNames("Collection__cell", className)}
     >
       {hasImages ? (

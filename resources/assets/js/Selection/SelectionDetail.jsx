@@ -143,7 +143,7 @@ function SelectionDetail(props) {
                   <CollectionGridItem
                     className="SelectionDetail__grid-item"
                     datum={prod}
-                    onObjectClick={() => null}
+                    onObjectClick={props.onObjectClick}
                     onSelectionClick={null}
                     onRemoveFromSelection={isMine && handleRemoveFromSelection}
                     key={i}
