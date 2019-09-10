@@ -33,7 +33,7 @@
     border-color: #fff;
   }
 
-  &.is-invalid {
+  &.is-dirty.is-invalid {
     border-color: #b7abff !important;
   }
 }
@@ -123,12 +123,16 @@
   top: 0;
   cursor: pointer;
 
-  .InputField__input:focus ~ &,
+  .InputField.is-active &,
   &:hover,
   &:focus,
   .InputField:hover & {
     border-color: #fff;
     outline: none;
+  }
+
+  .InputField.is-dirty.is-invalid & {
+    border-color: #b7abff !important;
   }
 
   & > svg {

@@ -5,12 +5,18 @@ import ToggleVisibility from "../icons/ToggleVisibility";
 import Plus from "../icons/Plus";
 
 export default function InputField(props) {
+  const [isDirty, setIsDirty] = useState();
   const [visible, setVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const inputEl = useRef(null);
   const type = props.type === "password" && visible ? "text" : props.type;
   // Remove props that we don't want to pass down.
-  const { isInvalid, ...otherProps } = props;
+  const { isInvalid, onChange, ...otherProps } = props;
+
+  function handleOnChange(ev) {
+    setIsDirty(true);
+    onChange(ev);
+  }
   return (
     <label
       className={classNames(
@@ -18,6 +24,7 @@ export default function InputField(props) {
         {
           "with-submit": props.withSubmit,
           "is-active": isActive,
+          "is-dirty": isDirty,
           "is-invalid":
             props.isInvalid ||
             (inputEl.current && !inputEl.current.validity.valid)
@@ -32,6 +39,7 @@ export default function InputField(props) {
           {...otherProps}
           onFocus={() => setIsActive(true)}
           onBlur={() => setIsActive(false)}
+          onChange={handleOnChange}
           type={type}
           className={classNames("InputField__input", props.className)}
         />
