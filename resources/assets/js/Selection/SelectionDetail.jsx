@@ -29,6 +29,11 @@ function SelectionDetail(props) {
   let masonryContainerRef = React.createRef();
   let bricksInstance;
 
+  // Force scroll to top on mount.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     // If we aren't displaying the container (because no products)
     // then bail.
