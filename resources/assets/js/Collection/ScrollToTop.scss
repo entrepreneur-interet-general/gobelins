@@ -20,11 +20,17 @@
     border-color: black;
   }
 
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
   &.scrollToTop-enter {
     opacity: 0;
   }
   &.scrollToTop-enter.scrollToTop-enter-active {
     opacity: 1;
+  }
+  &.scrollToTop-leave {
+    opacity: 1;
+  }
+  &.scrollToTop-leave.scrollToTop-leave-active {
+    opacity: 0;
   }
 }
