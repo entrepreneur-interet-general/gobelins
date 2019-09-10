@@ -29,9 +29,12 @@ function SelectionDetail(props) {
   let masonryContainerRef = React.createRef();
   let bricksInstance;
 
-  // Force scroll to top on mount.
   useEffect(() => {
+    // Force scroll to top on mount.
     window.scrollTo(0, 0);
+    window.document.title = `${
+      selection.name
+    } — Collection du Mobilier national`;
   }, []);
 
   useEffect(() => {

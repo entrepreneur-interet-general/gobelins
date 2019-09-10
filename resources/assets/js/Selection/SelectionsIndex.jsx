@@ -17,6 +17,8 @@ function SelectionsIndex(props) {
     ) {
       selectionsContext.fetchAll();
     }
+
+    window.document.title = "Sélections — Collection du Mobilier national";
   }, []);
 
   return (
