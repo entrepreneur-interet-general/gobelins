@@ -5,6 +5,7 @@ import { useSelections } from "../context/selections-context";
 import CrossSimple from "../icons/CrossSimple";
 import MySelections from "./MySelections";
 import SelectionsList from "./SelectionsList";
+import ScrollToTop from "../Collection/ScrollToTop";
 
 function SelectionsIndex(props) {
   const selectionsContext = useSelections();
@@ -23,6 +24,10 @@ function SelectionsIndex(props) {
       <Link className="Selections__close" to="/recherche">
         <CrossSimple />
       </Link>
+
+      <div className="Selections__scroll-to-top">
+        <ScrollToTop />
+      </div>
 
       <MySelections />
       <MobNatSelections />

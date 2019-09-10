@@ -1,6 +1,13 @@
 .Selections {
 }
 
+.Selections__scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 1;
+}
+
 .Selections__close {
   position: absolute;
   top: 45px;
