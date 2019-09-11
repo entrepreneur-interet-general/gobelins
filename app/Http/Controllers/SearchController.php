@@ -295,6 +295,10 @@ class SearchController extends Controller
                     });
                     $q = implode(' AND ', $f);
                 }
+
+                // Remove all forward slashes, that are interpreted
+                // as regular expression searches.
+                $q = str_replace('/', ' ', $q);
                 
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'query_string' => [
