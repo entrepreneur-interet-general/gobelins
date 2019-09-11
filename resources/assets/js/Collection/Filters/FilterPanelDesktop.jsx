@@ -257,7 +257,7 @@ class FilterPanelDesktop extends Component {
           transitionEnterTimeout={150}
           transitionLeaveTimeout={150}
         >
-          {this.state.isLoadingFullTextSearch && (
+          {this.state.isLoadingFullTextSearch && !this.state.filterPanelOpen && (
             <DesktopOverlayZone
               onClickOverlay={this.handleOverlayClick}
               offsetLeft={288}
