@@ -418,6 +418,7 @@ class App extends Component {
 
   handleObjectClick(product, event) {
     event.preventDefault();
+    const prevPath = this.props.location.pathname;
     this.cache[this.props.location.pathname] = {
       type: "detail",
       product: product,
@@ -427,7 +428,8 @@ class App extends Component {
       { productDetail: product, scrollPosition: window.scrollY },
       () => {
         this.props.history.push(`/objet/${product.inventory_id}`, {
-          type: "detail"
+          type: "detail",
+          prevPath
         });
         window.scrollTo(0, 0);
       }

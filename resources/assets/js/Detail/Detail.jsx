@@ -86,7 +86,10 @@ class Detail extends Component {
               }
             >
               <div className="Detail__left-zone">
-                <BackToCollection onClick={this.props.onBackToCollection} />
+                <BackToCollection
+                  onClick={this.props.onBackToCollection}
+                  prevPath={this.props.location.state.prevPath}
+                />
 
                 <Media>
                   {({ breakpoints, currentBreakpoint }) =>
