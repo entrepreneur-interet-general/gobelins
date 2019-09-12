@@ -51,10 +51,22 @@ class DimensionSlider extends Component {
 
   handleChange(values) {
     this.setState({ min: values[0], max: values[1] });
-    this.props.onFilterAdd({
-      [this.props.dimension + "_gte"]: values[0],
-      [this.props.dimension + "_lte"]: values[1]
-    });
+    if (
+      values[0] === this.props.domainMin &&
+      values[1] === this.props.domainMax
+    ) {
+      this.props.onFilterRemove({
+        // See App.jsx::mergeRemovedFilters(),
+        // _gte and _lte are both removed together,
+        // no need to specify both.
+        paramName: this.props.dimension + "_gte"
+      });
+    } else {
+      this.props.onFilterAdd({
+        [this.props.dimension + "_gte"]: values[0],
+        [this.props.dimension + "_lte"]: values[1]
+      });
+    }
   }
 
   render() {
