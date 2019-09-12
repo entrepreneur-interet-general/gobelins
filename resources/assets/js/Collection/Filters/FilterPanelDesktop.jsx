@@ -360,6 +360,7 @@ class FilterPanelDesktop extends Component {
           this.state.openPanel === "Dimensions" ? (
             <Dimensions
               onFilterAdd={this.props.onFilterAdd}
+              onFilterRemove={this.props.onFilterRemove}
               dimensions={this.state.dimensions}
               length_or_diameter_lte={
                 this.props.filterObj.length_or_diameter_lte

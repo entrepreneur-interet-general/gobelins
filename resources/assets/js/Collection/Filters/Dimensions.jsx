@@ -43,6 +43,7 @@ class Dimensions extends Component {
               window.__INITIAL_STATE__.dimensions["max_" + dimension[0]]
             }
             onFilterAdd={this.props.onFilterAdd}
+            onFilterRemove={this.props.onFilterRemove}
           />
         </div>
       </div>
