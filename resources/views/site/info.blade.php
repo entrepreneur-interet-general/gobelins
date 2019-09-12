@@ -28,7 +28,7 @@
 
         <p>Ce projet a pour objectif de rendre accessible la collection du Mobilier national, ses objets, œuvres, meubles, textiles… et permettre à chacun de consulter les informations relatives à ceux-ci.</p>
 
-        <p>Ce travail est en cours de réalisation, il s’est construit avec le programme Entrepreneur·e d’intérêt général d’Étalab, permettant l’accueil au Mobilier national de Ned Baldessin développeur et Laurie Chapotte designer d’interface et de service. Ils sont accompagnés par le secrétaire général Jérôme Poulain, Hélène Cavalié cheffe de la documentation ainsi que les agents publics de l'institution qui contribuent à son enrichissement.</p>
+        <p>Ce travail est en cours de réalisation, il s’est construit avec le programme <a href="https://entrepreneur-interet-general.etalab.gouv.fr/">Entrepreneur·e d’intérêt général</a> d’Étalab, permettant l’accueil au Mobilier national de Ned Baldessin développeur et Laurie Chapotte designer d’interface et de service. Ils sont accompagnés par le secrétaire général Jérôme Poulain, Hélène Cavalié cheffe de la documentation ainsi que les agents publics de l'institution qui contribuent à son enrichissement.</p>
 
         <p>Cette version beta est en cours de développement et sera soumise à des évolutions. Elle sera complétée prochainement par de nouvelles fonctionnalités et des contenus éditoriaux explicitant les ateliers, techniques, outils, matières utilisées au Mobilier national.<br>
         En attendant n’hésitez pas à nous contacter pour nous signaler une erreur, nous faire part d’une remarque, ou vous renseignez sur le projet via le paragraphe « <a href="#contact">contact</a> ».</p>
@@ -86,9 +86,17 @@
 
         <h2>Avec la participation de</h2>
         <p>
-            Programme entrepreneur d’intérêt général, Étalab<br>
-            Sous direction des système d’information, Ministère de la culture<br>
-            Jean-Luc Horsin, installation informatique bureautique, Mobilier National
+            Programme Entrepreneurs d’intérêt général, Étalab, DINSIC | Direction interministérielle du numérique et du système d’information et de communication de l’État
+        </p>
+        <p>
+            Sous direction des systèmes d’information, Ministère de la culture
+        </p>
+        <p>
+            L’ensemble des services et ateliers du Mobilier national et en particulier :<br>
+            Le service de la régie des collections, le service informatique, le service de l’inspection, le service de la documentation ainsi que la communication interne et externe.
+        </p>
+        <p>
+            Département de l’innovation et du numérique | DIN, Ministère de la culture
         </p>
 
         <h2>Crédits photographiques </h2>
@@ -145,7 +153,7 @@
 
         <h2>Données à caractère personnel</h2>
     
-        <p>Aucune donnée à caractère personnel n’est collectée sur cette version beta.</p>
+        <p>Les informations personnelles renseignées sur ce site sont seulement utilisées pour accéder aux fonctionnalités de ce site.</p>
 
         
         <h2>Cookies et mesure d’audience</h2>
