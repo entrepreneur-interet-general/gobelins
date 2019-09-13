@@ -84,7 +84,6 @@
   flex-flow: column;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
   padding-bottom: 1px;
   height: 32px;
   width: 32px;
@@ -102,4 +101,8 @@
       border-color: black;
     }
   }
+}
+
+.CriteriaPhrase__nobr {
+  white-space: nowrap;
 }

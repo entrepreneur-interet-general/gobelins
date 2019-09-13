@@ -414,9 +414,12 @@ class CriteriaPhrase extends Component {
           <span>
             {" "}
             dans la collection du <strong>Mobilier national</strong>
+            <span className="CriteriaPhrase__whitespace">
+              {String.fromCharCode(8194)}
+            </span>
+            {numberOfActiveCriteria > 1 ? this.renderResetButton() : null}
           </span>
         )}
-        {numberOfActiveCriteria > 1 ? this.renderResetButton() : null}
       </div>
     );
   }
