@@ -23,7 +23,9 @@ class DownloadModal extends Component {
           {this.props.license === "LO 2.0" ? (
             <div>
               <header>
-                <b>Votre téléchargement est en cours</b>
+                <b className="DetailDownloadModal__headline">
+                  Votre téléchargement est en cours
+                </b>
                 <span>
                   Cette image est sous{" "}
                   <a
@@ -46,7 +48,9 @@ class DownloadModal extends Component {
                   son propre produit ou application.
                 </p>
                 <p>
-                  <span>Sous réserve de :</span>
+                  <span className="DetailDownloadModal__conditions-label">
+                    Sous réserve de :
+                  </span>
                   mentionner la paternité, ici{" "}
                   <b>
                     «{" "}
@@ -65,7 +69,9 @@ class DownloadModal extends Component {
             <div>
               <div className="DetailDownloadModal__2cols">
                 <p>
-                  <b>Votre téléchargement est en cours</b>
+                  <b className="DetailDownloadModal__headline">
+                    Votre téléchargement est en cours
+                  </b>
                   <span>Cette image est réservée à un usage personnel.</span>
                 </p>
                 <p>
