@@ -102,11 +102,14 @@ class Detail extends Component {
                   }
                   onZoom={() => this.setState({ zoomedMode: true })}
                   match={this.props.match}
-                  onDownload={() =>
+                  onDownload={() => {
+                    window.document.documentElement.classList.add(
+                      "prevent-scroll"
+                    );
                     this.setState({
                       downloadMode: true
-                    })
-                  }
+                    });
+                  }}
                 />
                 {this.hasImages && this.props.product.images.length > 1 ? (
                   <ImageList
@@ -151,27 +154,26 @@ class Detail extends Component {
             />
           )}
         />
-        {this.state.downloadMode ? (
+        {this.state.downloadMode && (
           <DownloadModal
-            onDownload={() => this.setState({ downloadMode: true })}
-            onClose={() =>
+            onClose={() => {
+              window.document.documentElement.classList.remove(
+                "prevent-scroll"
+              );
               this.setState({
                 downloadMode: false
-              })
-            }
+              });
+            }}
             photographer={
-              this.hasImages
-                ? this.props.product.images[this.state.mainImageIndex]
-                    .photographer
-                : null
+              this.hasImages &&
+              this.props.product.images[this.state.mainImageIndex].photographer
             }
             license={
-              this.hasImages
-                ? this.props.product.images[this.state.mainImageIndex].license
-                : null
+              this.hasImages &&
+              this.props.product.images[this.state.mainImageIndex].license
             }
           />
-        ) : null}
+        )}
       </React.Fragment>
     );
   }

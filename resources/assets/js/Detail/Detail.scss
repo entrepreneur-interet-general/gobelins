@@ -619,18 +619,27 @@
   flex-flow: column nowrap;
   justify-content: center;
   flex: 1 1 auto;
-  width: 826px;
-  padding: 50px;
-  margin: 100px 0;
   box-sizing: border-box;
   position: relative;
   background-color: #40b877;
   color: #fff;
-  max-height: 550px;
   -webkit-font-smoothing: antialias;
   @include f-sans;
   font-size: rem(18px);
   line-height: rem(25px);
+  width: auto;
+  margin: 15px;
+  padding: 15px;
+  @include breakpoint(768px) {
+    padding: 50px;
+    margin: 70px;
+  }
+  @include breakpoint($small-up) {
+    max-width: 826px;
+    max-height: 550px;
+    padding: 50px;
+    margin: 100px 0;
+  }
 
   header {
     width: 100%;
@@ -673,25 +682,39 @@
   }
 }
 .DetailDownloadModal__2cols {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
+  @include breakpoint(769px) {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
 
-  p {
-    flex: 0 0 calc(50% - 30px);
-    margin: 0;
-    &:first-child {
-      margin-right: 30px;
-    }
-    span {
-      display: block;
+    p {
+      flex: 0 0 calc(50% - 30px);
+      margin: 0;
+      &:first-child {
+        margin-right: 30px;
+      }
+      span {
+        display: block;
+      }
     }
   }
+
   a {
     color: black;
     text-decoration: none;
     border-bottom: 1px dotted black;
   }
+}
+.DetailDownloadModal__headline {
+  display: block;
+  margin-bottom: 18px;
+  @include breakpoint(769px) {
+    display: inline;
+    margin-bottom: 0px;
+  }
+}
+.DetailDownloadModal__conditions-label {
+  display: block;
 }
 
 .DetailInfo__sharing {
