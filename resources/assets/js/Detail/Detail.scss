@@ -552,10 +552,6 @@
     }
     &.DetailZoomed__button--zoom-in,
     &.DetailZoomed__button--zoom-out {
-      display: none;
-      @include breakpoint(1025px) {
-        display: flex;
-      }
     }
 
     &.DetailZoomed__button--prev,
