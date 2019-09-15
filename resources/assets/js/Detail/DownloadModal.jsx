@@ -21,7 +21,7 @@ class DownloadModal extends Component {
           onClick={e => e.stopPropagation()}
         >
           {this.props.license === "LO 2.0" ? (
-            <div>
+            <div className="DetailDownloadModal__scroller">
               <header>
                 <b className="DetailDownloadModal__headline">
                   Votre téléchargement est en cours
@@ -62,11 +62,13 @@ class DownloadModal extends Component {
                   et la date de dernière mise à jour ici,{" "}
                   <b>« janvier 2019 »</b>.
                 </p>
-                <button onClick={this.props.onClose}>OK</button>
+                <div className="DetailDownloadModal__button-holder">
+                  <button onClick={this.props.onClose}>OK</button>
+                </div>
               </div>
             </div>
           ) : (
-            <div>
+            <div className="DetailDownloadModal__scroller">
               <div className="DetailDownloadModal__2cols">
                 <p>
                   <b className="DetailDownloadModal__headline">
@@ -85,7 +87,9 @@ class DownloadModal extends Component {
                   Veillez aussi à <b>contacter l’auteur</b> de l’objet ou ses{" "}
                   <b>ayants droit</b> afin de respecter les droits d’auteur.
                 </p>
-                <button onClick={this.props.onClose}>OK</button>
+                <div className="DetailDownloadModal__button-holder">
+                  <button onClick={this.props.onClose}>OK</button>
+                </div>
               </div>
             </div>
           )}

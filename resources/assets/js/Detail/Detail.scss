@@ -625,11 +625,16 @@
   color: #fff;
   -webkit-font-smoothing: antialias;
   @include f-sans;
-  font-size: rem(18px);
-  line-height: rem(25px);
+  font-size: rem(15px); // Reduced to accomodate long email address.
+  line-height: rem(21px);
   width: auto;
   margin: 15px;
   padding: 15px;
+
+  @include breakpoint(375px) {
+    font-size: rem(18px);
+    line-height: rem(25px);
+  }
   @include breakpoint(768px) {
     padding: 50px;
     margin: 70px;
@@ -660,9 +665,11 @@
     color: #000;
   }
   button {
-    position: absolute;
-    right: 40px;
-    bottom: 40px;
+    @include breakpoint(769px) {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+    }
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -680,6 +687,14 @@
       border-color: #fff;
     }
   }
+}
+.DetailDownloadModal__button-holder {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+.DetailDownloadModal__scroller {
+  overflow: auto;
 }
 .DetailDownloadModal__2cols {
   @include breakpoint(769px) {
