@@ -121,6 +121,7 @@ class FilterPanelDesktop extends Component {
                   onFocus={this.handleSearchFieldFocus}
                   onBlur={this.handleSearchFieldBlur}
                 />
+                <div className="FilterPanelDesktop__focus" />
               </div>
               <div className="FilterPanelDesktop__search">
                 <button type="submit">
