@@ -151,7 +151,7 @@ class DetailZoomed extends Component {
           </ul>
         ) : null}
         <Link className="DetailZoom__close" to={this.props.detailPath}>
-          <CrossSimple />
+          <CrossSimple width={10} height={10} />
         </Link>
       </section>
     );
