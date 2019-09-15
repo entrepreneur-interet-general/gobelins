@@ -129,19 +129,24 @@ class Authors extends Component {
   }
 }
 
-const Author = ({ index, style, data }) => (
-  <div className="Authors__col-item" style={style}>
-    <button
-      type="button"
-      onClick={ev =>
-        data.onItemClick(ev, window.__INITIAL_STATE__.authors[index])
-      }
-    >
-      <strong>{window.__INITIAL_STATE__.authors[index].last_name} </strong>
-      <span>{window.__INITIAL_STATE__.authors[index].first_name}</span>
-      {/* <span className="Authors__objcount">15340</span> */}
-    </button>
-  </div>
-);
-
+const Author = ({ index, style, data }) => {
+  const author = window.__INITIAL_STATE__.authors[index];
+  return (
+    <div className="Authors__col-item" style={style}>
+      {author.is_separator ? (
+        <div className="Authors__separator" />
+      ) : (
+        <button
+          type="button"
+          className="Authors__nobr"
+          onClick={ev => data.onItemClick(ev, author)}
+        >
+          <strong>{author.last_name} </strong>
+          <span>{author.first_name}</span>
+          {/* <span className="Authors__objcount">15340</span> */}
+        </button>
+      )}
+    </div>
+  );
+};
 export default Authors;
