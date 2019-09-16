@@ -14,7 +14,7 @@ const AuthorsMobile = props => {
         >
           <ArrowBack />
         </button>
-        <div className="AuthorsMobile__col-title">Auteurs</div>
+        <div className="AuthorsMobile__col-title">Auteur</div>
         {props.closeButton}
       </div>
       <Authors {...props} />
