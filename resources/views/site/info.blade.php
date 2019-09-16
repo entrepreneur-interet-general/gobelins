@@ -26,7 +26,7 @@
     
         <h1><span>Projet</span></h1>
 
-        <p>Ce projet a pour objectif de rendre accessible la collection du Mobilier national, ses objets, œuvres, meubles, textiles… et permettre à chacun de consulter les informations relatives à ceux-ci.</p>
+        <p>Ce projet a pour objectif de rendre accessible la collection du Mobilier national (MN/Lab), ses objets, œuvres, meubles, textiles… et permettre à chacun de consulter les informations relatives à ceux-ci.</p>
 
         <p>Ce travail est en cours de réalisation, il s’est construit avec le programme <a href="https://entrepreneur-interet-general.etalab.gouv.fr/">Entrepreneur·e d’intérêt général</a> d’Étalab, permettant l’accueil au Mobilier national de Ned Baldessin développeur et Laurie Chapotte designer d’interface et de service. Ils sont accompagnés par le secrétaire général Jérôme Poulain, Hélène Cavalié cheffe de la documentation ainsi que les agents publics de l'institution qui contribuent à son enrichissement.</p>
 

@@ -6,7 +6,7 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "Collection du Mobilier national", // set false to total remove
+            'title'        => "Collection du Mobilier national MN/Lab", // set false to total remove
             'description'  => 'Collection des meubles, tapis et tapisseries du Mobilier national et manufactures des Gobelins, de Beauvais et de la Savonnerie.', // set false to total remove
             'separator'    => ' — ',
             'keywords'     => [],
@@ -30,11 +30,11 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Collection du Mobilier national', // set false to total remove
+            'title'       => 'Collection du Mobilier national MN/Lab', // set false to total remove
             'description' => 'Collection des meubles, tapis et tapisseries du Mobilier national et manufactures des Gobelins, de Beauvais et de la Savonnerie.', // set false to total remove
             'url'         => false, // Set null for using Url::current(), set false to total remove
             'type'        => 'website',
-            'site_name'   => 'Collection du Mobilier national',
+            'site_name'   => 'Collection du Mobilier national MN/Lab',
             'images'      => [
                 env('APP_URL').'/images/sharing/mobilier_campagne_napoleon.jpg',
                 env('APP_URL').'/images/sharing/mobilier_national-gobelins.jpg',

@@ -68,8 +68,8 @@ class CriteriaPhrase extends Component {
   componentDidUpdate() {
     let txt = this.criteriaPhraseRef.current.textContent;
     window.document.title =
-      txt === " dans la collection du Mobilier national"
-        ? "Objets aléatoires de la collection du Mobilier national"
+      txt === " dans la collection du Mobilier national MN/Lab"
+        ? "Objets aléatoires de la collection du Mobilier national MN/Lab"
         : txt;
   }
 

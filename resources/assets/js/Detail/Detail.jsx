@@ -45,7 +45,7 @@ class Detail extends Component {
   componentDidMount() {
     let p = this.props.product;
     let title = [p.denomination, p.designation].join(" ").replace(/\n/g, " ");
-    window.document.title = `${title} — Collection du Mobilier national`;
+    window.document.title = `${title} — Collection du Mobilier national MN/Lab`;
   }
 
   computeLayoutOrientation() {
