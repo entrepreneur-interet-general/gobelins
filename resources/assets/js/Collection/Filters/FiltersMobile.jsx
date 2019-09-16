@@ -75,7 +75,17 @@ class FiltersMobile extends Component {
         <Headroom disableInlineStyles>
           <div className="FiltersMobile__header">
             <div className="FiltersMobile__firstline">
-              <MnLogo width={43} height={13} className="FiltersMobile__logo" />
+              <a
+                href="http://www.mobiliernational.culture.gouv.fr/"
+                className="FiltersMobile__logo-link"
+                title="Mobilier national"
+              >
+                <MnLogo
+                  width={43}
+                  height={13}
+                  className="FiltersMobile__logo"
+                />
+              </a>
               <h1 className="FiltersMobile__maintitle">
                 Collection du Mobilier national
               </h1>

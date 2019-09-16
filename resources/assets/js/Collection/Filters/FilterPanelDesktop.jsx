@@ -242,7 +242,12 @@ class FilterPanelDesktop extends Component {
             </ul>
           </div>
           <div className="FilterPanelDesktop__bottom-row">
-            <MnLogo className="FilterPanelDesktop__mn-logo" />
+            <a
+              href="http://www.mobiliernational.culture.gouv.fr/"
+              title="Mobilier national"
+            >
+              <MnLogo className="FilterPanelDesktop__mn-logo" />
+            </a>
             <a
               href="/info"
               className="FilterPanelDesktop__info-link"
