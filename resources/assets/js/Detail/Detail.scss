@@ -552,10 +552,6 @@
     }
     &.DetailZoomed__button--zoom-in,
     &.DetailZoomed__button--zoom-out {
-      display: none;
-      @include breakpoint(1025px) {
-        display: flex;
-      }
     }
 
     &.DetailZoomed__button--prev,
@@ -577,24 +573,24 @@
 }
 .DetailZoom__close {
   box-sizing: border-box;
-  width: 40px;
-  height: 40px;
+  width: 26px;
+  height: 26px;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 10px;
-  right: 30px;
+  top: 20px;
+  right: 20px;
   border: 0;
-  background-color: transparent;
+  background-color: black;
   -webkit-appearance: none;
   border-radius: 50%;
   cursor: pointer;
-  color: black;
+  color: white;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    // background: rgba(255, 255, 255, 0.2);
     & path {
       stroke-width: 2px;
     }
@@ -625,11 +621,16 @@
   color: #fff;
   -webkit-font-smoothing: antialias;
   @include f-sans;
-  font-size: rem(18px);
-  line-height: rem(25px);
+  font-size: rem(15px); // Reduced to accomodate long email address.
+  line-height: rem(21px);
   width: auto;
   margin: 15px;
   padding: 15px;
+
+  @include breakpoint(375px) {
+    font-size: rem(18px);
+    line-height: rem(25px);
+  }
   @include breakpoint(768px) {
     padding: 50px;
     margin: 70px;
@@ -660,9 +661,11 @@
     color: #000;
   }
   button {
-    position: absolute;
-    right: 40px;
-    bottom: 40px;
+    @include breakpoint(769px) {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+    }
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -680,6 +683,14 @@
       border-color: #fff;
     }
   }
+}
+.DetailDownloadModal__button-holder {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+.DetailDownloadModal__scroller {
+  overflow: auto;
 }
 .DetailDownloadModal__2cols {
   @include breakpoint(769px) {

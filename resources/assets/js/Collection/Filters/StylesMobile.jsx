@@ -14,7 +14,7 @@ const StylesMobile = props => {
           <ArrowBack />
         </button>
         <div className="FilterPanelMobile__col-title StylesMobile__col-title">
-          Styles
+          Style
         </div>
         {props.closeButton}
       </div>

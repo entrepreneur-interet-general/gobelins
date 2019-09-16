@@ -94,6 +94,20 @@
     padding-bottom: 0;
   }
 }
+.Authors__separator:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  right: 30px;
+  height: 1px;
+  background-color: $green-medium;
+  @include breakpoint(1025px) {
+    left: 50px;
+  }
+}
+
 .Authors__col-item {
   padding: 0;
   margin: 0;
@@ -173,4 +187,10 @@
 }
 .Authors__col-item:hover .Authors__illustrations {
   opacity: 1;
+}
+.Authors__nobr {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

@@ -14,7 +14,7 @@ class Collection extends Component {
   }
 
   componentDidMount() {
-    window.document.title = "Collection du Mobilier national";
+    window.document.title = "Collection du Mobilier national MN/Lab";
   }
 
   render() {

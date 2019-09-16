@@ -67,10 +67,11 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
+  position: relative;
 }
 .FilterPanelDesktop__input {
   flex: 1 1 auto;
-  position: relative;
+  // position: relative;
 
   & > input {
     padding: 0;
@@ -88,10 +89,21 @@
     &:focus {
       outline: 0;
     }
-    &.focus-visible {
-      outline: 2px solid grey;
+    &.focus-visible ~ .FilterPanelDesktop__focus {
+      visibility: visible;
     }
   }
+}
+.FilterPanelDesktop__focus {
+  display: block;
+  visibility: hidden;
+  background-color: $gray-min;
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
 }
 .FilterPanelDesktop__search {
   flex: 0 0 auto;

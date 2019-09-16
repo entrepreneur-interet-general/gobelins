@@ -14,7 +14,7 @@ const DimensionsMobile = props => {
           <ArrowBack />
         </button>
         <div className="FilterPanelMobile__col-title DimensionsMobile__col-title">
-          Dimensions
+          Dimension
         </div>
         {props.closeButton}
       </div>

@@ -77,7 +77,8 @@ class DimensionSlider extends Component {
           domain={[this.props.domainMin, this.props.domainMax]}
           values={[this.state.min, this.state.max]}
           mode={3}
-          step={0.01}
+          // step={0.01}
+          step={0.25}
           onChange={this.handleChange}
           onUpdate={this.handleUpdate}
         >

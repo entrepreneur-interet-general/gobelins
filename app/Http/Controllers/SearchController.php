@@ -35,8 +35,23 @@ class SearchController extends Controller
                                     $item->last_name = ucwords(strtolower($item->last_name));
                                     return $item;
                                 });
+            
+            // The Authors list needs to have separator items, so that the
+            // virtual list can be scrolled in the frontend. It makes sense
+            // to pre-process them here, once.
+            $separated_authors = collect([]);
+            $authors->map(function ($item, $i) use (&$separated_authors, &$authors) {
+                if ($i !== 0 && $item->last_name[0] !== $authors->get($i - 1)->last_name[0]) {
+                    $separated_authors->push((object) [
+                        'is_separator' => true,
+                        'last_name' => '_', // Placeholder string, for offsets.
+                    ]);
+                }
+                $separated_authors->push($item);
+            });
+
             $i = 0;
-            $authors_offsets = $authors->reduce(function ($offsets, $item) use (&$i) {
+            $authors_offsets = $separated_authors->reduce(function ($offsets, $item) use (&$i) {
                 if ($offsets->count() === 0 || $item->last_name[0] !== $offsets->keys()->last()) {
                     $offsets->put($item->last_name[0], $i);
                 }
@@ -66,7 +81,7 @@ class SearchController extends Controller
             return collect([
                 'productTypes' => $product_types,
                 'styles' => Style::has('products')->orderBy('order', 'asc')->select('id', 'name')->get(),
-                'authors' => $authors,
+                'authors' => $separated_authors,
                 'authors_offsets' => $authors_offsets,
                 'periods' => [
                     [
