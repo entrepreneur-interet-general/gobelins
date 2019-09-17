@@ -53,16 +53,13 @@ class MainImage extends Component {
               >
                 <MagnifyingGlass />
               </Link>
-              <a
-                href={`/media/orig/${encodeURIComponent(
-                  this.props.image.path.replace(".JPG", ".jpg")
-                )}`}
-                download={downloadFilename}
+              <button
+                type="button"
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
               >
                 <Download />
-              </a>
+              </button>
             </div>
           </figure>
         ) : (
