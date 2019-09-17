@@ -56,17 +56,23 @@ class Authors extends Component {
     }
   };
 
-  animationComplete = () =>
+  animationComplete = () => {
+    console.log("Ahh, animation complete in <Authors /> !");
     this.setState({
       isAnimating: false
     });
+  };
 
   scrollToLetter = (ev, letter) => {
+    const scrollToItem = window.__INITIAL_STATE__.authors_offsets[letter];
     ev.stopPropagation();
-    if (this.state.isAnimating === true) {
+    if (
+      this.state.isAnimating === true ||
+      scrollToItem === this.state.scrollToItem
+    ) {
       return;
     }
-    const scrollToItem = window.__INITIAL_STATE__.authors_offsets[letter];
+
     this.setState({
       isAnimating: true,
       scrollToItem
@@ -76,7 +82,10 @@ class Authors extends Component {
   render() {
     return (
       <div className="Authors">
-        <div className="Authors__alphabet">
+        <fieldset
+          className="Authors__alphabet"
+          disabled={this.state.isAnimating}
+        >
           {this.alphabet.map(letter => {
             return (
               <button
@@ -89,7 +98,7 @@ class Authors extends Component {
               </button>
             );
           })}
-        </div>
+        </fieldset>
         <div className="Authors__double-col">
           <AutoSizer>
             {({ height, width }) => (

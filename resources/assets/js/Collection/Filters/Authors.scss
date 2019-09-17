@@ -39,6 +39,8 @@
   justify-content: space-evenly;
   overflow-x: hidden;
   overflow-y: auto;
+  border: 0;
+  background-color: transparent;
   @include breakpoint(1025px) {
     height: 100vh;
     width: 80px;
