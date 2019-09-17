@@ -37,7 +37,9 @@ class MainImage extends Component {
               src={imgUrl}
               alt=""
               image={props => (
-                <img src={imgUrl} alt="" className="DetailMainImage__img" />
+                <Link to={`${this.props.match.url}/zoom`}>
+                  <img src={imgUrl} alt="" className="DetailMainImage__img" />
+                </Link>
               )}
               loading={() => <Loader className="DetailMainImage__spinner" />}
               error={() => <div>Error</div>}

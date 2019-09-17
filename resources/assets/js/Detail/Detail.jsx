@@ -88,7 +88,10 @@ class Detail extends Component {
               <div className="Detail__left-zone">
                 <BackToCollection
                   onClick={this.props.onBackToCollection}
-                  prevPath={this.props.location.state.prevPath}
+                  prevPath={
+                    this.props.location.state &&
+                    this.props.location.state.prevPath
+                  }
                 />
 
                 <Media>

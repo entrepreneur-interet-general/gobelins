@@ -57,7 +57,6 @@ class Authors extends Component {
   };
 
   animationComplete = () => {
-    console.log("Ahh, animation complete in <Authors /> !");
     this.setState({
       isAnimating: false
     });
