@@ -28,7 +28,6 @@ class SelectionsProvider extends React.Component {
       this.state.loading === false &&
       authClient.getToken()
     ) {
-      console.log("Selection context list them all !!");
       this.setState({ loading: true }, () => {
         selectionsClient.fetchAll().then(data => {
           this.setState({
@@ -157,6 +156,29 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  create_invitation = (email, selection) => {
+    this.setState({ loading: true });
+    return selectionsClient.create_invitation(email, selection).then(data => {
+      const selection_id = data.invitation.selection_id;
+      const idxChanged = this.state.mySelections.findIndex(
+        sel => sel.id === selection_id
+      );
+      let updatedMySelections = Array.from(this.state.mySelections);
+      let invits = this.state.mySelections[idxChanged].invitations.concat(
+        data.invitation
+      );
+      updatedMySelections[idxChanged].invitations = invits;
+
+      this.setState({
+        loading: false,
+        mySelections: updatedMySelections
+      });
+
+      this.setDetailSelection(selection.id);
+      return data;
+    });
+  };
+
   render() {
     return (
       <SelectionsContext.Provider
@@ -175,7 +197,8 @@ class SelectionsProvider extends React.Component {
           createAndAdd: this.createAndAdd,
           update: this.update,
           setDetailSelection: this.setDetailSelection,
-          destroy: this.destroy
+          destroy: this.destroy,
+          create_invitation: this.create_invitation
         }}
         {...this.props}
       />

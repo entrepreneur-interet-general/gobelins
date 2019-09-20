@@ -7,6 +7,7 @@ import Button from "../ui/Button";
 import Textarea from "../ui/Textarea";
 import Switch from "../ui/Switch";
 import ConfirmedDelete from "../ui/ConfirmedDelete";
+import CollaborationsHandler from "./CollaborationsHandler";
 
 export default class SelectionEditForm extends React.Component {
   static contextType = SelectionsContext;
@@ -88,6 +89,8 @@ export default class SelectionEditForm extends React.Component {
             labelOff="Privé"
             onChange={this.handleChange}
           />
+
+          <CollaborationsHandler selection={this.props.selection} />
 
           <div className="SelectionModal__edit-form-buttons-row">
             <div className="SelectionModal__edit-deletion">

@@ -26,6 +26,11 @@ class Selection extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
     public function notMobNatUsers()
     {
         return $this->belongsToMany(User::class)->where('identity_code', '<>', User::IDENTITY_MOBILIER_NATIONAL);
@@ -50,6 +55,9 @@ class Selection extends Model
             'public' => $this->public,
             'users' => $this->users->map(function ($u) {
                 return $u->toSearchableArray();
+            }),
+            'invitations' => $this->invitations->map(function ($inv) {
+                return $inv->toArray();
             }),
             'products' => $this->products->map(function ($p) {
                 return $p->toSearchableArray();

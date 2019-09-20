@@ -52,4 +52,6 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     Route::patch('selections/{selection_id}', 'SelectionsController@update');
     
     Route::delete('selections/{selection_id}', 'SelectionsController@destroy');
+    
+    Route::post('selections/{selection_id}/invitations', 'InvitationController@create');
 });

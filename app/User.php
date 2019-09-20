@@ -47,6 +47,7 @@ class User extends Authenticatable
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'email' => $this->email, // FIXME, this shouldn't be public on all selections
         ];
     }
 }

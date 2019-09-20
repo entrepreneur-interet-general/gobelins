@@ -38,4 +38,20 @@ function destroy(selection) {
   });
 }
 
-export { fetchAll, fetchMine, add, create, remove, update, destroy };
+function create_invitation(email, selection) {
+  return client(`api/selections/${selection.id}/invitations`, {
+    method: "POST",
+    body: { email }
+  });
+}
+
+export {
+  fetchAll,
+  fetchMine,
+  add,
+  create,
+  remove,
+  update,
+  destroy,
+  create_invitation
+};

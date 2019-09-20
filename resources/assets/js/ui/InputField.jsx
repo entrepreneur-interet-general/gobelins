@@ -11,7 +11,15 @@ export default function InputField(props) {
   const inputEl = useRef(null);
   const type = props.type === "password" && visible ? "text" : props.type;
   // Remove props that we don't want to pass down.
-  const { isInvalid, onChange, ...otherProps } = props;
+  const {
+    isInvalid,
+    onChange,
+    withSubmit,
+    withSubmitButton,
+    withButton,
+    onClickButton,
+    ...otherProps
+  } = props;
 
   function handleOnChange(ev) {
     setIsDirty(true);
@@ -23,6 +31,7 @@ export default function InputField(props) {
         "InputField",
         {
           "with-submit": props.withSubmit,
+          "with-button": props.withButton,
           "is-active": isActive,
           "is-dirty": isDirty,
           "is-invalid":
@@ -64,7 +73,18 @@ export default function InputField(props) {
           onFocus={() => setIsActive(true)}
           onBlur={() => setIsActive(false)}
         >
-          <Plus />
+          {props.withSubmitButton || <Plus />}
+        </button>
+      )}
+      {props.withButton && (
+        <button
+          className="InputField__end-button"
+          type="button"
+          onFocus={() => setIsActive(true)}
+          onBlur={() => setIsActive(false)}
+          onClick={props.onClickButton}
+        >
+          {props.withButton}
         </button>
       )}
     </label>
