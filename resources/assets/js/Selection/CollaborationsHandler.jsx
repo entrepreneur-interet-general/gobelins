@@ -3,6 +3,7 @@ import React from "react";
 import { SelectionsContext } from "../context/selections-context";
 import InputField from "../ui/InputField";
 import PaperPlane from "../icons/PaperPlane";
+import CrossSimple from "../icons/CrossSimple";
 
 export default class CollaborationsHandler extends React.Component {
   static contextType = SelectionsContext;
@@ -30,10 +31,19 @@ export default class CollaborationsHandler extends React.Component {
     });
   };
 
+  handleDeleteInvitation = (inv, ev) => {
+    console.log("Going to delete", inv.email);
+  };
+  handleDeleteCollaboration = (user, ev) => {
+    console.log("Going to delete", user);
+  };
+
   render() {
     return (
       <fieldset className="CollaborationsHandler" disabled={this.state.loading}>
-        <legend>Inviter vos collaborateurs</legend>
+        <legend className="CollaborationsHandler__legend">
+          Inviter vos collaborateurs
+        </legend>
 
         <InputField
           label="E-mail"
@@ -43,18 +53,38 @@ export default class CollaborationsHandler extends React.Component {
           onClickButton={this.onSubmit}
         />
 
-        <ul>
+        <ul className="CollaborationsHandler__items">
           {this.props.selection.invitations &&
             this.props.selection.invitations.map(inv => (
-              <li key={`inv-${inv.id}`}>
-                <span>{inv.email}</span>
-                <span>invitation en attente</span>
+              <li key={`inv-${inv.id}`} className="CollaborationsHandler__item">
+                <span className="CollaborationsHandler__item-email">
+                  {inv.email}
+                </span>
+                <span className="CollaborationsHandler__item-status">
+                  invitation en attente
+                </span>
+                <button
+                  type="button"
+                  className="CollaborationsHandler__delete"
+                  onClick={this.handleDeleteInvitation.bind(this, inv)}
+                >
+                  <CrossSimple width="9" height="9" />
+                </button>
               </li>
             ))}
           {this.props.selection.users &&
             this.props.selection.users.map(u => (
-              <li key={`usr-${u.id}`}>
-                <span>{u.email}</span>
+              <li key={`usr-${u.id}`} className="CollaborationsHandler__item">
+                <span className="CollaborationsHandler__item-email">
+                  {u.email}
+                </span>
+                <button
+                  type="button"
+                  className="CollaborationsHandler__delete"
+                  onClick={this.handleDeleteCollaboration.bind(this, u)}
+                >
+                  <CrossSimple width="9" height="9" />
+                </button>
               </li>
             ))}
         </ul>

@@ -112,7 +112,8 @@
   outline: none;
 }
 
-.InputField__plus-submit {
+.InputField__plus-submit,
+.InputField__end-button {
   background-color: #000;
   border: 1px solid #373737;
   border-radius: 50%;
@@ -122,6 +123,7 @@
   left: 17px;
   top: 0;
   cursor: pointer;
+  color: #fff;
 
   .InputField.is-active &,
   &:hover,
