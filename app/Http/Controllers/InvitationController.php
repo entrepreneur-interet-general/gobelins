@@ -16,7 +16,7 @@ class InvitationController extends Controller
     {
         $selection = Selection::findOrFail($selection_id);
 
-        $this->authorize('create', $selection);
+        $this->authorize('invite', $selection);
 
         $request->validate([
             'email' => 'required|email:rfc'
@@ -32,5 +32,21 @@ class InvitationController extends Controller
 
 
         return response()->json(['invitation' => $invitation]);
+    }
+    
+    
+    public function destroy(Request $request, $selection_id, $invitation_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+        $invitation = Invitation::where([
+            ['id', '=', $invitation_id],
+            ['selection_id', '=', $selection_id]
+        ])->firstOrFail();
+
+        $this->authorize('uninvite', $selection);
+
+        if ($invitation->delete()) {
+            return response()->json(['status' => 'ok']);
+        };
     }
 }

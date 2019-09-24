@@ -179,6 +179,25 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  destroy_invitation = (invitation, selection) => {
+    return selectionsClient
+      .destroy_invitation(invitation, selection)
+      .then(data => {
+        this.setState(state => {
+          const updatedInvitations = state.detailSelection.invitations.filter(
+            item => item.id !== invitation.id
+          );
+          return {
+            detailSelection: {
+              ...state.detailSelection,
+              invitations: updatedInvitations
+            }
+          };
+        });
+        return data;
+      });
+  };
+
   render() {
     return (
       <SelectionsContext.Provider
@@ -198,7 +217,8 @@ class SelectionsProvider extends React.Component {
           update: this.update,
           setDetailSelection: this.setDetailSelection,
           destroy: this.destroy,
-          create_invitation: this.create_invitation
+          create_invitation: this.create_invitation,
+          destroy_invitation: this.destroy_invitation
         }}
         {...this.props}
       />

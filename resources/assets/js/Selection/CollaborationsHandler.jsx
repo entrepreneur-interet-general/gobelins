@@ -4,6 +4,7 @@ import { SelectionsContext } from "../context/selections-context";
 import InputField from "../ui/InputField";
 import PaperPlane from "../icons/PaperPlane";
 import CrossSimple from "../icons/CrossSimple";
+import Loader from "../ui/Loader";
 
 export default class CollaborationsHandler extends React.Component {
   static contextType = SelectionsContext;
@@ -12,6 +13,7 @@ export default class CollaborationsHandler extends React.Component {
     this.state = {
       name: "",
       loading: false,
+      destroyingInvitationIds: [],
       errorMessage: false
     };
   }
@@ -32,7 +34,22 @@ export default class CollaborationsHandler extends React.Component {
   };
 
   handleDeleteInvitation = (inv, ev) => {
-    console.log("Going to delete", inv.email);
+    console.log("Going to delete invitation", inv.id);
+    this.setState(state => {
+      return {
+        destroyingInvitationIds: state.destroyingInvitationIds.concat(inv.id)
+      };
+    });
+    this.context.destroy_invitation(inv, this.props.selection).then(data => {
+      console.log("OK, done deleting invitation", inv.id);
+      this.setState(state => {
+        return {
+          destroyingInvitationIds: state.destroyingInvitationIds.filter(
+            (item, i) => item.id !== inv.id
+          )
+        };
+      });
+    });
   };
   handleDeleteCollaboration = (user, ev) => {
     console.log("Going to delete", user);
@@ -47,6 +64,7 @@ export default class CollaborationsHandler extends React.Component {
 
         <InputField
           label="E-mail"
+          type="email"
           withButton={<PaperPlane />}
           name="invitation_email"
           onChange={this.handleInputChange}
@@ -63,13 +81,19 @@ export default class CollaborationsHandler extends React.Component {
                 <span className="CollaborationsHandler__item-status">
                   invitation en attente
                 </span>
-                <button
-                  type="button"
-                  className="CollaborationsHandler__delete"
-                  onClick={this.handleDeleteInvitation.bind(this, inv)}
-                >
-                  <CrossSimple width="9" height="9" />
-                </button>
+                {this.state.destroyingInvitationIds.includes(inv.id) ? (
+                  <div className="CollaborationsHandler__loader-container">
+                    <Loader className="CollaborationsHandler__delete-loader" />
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="CollaborationsHandler__delete"
+                    onClick={this.handleDeleteInvitation.bind(this, inv)}
+                  >
+                    <CrossSimple width="9" height="9" />
+                  </button>
+                )}
               </li>
             ))}
           {this.props.selection.users &&

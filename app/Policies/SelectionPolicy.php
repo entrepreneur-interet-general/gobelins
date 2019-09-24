@@ -80,4 +80,30 @@ class SelectionPolicy
     {
         return $selection->users->contains($user);
     }
+
+    /**
+     * Determine whether the user can invite others
+     * (both users and unregistered people) to a selection.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Models\Selection  $selection
+     * @return bool
+     */
+    public function invite(User $user, Selection $selection)
+    {
+        return $selection->users->contains($user);
+    }
+
+    /**
+     * Determine whether the user can cancel an invitation
+     * to a selection.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Models\Selection  $selection
+     * @return bool
+     */
+    public function uninvite(User $user, Selection $selection)
+    {
+        return $selection->users->contains($user);
+    }
 }

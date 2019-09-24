@@ -49,6 +49,21 @@
     background-color: #a6a6a6;
   }
 }
+.CollaborationsHandler__loader-container {
+  height: 29px;
+  width: 29px;
+  flex: 0 0 29px;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  & > .CollaborationsHandler__delete-loader {
+    position: relative;
+    left: -2px;
+  }
+}
+
 .CollaborationsHandler__delete {
   box-sizing: border-box;
   flex: 0 0 29px;

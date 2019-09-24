@@ -45,6 +45,12 @@ function create_invitation(email, selection) {
   });
 }
 
+function destroy_invitation(invitation, selection) {
+  return client(`api/selections/${selection.id}/invitations/${invitation.id}`, {
+    method: "DELETE"
+  });
+}
+
 export {
   fetchAll,
   fetchMine,
@@ -53,5 +59,6 @@ export {
   remove,
   update,
   destroy,
-  create_invitation
+  create_invitation,
+  destroy_invitation
 };
