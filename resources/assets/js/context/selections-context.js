@@ -159,15 +159,20 @@ class SelectionsProvider extends React.Component {
   create_invitation = (email, selection) => {
     this.setState({ loading: true });
     return selectionsClient.create_invitation(email, selection).then(data => {
-      const selection_id = data.invitation.selection_id;
       const idxChanged = this.state.mySelections.findIndex(
-        sel => sel.id === selection_id
+        sel => sel.id === selection.id
       );
       let updatedMySelections = Array.from(this.state.mySelections);
-      let invits = this.state.mySelections[idxChanged].invitations.concat(
-        data.invitation
-      );
-      updatedMySelections[idxChanged].invitations = invits;
+
+      if (data.hasOwnProperty("invitation")) {
+        let invits = this.state.mySelections[idxChanged].invitations.concat(
+          data.invitation
+        );
+        updatedMySelections[idxChanged].invitations = invits;
+      } else if (data.hasOwnProperty("user")) {
+        let users = this.state.mySelections[idxChanged].users.concat(data.user);
+        updatedMySelections[idxChanged].users = users;
+      }
 
       this.setState({
         loading: false,
@@ -198,6 +203,25 @@ class SelectionsProvider extends React.Component {
       });
   };
 
+  destroy_collaboration = (user, selection) => {
+    return selectionsClient
+      .destroy_collaboration(user, selection)
+      .then(data => {
+        this.setState(state => {
+          const updatedUsers = state.detailSelection.users.filter(
+            item => item.id !== user.id
+          );
+          return {
+            detailSelection: {
+              ...state.detailSelection,
+              users: updatedUsers
+            }
+          };
+        });
+        return data;
+      });
+  };
+
   render() {
     return (
       <SelectionsContext.Provider
@@ -218,7 +242,8 @@ class SelectionsProvider extends React.Component {
           setDetailSelection: this.setDetailSelection,
           destroy: this.destroy,
           create_invitation: this.create_invitation,
-          destroy_invitation: this.destroy_invitation
+          destroy_invitation: this.destroy_invitation,
+          destroy_collaboration: this.destroy_collaboration
         }}
         {...this.props}
       />

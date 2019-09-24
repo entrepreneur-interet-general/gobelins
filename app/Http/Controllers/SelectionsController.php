@@ -184,4 +184,18 @@ class SelectionsController extends Controller
             'selection' => $selection,
         ]);
     }
+
+    /***
+     * Remove a collaborator from a selection.
+     */
+    public function detachUser(Request $request, $selection_id, $user_id)
+    {
+        $selection = Selection::findOrFail($selection_id);
+        
+        $this->authorize('uninvite', $selection);
+        
+        $selection->users()->detach($user_id);
+        
+        return response()->json(['status' => 'ok']);
+    }
 }

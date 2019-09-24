@@ -51,6 +51,12 @@ function destroy_invitation(invitation, selection) {
   });
 }
 
+function destroy_collaboration(user, selection) {
+  return client(`api/selections/${selection.id}/users/${user.id}`, {
+    method: "DELETE"
+  });
+}
+
 export {
   fetchAll,
   fetchMine,
@@ -60,5 +66,6 @@ export {
   update,
   destroy,
   create_invitation,
-  destroy_invitation
+  destroy_invitation,
+  destroy_collaboration
 };

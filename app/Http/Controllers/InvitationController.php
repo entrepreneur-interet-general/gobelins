@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\UserInvitation;
 use App\Models\Selection;
 use App\Models\Invitation;
+use App\User;
 
 class InvitationController extends Controller
 {
@@ -22,16 +23,27 @@ class InvitationController extends Controller
             'email' => 'required|email:rfc'
         ]);
 
-        $invitation = new Invitation;
-        $invitation->email = $request->input('email');
-        $invitation->selection_id = $selection->id;
-        $invitation->user_id = Auth::user()->id;
-        $invitation->save();
+        // Does a user with this email address already exist?
+        $user = User::where('email', '=', $request->input('email'))->first();
+        
+        if ($user) {
+            // Only attach the user if they aren't already collaborating!
+            if (!$selection->users->pluck('id')->contains($user->id)) {
+                $selection->users()->attach($user);
+            }
 
-        Mail::to($invitation->email)->send(new UserInvitation($invitation));
-
-
-        return response()->json(['invitation' => $invitation]);
+            return response()->json(['user' => $user]);
+        } else {
+            $invitation = new Invitation;
+            $invitation->email = $request->input('email');
+            $invitation->selection_id = $selection->id;
+            $invitation->user_id = Auth::user()->id;
+            $invitation->save();
+    
+            Mail::to($invitation->email)->send(new UserInvitation($invitation));
+    
+            return response()->json(['invitation' => $invitation]);
+        }
     }
     
     

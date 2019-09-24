@@ -56,4 +56,6 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     Route::post('selections/{selection_id}/invitations', 'InvitationController@create');
     
     Route::delete('selections/{selection_id}/invitations/{invitation_id}', 'InvitationController@destroy');
+    
+    Route::delete('selections/{selection_id}/users/{user_id}', 'SelectionsController@detachUser');
 });

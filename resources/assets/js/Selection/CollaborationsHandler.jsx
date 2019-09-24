@@ -11,20 +11,29 @@ export default class CollaborationsHandler extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      email: "",
       loading: false,
       destroyingInvitationIds: [],
+      destroyingCollaborationIds: [],
       errorMessage: false
     };
   }
 
-  onSubmit = ev => {
-    console.log("CollaborationsHandler => onSubmit", this.state.email);
+  onSubmit = () => {
     this.context
       .create_invitation(this.state.email, this.props.selection)
       .then(data => {
-        console.log("OK, done creating invitation", data);
+        this.setState({
+          email: ""
+        });
       });
+  };
+
+  handleKeyPress = ev => {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      this.onSubmit();
+    }
   };
 
   handleInputChange = ev => {
@@ -33,15 +42,13 @@ export default class CollaborationsHandler extends React.Component {
     });
   };
 
-  handleDeleteInvitation = (inv, ev) => {
-    console.log("Going to delete invitation", inv.id);
+  handleDeleteInvitation = inv => {
     this.setState(state => {
       return {
         destroyingInvitationIds: state.destroyingInvitationIds.concat(inv.id)
       };
     });
     this.context.destroy_invitation(inv, this.props.selection).then(data => {
-      console.log("OK, done deleting invitation", inv.id);
       this.setState(state => {
         return {
           destroyingInvitationIds: state.destroyingInvitationIds.filter(
@@ -51,8 +58,27 @@ export default class CollaborationsHandler extends React.Component {
       });
     });
   };
-  handleDeleteCollaboration = (user, ev) => {
-    console.log("Going to delete", user);
+
+  handleDeleteCollaboration = user => {
+    console.log("Going to delete collaboration with", user);
+    this.setState(state => {
+      return {
+        destroyingCollaborationIds: state.destroyingCollaborationIds.concat(
+          user.id
+        )
+      };
+    });
+    this.context
+      .destroy_collaboration(user, this.props.selection)
+      .then(data => {
+        this.setState(state => {
+          return {
+            destroyingCollaborationIds: state.destroyingCollaborationIds.filter(
+              item => item.id !== user.id
+            )
+          };
+        });
+      });
   };
 
   render() {
@@ -65,10 +91,12 @@ export default class CollaborationsHandler extends React.Component {
         <InputField
           label="E-mail"
           type="email"
+          value={this.state.email}
           withButton={<PaperPlane />}
           name="invitation_email"
           onChange={this.handleInputChange}
           onClickButton={this.onSubmit}
+          onKeyPress={this.handleKeyPress}
         />
 
         <ul className="CollaborationsHandler__items">
@@ -102,13 +130,19 @@ export default class CollaborationsHandler extends React.Component {
                 <span className="CollaborationsHandler__item-email">
                   {u.email}
                 </span>
-                <button
-                  type="button"
-                  className="CollaborationsHandler__delete"
-                  onClick={this.handleDeleteCollaboration.bind(this, u)}
-                >
-                  <CrossSimple width="9" height="9" />
-                </button>
+                {this.state.destroyingCollaborationIds.includes(u.id) ? (
+                  <div className="CollaborationsHandler__loader-container">
+                    <Loader className="CollaborationsHandler__delete-loader" />
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className="CollaborationsHandler__delete"
+                    onClick={this.handleDeleteCollaboration.bind(this, u)}
+                  >
+                    <CrossSimple width="9" height="9" />
+                  </button>
+                )}
               </li>
             ))}
         </ul>
