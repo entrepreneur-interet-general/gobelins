@@ -7,6 +7,7 @@ use App\Policies\SelectionPolicy;
 use App\Policies\InvitationPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        View::composer(
+            ['auth.login', 'auth.register'],
+            'App\Http\View\Composers\RandomProductsComposer'
+        );
     }
 }

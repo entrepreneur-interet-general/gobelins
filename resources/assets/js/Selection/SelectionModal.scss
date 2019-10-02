@@ -1,8 +1,12 @@
 .SelectionModal__overlay {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+
+  @include breakpoint(760px) {
+    align-items: center;
+  }
 }
 .SelectionModal__content {
   position: relative;
@@ -13,6 +17,7 @@
   justify-content: center;
   max-height: 100%;
   background-color: #131313;
+  margin: 20px;
   @include breakpoint(760px) {
     flex: 0 0 auto;
     margin: auto;

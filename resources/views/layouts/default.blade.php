@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="fr-FR" class="no-js @yield('html_classes')">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {!! SEO::generate() !!}
-        
+
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -20,8 +21,8 @@
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" type="text/css">
 
     @if (app()->environment('production'))
-        <!-- Matomo -->
-        <script type="text/javascript">
+    <!-- Matomo -->
+    <script type="text/javascript">
         var _paq = window._paq || [];
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
 
@@ -50,16 +51,20 @@
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
         })();
-        </script>
-        <noscript><p><img src="https://mobiliernational.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" /></p></noscript>
-        <!-- End Matomo Code -->
+    </script>
+    <noscript>
+        <p><img src="https://mobiliernational.matomo.cloud/matomo.php?idsite=1&amp;rec=1" style="border:0;" alt="" />
+        </p>
+    </noscript>
+    <!-- End Matomo Code -->
     @endif
 
 </head>
+
 <body>
     @yield('content')
-    
-    
+
+
     @if (app()->environment('production'))
     <script>
         var currentUrl = location.href;
@@ -77,9 +82,12 @@
             // make Matomo aware of newly added content
             _paq.push(['enableLinkTracking']);
         });
-        </script>
+    </script>
     @endif
-    
+
     <script src="{{ mix('/js/bootstrap.js') }}"></script>
+
+    @yield('end_body')
 </body>
+
 </html>

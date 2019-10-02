@@ -82,10 +82,11 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        return response()->json([
+        return $request->expectsJson()
+        ? response()->json([
             'status' => 'ok',
             'token' => $user->api_token,
             'user' => $user,
-        ]);
+        ]) : redirect('/');
     }
 }

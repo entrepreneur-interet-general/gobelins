@@ -7,6 +7,7 @@
   flex-flow: column;
   align-items: stretch;
   justify-content: center;
+  padding: 40px 20px 60px;
   @include breakpoint(760px) {
     padding: 35px 100px 60px;
   }
@@ -146,4 +147,29 @@
   font-size: rem(13px);
   line-height: rem(21px);
   text-align: left;
+}
+
+.AuthModal__switch-links {
+  margin-bottom: 15px;
+  color: #a6a6a6;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(21px);
+  text-align: left;
+
+  & button,
+  & a {
+    margin: 0 30px 0 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      border-bottom: 1px solid #a6a6a6;
+      padding-bottom: 2px;
+    }
+  }
 }

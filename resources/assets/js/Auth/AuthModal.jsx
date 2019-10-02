@@ -167,6 +167,16 @@ class RegisterAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
+            <div className="AuthModal__switch-links">
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(LoginAction);
+                }}
+              >
+                Déjà inscrit ?
+              </button>
+            </div>
             <div className="AuthModal__register-info">
               Ces informations seront seulement utilisées pour accéder
               <br />
@@ -259,6 +269,126 @@ class LoginAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
+            <div className="AuthModal__switch-links">
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(ForgotPasswordAction);
+                }}
+              >
+                Mot de passe oublié ?
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(RegisterAction);
+                }}
+              >
+                Pas encore inscrit ?
+              </button>
+            </div>
+            <Button type="submit" className="AuthModal__login-submit">
+              Valider
+            </Button>
+          </fieldset>
+        </form>
+        {this.state.loading && <LoaderOverlay />}
+      </div>
+    );
+  }
+}
+
+class ForgotPasswordAction extends React.Component {
+  static contextType = AuthContext;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+      errorMessage: false,
+      email: "",
+      csrfToken: document
+        .querySelector("meta[name=csrf-token]")
+        .getAttribute("content")
+    };
+  }
+
+  handleSubmit = ev => {
+    ev.preventDefault();
+    this.setState({ loading: true });
+    console.log("TODO handleSubmit ForgotPasswordAction !");
+
+    // // authClient
+    // this.context
+    //   .login(this.state)
+    //   .then(() => {
+    //     if (this.props.onLogin) {
+    //       this.props.onLogin();
+    //     }
+    //   })
+    //   .catch(error => {
+    //     this.setState({ loading: false, errorMessage: error.message });
+    //   });
+  };
+
+  handleInputChange = ev => {
+    const target = ev.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  };
+
+  render() {
+    return (
+      <div className="AuthModal__action-login">
+        <form onSubmit={this.handleSubmit} className="AuthModal__login-form">
+          <fieldset
+            disabled={this.state.loading}
+            className="AuthModal__login-fieldset"
+          >
+            <legend className="AuthModal__login-legend">
+              Mot de passe oublié :
+            </legend>
+            {this.state.errorMessage && (
+              <div className="AuthModal__error-msg">
+                {this.state.errorMessage}
+              </div>
+            )}
+
+            <InputField
+              className="AuthModal__login-input"
+              type="email"
+              name="email"
+              label="e-mail"
+              value={this.state.email}
+              onChange={this.handleInputChange}
+              required
+            />
+            <div className="AuthModal__switch-links">
+              Nous vous enverons un lien par email qui vous permettra de
+              réinitialiser votre mot de passe.
+              <br />
+              <br />
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(LoginAction);
+                }}
+              >
+                S’identifier
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(RegisterAction);
+                }}
+              >
+                Pas encore inscrit ?
+              </button>
+            </div>
             <Button type="submit" className="AuthModal__login-submit">
               Valider
             </Button>
