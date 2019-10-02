@@ -10,8 +10,8 @@
 
 .Selections__close {
   position: absolute;
-  top: 45px;
-  right: 30px;
+  top: 10px;
+  right: 5px;
   @include breakpoint(760px) {
     top: 45px;
     right: 20px;

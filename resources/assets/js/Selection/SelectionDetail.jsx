@@ -27,14 +27,11 @@ function SelectionDetail(props) {
   const isMine = Boolean(userId && selection.users.find(u => u.id === userId));
 
   let masonryContainerRef = React.createRef();
-  let bricksInstance;
 
   useEffect(() => {
     // Force scroll to top on mount.
     window.scrollTo(0, 0);
-    window.document.title = `${
-      selection.name
-    } — Collection du Mobilier national`;
+    window.document.title = `${selection.name} — Collection du Mobilier national`;
   }, []);
 
   useEffect(() => {
@@ -43,18 +40,34 @@ function SelectionDetail(props) {
     if (!masonryContainerRef.current) {
       return;
     }
-    bricksInstance = Bricks({
+    const bricksInstance = Bricks({
       container: masonryContainerRef.current,
       packed: "packed",
       sizes: [
         { columns: 2, gutter: 15 },
-        { mq: "800px", columns: 3, gutter: 80 },
-        { mq: "1600px", columns: 4, gutter: 80 },
-        { mq: "2200px", columns: 5, gutter: 80 }
+        { mq: "768px", columns: 3, gutter: 40 },
+        { mq: "1025px", columns: 3, gutter: 80 },
+        { mq: "1440px", columns: 3, gutter: 100 },
+        { mq: "1600px", columns: 4, gutter: 85 },
+        { mq: "2200px", columns: 5, gutter: 100 }
       ],
       position: true
     });
+    bricksInstance.resize(false);
     bricksInstance.pack();
+
+    let ticking = false;
+    function resizeHandler() {
+      if (!ticking) {
+        window.requestAnimationFrame(forceRepack);
+        ticking = true;
+      }
+    }
+    function forceRepack() {
+      bricksInstance.pack();
+      ticking = false;
+    }
+    window.addEventListener("resize", resizeHandler);
   }, [selection.products]);
 
   const [editModalOpen, setEditModalOpen] = useState(false);

@@ -1,7 +1,10 @@
 .SelectionDetail {
   background-color: #fff;
   color: #000;
-  padding: 90px 0;
+  padding: 60px 0;
+  @include breakpoint(760px) {
+    padding-top: 90px;
+  }
   &.SelectionDetail--is-mine {
     background-color: #141414;
     color: #fff;
@@ -13,7 +16,7 @@
 .SelectionDetail .SelectionDetail__back-to-selections {
   color: inherit;
   right: auto;
-  left: 30px;
+  left: 5px;
   @include breakpoint(760px) {
     left: 20px;
   }
@@ -23,16 +26,48 @@
 }
 
 .SelectionDetail__header {
-  @extend %selections-grid;
+  margin-left: 15px;
+  margin-right: 15px;
   margin-bottom: 90px !important;
+
+  @include breakpoint(768px) {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-right: 80px;
+    margin-left: 80px;
+  }
+  @include breakpoint(1025px) {
+    margin-right: 110px;
+    margin-left: 110px;
+  }
+  @include breakpoint(1280px) {
+    margin-right: 150px;
+    margin-left: 150px;
+  }
+  @include breakpoint(1440px) {
+    margin-right: 170px;
+    margin-left: 170px;
+  }
+  @include breakpoint(1600px) {
+    margin-right: 150px;
+    margin-left: 150px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .SelectionDetail__header-left {
-  grid-column-start: 2;
-  grid-column-end: 10;
+  @include breakpoint(768px) {
+    width: calc((100% - 40px) / 2);
+    margin-right: 40px;
+  }
 }
 .SelectionDetail__header-right {
-  grid-column-start: 11;
-  grid-column-end: 19;
+  @include breakpoint(768px) {
+    width: calc((100% - 40px) / 2);
+  }
   @include f-sans;
   font-size: rem(13px);
   line-height: rem(20px);
@@ -75,18 +110,58 @@
 }
 
 .SelectionDetail__grid {
-  @extend %selections-grid;
+  --ext-gutter: 15px;
+  --int-gutter: 15px;
+  --cols: 2;
+  --col-width: calc(
+    (100vw - (var(--ext-gutter) * 2 + var(--int-gutter) * (var(--cols) - 1))) /
+      var(--cols)
+  );
+
+  margin: 0 var(--ext-gutter);
+  @include breakpoint(768px) {
+    --cols: 3;
+    --ext-gutter: 80px;
+    --int-gutter: 40px;
+  }
+
+  @include breakpoint(1025px) {
+    --ext-gutter: 110px;
+    --int-gutter: 80px;
+  }
+  @include breakpoint(1280px) {
+    --ext-gutter: 150px;
+  }
+
+  @include breakpoint(1440px) {
+    --ext-gutter: 170px;
+    --int-gutter: 100px;
+  }
+
+  @include breakpoint(1600px) {
+    --cols: 4;
+    --int-gutter: 85px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+    --col-width: calc(
+      (1700px - (var(--int-gutter) * (var(--cols) - 1))) / var(--cols)
+    );
+  }
+  @include breakpoint(2200px) {
+    --cols: 5;
+  }
 }
 
 .SelectionDetail__masonry-container {
-  grid-column-start: 2;
-  grid-column-end: -2;
   position: relative;
 }
 
 .SelectionDetail__grid-item.SelectionDetail__grid-item {
   position: absolute;
-  width: calc((100% - 15px) / 2);
+  width: var(--col-width);
 
   .SelectionDetail--is-mine & {
     color: white;
@@ -95,21 +170,19 @@
       color: #ccc; // Just a guess.
     }
   }
-  @include breakpoint(1024px) {
-    width: calc((100% - (2 * 80px)) / 3);
+  @include breakpoint(800px) {
+    width: var(--col-width);
     &:nth-child(2)::before {
       height: 60px;
     }
   }
   @include breakpoint(1600px) {
-    width: calc((100% - (3 * 80px)) / 4);
     &:nth-child(2)::before,
     &:nth-child(4)::before {
       height: 60px;
     }
   }
   @include breakpoint(2200px) {
-    width: calc((100% - (4 * 80px)) / 5);
     &:nth-child(2)::before,
     &:nth-child(4)::before {
       height: 60px;

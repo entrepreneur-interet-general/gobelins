@@ -1,6 +1,9 @@
 .MySelections {
   position: relative;
-  padding: 100px 0;
+  padding: 50px 0;
+  @include breakpoint(760px) {
+    padding-top: 100px;
+  }
   background-color: #141414;
   color: #fff;
 
