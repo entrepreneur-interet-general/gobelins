@@ -215,7 +215,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Image' => Folklore\Image\Facades\Image::class,
+        // 'Image' => Folklore\Image\Support\Facades\Image::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
 
     ],

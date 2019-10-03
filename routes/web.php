@@ -45,4 +45,4 @@ Route::get('/ui', 'SearchController@index')
 /* Static pages routes */
 Route::get('/info', 'HomeController@info');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
