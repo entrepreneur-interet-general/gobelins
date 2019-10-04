@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
-import folkloreImage from "../vendor/folklore-image.js";
+import imageUrl from "../utils/image-url";
 import PinchZoomPan from "../vendor/react-responsive-pinch-zoom-pan/PinchZoomPan";
 
 import Loader from "../Loader";
@@ -84,10 +84,7 @@ class DetailZoomed extends Component {
   }
 
   renderListItem(image, index) {
-    let thumbUrl = folkloreImage.url(
-      `/media/xl/${encodeURIComponent(image.path)}`,
-      330
-    );
+    const thumbUrl = imageUrl(image.path, 330);
     return (
       <li key={index}>
         <button type="button" onClick={this.handleClick.bind(this, index)}>

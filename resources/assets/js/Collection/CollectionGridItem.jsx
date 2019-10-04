@@ -1,5 +1,5 @@
 import React from "react";
-import folkloreImage from "../vendor/folklore-image.js";
+import imageUrl from "../utils/image-url";
 import classNames from "classnames";
 
 import Heart from "../icons/Heart";
@@ -14,9 +14,9 @@ export default function CollectionGridItem({
 }) {
   let hasImages = datum.images && datum.images.length > 0;
 
-  let path = hasImages ? encodeURIComponent(datum.images[0].path) : "";
-  let img600 = hasImages ? `/media/xl/${folkloreImage.url(path, 600)}` : "";
-  let img330 = hasImages ? `/media/xl/${folkloreImage.url(path, 330)}` : "";
+  let img600 = hasImages ? imageUrl(datum.images[0].path, 600) : "";
+  let img330 = hasImages ? imageUrl(datum.images[0].path, 330) : "";
+
   let display_name =
     datum.title_or_designation ||
     datum.denomination ||

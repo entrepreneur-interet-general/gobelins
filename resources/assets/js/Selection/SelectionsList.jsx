@@ -1,5 +1,5 @@
 import React from "react";
-import folkloreImage from "../vendor/folklore-image.js";
+import imageUrl from "../utils/image-url";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -39,10 +39,7 @@ function SelectionsListItem({ selection, extraHeader, className }) {
           <div className="SelectionsListItem__images">
             {illustrativeImages.length ? (
               illustrativeImages.map((image, i) => {
-                const thumbUrl = folkloreImage.url(
-                  `/media/xl/${encodeURIComponent(image.path)}`,
-                  330
-                );
+                const thumbUrl = imageUrl(image.path, 330);
                 return <img src={thumbUrl} alt="" key={i} />;
               })
             ) : (

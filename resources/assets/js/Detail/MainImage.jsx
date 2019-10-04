@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
-// import folkloreImage from "../vendor/folklore-image.js";
 
 import MagnifyingGlass from "../icons/MagnifyingGlass";
 import Download from "../icons/Download";

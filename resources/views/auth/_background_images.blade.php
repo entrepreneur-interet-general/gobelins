@@ -2,7 +2,7 @@
 
 @section('end_body')
 <script>
-    const instance = Bricks({
+  const instance = Bricks({
     container: '#random_products_masonry_container',
     packed: "packed",
     sizes: [

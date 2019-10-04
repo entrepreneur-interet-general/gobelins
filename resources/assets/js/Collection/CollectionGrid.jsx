@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import WindowSizeListener from "react-window-size-listener";
 import isEqual from "lodash/isEqual";
-import folkloreImage from "../vendor/folklore-image.js";
 
 import CollectionGridItem from "./CollectionGridItem";
 import TirelessMason from "./TirelessMason";
 import Loader from "../Loader";
-import Heart from "../icons/Heart";
 import AddToSelectionModal from "../Selection/AddToSelectionModal";
 import CrossSimple from "../icons/CrossSimple";
 
