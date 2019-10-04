@@ -1,5 +1,8 @@
 @extends('layouts.default')
 
+
+@section('content')
+
 @include('auth._background_images')
 
 <div class="Modal__overlay SelectionModal__overlay">

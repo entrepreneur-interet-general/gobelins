@@ -87,6 +87,6 @@ class RegisterController extends Controller
             'status' => 'ok',
             'token' => $user->api_token,
             'user' => $user,
-        ]) : redirect('/');
+        ]) : redirect()->intended('/');
     }
 }

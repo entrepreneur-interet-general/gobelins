@@ -34,7 +34,7 @@ class UserInvitation extends Mailable
             'name' => $this->invitation->email,
             'invite_sender_name' => $this->invitation->inviter->name,
             'support_email' => 'documentation.mobilier@culture.gouv.fr',
-            'action_url' => route('register'),
+            'action_url' => route('invitation_landing', ['invitation_id' => $this->invitation->selection_id]),
         ]);
     }
 }

@@ -29,13 +29,17 @@ Route::get('/objet/{inventory_id}', 'SearchController@index')
 Route::get('/selections', 'SearchController@index')
         ->name('selections');
 
-/* Selections routes */
 Route::get('/selections', 'SearchController@index')
         ->name('selections');
 
-        Route::get('/selections/{selection_id}', 'SearchController@index')
+Route::get('/selections/{selection_id}', 'SearchController@index')
         ->name('selection_detail')
         ->where('selection_id', '[0-9]+');
+        
+Route::get('/selections/{selection_id}/invitation', 'SelectionsController@invitation')
+        ->name('invitation_landing')
+        ->where('selection_id', '[0-9]+')
+        ->middleware('auth:web');
         
 /* Internal routes */
 Route::get('/ui', 'SearchController@index')

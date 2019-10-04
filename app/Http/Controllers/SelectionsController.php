@@ -198,4 +198,16 @@ class SelectionsController extends Controller
         
         return response()->json(['status' => 'ok']);
     }
+
+    /**
+     * Invitation landing
+     * Users will hit this action when clicking on an invitation
+     * link in an email. This action is guarded by auth middleware.
+     * The idea is to authentitcate them (login or register), and
+     * then redirect them to the normal selection detail page.
+     */
+    public function invitation(Request $request, $selection_id)
+    {
+        return redirect(route('selection_detail', ['selection_id' => $selection_id]));
+    }
 }

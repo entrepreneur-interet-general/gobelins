@@ -67,7 +67,7 @@ class LoginController extends Controller
             'csrfToken' => csrf_token(),
             'token' => $user->api_token,
             'user' => $user->toArray(),
-        ]) : redirect('/');
+        ]) : redirect()->intended('/');
     }
 
 

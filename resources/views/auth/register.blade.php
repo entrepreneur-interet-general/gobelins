@@ -1,7 +1,8 @@
 @extends('layouts.default')
 
-@include('auth._background_images')
 
+@section('content')
+@include('auth._background_images')
 <div class="Modal__overlay SelectionModal__overlay">
     <div class="Modal__content SelectionModal__content">
         <div class="AuthModal">
@@ -68,3 +69,4 @@
         </div>
     </div>
 </div>
+@endsection
