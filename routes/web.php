@@ -39,7 +39,7 @@ Route::get('/selections/{selection_id}', 'SearchController@index')
 Route::get('/selections/{selection_id}/invitation', 'SelectionsController@invitation')
         ->name('invitation_landing')
         ->where('selection_id', '[0-9]+')
-        ->middleware('auth:web');
+        ->middleware('auth');
         
 /* Internal routes */
 Route::get('/ui', 'SearchController@index')

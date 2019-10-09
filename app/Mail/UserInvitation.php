@@ -30,7 +30,9 @@ class UserInvitation extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.user_invitation')->with([
+        return $this->view('emails.user_invitation')
+        ->subject('Invitation à contribuer à "' . $this->invitation->selection->name . '"')
+        ->with([
             'name' => $this->invitation->email,
             'invite_sender_name' => $this->invitation->inviter->name,
             'support_email' => 'documentation.mobilier@culture.gouv.fr',

@@ -27,6 +27,20 @@ class VerificationController extends Controller
      */
     protected $redirectTo = '/';
 
+    public function redirectTo(Request $request)
+    {
+        $user = $request->user();
+        // If the user has one selection, we assume he's just
+        // been invited, and has just registered.
+        if ($user && $user->selections->count() === 1) {
+            return route('selection_detail', [
+                'selection_id' => $user->selections->first()->id
+            ]);
+        } else {
+            return '/';
+        }
+    }
+
     /**
      * Create a new controller instance.
      *

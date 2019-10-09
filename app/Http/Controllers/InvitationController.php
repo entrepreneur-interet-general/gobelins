@@ -26,18 +26,20 @@ class InvitationController extends Controller
         // Does a user with this email address already exist?
         $user = User::where('email', '=', $request->input('email'))->first();
         
+        $invitation = new Invitation;
+        $invitation->email = $request->input('email');
+        $invitation->selection_id = $selection->id;
+        $invitation->user_id = Auth::user()->id;
+
         if ($user) {
             // Only attach the user if they aren't already collaborating!
             if (!$selection->users->pluck('id')->contains($user->id)) {
                 $selection->users()->attach($user);
             }
+            Mail::to($user->email)->send(new UserInvitation($invitation));
 
             return response()->json(['user' => $user]);
         } else {
-            $invitation = new Invitation;
-            $invitation->email = $request->input('email');
-            $invitation->selection_id = $selection->id;
-            $invitation->user_id = Auth::user()->id;
             $invitation->save();
     
             Mail::to($invitation->email)->send(new UserInvitation($invitation));
