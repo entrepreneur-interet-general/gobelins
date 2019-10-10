@@ -40,7 +40,10 @@ Route::get('/selections/{selection_id}/invitation', 'SelectionsController@invita
         ->name('invitation_landing')
         ->where('selection_id', '[0-9]+')
         ->middleware('auth');
-        
+
+
+Route::get('/invitations/{token}', 'InvitationController@accept')->name('invitation');
+
 /* Internal routes */
 Route::get('/ui', 'SearchController@index')
         ->name('ui');

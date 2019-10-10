@@ -266,6 +266,7 @@
   width: 100%;
   padding: 30px 60px;
   color: #fff;
+  overflow-y: auto;
   &.SelectionModal__edit-form--user {
     padding: 0;
   }

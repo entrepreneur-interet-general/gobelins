@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Invitation;
 
-class UserInvitation extends Mailable
+class InvitedToSelection extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -36,7 +36,9 @@ class UserInvitation extends Mailable
             'name' => $this->invitation->email,
             'invite_sender_name' => $this->invitation->inviter->name,
             'support_email' => 'documentation.mobilier@culture.gouv.fr',
-            'action_url' => route('invitation_landing', ['invitation_id' => $this->invitation->selection_id]),
+            'action_url' => route('invitation', [
+                'token' => $this->invitation->token
+            ]),
         ]);
     }
 }

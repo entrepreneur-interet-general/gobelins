@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \App\Models\Selection;
+use \App\Models\Invitation;
 use \App\Models\Product;
 use \App\User;
 
@@ -208,6 +209,19 @@ class SelectionsController extends Controller
      */
     public function invitation(Request $request, $selection_id)
     {
+        if ($request->session()->has('accepted_invitation')) {
+            $invitation = Invitation::where('token', session('accepted_invitation'))->firstOrFail();
+
+            // Add the user as a collaborator on the selection.
+            $selection = $invitation->selection;
+            if (! $selection->users->contains($request->user()->id)) {
+                $selection->users()->attach($request->user()->id);
+            }
+
+            $invitation->delete();
+
+            $request->session()->forget('accepted_invitation');
+        }
         return redirect(route('selection_detail', ['selection_id' => $selection_id]));
     }
 }

@@ -1,0 +1,24 @@
+Flow d'authentification des utilisateurs invités
+
+Un utilisateur identifié invite (sur une sélection) quelqu'un via une adresse email. Requète sur InvitationController::create.
+
+1/ Si l'adresse email correspond à un utilisateur existant dans le système,
+    il est ajouté comme collaborateur à la sélection, il n'y a pas de validation ou d'étape d'acceptation.
+    L'utilisateur reçoit un email de notification, disant "Untel vous invite à participer à la sélection X", avec un lien sur la sélection (invitation_landing). Ex: /selections/14/invitation
+        — le middleware auth force l'authentification de l'utilisateur (via /register ou /login, avec passage possible par /password/reset), et après quoi le redirige sur invitation_landing (méchanisme redirection 'intended') ;
+        — SelectionsController::invitation va ensuite le rediriger sur la page de détail de sélection. 
+        - Donc la page détail des sélections reste accessible aux guests.
+
+
+2/ Si l'adresse email ne correspond à aucun utilisateur existant,
+    une Invitation est créé, avec un jeton. 
+    L'invité reçoit un email l'invitant à cliquer sur [Participer].
+    L'invité effectue une requète sur InvitationController::accept.
+        - le système stocke en session: le jeton d'invitation (accepted_invitation), et en 'url.intended' => url(/selection/14/from_invitation)
+        - l'utilisateur est redirigé sur /register, et passe par le tunnel d'auth (login, register ou reset pass)
+        - à la sortie du tunnel d'auth, il est redirigé sur intended(), soit invitation_landing.
+    SelectionsController::invitation (invitation_landing):
+        - détecte la variable de session accepted_invitation
+            - ajoute l'utilisateur comme collaborateur de la selection
+            - supprime l'invitation dans la DB
+        - redirige sur la page détail de la sélection.
