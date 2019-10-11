@@ -1,45 +1,46 @@
-@extends('layouts.app')
+@extends('layouts.default')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+@include('auth._background_images')
+<div class="Modal__overlay SelectionModal__overlay">
+    <div class="Modal__content SelectionModal__content">
+        <div class="AuthModal">
+            <div class="AuthModal__action-register">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
+
+                <form class="AuthModal__register-form" method="POST" action="{{ route('password.email') }}"
+                    aria-label="{{ __('Reset Password') }}">
+                    @csrf
+                    <fieldset class="AuthModal__register-fieldset">
+                        <legend class="AuthModal__register-legend">Mot de passe oublié</legend>
+                        @if (session('status'))
+                        <div class="AuthModal__error-msg" role="alert">
                             {{ session('status') }}
                         </div>
-                    @endif
+                        @endif
 
-                    <form method="POST" action="{{ route('password.email') }}" aria-label="{{ __('Reset Password') }}">
-                        @csrf
+                        <label
+                            class="InputField AuthModal__register-input {{ $errors->has('email') ? ' is-invalid' : '' }}">
+                            <span class="InputField__label">e-mail</span>
+                            <span class="InputField__input-wrapper">
+                                <input class="InputField__input AuthModal__register-input" type="email" name="email"
+                                    label="e-mail" required value="{{ old('email') }}">
+                            </span>
+                        </label>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="AuthModal__switch-links">
+                            <a href="{{ route('login') }}">S'identifier</a>
+                            <a href="{{ route('register') }}">Pas encore inscrit ?</a>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
+                        <div class="AuthModal__register-info">Un lien pour réinitialiser votre mot de passe vous sera
+                            envoyé par email.</div>
+                        <button class="Button AuthModal__register-submit" type="submit">
+                            <div class="Button__inner">
+                                <div class="Button__label">Envoyer</div>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                        </button>
+                    </fieldset>
+                </form>
             </div>
         </div>
     </div>

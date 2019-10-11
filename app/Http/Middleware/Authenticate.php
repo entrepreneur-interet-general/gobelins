@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use App\Http\Controllers\Auth\VerificationController;
 
 class Authenticate extends Middleware
 {
@@ -15,7 +16,11 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('register');
+            if ($request->route()->controller instanceof VerificationController) {
+                return route('login');
+            } else {
+                return route('register');
+            }
         }
     }
 }

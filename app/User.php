@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\PasswordReset;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -50,5 +53,17 @@ class User extends Authenticatable implements MustVerifyEmail
             'name' => $this->name,
             'email' => $this->email, // FIXME, this shouldn't be public on all selections
         ];
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        // $this->notify(new ResetPasswordNotification($token));
+        Mail::to($this->email)->send(new PasswordReset($this, $token));
     }
 }

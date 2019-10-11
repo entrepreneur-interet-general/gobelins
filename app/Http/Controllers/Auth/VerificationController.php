@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -27,9 +28,9 @@ class VerificationController extends Controller
      */
     protected $redirectTo = '/';
 
-    public function redirectTo(Request $request)
+    public function redirectTo()
     {
-        $user = $request->user();
+        $user = Auth::user();
         // If the user has one selection, we assume he's just
         // been invited, and has just registered.
         if ($user && $user->selections->count() === 1) {

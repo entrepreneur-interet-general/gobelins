@@ -12,6 +12,17 @@
                     @csrf
                     <fieldset class="AuthModal__register-fieldset">
                         <legend class="AuthModal__register-legend">Créer votre compte :</legend>
+
+                        @if ($errors->any())
+                        <div class="AuthModal__error-msg">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                         <label
                             class="InputField AuthModal__register-input {{ $errors->has('name') ? ' is-invalid' : '' }}">
                             <span class="InputField__label">nom</span>
@@ -34,9 +45,10 @@
                                 passe</span>
                             <span class="InputField__input-wrapper">
                                 <input class="InputField__input AuthModal__register-input" type="password"
-                                    name="password" label="mot de passe" required value="">
+                                    name="password" label="mot de passe" required value="" data-togglable>
                             </span>
-                            <button type="button" class="InputField__toggle-visibility ">
+                            <button type="button" class="InputField__toggle-visibility "
+                                onClick="togglePasswordVisibility()">
                                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
                                     <path d="M16.34 3L15 4.434" stroke="#fff" stroke-miterlimit="10"
                                         class="ToggleVisibility__non-strike"></path>
@@ -69,4 +81,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility() {
+    let input = document.querySelector('[data-togglable]');
+    input.setAttribute('type', input.getAttribute('type').toLowerCase() === 'password' ? 'text' : 'password');
+}
+</script>
+
 @endsection

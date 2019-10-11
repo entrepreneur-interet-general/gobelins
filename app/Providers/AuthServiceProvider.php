@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         View::composer(
-            ['auth.login', 'auth.register'],
+            ['auth.*'],
             'App\Http\View\Composers\RandomProductsComposer'
         );
     }
