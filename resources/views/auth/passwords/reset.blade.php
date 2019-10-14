@@ -15,6 +15,16 @@
                     <fieldset class="AuthModal__register-fieldset">
                         <legend class="AuthModal__register-legend">Réinitialisation du mot de passe</legend>
 
+                        @if ($errors->any())
+                        <div class="AuthModal__error-msg">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                         @if (session('status'))
                         <div class="AuthModal__error-msg" role="alert">
                             {{ session('status') }}

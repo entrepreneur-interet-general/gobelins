@@ -1,5 +1,6 @@
 import React from "react";
 import flatten from "lodash/flatten";
+import notifier from "../utils/notifier";
 
 import Loader from "../Loader";
 import { AuthContext } from "../context/auth-context";
@@ -108,8 +109,8 @@ class RegisterAction extends React.Component {
     // authClient
     this.context
       .register(this.state)
-      .then(arg => {
-        console.log("Finished registering.", this.context.data);
+      .then(() => {
+        notifier(`Bienvenue, ${this.context.data.user.name} !`);
       })
       .catch(error => {
         this.setState({
@@ -217,6 +218,8 @@ class LoginAction extends React.Component {
     this.context
       .login(this.state)
       .then(() => {
+        notifier(`Bienvenue, ${this.context.data.user.name} !`);
+
         if (this.props.onLogin) {
           this.props.onLogin();
         }
@@ -306,6 +309,7 @@ class ForgotPasswordAction extends React.Component {
     this.state = {
       loading: false,
       errorMessage: false,
+      sent: false,
       email: "",
       csrfToken: document
         .querySelector("meta[name=csrf-token]")
@@ -315,20 +319,26 @@ class ForgotPasswordAction extends React.Component {
 
   handleSubmit = ev => {
     ev.preventDefault();
-    this.setState({ loading: true });
-    console.log("TODO handleSubmit ForgotPasswordAction !");
+    this.setState({ loading: true, errorMessage: false });
 
-    // // authClient
-    // this.context
-    //   .login(this.state)
-    //   .then(() => {
-    //     if (this.props.onLogin) {
-    //       this.props.onLogin();
-    //     }
-    //   })
-    //   .catch(error => {
-    //     this.setState({ loading: false, errorMessage: error.message });
-    //   });
+    // authClient
+    this.context
+      .resetPassword(this.state)
+      .then(data => {
+        if (data.status == "ok") {
+          this.setState({
+            sent: true,
+            loading: false
+          });
+        }
+      })
+      .catch(error => {
+        this.setState({
+          loading: false,
+          sent: false,
+          errorMessage: error.message
+        });
+      });
   };
 
   handleInputChange = ev => {
@@ -355,6 +365,12 @@ class ForgotPasswordAction extends React.Component {
             {this.state.errorMessage && (
               <div className="AuthModal__error-msg">
                 {this.state.errorMessage}
+              </div>
+            )}
+            {this.state.sent && (
+              <div className="AuthModal__error-msg">
+                Un lien pour réinitialiser votre mot de passe vous a été envoyé
+                par e-mail.
               </div>
             )}
 

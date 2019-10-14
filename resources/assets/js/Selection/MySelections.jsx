@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 import classNames from "classnames";
+import notifier from "../utils/notifier";
 
 import Button from "../ui/Button";
 import { useSelections } from "../context/selections-context";
@@ -38,11 +39,12 @@ function MySelectionsHeader(props) {
     authContext
       .logout({ csrfToken: tok })
       .then(() => {
-        console.log("TODO: logout notification");
+        notifier("Vous avez bien été déconnecté.");
       })
       .catch(error => {
-        console.log("LOGOUT ERROR: ", error.message);
-        console.log("TODO: logout notification");
+        notifier(
+          "Une erreur est survenue, vous n’avez pas pu être déconnecté."
+        );
       });
   }
   function openAddSelectionModal(ev) {

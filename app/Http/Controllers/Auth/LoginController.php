@@ -61,13 +61,16 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         Auth::loginUsingId($user->id);
+
+        $request->session()->flash('status', 'Bienvenue, ' . $user->name . ' !');
+
         return $request->expectsJson()
         ? response()->json([
             'status' => 'ok',
             'csrfToken' => csrf_token(),
             'token' => $user->api_token,
             'user' => $user->toArray(),
-        ]) : redirect()->intended('/');
+        ]) : redirect()->intended('/recherche');
     }
 
 

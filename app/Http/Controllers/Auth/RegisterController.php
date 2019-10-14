@@ -82,11 +82,13 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
+        $request->session()->flash('status', 'Bienvenue, ' . $user->name . ' !');
+
         return $request->expectsJson()
         ? response()->json([
             'status' => 'ok',
             'token' => $user->api_token,
             'user' => $user,
-        ]) : redirect()->intended('/');
+        ]) : redirect()->intended('/recherche');
     }
 }

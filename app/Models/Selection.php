@@ -53,9 +53,7 @@ class Selection extends Model
             'name' => $this->name,
             'description' => $this->description,
             'public' => $this->public,
-            'users' => $this->users->map(function ($u) {
-                return $u->toSearchableArray();
-            }),
+            'users' => $this->users()->select('id', 'name')->get()->all(),
             'invitations' => $this->invitations->map(function ($inv) {
                 return $inv->toArray();
             }),

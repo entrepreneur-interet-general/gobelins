@@ -11,6 +11,7 @@ import merge from "deepmerge";
 import { GatewayDest, GatewayProvider } from "react-gateway";
 import ReactModal2 from "react-modal2";
 ReactModal2.getApplicationElement = () => document.getElementById("App__main");
+import notifier from "./utils/notifier";
 
 import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
@@ -187,6 +188,10 @@ class App extends Component {
 
   componentDidMount() {
     this.firstLoad();
+
+    if (window.SESSION_STATUS) {
+      notifier(window.SESSION_STATUS);
+    }
   }
 
   firstLoad() {

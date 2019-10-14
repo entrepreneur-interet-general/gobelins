@@ -57,6 +57,10 @@ class AuthProvider extends React.Component {
     });
   };
 
+  resetPassword = form => {
+    return authClient.resetPassword(form);
+  };
+
   logout = payload =>
     authClient.logout(payload).then(() => {
       this.setState({
@@ -103,7 +107,8 @@ class AuthProvider extends React.Component {
           logout: this.logout,
           register: this.register,
           updateMyself: this.updateMyself,
-          destroy: this.destroy
+          destroy: this.destroy,
+          resetPassword: this.resetPassword
         }}
         {...this.props}
       />

@@ -31,9 +31,12 @@ class VerificationController extends Controller
     public function redirectTo()
     {
         $user = Auth::user();
+
+        $request->session()->flash('status', 'Bienvenue, ' . $user->name . ', votre e-mail a bien été vérifié !');
+
         // If the user has one selection, we assume he's just
         // been invited, and has just registered.
-        if ($user && $user->selections->count() === 1) {
+        if ($user->selections->count() === 1) {
             return route('selection_detail', [
                 'selection_id' => $user->selections->first()->id
             ]);

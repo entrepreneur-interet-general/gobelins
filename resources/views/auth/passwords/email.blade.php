@@ -13,6 +13,13 @@
                     @csrf
                     <fieldset class="AuthModal__register-fieldset">
                         <legend class="AuthModal__register-legend">Mot de passe oublié</legend>
+
+                        @if ($errors->has('email'))
+                        <div class="AuthModal__error-msg" role="alert">
+                            {{ $errors->first('email') }}
+                        </div>
+                        @endif
+
                         @if (session('status'))
                         <div class="AuthModal__error-msg" role="alert">
                             {{ session('status') }}

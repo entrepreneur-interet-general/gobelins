@@ -1,26 +1,25 @@
-
 @extends('layouts.default')
 
 @section('html_classes') has-uninitialized-BetaWelcome @endsection
 
 @section('content')
-    
-    @empty($product)
-        @include('site/_beta')
-    @endempty
 
-    <div id="root">
-        
-        @isset($product)
-            @include('site/_product')
-        @else
-            Chargement…
-        @endisset
-        
-    </div>
+@empty($product)
+@include('site/_beta')
+@endempty
 
-    <script>
-        var __INITIAL_STATE__ = {!! $filters->toJson() !!};
+<div id="root">
+
+    @isset($product)
+    @include('site/_product')
+    @else
+    Chargement…
+    @endisset
+
+</div>
+{{-- @dd(session()->flash('status')) --}}
+<script>
+    var __INITIAL_STATE__ = {!! $filters->toJson() !!};
 
 
         @isset($product)
@@ -39,10 +38,14 @@
             var CURRENT_USER = {!! json_encode($currentUser) !!};
         @endisset
 
-    </script>
+        @if (session('status'))
+            var SESSION_STATUS = {!! json_encode(session('status')) !!};
+        @endif
 
-    <script>
-        function betaWelcomeRemover(ev) {
+</script>
+
+<script>
+    function betaWelcomeRemover(ev) {
             if ((window.pageYOffset + 80) >= window.innerHeight) {
                 removeBetaWelcome();
                 window.scrollTo(0, 0);
@@ -62,6 +65,6 @@
             window.addEventListener('scroll', betaWelcomeRemover);
         }
 
-    </script>
+</script>
 
 @stop

@@ -65,6 +65,13 @@ function getProfile() {
   return client("api/user/me");
 }
 
+function resetPassword({ email, csrfToken }) {
+  return client("password/email", {
+    method: "POST",
+    body: { _token: csrfToken, email }
+  });
+}
+
 function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
@@ -77,5 +84,6 @@ export {
   setToken,
   getProfile,
   updateMyself,
-  destroy
+  destroy,
+  resetPassword
 };
