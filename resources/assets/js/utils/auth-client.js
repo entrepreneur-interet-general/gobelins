@@ -2,8 +2,12 @@ import client from "./api-client";
 
 const localStorageKey = "__auth_token__";
 
+function setToken(token) {
+  window.localStorage.setItem(localStorageKey, token);
+}
+
 function handleUserResponse(data) {
-  window.localStorage.setItem(localStorageKey, data.token);
+  setToken(data.token);
   return data;
 }
 
@@ -65,4 +69,13 @@ function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-export { login, register, logout, getToken, getProfile, updateMyself, destroy };
+export {
+  login,
+  register,
+  logout,
+  getToken,
+  setToken,
+  getProfile,
+  updateMyself,
+  destroy
+};

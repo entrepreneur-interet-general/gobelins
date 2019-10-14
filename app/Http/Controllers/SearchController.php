@@ -210,7 +210,9 @@ class SearchController extends Controller
 
         $currentUser = null;
         if (Auth::check()) {
-            $currentUser = Auth::user();
+            $user = Auth::user();
+            $currentUser = $user->toSearchableArray();
+            $currentUser['api_token'] = $user->api_token;
         }
 
 

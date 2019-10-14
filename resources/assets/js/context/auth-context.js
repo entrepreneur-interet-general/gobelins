@@ -30,6 +30,12 @@ class AuthProvider extends React.Component {
           });
         });
       }
+    } else {
+      // If first loading after server-side authentication,
+      // load up the API token here.
+      if (!authClient.getToken() && this.state.user.api_token) {
+        authClient.setToken(this.state.user.api_token);
+      }
     }
   };
 

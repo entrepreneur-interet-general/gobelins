@@ -33,7 +33,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'api_token', 'created_at', 'updated_at', 'pivot', 'identity_code'
+        'password', 'remember_token', 'api_token', 'created_at',
+        'updated_at', 'pivot', 'identity_code', 'email_verified_at'
     ];
 
     public function selections()
