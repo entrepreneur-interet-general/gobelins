@@ -182,6 +182,7 @@ class SearchController extends Controller
                                         return $s->toSearchableArray();
                                     }) : null,
                 'mobNatSelections' => $mob_nat_user->selections()
+                                    ->public()
                                     ->orderBy('updated_at', 'DESC')
                                     ->with(['products', 'users'])
                                     ->get()->map(function ($s) {
@@ -193,6 +194,7 @@ class SearchController extends Controller
                         // identity_code <> User::IDENTITY_MOBILIER_NATIONAL
                         $q->where('identity_code', null);
                     })
+                    ->public()
                     ->orderBy('selections.updated_at', 'DESC')
                     ->limit(10)
                     ->get()->map(function ($s) {
@@ -205,6 +207,7 @@ class SearchController extends Controller
         if ($request->route()->named('selection_detail')) {
             $selection_id = (int) $request->selection_id;
             $selection_detail = Selection::find($selection_id);
+            $this->authorize('view', $selection_detail);
             $selection_detail = $selection_detail ? $selection_detail->toSearchableArray() : null;
         }
 

@@ -179,6 +179,9 @@ class SelectionsController extends Controller
     {
         $selection = Selection::findOrFail($selection_id);
 
+        if (!$selection->public) {
+            $this->authorize('view', $selection);
+        }
         // $this->authorize('view', $selection);
 
         return view('site.selection', [
