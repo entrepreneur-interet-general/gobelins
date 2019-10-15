@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 import ToggleVisibility from "../icons/ToggleVisibility";
 import Plus from "../icons/Plus";
+import Loader from "./Loader";
 
 export default function InputField(props) {
   const [isDirty, setIsDirty] = useState();
@@ -18,6 +19,7 @@ export default function InputField(props) {
     withSubmitButton,
     withButton,
     onClickButton,
+    isLoading,
     ...otherProps
   } = props;
 
@@ -34,6 +36,7 @@ export default function InputField(props) {
           "with-button": props.withButton,
           "is-active": isActive,
           "is-dirty": isDirty,
+          "is-loading": isLoading,
           "is-invalid":
             props.isInvalid ||
             (inputEl.current && !inputEl.current.validity.valid)
@@ -66,7 +69,7 @@ export default function InputField(props) {
           <ToggleVisibility />
         </button>
       )}
-      {props.withSubmit && (
+      {props.withSubmit && !isLoading && (
         <button
           className="InputField__plus-submit"
           type="submit"
@@ -86,6 +89,11 @@ export default function InputField(props) {
         >
           {props.withButton}
         </button>
+      )}
+      {isLoading && (
+        <div className="InputField__loader-container">
+          <Loader className="InputField__loader" />
+        </div>
       )}
     </label>
   );

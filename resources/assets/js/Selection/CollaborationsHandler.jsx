@@ -16,16 +16,19 @@ export default class CollaborationsHandler extends React.Component {
       loading: false,
       destroyingInvitationIds: [],
       destroyingCollaborationIds: [],
-      errorMessage: false
+      errorMessage: false,
+      isAdding: false
     };
   }
 
   onSubmit = () => {
+    this.setState({ isAdding: true });
     this.context
       .create_invitation(this.state.email, this.props.selection)
       .then(data => {
         this.setState({
-          email: ""
+          email: "",
+          isAdding: false
         });
       });
   };
@@ -84,7 +87,10 @@ export default class CollaborationsHandler extends React.Component {
 
   render() {
     return (
-      <fieldset className="CollaborationsHandler" disabled={this.state.loading}>
+      <fieldset
+        className="CollaborationsHandler"
+        disabled={this.state.loading || this.state.isAdding}
+      >
         <legend className="CollaborationsHandler__legend">
           Inviter vos collaborateurs
         </legend>
@@ -98,6 +104,7 @@ export default class CollaborationsHandler extends React.Component {
           onChange={this.handleInputChange}
           onClickButton={this.onSubmit}
           onKeyPress={this.handleKeyPress}
+          isLoading={this.state.isAdding}
         />
 
         <ul className="CollaborationsHandler__items">
