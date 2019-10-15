@@ -221,6 +221,9 @@ class SelectionsController extends Controller
                 $selection->users()->attach($request->user()->id);
             }
 
+            $request->session()->flash('status', 'Bienvenue, ' . $request->user()->name . ' ! Vous pouvez désormais participer à cette sélection.');
+
+
             $invitation->delete();
 
             $request->session()->forget('accepted_invitation');
