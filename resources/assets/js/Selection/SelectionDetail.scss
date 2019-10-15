@@ -2,6 +2,8 @@
   background-color: #fff;
   color: #000;
   padding: 60px 0;
+  box-sizing: border-box;
+  min-height: 100vh;
   @include breakpoint(760px) {
     padding-top: 90px;
   }
