@@ -5,6 +5,7 @@ import InputField from "../ui/InputField";
 import PaperPlane from "../icons/PaperPlane";
 import CrossSimple from "../icons/CrossSimple";
 import Loader from "../ui/Loader";
+import { useAuth } from "../context/auth-context";
 
 export default class CollaborationsHandler extends React.Component {
   static contextType = SelectionsContext;
@@ -124,29 +125,44 @@ export default class CollaborationsHandler extends React.Component {
                 )}
               </li>
             ))}
-          {this.props.selection.users &&
-            this.props.selection.users.map(u => (
-              <li key={`usr-${u.id}`} className="CollaborationsHandler__item">
-                <span className="CollaborationsHandler__item-email">
-                  {u.email}
-                </span>
-                {this.state.destroyingCollaborationIds.includes(u.id) ? (
-                  <div className="CollaborationsHandler__loader-container">
-                    <Loader className="CollaborationsHandler__delete-loader" />
-                  </div>
-                ) : (
-                  <button
-                    type="button"
-                    className="CollaborationsHandler__delete"
-                    onClick={this.handleDeleteCollaboration.bind(this, u)}
-                  >
-                    <CrossSimple width="9" height="9" />
-                  </button>
-                )}
-              </li>
-            ))}
+          {this.props.selection.users && (
+            <IdentifiedUsersList
+              users={this.props.selection.users}
+              onClick={this.handleDeleteCollaboration}
+              destroyingCollaborationIds={this.state.destroyingCollaborationIds}
+            />
+          )}
         </ul>
       </fieldset>
     );
   }
+}
+
+function IdentifiedUsersList(props) {
+  const authContext = useAuth();
+
+  return (
+    <>
+      {props.users
+        .filter(u => u.id !== authContext.data.user.id)
+        .map(u => (
+          <li key={`usr-${u.id}`} className="CollaborationsHandler__item">
+            <span className="CollaborationsHandler__item-email">{u.email}</span>
+            {props.destroyingCollaborationIds.includes(u.id) ? (
+              <div className="CollaborationsHandler__loader-container">
+                <Loader className="CollaborationsHandler__delete-loader" />
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="CollaborationsHandler__delete"
+                onClick={props.onClick.bind(this, u)}
+              >
+                <CrossSimple width="9" height="9" />
+              </button>
+            )}
+          </li>
+        ))}
+    </>
+  );
 }
