@@ -15,6 +15,7 @@ import Heart from "../icons/Heart";
 import SelectionsBlank from "../icons/SelectionsBlank";
 import ImagesPlaceholder from "./ImagesPlaceholder";
 import EditUserModal from "../Auth/EditUserModal";
+import CrossSimple from "../icons/CrossSimple";
 
 export default function MySelections(props) {
   //   const selectionsContext = useSelections();
@@ -231,6 +232,12 @@ function NotAuthenticated(props) {
             backdropClassName="Modal__overlay SelectionModal__overlay"
             onClose={() => setAuthModalOpen(false)}
           >
+            <button
+              className="SelectionModal__close"
+              onClick={() => setAuthModalOpen(false)}
+            >
+              <CrossSimple />
+            </button>
             <AuthModal action={authModalMode} onLogin={handleLoginCallback} />
           </ReactModal2>
         </Gateway>

@@ -2,13 +2,15 @@
   --selection-list-ext-gutter: 15px;
   margin: 0 var(--selection-list-ext-gutter);
   padding: 0;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-auto-columns: none;
-  grid-auto-rows: auto;
-  grid-row-gap: 50px;
+  // display: grid;
+  // grid-template-columns: 100%;
+  // grid-auto-columns: none;
+  // grid-auto-rows: auto;
+  // grid-row-gap: 50px;
+  display: block;
 
   @include breakpoint(600px) {
+    display: grid;
     --selection-list-ext-gutter: 40px;
     grid-template-columns: repeat(9, 1fr 40px) 1fr;
     grid-template-areas: ". left left left left left left left gutter gutter gutter right right right right right right right .";

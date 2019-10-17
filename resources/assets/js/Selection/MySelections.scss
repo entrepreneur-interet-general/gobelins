@@ -42,6 +42,8 @@
 /* The default state when the user isn't authenticated. */
 .MySelections__unauthenticated {
   @extend %selections-grid;
+  margin-top: 30px;
+  margin-bottom: 30px;
 
   & .MySelections__blank-slate {
     grid-area: span 2 / left;
@@ -63,6 +65,7 @@
   font-size: rem(30px);
   line-height: rem(41px);
   grid-area: left;
+  margin: 0;
   @include breakpoint(1024px) {
     grid-area: auto / right;
   }
