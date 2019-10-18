@@ -117,10 +117,12 @@
                                             </tr>
                                         </table>
                                         <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px ; line-height: 1.5em; margin-top: 0;"
-                                            align="left">Si ce n’est pas vous qui avez demandé cette réinitialisation,
-                                            vous pouvez ignorer cet e-mail ou <a href="{{ $support_url }}"
-                                                style="box-sizing: border-box; color: #ff4747; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;">contactez-nous</a>
-                                            pour toute question. Merci !</p>
+                                            align="left">Si vous n’avez pas demandé cette réinitialisation, vous pouvez
+                                            ignorer cet e-mail ou <a href="{{ $support_url }}"
+                                                style="box-sizing: border-box; color: #ff4747; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;">nous
+                                                contacter</a>
+                                            pour toute question.
+                                            Merci !</p>
 
 
                                         <table class="body-sub"
