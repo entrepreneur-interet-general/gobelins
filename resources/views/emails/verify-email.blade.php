@@ -168,7 +168,9 @@
 
 
                     <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 20px; "
-                      align="left">Nous vous souhaitons de belles découvertes sur notre site ! Si
+                      align="left">Nous vous souhaitons de belles découvertes sur notre site !</p>
+                    <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 20px; "
+                      align="left"> Si
                       vous avez des questions, n'hésitez pas à nous envoyer un <a href="mailto:{{ $support_email }}"
                         style="box-sizing: border-box; color: #ff4747; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
 
