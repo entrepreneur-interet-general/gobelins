@@ -123,15 +123,24 @@
                               <td class="attributes_item"
                                 style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
                                 <strong
-                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Email:</strong>
-                                {{email}}</td>
+                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Nom
+                                  :</strong>
+                                {{ name }}</td>
+                            </tr>
+                            <tr>
+                              <td class="attributes_item"
+                                style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
+                                <strong
+                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Email
+                                  :</strong>
+                                {{ email }}</td>
                             </tr>
                             <tr>
                               <td class="attributes_item"
                                 style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
                                 <strong
                                   style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Votre
-                                  profil:</strong> {{profile_url}}</td>
+                                  profil :</strong> {{ profile_url }}</td>
                             </tr>
 
                           </table>
@@ -163,23 +172,47 @@
                       vous avez des questions, n'hésitez pas à nous envoyer un <a href="mailto:{{support_email}}"
                         style="box-sizing: border-box; color: #ff4747; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
 
-                      <img
-                        src="https://user-images.githubusercontent.com/36261410/58110069-17e82200-7bef-11e9-9fd3-249bedb0b727.gif"
-                        alt="collection du mobilier national" width=500px; style="
-    margin-top: 30px; />
-       
-       
+                      <img src="{{ $message->embed(public_path('images/emails/collection_animated.gif')) }}"
+                        alt="Collection du Mobilier national" width="500" style="margin-top: 30px;" />
+
+
                       <table class=" body-sub"
                         style="border-top-color: #EDEFF2; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; margin-top: 25 px; padding-top: 25 px;">
-                <tr>
-                  <td
-                    style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
-                    <p class="sub"
-                      style="box-sizing: border-box; color: #767676;font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 20px;margin-left : 35px; "
-                      align="left">Si vous rencontrez des problèmes avec le bouton ci-dessus,
-                      copiez et collez l’URL ci-dessous dans votre navigateur Web. {{action_url}}
-                    </p>
+                        <tr>
+                          <td
+                            style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
+                            <p class="sub"
+                              style="box-sizing: border-box; color: #767676;font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 20px;margin-left : 35px; "
+                              align="left">Si vous rencontrez des problèmes avec le bouton ci-dessus,
+                              copiez et collez l’URL ci-dessous dans votre navigateur Web. {{action_url}}
+                            </p>
 
+                          </td>
+                        </tr>
+                      </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
+              <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0"
+                style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; margin: 0 auto; padding: 0; text-align: center; width: 570px;">
+                <tr>
+                  <td class="content-cell" align="center"
+                    style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; 0px; word-break: break-word;">
+                    <p class="sub align-center"
+                      style="box-sizing: border-box; color: #AEAEAE; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 0;"
+                      align="center"> </p>
+                    <p class="sub align-center"
+                      style="box-sizing: border-box; color: #767676; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 13px; line-height: 1.5em; margin-top: 0; padding : 0px 35px 0px ;"
+                      align="left">
+                      Mobilier national
+                      <br />1 rue Berbier-du-mets
+                      <br />75013 Paris
+                    </p>
                   </td>
                 </tr>
               </table>
@@ -188,32 +221,6 @@
         </table>
       </td>
     </tr>
-    <tr>
-      <td
-        style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
-        <table class="email-footer" align="center" width="570" cellpadding="0" cellspacing="0"
-          style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; margin: 0 auto; padding: 0; text-align: center; width: 570px;">
-          <tr>
-            <td class="content-cell" align="center"
-              style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; 0px; word-break: break-word;">
-              <p class="sub align-center"
-                style="box-sizing: border-box; color: #AEAEAE; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 0;"
-                align="center"> </p>
-              <p class="sub align-center"
-                style="box-sizing: border-box; color: #767676; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 13px; line-height: 1.5em; margin-top: 0; padding : 0px 35px 0px ;"
-                align="left">
-                Mobilier national
-                <br />1 rue Berbier-du-mets
-                <br />75013 Paris
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-  </td>
-  </tr>
   </table>
 </body>
 
