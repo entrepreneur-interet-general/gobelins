@@ -60,9 +60,6 @@
   flex: 1 1 auto;
   text-align: center;
   white-space: nowrap;
-  // Hoist up the baseline, to center vertically.
-  position: relative;
-  top: -1px;
 }
 
 .Button__icon + .Button__label {
@@ -71,14 +68,14 @@
 
 .Button.Button__small,
 .Button.Button__tiny {
-  display: inline-block;
+  display: block;
   width: auto;
   height: 36px;
   border-radius: 18px;
   border-width: 1px;
   border-style: solid;
   font-size: rem(15px);
-  line-height: rem(15px);
+  line-height: 120%;
 
   &.Button__round {
     width: 36px;
