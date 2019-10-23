@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Models\Image;
+use App\Models\Product;
 
 class Selection extends Model
 {
@@ -15,7 +17,7 @@ class Selection extends Model
 
     protected $visible = ['name', 'id', 'public', 'description', 'users', 'products'];
 
-    protected $with = ['products'];
+    // protected $with = ['products'];
 
     protected $attributes = [
         'public' => true, // Default value.
@@ -40,10 +42,55 @@ class Selection extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+    
+    /**
+     * A selection has between 0 and 4 images of products
+     * used to represent it in listing views.
+     */
+    public function images()
+    {
+        return $this->belongsToMany(Image::class)->withPivot('order')->orderBy('order');
+    }
+
+    public function collectPosterIds()
+    {
+        $ids = [];
+        $this->products
+            ->sortByDesc('image_quality_score')
+            ->each(function ($p) use (&$ids) {
+                if (sizeof($ids) < 4) {
+                    $image = $p->posterImage;
+                    if ($image) {
+                        array_push($ids, $image->id);
+                    }
+                } else {
+                    return false;
+                }
+            });
+        return collect($ids);
+    }
+
+    public function refreshPosterImages()
+    {
+        $increment = 0;
+        $ordered_ids = $this->collectPosterIds()->mapWithKeys(function ($id) use (&$increment) {
+            $increment++;
+            return [$id => ['order' => $increment]];
+        })->all();
+        return $this->images()->sync($ordered_ids);
+    }
 
     public function scopePublic($query)
     {
         return $query->where('public', true);
+    }
+
+    public function getPosterImagesAttribute()
+    {
+        return $this->images()
+                    ->where('images.is_published', true)
+                    ->orderBy('images.is_prime_quality')
+                    ->limit(4)->get();
     }
 
     public function toSearchableArray()

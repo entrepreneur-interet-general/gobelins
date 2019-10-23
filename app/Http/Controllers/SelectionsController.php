@@ -8,46 +8,10 @@ use \App\Models\Selection;
 use \App\Models\Invitation;
 use \App\Models\Product;
 use \App\User;
+use \App\Http\Resources\SelectionResource;
 
 class SelectionsController extends Controller
 {
-    private function listMySelections()
-    {
-        $user = Auth::user() ?? Auth::guard('api')->user();
-        $mySelections = $user ?
-        $user->selections()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
-            return $s->toSearchableArray();
-        }) : [];
-        return $mySelections;
-    }
-
-    private function listMobNatSelections()
-    {
-        $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
-
-        $userSelections = $mob_nat_user->selections()->public()->orderBy('updated_at', 'DESC')->with(['products', 'users'])->get()->map(function ($s) {
-            return $s->toSearchableArray();
-        });
-        return $userSelections;
-    }
-
-    private function listUserSelections()
-    {
-        $userSelections = Selection::with(['products', 'users'])
-                    ->public()
-                    ->whereHas('users', function ($q) {
-                        // FIXME. Negative doesn't work:
-                        // identity_code <> User::IDENTITY_MOBILIER_NATIONAL
-                        $q->where('identity_code', null);
-                    })
-                    ->orderBy('selections.updated_at', 'DESC')
-                    ->limit(10)
-                    ->get()->map(function ($s) {
-                        return $s->toSearchableArray();
-                    });
-        return $userSelections;
-    }
-
     private function listAllSelections()
     {
         return [
@@ -62,10 +26,61 @@ class SelectionsController extends Controller
         return $this->listAllSelections($request);
     }
 
+    public function listMySelections()
+    {
+        $user = Auth::user() ?? Auth::guard('api')->user();
+
+        if ($user) {
+            $selections = $user->selections()
+                               ->orderBy('updated_at', 'DESC')
+                               ->with(['users:id,name'])
+                               ->paginate(4);
+            return SelectionResource::collection($selections);
+        } else {
+            return SelectionResource::collection([]);
+        }
+    }
+    
+    public function listMobNatSelections()
+    {
+        $mn_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
+
+        $selections = $mn_user->selections()
+                              ->public()
+                              ->orderBy('updated_at', 'DESC')
+                              ->with('users:id,name,email')
+                              ->paginate(4);
+
+        return SelectionResource::collection($selections);
+    }
+
+    public function listUserSelections(Request $request)
+    {
+        $selections = Selection::with('users:id,name,email')
+                        ->public()
+                        ->whereDoesntHave('users', function ($q) {
+                            $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+                        })
+                        ->orderBy('selections.updated_at', 'DESC')
+                        ->paginate(4);
+        return SelectionResource::collection($selections);
+    }
+
+
+
     public function mine(Request $request)
     {
         return ['mySelections' =>$this->listMySelections()];
     }
+
+    public function mineShort()
+    {
+        $user = Auth::user() ?? Auth::guard('api')->user();
+        $mySelections = $user ?
+        $user->selections()->select('id', 'name', 'public')->orderBy('updated_at', 'DESC')->get()->all() : [];
+        return ['mySelectionsShort' => $mySelections];
+    }
+
 
 
     /**
@@ -118,7 +133,8 @@ class SelectionsController extends Controller
         
         $selection->products()->attach($product);
 
-        return ['mySelections' => $this->listMySelections()];
+        // return ['mySelections' => $this->listMySelections()];
+        return ['status' => 'ok'];
     }
 
 

@@ -9,10 +9,22 @@ class SelectionsProvider extends React.Component {
     super(props);
     this.state = {
       loading: false,
+      loadingMine: false,
+      loadingMobNat: false,
+      loadingUser: false,
       detailSelection: window.SELECTION_DETAIL || null,
       initedMine:
         window.SELECTIONS && window.SELECTIONS.mySelections ? true : false,
       mySelections: (window.SELECTIONS && window.SELECTIONS.mySelections) || [],
+      mySelectionsShort:
+        (window.SELECTIONS &&
+          window.SELECTIONS.mySelections &&
+          window.SELECTIONS.mySelections.map(s => {
+            {
+              s.id, s.name, s.public;
+            }
+          })) ||
+        [],
       mobNatSelections:
         (window.SELECTIONS && window.SELECTIONS.mobNatSelections) || [],
       userSelections:
@@ -23,23 +35,23 @@ class SelectionsProvider extends React.Component {
 
   componentDidUpdate = () => {
     // Eagerly load selections info.
-    if (
-      this.state.initedMine === false &&
-      this.state.loading === false &&
-      authClient.getToken()
-    ) {
-      this.setState({ loading: true }, () => {
-        selectionsClient.fetchAll().then(data => {
-          this.setState({
-            mySelections: data.mySelections,
-            mobNatSelections: data.mobNatSelections,
-            userSelections: data.userSelections,
-            loading: false,
-            initedMine: true
-          });
-        });
-      });
-    }
+    // if (
+    //   this.state.initedMine === false &&
+    //   this.state.loading === false &&
+    //   authClient.getToken()
+    // ) {
+    //   this.setState({ loading: true }, () => {
+    //     selectionsClient.fetchAll().then(data => {
+    //       this.setState({
+    //         mySelections: data.mySelections,
+    //         mobNatSelections: data.mobNatSelections,
+    //         userSelections: data.userSelections,
+    //         loading: false,
+    //         initedMine: true
+    //       });
+    //     });
+    //   });
+    // }
 
     // Upon logout, purge mySelections.
     if (!authClient.getToken() && this.state.initedMine === true) {
@@ -64,13 +76,49 @@ class SelectionsProvider extends React.Component {
 
   fetchMine = () => {
     this.setState({
-      loading: true
+      loadingMine: true
     });
     return selectionsClient.fetchMine().then(data => {
       this.setState({
         initedMine: true,
+        loadingMine: false,
+        mySelections: data.data
+      });
+    });
+  };
+
+  fetchMobNat = () => {
+    this.setState({
+      loadingMobNat: true
+    });
+    return selectionsClient.fetchMobNat().then(data => {
+      this.setState({
+        loadingMobNat: false,
+        mobNatSelections: data.data
+      });
+    });
+  };
+
+  fetchUser = () => {
+    this.setState({
+      loadingUser: true
+    });
+    return selectionsClient.fetchUser().then(data => {
+      this.setState({
+        loadingUser: false,
+        userSelections: data.data
+      });
+    });
+  };
+
+  fetchMineShort = () => {
+    this.setState({
+      loading: true
+    });
+    return selectionsClient.fetchMineShort().then(data => {
+      this.setState({
         loading: false,
-        mySelections: data.mySelections
+        mySelectionsShort: data.mySelectionsShort
       });
     });
   };
@@ -228,13 +276,20 @@ class SelectionsProvider extends React.Component {
         value={{
           initedMine: this.state.initedMine,
           loading: this.state.loading,
+          loadingMine: this.state.loadingMine,
+          loadingMobNat: this.state.loadingMobNat,
+          loadingUser: this.state.loadingUser,
           mySelections: this.state.mySelections,
+          mySelectionsShort: this.state.mySelectionsShort,
           userSelections: this.state.userSelections,
           mobNatSelections: this.state.mobNatSelections,
           detailSelection: this.state.detailSelection,
           selections: this.state.selections,
           fetchAll: this.fetchAll,
           fetchMine: this.fetchMine,
+          fetchMobNat: this.fetchMobNat,
+          fetchUser: this.fetchUser,
+          fetchMineShort: this.fetchMineShort,
           add: this.add,
           remove: this.remove,
           createAndAdd: this.createAndAdd,

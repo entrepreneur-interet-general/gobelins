@@ -16,6 +16,7 @@ use App\User;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
+use \App\Http\Resources\SelectionResource;
 
 class SearchController extends Controller
 {
@@ -177,29 +178,20 @@ class SearchController extends Controller
                 'mySelections' => Auth::check() ? Auth::user()
                                     ->selections()
                                     ->orderBy('updated_at', 'DESC')
-                                    ->with(['products', 'users'])
-                                    ->get()->map(function ($s) {
-                                        return $s->toSearchableArray();
-                                    }) : null,
-                'mobNatSelections' => $mob_nat_user->selections()
+                                    ->with(['users:id,name'])
+                                    ->limit(4)->get() : null,
+                'mobNatSelections' => SelectionResource::collection($mob_nat_user->selections()
                                     ->public()
                                     ->orderBy('updated_at', 'DESC')
-                                    ->with(['products', 'users'])
-                                    ->get()->map(function ($s) {
-                                        return $s->toSearchableArray();
-                                    }),
-                'userSelections' => Selection::with(['products', 'users'])
-                    ->whereHas('users', function ($q) {
-                        // FIXME. Negative doesn't work:
-                        // identity_code <> User::IDENTITY_MOBILIER_NATIONAL
-                        $q->where('identity_code', null);
-                    })
-                    ->public()
-                    ->orderBy('selections.updated_at', 'DESC')
-                    ->limit(10)
-                    ->get()->map(function ($s) {
-                        return $s->toSearchableArray();
-                    })
+                                    ->with('users:id,name,email')
+                                    ->limit(4)->get()),
+                'userSelections' => SelectionResource::collection(Selection::with('users:id,name,email')
+                        ->public()
+                        ->whereDoesntHave('users', function ($q) {
+                            $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+                        })
+                        ->orderBy('selections.updated_at', 'DESC')
+                        ->limit(4)->get())
             ];
         }
 

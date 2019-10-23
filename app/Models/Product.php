@@ -109,6 +109,20 @@ class Product extends Model
         })->all();
     }
     
+    /**
+     * TODO: change this to use the is_poster attribute
+     * from gobelins-datasource.
+     *
+     * @return \App\Models\Image|null
+     */
+    public function getPosterImageAttribute()
+    {
+        return $this->images()
+                    ->where('is_published', true)
+                    ->orderBy('is_prime_quality')
+                    ->first();
+    }
+    
     public function getSearchableStyleAttribute()
     {
         return $this->style ? $this->style->toSearchableArray() : [];

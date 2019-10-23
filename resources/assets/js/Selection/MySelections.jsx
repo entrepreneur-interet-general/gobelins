@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 import classNames from "classnames";
@@ -151,9 +151,18 @@ function SelectionInputModal(props) {
 function MySelectionsList(props) {
   const selectionsContext = useSelections();
 
+  useEffect(() => {
+    if (
+      selectionsContext.loadingMine === false &&
+      selectionsContext.mySelections.length < 1
+    ) {
+      selectionsContext.fetchMine();
+    }
+  }, []);
+
   return (
     <div className="MySelections">
-      {selectionsContext.loading &&
+      {selectionsContext.loadingMine &&
       selectionsContext.mySelections.length === 0 ? (
         <Loader />
       ) : selectionsContext.mySelections.length ? (

@@ -97,3 +97,10 @@
     grid-area: auto/right;
   }
 }
+
+.SelectionsList__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, 30px);
+}

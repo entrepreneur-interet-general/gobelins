@@ -13,17 +13,17 @@ export default function SelectionsList(props) {
   ));
 }
 
-function collectImages(selection) {
-  return selection.products
-    .map(prod => {
-      return prod.images.length ? prod.images[0] : null;
-    })
-    .filter(v => v)
-    .slice(0, 4);
-}
+// function collectImages(selection) {
+//   return selection.products
+//     .map(prod => {
+//       return prod.images.length ? prod.images[0] : null;
+//     })
+//     .filter(v => v)
+//     .slice(0, 4);
+// }
 
 function SelectionsListItem({ selection, extraHeader, className }) {
-  const illustrativeImages = collectImages(selection);
+  const illustrativeImages = selection.images;
   const selectionContext = useSelections();
 
   return (

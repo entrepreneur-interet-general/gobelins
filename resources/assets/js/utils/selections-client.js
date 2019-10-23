@@ -8,6 +8,18 @@ function fetchMine() {
   return client("api/selections/mine");
 }
 
+function fetchMobNat() {
+  return client("api/selections/mobnat");
+}
+
+function fetchUser() {
+  return client("api/selections/user");
+}
+
+function fetchMineShort() {
+  return client("api/selections/mine-short");
+}
+
 function create(product_ids, selection) {
   return client("api/selections", {
     method: "POST",
@@ -60,6 +72,9 @@ function destroy_collaboration(user, selection) {
 export {
   fetchAll,
   fetchMine,
+  fetchMobNat,
+  fetchUser,
+  fetchMineShort,
   add,
   create,
   remove,

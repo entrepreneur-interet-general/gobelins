@@ -23,8 +23,11 @@ export default class AddToSelectionSteps extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.context.loading === false && this.context.initedMine === false) {
-      this.context.fetchMine().then(() => {
+    if (
+      this.context.loading === false &&
+      this.context.mySelectionsShort.length === 0
+    ) {
+      this.context.fetchMineShort().then(() => {
         this.setState({ loading: false });
       });
     } else if (this.context.loading === false && this.state.loading === true) {
@@ -64,11 +67,12 @@ export default class AddToSelectionSteps extends React.Component {
       <DoneAddingProduct />
     ) : (
       <div className="SelectionModal__wrapper">
-        {this.context.mySelections && this.context.mySelections.length > 0 ? (
+        {this.context.mySelectionsShort &&
+        this.context.mySelectionsShort.length > 0 ? (
           <>
             <SelectionPick
               onPick={this.handleSelectionPick}
-              selections={this.context.mySelections}
+              selections={this.context.mySelectionsShort}
               username={this.props.user.name}
             />
             <SelectionInput

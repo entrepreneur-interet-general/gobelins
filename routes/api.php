@@ -27,15 +27,22 @@ Route::get('selections', [
     'as' => 'selections', 'uses' => 'SelectionsController@index'
 ]);
 
+// Route::get('selections/list', ['uses' => 'SelectionsController@list']);
+Route::get('selections/mobnat', 'SelectionsController@listMobNatSelections');
+Route::get('selections/user', 'SelectionsController@listUserSelections');
+
 
 Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     Route::get('/user/me', 'UserController@me');
     Route::patch('/user/me', 'UserController@update');
     Route::delete('/user/me', 'UserController@destroy');
 
-    Route::get('selections/mine', [
-        'as' => 'mySelections', 'uses' => 'SelectionsController@mine'
-    ]);
+    // Route::get('selections/mine', [
+    //     'as' => 'mySelections', 'uses' => 'SelectionsController@mine'
+    // ]);
+    Route::get('selections/mine', 'SelectionsController@listMySelections');
+
+    Route::get('selections/mine-short', 'SelectionsController@mineShort');
 
     Route::get('selections/{selection_id}/add/{product_id}', 'SelectionsController@add')->where([
         'selection_id' => '[0-9]+',

@@ -6,18 +6,10 @@ import CrossSimple from "../icons/CrossSimple";
 import MySelections from "./MySelections";
 import SelectionsList from "./SelectionsList";
 import ScrollToTop from "../Collection/ScrollToTop";
+import Loader from "../Loader";
 
 function SelectionsIndex(props) {
-  const selectionsContext = useSelections();
-
   useEffect(() => {
-    if (
-      selectionsContext.loading === false &&
-      selectionsContext.userSelections.length < 1
-    ) {
-      selectionsContext.fetchAll();
-    }
-
     window.document.title = "Sélections — Collection du Mobilier national";
   }, []);
 
@@ -41,10 +33,23 @@ function SelectionsIndex(props) {
 function MobNatSelections(props) {
   const selectionsContext = useSelections();
 
+  useEffect(() => {
+    if (
+      selectionsContext.loadingMobNat === false &&
+      selectionsContext.mobNatSelections.length < 1
+    ) {
+      selectionsContext.fetchMobNat();
+    }
+  }, []);
+
   return (
     <div className="Selections__mobnat">
-      <ul className="SelectionsList">
-        <SelectionsList selections={selectionsContext.mobNatSelections} />
+      <div className="SelectionsList">
+        {selectionsContext.loadingMobNat ? (
+          <Loader className="SelectionsList__loader" />
+        ) : (
+          <SelectionsList selections={selectionsContext.mobNatSelections} />
+        )}
         <h1 className="Selections__inset-header">
           Explorer les sélections
           <br />
@@ -55,7 +60,7 @@ function MobNatSelections(props) {
             <input type="search" />
           </fieldset>
         )*/}
-      </ul>
+      </div>
     </div>
   );
 }
@@ -63,14 +68,27 @@ function MobNatSelections(props) {
 function UserSelections(props) {
   const selectionsContext = useSelections();
 
+  useEffect(() => {
+    if (
+      selectionsContext.loadingUser === false &&
+      selectionsContext.userSelections.length < 1
+    ) {
+      selectionsContext.fetchUser();
+    }
+  }, []);
+
   return (
     <div className="Selections__users">
-      <ul className="SelectionsList">
-        <SelectionsList selections={selectionsContext.userSelections} />
+      <div className="SelectionsList">
+        {selectionsContext.loadingMobNat ? (
+          <Loader className="SelectionsList__loader" />
+        ) : (
+          <SelectionsList selections={selectionsContext.userSelections} />
+        )}
         <h1 className="Selections__inset-header">
           Dernières sélections des utilisateurs
         </h1>
-      </ul>
+      </div>
     </div>
   );
 }

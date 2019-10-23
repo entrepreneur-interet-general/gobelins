@@ -19,6 +19,10 @@ class Image extends Model
     ];
 
     protected $touches = ['product'];
+    
+    protected $hidden = [
+        'pivot' // Hide from toArray()
+    ];
 
     // Maps the directory name to a human name.
     const IDENTIFIED_PHOTOGRAPHERS = [
