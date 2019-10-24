@@ -56,7 +56,7 @@ function SelectionsListItem({ selection, extraHeader, className }) {
               {selection.products.length > 1 ? "s" : ""}
             </span>
           )}{" "}
-        <span>par {selection.users[0].name}</span>
+        <span>par {selection.users.map(u => u.name).join(", ")}</span>
         {selection.public !== true && <PadlockTiny />}
       </div>
       <div className="SelectionsListItem__desc">{selection.description}</div>

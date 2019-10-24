@@ -227,12 +227,7 @@ class SelectionsProvider extends React.Component {
       );
       let updatedMySelections = Array.from(this.state.mySelections);
 
-      if (data.hasOwnProperty("invitation")) {
-        let invits = this.state.mySelections[idxChanged].invitations.concat(
-          data.invitation
-        );
-        updatedMySelections[idxChanged].invitations = invits;
-      } else if (data.hasOwnProperty("user")) {
+      if (data.hasOwnProperty("user")) {
         let users = this.state.mySelections[idxChanged].users.concat(data.user);
         updatedMySelections[idxChanged].users = users;
       }
@@ -242,7 +237,8 @@ class SelectionsProvider extends React.Component {
         mySelections: updatedMySelections
       });
 
-      this.setDetailSelection(selection.id);
+      // this.setDetailSelection(selection.id);
+      this.fetchDetail(selection.id);
       return data;
     });
   };

@@ -60,11 +60,11 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     
     Route::post('selections', 'SelectionsController@create');
     
-    Route::patch('selections/{selection_id}', 'SelectionsController@update');
+    Route::patch('selections/{selection_id}', 'SelectionsController@update')->where('selection_id', '[0-9]+');
     
-    Route::delete('selections/{selection_id}', 'SelectionsController@destroy');
+    Route::delete('selections/{selection_id}', 'SelectionsController@destroy')->where('selection_id', '[0-9]+');
     
-    Route::post('selections/{selection_id}/invitations', 'InvitationController@create');
+    Route::post('selections/{selection_id}/invitations', 'InvitationController@create')->where('selection_id', '[0-9]+');
     
     Route::delete('selections/{selection_id}/invitations/{invitation_id}', 'InvitationController@destroy');
     
