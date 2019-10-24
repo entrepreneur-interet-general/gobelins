@@ -19,7 +19,7 @@ import SelectionsBlank from "../icons/SelectionsBlank";
 function SelectionDetail(props) {
   const authContext = useAuth();
   const selectionsContext = useSelections();
-  const selection_id = parseInt(props.match.params.selection_id, 10);
+  // const selection_id = parseInt(props.match.params.selection_id, 10);
 
   let selection = selectionsContext.detailSelection;
 

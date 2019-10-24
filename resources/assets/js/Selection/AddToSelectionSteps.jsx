@@ -24,19 +24,22 @@ export default class AddToSelectionSteps extends React.Component {
 
   componentDidMount = () => {
     if (
-      this.context.loading === false &&
+      this.context.loadingMineShort === false &&
       this.context.mySelectionsShort.length === 0
     ) {
       this.context.fetchMineShort().then(() => {
         this.setState({ loading: false });
       });
-    } else if (this.context.loading === false && this.state.loading === true) {
+    } else if (
+      this.context.loadingMineShort === false &&
+      this.state.loading === true
+    ) {
       this.setState({ loading: false });
     }
   };
 
   componentDidUpdate = () => {
-    if (this.state.loading && this.context.loading === false) {
+    if (this.state.loading && this.context.loadingMineShort === false) {
       this.setState({ loading: false });
     }
   };

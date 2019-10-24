@@ -10,8 +10,10 @@ class SelectionsProvider extends React.Component {
     this.state = {
       loading: false,
       loadingMine: false,
+      loadingMineShort: false,
       loadingMobNat: false,
       loadingUser: false,
+      loadingDetail: false,
       detailSelection: window.SELECTION_DETAIL || null,
       initedMine:
         window.SELECTIONS && window.SELECTIONS.mySelections ? true : false,
@@ -113,12 +115,24 @@ class SelectionsProvider extends React.Component {
 
   fetchMineShort = () => {
     this.setState({
-      loading: true
+      loadingMineShort: true
     });
     return selectionsClient.fetchMineShort().then(data => {
       this.setState({
-        loading: false,
+        loadingMineShort: false,
         mySelectionsShort: data.mySelectionsShort
+      });
+    });
+  };
+
+  fetchDetail = id => {
+    this.setState({
+      loadingDetail: true
+    });
+    return selectionsClient.fetchDetail(id).then(data => {
+      this.setState({
+        loadingDetail: false,
+        detailSelection: data.data
       });
     });
   };
@@ -139,15 +153,19 @@ class SelectionsProvider extends React.Component {
   remove = (inventory_id, selection_id) => {
     this.setState({ loading: true });
     return selectionsClient.remove(inventory_id, selection_id).then(data => {
-      const updatedDetailData = data.mySelections.find(
-        s => s.id === selection_id
-      );
-      this.setState({
-        initedMine: true,
-        loading: false,
-        mySelections: data.mySelections,
-        detailSelection: updatedDetailData
+      this.setState(state => {
+        const products = state.detailSelection.products.filter(
+          p => inventory_id !== p.inventory_id
+        );
+        return {
+          loading: false,
+          detailSelection: {
+            ...state.detailSelection,
+            products
+          }
+        };
       });
+      this.fetchMine();
       return data;
     });
   };
@@ -194,6 +212,7 @@ class SelectionsProvider extends React.Component {
   };
 
   setDetailSelection = selection_id => {
+    throw "This should not happen anymore.";
     const sel = [
       ...this.state.mySelections,
       ...this.state.mobNatSelections,
@@ -277,6 +296,7 @@ class SelectionsProvider extends React.Component {
           initedMine: this.state.initedMine,
           loading: this.state.loading,
           loadingMine: this.state.loadingMine,
+          loadingMineShort: this.state.loadingMineShort,
           loadingMobNat: this.state.loadingMobNat,
           loadingUser: this.state.loadingUser,
           mySelections: this.state.mySelections,
@@ -290,6 +310,7 @@ class SelectionsProvider extends React.Component {
           fetchMobNat: this.fetchMobNat,
           fetchUser: this.fetchUser,
           fetchMineShort: this.fetchMineShort,
+          fetchDetail: this.fetchDetail,
           add: this.add,
           remove: this.remove,
           createAndAdd: this.createAndAdd,

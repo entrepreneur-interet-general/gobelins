@@ -17,7 +17,7 @@ import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
 import SelectionsIndex from "./Selection/SelectionsIndex";
-import SelectionDetail from "./Selection/SelectionDetail";
+import SelectionDetailPage from "./Selection/SelectionDetailPage";
 import LibraryBoard from "./ui/LibraryBoard";
 
 const breakpoints = {
@@ -512,7 +512,7 @@ class App extends Component {
                   <Route
                     path="/selections/:selection_id"
                     render={props => (
-                      <SelectionDetail
+                      <SelectionDetailPage
                         {...props}
                         onObjectClick={this.handleObjectClick}
                         onBackToCollection={this.handleBackToCollection}

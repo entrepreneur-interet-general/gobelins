@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User as UserResource;
 
-class SelectionResource extends JsonResource
+class ListedSelection extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,6 @@ class SelectionResource extends JsonResource
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'name' => $this->name,

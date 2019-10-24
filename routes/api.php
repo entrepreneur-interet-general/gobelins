@@ -27,6 +27,10 @@ Route::get('selections', [
     'as' => 'selections', 'uses' => 'SelectionsController@index'
 ]);
 
+Route::get('selections/{id}', 'SelectionsController@show')
+        ->where(['id' => '[0-9]+'])
+        ->middleware('api');
+
 // Route::get('selections/list', ['uses' => 'SelectionsController@list']);
 Route::get('selections/mobnat', 'SelectionsController@listMobNatSelections');
 Route::get('selections/user', 'SelectionsController@listUserSelections');

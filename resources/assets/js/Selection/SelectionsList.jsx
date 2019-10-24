@@ -33,7 +33,6 @@ function SelectionsListItem({ selection, extraHeader, className }) {
           pathname: `/selections/${selection.id}`,
           state: { selection: selection }
         }}
-        onClick={() => selectionContext.setDetailSelection(selection.id)}
       >
         <div className="SelectionsListItem__images-wrapper">
           <div className="SelectionsListItem__images">

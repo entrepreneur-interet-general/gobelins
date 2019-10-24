@@ -16,7 +16,7 @@ use App\User;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
-use \App\Http\Resources\SelectionResource;
+use \App\Http\Resources\ListedSelection;
 
 class SearchController extends Controller
 {
@@ -175,17 +175,17 @@ class SearchController extends Controller
         $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
         if ($request->route()->named('selections')) {
             $selections = [
-                'mySelections' => Auth::check() ? Auth::user()
+                'mySelections' => Auth::check() ? ListedSelection::collection(Auth::user()
                                     ->selections()
                                     ->orderBy('updated_at', 'DESC')
                                     ->with(['users:id,name'])
-                                    ->limit(4)->get() : null,
-                'mobNatSelections' => SelectionResource::collection($mob_nat_user->selections()
+                                    ->limit(4)->get()) : null,
+                'mobNatSelections' => ListedSelection::collection($mob_nat_user->selections()
                                     ->public()
                                     ->orderBy('updated_at', 'DESC')
                                     ->with('users:id,name,email')
                                     ->limit(4)->get()),
-                'userSelections' => SelectionResource::collection(Selection::with('users:id,name,email')
+                'userSelections' => ListedSelection::collection(Selection::with('users:id,name,email')
                         ->public()
                         ->whereDoesntHave('users', function ($q) {
                             $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);

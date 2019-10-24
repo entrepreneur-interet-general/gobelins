@@ -8,7 +8,8 @@ use \App\Models\Selection;
 use \App\Models\Invitation;
 use \App\Models\Product;
 use \App\User;
-use \App\Http\Resources\SelectionResource;
+use \App\Http\Resources\ListedSelection;
+use \App\Http\Resources\Selection as SelectionResource;
 
 class SelectionsController extends Controller
 {
@@ -35,9 +36,9 @@ class SelectionsController extends Controller
                                ->orderBy('updated_at', 'DESC')
                                ->with(['users:id,name'])
                                ->paginate(4);
-            return SelectionResource::collection($selections);
+            return ListedSelection::collection($selections);
         } else {
-            return SelectionResource::collection([]);
+            return ListedSelection::collection([]);
         }
     }
     
@@ -51,7 +52,7 @@ class SelectionsController extends Controller
                               ->with('users:id,name,email')
                               ->paginate(4);
 
-        return SelectionResource::collection($selections);
+        return ListedSelection::collection($selections);
     }
 
     public function listUserSelections(Request $request)
@@ -63,7 +64,7 @@ class SelectionsController extends Controller
                         })
                         ->orderBy('selections.updated_at', 'DESC')
                         ->paginate(4);
-        return SelectionResource::collection($selections);
+        return ListedSelection::collection($selections);
     }
 
 
@@ -133,6 +134,8 @@ class SelectionsController extends Controller
         
         $selection->products()->attach($product);
 
+        $selection->refreshPosterImages();
+
         // return ['mySelections' => $this->listMySelections()];
         return ['status' => 'ok'];
     }
@@ -187,20 +190,25 @@ class SelectionsController extends Controller
         
         $selection->products()->detach($product->id);
 
-        return ['mySelections' => $this->listMySelections()];
+        $selection->refreshPosterImages();
+
+        // return ['mySelections' => $this->listMySelections()];
+        return ['status' => 'ok'];
     }
 
 
-    public function show(Request $request, $selection_id)
+    public function show(Request $request, $id)
     {
-        $selection = Selection::findOrFail($selection_id);
+        $selection = Selection::findOrFail($id);
 
-        if (!$selection->public) {
-            $this->authorize('view', $selection);
+        $user = $request->user('api') ?: $request->user('web');
+        //dd($user);
+
+        if (!$selection->public && $user) {
+            $user->can('view', $selection);
         }
-        // $this->authorize('view', $selection);
 
-        return view('site.selection', [
+        return $request->expectsJson() ? (new SelectionResource($selection)) : view('site.selection', [
             'selection' => $selection,
         ]);
     }

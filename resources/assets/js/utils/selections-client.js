@@ -20,6 +20,10 @@ function fetchMineShort() {
   return client("api/selections/mine-short");
 }
 
+function fetchDetail(id) {
+  return client(`api/selections/${id}`);
+}
+
 function create(product_ids, selection) {
   return client("api/selections", {
     method: "POST",
@@ -75,6 +79,7 @@ export {
   fetchMobNat,
   fetchUser,
   fetchMineShort,
+  fetchDetail,
   add,
   create,
   remove,
