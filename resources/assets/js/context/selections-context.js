@@ -185,15 +185,11 @@ class SelectionsProvider extends React.Component {
   update = selection => {
     this.setState({ loading: true });
     return selectionsClient.update(selection).then(data => {
-      const updatedDetailData = data.mySelections.find(
-        s => s.id === selection.id
-      );
       this.setState({
-        initedMine: true,
         loading: false,
-        mySelections: data.mySelections,
-        detailSelection: updatedDetailData
+        detailSelection: data.data
       });
+      this.fetchMine();
       return data;
     });
   };

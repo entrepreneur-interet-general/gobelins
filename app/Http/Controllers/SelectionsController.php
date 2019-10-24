@@ -153,7 +153,7 @@ class SelectionsController extends Controller
 
         $selection->save();
 
-        return ['mySelections' => $this->listMySelections()];
+        return new SelectionResource($selection);
     }
 
 
