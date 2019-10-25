@@ -178,6 +178,7 @@ class SelectionsProvider extends React.Component {
         loading: false,
         mySelections: data.mySelections
       });
+      this.fetchMineShort();
       return data;
     });
   };
