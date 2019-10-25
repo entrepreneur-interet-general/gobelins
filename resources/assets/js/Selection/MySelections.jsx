@@ -151,21 +151,18 @@ function SelectionInputModal(props) {
 function MySelectionsList(props) {
   const selectionsContext = useSelections();
 
-  useEffect(() => {
-    if (
-      selectionsContext.loadingMine === false &&
-      selectionsContext.mySelections.length < 1
-    ) {
-      selectionsContext.fetchMine();
-    }
-  }, []);
+  const hasSelections = () =>
+    selectionsContext.mySelections && selectionsContext.mySelections.length > 1;
+
+  if (!selectionsContext.loadingMine && !hasSelections()) {
+    selectionsContext.fetchMine();
+  }
 
   return (
     <div className="MySelections">
-      {selectionsContext.loadingMine &&
-      selectionsContext.mySelections.length === 0 ? (
+      {selectionsContext.loadingMine ? (
         <Loader />
-      ) : selectionsContext.mySelections.length ? (
+      ) : hasSelections() ? (
         <ul className="SelectionsList">
           <SelectionsList
             selections={selectionsContext.mySelections}
