@@ -85,7 +85,7 @@ export default class SelectionEditForm extends React.Component {
           <Switch
             name="public"
             checked={this.state.public}
-            labelOn="Publique"
+            labelOn="Public"
             labelOff="Privé"
             onChange={this.handleChange}
           />
