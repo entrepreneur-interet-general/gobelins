@@ -24,6 +24,27 @@ export default function CollectionGridItem({
       ? datum.product_types.find(t => t.is_leaf).name
       : "");
 
+  const renderHeartButton = datum => {
+    return (
+      <button
+        type="button"
+        className="Collection__image-selection-button"
+        onClick={onSelectionClick.bind(this, datum)}
+      >
+        <Heart />
+      </button>
+    );
+  };
+
+  const renderRemoveFromSelection = datum => {
+    return (
+      <RemoveButton
+        onRemove={onRemoveFromSelection.bind(this, datum)}
+        className="Collection__remove-button"
+      />
+    );
+  };
+
   return (
     <a
       href={`/objet/${datum.inventory_id}`}
@@ -64,24 +85,14 @@ export default function CollectionGridItem({
                   "760 760w"
                 }
               /> */}
-          {onSelectionClick && (
-            <button
-              type="button"
-              className="Collection__image-selection-button"
-              onClick={onSelectionClick.bind(this, datum)}
-            >
-              <Heart />
-            </button>
-          )}
-          {onRemoveFromSelection && (
-            <RemoveButton
-              onRemove={onRemoveFromSelection.bind(this, datum)}
-              className="Collection__remove-button"
-            />
-          )}
+          {onSelectionClick && renderHeartButton(datum)}
+          {onRemoveFromSelection && renderRemoveFromSelection(datum)}
         </figure>
       ) : (
-        <div className="Collection__image-container--empty" />
+        <div className="Collection__image-container--empty">
+          {onSelectionClick && renderHeartButton(datum)}
+          {onRemoveFromSelection && renderRemoveFromSelection(datum)}
+        </div>
       )}
       <div className="Collection__cell-label">
         <h2 className="Collection__cell-title">
