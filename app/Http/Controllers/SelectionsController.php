@@ -35,7 +35,7 @@ class SelectionsController extends Controller
             $selections = $user->selections()
                                ->orderBy('updated_at', 'DESC')
                                ->with(['users:id,name'])
-                               ->paginate(4);
+                               ->paginate(10);
             return ListedSelection::collection($selections);
         } else {
             return ListedSelection::collection([]);
@@ -50,7 +50,7 @@ class SelectionsController extends Controller
                               ->public()
                               ->orderBy('updated_at', 'DESC')
                               ->with('users:id,name,email')
-                              ->paginate(4);
+                              ->paginate(10);
 
         return ListedSelection::collection($selections);
     }
@@ -63,7 +63,7 @@ class SelectionsController extends Controller
                             $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
                         })
                         ->orderBy('selections.updated_at', 'DESC')
-                        ->paginate(4);
+                        ->paginate(10);
         return ListedSelection::collection($selections);
     }
 
