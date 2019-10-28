@@ -44,6 +44,7 @@
 /* The default state when the user isn't authenticated. */
 .MySelections__unauthenticated {
   @extend %selections-grid;
+  display: block;
   margin-top: 30px;
   margin-bottom: 30px;
 

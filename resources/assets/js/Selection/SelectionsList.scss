@@ -2,12 +2,11 @@
   --selection-list-ext-gutter: 15px;
   margin: 0 var(--selection-list-ext-gutter);
   padding: 0;
-  // display: grid;
-  // grid-template-columns: 100%;
-  // grid-auto-columns: none;
-  // grid-auto-rows: auto;
-  // grid-row-gap: 50px;
-  display: block;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-auto-columns: none;
+  grid-auto-rows: auto;
+  grid-row-gap: 50px;
 
   @include breakpoint(600px) {
     display: grid;
