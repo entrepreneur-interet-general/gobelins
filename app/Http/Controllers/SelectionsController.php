@@ -132,7 +132,7 @@ class SelectionsController extends Controller
 
         $this->authorize('update', $selection);
         
-        $selection->products()->attach($product);
+        $selection->products()->syncWithoutDetaching([$product->id]);
 
         $selection->refreshPosterImages();
 
