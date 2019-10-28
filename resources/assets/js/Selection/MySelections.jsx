@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 import classNames from "classnames";
 import notifier from "../utils/notifier";
 
 import Button from "../ui/Button";
-import { useSelections } from "../context/selections-context";
+import {
+  useSelections,
+  SelectionsContext
+} from "../context/selections-context";
 import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import SelectionsList from "./SelectionsList";
@@ -148,34 +151,41 @@ function SelectionInputModal(props) {
   );
 }
 
-function MySelectionsList(props) {
-  const selectionsContext = useSelections();
+class MySelectionsList extends React.Component {
+  static contextType = SelectionsContext;
 
-  const hasSelections = () =>
-    selectionsContext.mySelections && selectionsContext.mySelections.length > 1;
-
-  if (!selectionsContext.loadingMine && !hasSelections()) {
-    selectionsContext.fetchMine();
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  return (
-    <div className="MySelections">
-      {selectionsContext.loadingMine ? (
-        <Loader />
-      ) : hasSelections() ? (
-        <ul className="SelectionsList">
-          <SelectionsList
-            selections={selectionsContext.mySelections}
-            className="MySelections__list-item"
-            rightHeader={null}
-          />
-          <MySelectionsHeader />
-        </ul>
-      ) : (
-        <UserHasNoSelections />
-      )}
-    </div>
-  );
+  componentWillMount = () => {
+    if (!this.context.loadingMine) {
+      this.context.fetchMine();
+    }
+  };
+
+  render = () => {
+    return (
+      <div className="MySelections">
+        {this.context.loadingMine ? (
+          <Loader />
+        ) : this.context.mySelections &&
+          this.context.mySelections.length > 1 ? (
+          <ul className="SelectionsList">
+            <SelectionsList
+              selections={this.context.mySelections}
+              className="MySelections__list-item"
+              rightHeader={null}
+            />
+            <MySelectionsHeader />
+          </ul>
+        ) : (
+          <UserHasNoSelections />
+        )}
+      </div>
+    );
+  };
 }
 
 function UserHasNoSelections(props) {
