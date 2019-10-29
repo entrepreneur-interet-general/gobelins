@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import MagnifyingGlass from "../icons/MagnifyingGlass";
 import Download from "../icons/Download";
+import Heart from "../icons/Heart";
 import Loader from "../Loader";
 
 class MainImage extends Component {
@@ -49,6 +50,7 @@ class MainImage extends Component {
               <Link
                 to={`${this.props.match.url}/zoom`}
                 className="DetailMainImage__button DetailMainImage__button--magnifying-glass"
+                title="Agrandir l’image"
               >
                 <MagnifyingGlass />
               </Link>
@@ -56,9 +58,23 @@ class MainImage extends Component {
                 type="button"
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
+                title="Télécharger l’image en haute définition"
               >
                 <Download />
               </button>
+              {this.props.onSelectionClick && (
+                <button
+                  type="button"
+                  className="DetailMainImage__button DetailMainImage__button--selection"
+                  onClick={this.props.onSelectionClick.bind(
+                    this,
+                    this.props.product
+                  )}
+                  title="Ajouter l’objet à une sélection"
+                >
+                  <Heart />
+                </button>
+              )}
             </div>
           </figure>
         ) : (

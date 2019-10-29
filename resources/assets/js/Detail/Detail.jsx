@@ -11,6 +11,8 @@ import Data from "./Data.jsx";
 import Info from "./Info.jsx";
 import DetailZoomed from "./DetailZoomed.jsx";
 import DownloadModal from "./DownloadModal.jsx";
+import AddToSelectionModal from "../Selection/AddToSelectionModal";
+import CrossSimple from "../icons/CrossSimple";
 
 class Detail extends Component {
   constructor(props) {
@@ -29,7 +31,8 @@ class Detail extends Component {
       mainImageIndex: 0,
       layoutOrientation: this.computeLayoutOrientation(),
       zoomedMode: false,
-      downloadMode: false
+      downloadMode: false,
+      addingToSelection: null
     };
     this.computeLayoutOrientation = this.computeLayoutOrientation.bind(this);
     this.handleMainImageIndex = this.handleMainImageIndex.bind(this);
@@ -60,6 +63,20 @@ class Detail extends Component {
   handleMainImageIndex(index) {
     this.setState({ mainImageIndex: index });
   }
+
+  handleSelectionClick = (product, ev) => {
+    ev.stopPropagation();
+    ev.preventDefault();
+    console.log("handleSelectionClick", product);
+
+    this.setState({ addingToSelection: product });
+    document.documentElement.classList.add("prevent-scroll");
+  };
+
+  handleCloseAddToSelection = () => {
+    this.setState({ addingToSelection: null });
+    document.documentElement.classList.remove("prevent-scroll");
+  };
 
   renderTitle() {
     return (
@@ -115,6 +132,8 @@ class Detail extends Component {
                       downloadMode: true
                     });
                   }}
+                  product={this.props.product}
+                  onSelectionClick={this.handleSelectionClick}
                 />
                 {this.hasImages && this.props.product.images.length > 1 ? (
                   <ImageList
@@ -146,6 +165,20 @@ class Detail extends Component {
                   <Info product={this.props.product} />
                 </div>
               </div>
+              {this.state.addingToSelection && (
+                <AddToSelectionModal
+                  product={this.state.addingToSelection}
+                  onClose={this.handleCloseAddToSelection}
+                  closeButton={
+                    <button
+                      className="SelectionModal__close"
+                      onClick={this.handleCloseAddToSelection}
+                    >
+                      <CrossSimple />
+                    </button>
+                  }
+                />
+              )}
             </article>
           )}
         />

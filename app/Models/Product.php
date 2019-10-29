@@ -228,6 +228,7 @@ class Product extends Model
     public function toSearchableArray()
     {
         return [
+            '_id' => $this->id,
             'title_or_designation' => $this->title_or_designation,
             'denomination' => $this->denomination,
             'description' => in_array($this->publication_code, ['P+D', 'P+D+P', 'P+D+O']) ? $this->description : null,

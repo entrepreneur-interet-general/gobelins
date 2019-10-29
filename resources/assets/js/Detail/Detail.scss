@@ -119,6 +119,7 @@
   z-index: 1;
   color: black;
 }
+
 .DetailMainImage__button {
   height: 50px;
   width: 50px;
@@ -146,11 +147,19 @@
     color: $green-medium;
     border-color: $green-medium;
   }
+  &.DetailMainImage__button--selection:hover {
+    color: $heart-red;
+    border-color: $heart-red;
+  }
 
   svg {
     display: block;
     flex: 0 0 auto;
   }
+}
+.DetailMainImage__button--selection svg {
+  position: relative;
+  top: 1px;
 }
 
 .DetailImageList {
