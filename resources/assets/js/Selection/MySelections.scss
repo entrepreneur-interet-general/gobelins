@@ -2,7 +2,7 @@
   position: relative;
   padding: 50px 0;
   min-height: 60px;
-  @include breakpoint(760px) {
+  @include breakpoint(1024px) {
     padding-top: 100px;
     min-height: 110px;
   }
@@ -48,6 +48,10 @@
   margin-top: 30px;
   margin-bottom: 30px;
 
+  @include breakpoint(600px) {
+    display: grid;
+  }
+
   & .MySelections__blank-slate {
     grid-area: span 2 / left;
     display: none;
@@ -77,12 +81,17 @@
   grid-area: auto / right;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  margin-top: 30px;
   max-width: 180px;
+  margin-top: 30px;
+  @include breakpoint(600px) {
+    margin-top: 0;
+  }
   @include breakpoint(1024px) {
+    justify-content: flex-start;
     max-width: 350px;
+    margin-top: 30px;
     flex-flow: row nowrap;
   }
   & button:first-child {
