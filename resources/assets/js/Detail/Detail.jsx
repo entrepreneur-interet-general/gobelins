@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { hotkeys } from "react-keyboard-shortcuts";
 import { Media } from "react-breakpoints";
+import classNames from "classnames";
 
 import BackToCollection from "./BackToCollection.jsx";
 import MainImage from "./MainImage.jsx";
@@ -95,12 +96,11 @@ class Detail extends Component {
           path={this.props.match.path}
           render={props => (
             <article
-              className={
-                "Detail has-" +
-                this.state.layoutOrientation +
-                "-poster" +
-                (this.hasSingleImage ? " has-single-image" : "")
-              }
+              className={classNames(
+                "Detail",
+                `has-${this.state.layoutOrientation}-poster`,
+                { "has-single-image": this.hasSingleImage }
+              )}
             >
               <div className="Detail__left-zone">
                 <BackToCollection
