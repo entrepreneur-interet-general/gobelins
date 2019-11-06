@@ -202,15 +202,16 @@ class SelectionsController extends Controller
         $selection = Selection::findOrFail($id);
 
         $user = $request->user('api') ?: $request->user('web');
-        //dd($user);
 
         if (!$selection->public && $user) {
             $user->can('view', $selection);
         }
 
-        return $request->expectsJson() ? (new SelectionResource($selection)) : view('site.selection', [
-            'selection' => $selection,
-        ]);
+        if ($request->expectsJson()) {
+            return new SelectionResource($selection);
+        } else {
+            return view('site.selection', ['selection' => $selection]);
+        }
     }
 
     /***
@@ -223,7 +224,7 @@ class SelectionsController extends Controller
         $this->authorize('uninvite', $selection);
         
         $selection->users()->detach($user_id);
-        
+
         return response()->json(['status' => 'ok']);
     }
 

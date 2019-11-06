@@ -18,7 +18,7 @@ class Selection extends JsonResource
     public function toArray($request)
     {
         $canUpdateThis = $request->user('api') && $request->user('api')->can('update', $this->resource);
-
+        
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -37,14 +37,15 @@ class Selection extends JsonResource
                 'invitations' => $this->invitations,
             ]),
             'products' => $this->products->map(function ($p) {
-                return [
-                    'title_or_designation' => $p->title_or_designation,
-                    'denomination' => $p->denomination,
-                    'inventory_id' => $p->inventory_id,
-                    'product_types' => $p->searchableProductTypes,
-                    'authors' => $p->searchableAuthors,
-                    'images' => $p->searchableImages,
-                ];
+                return $p->toSearchableArray();
+                // return [
+                //     'title_or_designation' => $p->title_or_designation,
+                //     'denomination' => $p->denomination,
+                //     'inventory_id' => $p->inventory_id,
+                //     'product_types' => $p->searchableProductTypes,
+                //     'authors' => $p->searchableAuthors,
+                //     'images' => $p->searchableImages,
+                // ];
             })->all()
         ];
     }
