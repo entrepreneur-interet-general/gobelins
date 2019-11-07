@@ -36,7 +36,10 @@ class Selection extends JsonResource
                 "type" => "products",
                 "body" => ["ids" => $this->resource->products()->allRelatedIds()]
             ]);
-            $products = collect($es['docs'])->pluck('_source')->all();
+            $products = collect($es['docs'])->map(function ($d) {
+                $d['_source']['_id'] = $d['_id'];
+                return $d;
+            })->pluck('_source')->all();
         } else {
             $products = [];
         }

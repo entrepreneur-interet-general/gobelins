@@ -166,6 +166,7 @@ class SelectionsProvider extends React.Component {
         };
       });
       this.fetchMine();
+      this.fetchMineShort();
       return data;
     });
   };
@@ -191,6 +192,7 @@ class SelectionsProvider extends React.Component {
         detailSelection: data.data
       });
       this.fetchMine();
+      this.fetchMineShort();
       return data;
     });
   };
@@ -204,6 +206,7 @@ class SelectionsProvider extends React.Component {
         mySelections: data.mySelections,
         detailSelection: null
       });
+      this.fetchMineShort();
       return data;
     });
   };

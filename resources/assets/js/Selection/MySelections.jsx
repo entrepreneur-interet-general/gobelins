@@ -171,7 +171,7 @@ class MySelectionsList extends React.Component {
         {this.context.loadingMine ? (
           <Loader />
         ) : this.context.mySelections &&
-          this.context.mySelections.length > 1 ? (
+          this.context.mySelections.length > 0 ? (
           <ul className="SelectionsList">
             <SelectionsList
               selections={this.context.mySelections}
