@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 
 import EditUserForm from "./EditUserForm";
 import Loader from "../Loader";
 import { useAuth } from "../context/auth-context";
+import CrossSimple from "../icons/CrossSimple";
 
 export default function EditUserModal(props) {
   const [loading, setLoading] = useState(false);
@@ -17,8 +18,10 @@ export default function EditUserModal(props) {
         backdropClassName="Modal__overlay SelectionModal__overlay"
         onClose={props.onClose}
       >
-        <>
-          {props.closeButton}
+        <Fragment>
+          <button className="SelectionModal__close" onClick={props.onClose}>
+            <CrossSimple />
+          </button>
           <div className="SelectionModal__content-scrollable">
             <div className="SelectionModal__wrapper SelectionModal__wrapper--user">
               {loading ? (
@@ -32,7 +35,7 @@ export default function EditUserModal(props) {
               )}
             </div>
           </div>
-        </>
+        </Fragment>
       </ReactModal2>
     </Gateway>
   );

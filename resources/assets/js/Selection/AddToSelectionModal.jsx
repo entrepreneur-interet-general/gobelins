@@ -5,6 +5,7 @@ import ReactModal2 from "react-modal2";
 import { AuthContext } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import AddToSelectionSteps from "./AddToSelectionSteps";
+import CrossSimple from "../icons/CrossSimple";
 
 export default class AddToSelectionModal extends React.Component {
   constructor(props) {
@@ -22,7 +23,12 @@ export default class AddToSelectionModal extends React.Component {
           <AuthContext.Consumer>
             {auth => (
               <Fragment>
-                {this.props.closeButton}
+                <button
+                  className="SelectionModal__close"
+                  onClick={this.props.onClose}
+                >
+                  <CrossSimple />
+                </button>
                 <div className="SelectionModal__content-scrollable">
                   {auth.data.authenticated ? (
                     <AddToSelectionSteps

@@ -131,7 +131,9 @@ function SelectionInputModal(props) {
         onClose={props.onClose}
       >
         <>
-          {props.closeButton}
+          <button className="SelectionModal__close" onClick={props.onClose}>
+            <CrossSimple />
+          </button>
           <div className="SelectionModal__content-scrollable">
             <div className="SelectionModal__wrapper">
               {loading ? (
