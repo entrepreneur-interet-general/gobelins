@@ -48,7 +48,6 @@ export default function ConfirmedDelete(props) {
                   onClick={handleDeletion}
                   warning
                   className="ConfirmedDelete__large-butt"
-                  popOver="Attention, cette action est irréversible."
                 >
                   {props.deleteLabel || "Supprimer"}
                 </Button>
