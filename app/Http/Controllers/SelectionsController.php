@@ -110,6 +110,7 @@ class SelectionsController extends Controller
 
         if ($request->product_ids) {
             $selection->products()->attach($request->product_ids);
+            $selection->refreshPosterImages();
         }
 
         return ['mySelections' => $this->listMySelections()];
