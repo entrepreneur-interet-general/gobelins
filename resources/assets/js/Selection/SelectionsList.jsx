@@ -1,65 +1,53 @@
-import React from "react";
-import imageUrl from "../utils/image-url";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-
-import ImagesPlaceholder from "./ImagesPlaceholder";
-import PadlockTiny from "../icons/PadlockTiny";
-import { useSelections } from "../context/selections-context";
+import React, { useState, useEffect } from "react";
+import Bricks from "bricks.js";
+import { Media } from "react-breakpoints";
 
 export default function SelectionsList(props) {
-  return props.selections.map((sel, i) => (
-    <SelectionsListItem selection={sel} key={sel.id} {...props} />
-  ));
-}
+  let masonryContainerRef = React.createRef();
 
-// function collectImages(selection) {
-//   return selection.products
-//     .map(prod => {
-//       return prod.images.length ? prod.images[0] : null;
-//     })
-//     .filter(v => v)
-//     .slice(0, 4);
-// }
+  useEffect(() => {
+    // If we aren't displaying the container
+    // (because no selections or mobile breakpoint)
+    // then bail.
+    if (!masonryContainerRef.current) {
+      return;
+    }
+    const bricksInstance = Bricks({
+      container: masonryContainerRef.current,
+      packed: "packed",
+      sizes: [{ columns: 2, gutter: 0 }],
+      position: true
+    });
+    bricksInstance.resize(false);
+    bricksInstance.pack();
 
-function SelectionsListItem({ selection, extraHeader, className }) {
-  const illustrativeImages = selection.images;
-  const selectionContext = useSelections();
+    let ticking = false;
+    function resizeHandler() {
+      if (!ticking) {
+        window.requestAnimationFrame(forceRepack);
+        ticking = true;
+      }
+    }
+    function forceRepack() {
+      bricksInstance.pack();
+      ticking = false;
+    }
+    window.addEventListener("resize", resizeHandler);
+  }, [props.children]);
 
   return (
-    <div className={classNames("SelectionsListItem", className)}>
-      <Link
-        to={{
-          pathname: `/selections/${selection.id}`,
-          state: { selection: selection }
-        }}
-      >
-        <div className="SelectionsListItem__images-wrapper">
-          <div className="SelectionsListItem__images">
-            {illustrativeImages.length ? (
-              illustrativeImages.map((image, i) => {
-                const thumbUrl = imageUrl(image.path, 330);
-                return <img src={thumbUrl} alt="" key={i} />;
-              })
-            ) : (
-              <ImagesPlaceholder />
-            )}
+    <Media>
+      {({ breakpoints, currentBreakpoint }) =>
+        breakpoints[currentBreakpoint] >= breakpoints.small ? (
+          <div className="SelectionsList__masonry-container">
+            <div ref={masonryContainerRef}>{props.children}</div>
           </div>
-        </div>
-      </Link>
-      <div className="SelectionsListItem__title-line">
-        <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
-        {Boolean(selection.products) &&
-          Boolean(selection.products.length) && (
-            <span className="SelectionsListItem__count">
-              {selection.products.length} objet
-              {selection.products.length > 1 ? "s" : ""}
-            </span>
-          )}{" "}
-        <span>par {selection.users.map(u => u.name).join(", ")}</span>
-        {selection.public !== true && <PadlockTiny />}
-      </div>
-      <div className="SelectionsListItem__desc">{selection.description}</div>
-    </div>
+        ) : (
+          <div className="SelectionsList__mobile-container">
+            {props.children}
+          </div>
+        )
+      }
+    </Media>
   );
 }

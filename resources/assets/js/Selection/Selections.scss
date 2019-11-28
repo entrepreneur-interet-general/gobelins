@@ -55,17 +55,10 @@
   margin: 0;
 }
 .Selections__load-more {
-  grid-row-start: auto;
-  grid-column: right;
   min-height: 61px;
-  margin-top: -50px;
-  z-index: 1;
-  position: relative;
 
   &.is-mine {
-    grid-column: left;
     color: white;
-    margin-top: 50px;
   }
 }
 .Selections__load-more-button {

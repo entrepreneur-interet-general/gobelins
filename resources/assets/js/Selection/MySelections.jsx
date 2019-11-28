@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, Fragment } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 import classNames from "classnames";
@@ -12,6 +12,7 @@ import {
 import { useAuth } from "../context/auth-context";
 import AuthModal from "../Auth/AuthModal";
 import SelectionsList from "./SelectionsList";
+import SelectionsListItem from "./SelectionsListItem";
 import SelectionInput from "./SelectionInput";
 import Loader from "../Loader";
 import Heart from "../icons/Heart";
@@ -178,32 +179,43 @@ class MySelectionsList extends React.Component {
     return (
       <div className="MySelections">
         {this.context.loadingMine ? (
-          <Loader />
+          <Loader className="SelectionsList__loader" />
         ) : this.context.mySelections &&
           this.context.mySelections.length > 0 ? (
           <div className="SelectionsList">
-            <SelectionsList
-              selections={this.context.mySelections}
-              className="MySelections__list-item"
-              rightHeader={null}
-            />
-            <MySelectionsHeader />
-            {this.context.hasMoreMySelections && (
-              <div className="Selections__load-more is-mine">
-                {this.context.loadingMoreMy ? (
-                  <Loader className="Selections__load-spinner" />
-                ) : (
-                  <button
-                    onClick={this.handleLoadMore}
-                    type="button"
-                    className="Selections__load-more-button"
-                  >
-                    <ArrowBottomRight />
-                    Voir plus
-                  </button>
-                )}
-              </div>
-            )}
+            <SelectionsList className="MySelections__list-item">
+              {this.context.mySelections.map((sel, i) => (
+                <Fragment key={sel.id}>
+                  {i === 1 && (
+                    <MySelectionsHeader className="SelectionsList__header SelectionsList__masonry-item" />
+                  )}
+                  <SelectionsListItem
+                    selection={sel}
+                    className="SelectionsList__masonry-item"
+                    {...this.props}
+                  />
+                </Fragment>
+              ))}
+              {this.context.hasMoreMySelections && (
+                <div
+                  className="Selections__load-more is-mine SelectionsList__masonry-item"
+                  key="load-more"
+                >
+                  {this.context.loadingMoreMine ? (
+                    <Loader className="Selections__load-spinner" />
+                  ) : (
+                    <button
+                      onClick={this.handleLoadMore}
+                      type="button"
+                      className="Selections__load-more-button"
+                    >
+                      <ArrowBottomRight />
+                      Voir plus
+                    </button>
+                  )}
+                </div>
+              )}
+            </SelectionsList>
           </div>
         ) : (
           <UserHasNoSelections />

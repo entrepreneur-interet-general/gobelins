@@ -5,6 +5,7 @@ import { useSelections } from "../context/selections-context";
 import CrossSimple from "../icons/CrossSimple";
 import MySelections from "./MySelections";
 import SelectionsList from "./SelectionsList";
+import SelectionsListItem from "./SelectionsListItem";
 import ScrollToTop from "../Collection/ScrollToTop";
 import Loader from "../Loader";
 import ArrowBottomRight from "../icons/ArrowBottomRight";
@@ -55,28 +56,37 @@ function MobNatSelections(props) {
         {selectionsContext.loadingMobNat ? (
           <Loader className="SelectionsList__loader" />
         ) : (
-          <SelectionsList selections={selectionsContext.mobNatSelections} />
-        )}
-        <h1 className="Selections__inset-header">
-          Explorer les sélections
-          <br />
-          du Mobilier national
-        </h1>
-        {selectionsContext.hasMoreMobNatSelections && (
-          <div className="Selections__load-more">
-            {selectionsContext.loadingMoreMobNat ? (
-              <Loader className="Selections__load-spinner" />
-            ) : (
-              <button
-                onClick={handleLoadMore}
-                type="button"
-                className="Selections__load-more-button"
-              >
-                <ArrowBottomRight />
-                Voir plus
-              </button>
+          <SelectionsList>
+            <h1 className="Selections__inset-header SelectionsList__masonry-item">
+              Explorer les sélections
+              <br />
+              du Mobilier national
+            </h1>
+            {selectionsContext.mobNatSelections.map(sel => (
+              <SelectionsListItem
+                selection={sel}
+                key={sel.id}
+                className="SelectionsList__masonry-item"
+                {...props}
+              />
+            ))}
+            {selectionsContext.hasMoreMobNatSelections && (
+              <div className="Selections__load-more SelectionsList__masonry-item">
+                {selectionsContext.loadingMoreMobNat ? (
+                  <Loader className="Selections__load-spinner" />
+                ) : (
+                  <button
+                    onClick={handleLoadMore}
+                    type="button"
+                    className="Selections__load-more-button"
+                  >
+                    <ArrowBottomRight />
+                    Voir plus
+                  </button>
+                )}
+              </div>
             )}
-          </div>
+          </SelectionsList>
         )}
         {/*
           <fieldset className="Selections__inset-search">
@@ -112,26 +122,35 @@ function UserSelections(props) {
         {selectionsContext.loadingUser ? (
           <Loader className="SelectionsList__loader" />
         ) : (
-          <SelectionsList selections={selectionsContext.userSelections} />
-        )}
-        <h1 className="Selections__inset-header">
-          Dernières sélections des utilisateurs
-        </h1>
-        {selectionsContext.hasMoreUserSelections && (
-          <div className="Selections__load-more">
-            {selectionsContext.loadingMoreUser ? (
-              <Loader className="Selections__load-spinner" />
-            ) : (
-              <button
-                onClick={handleLoadMore}
-                type="button"
-                className="Selections__load-more-button"
-              >
-                <ArrowBottomRight />
-                Voir plus
-              </button>
+          <SelectionsList>
+            <h1 className="Selections__inset-header SelectionsList__masonry-item">
+              Dernières sélections des utilisateurs
+            </h1>
+            {selectionsContext.userSelections.map(sel => (
+              <SelectionsListItem
+                selection={sel}
+                key={sel.id}
+                className="SelectionsList__masonry-item"
+                {...props}
+              />
+            ))}
+            {selectionsContext.hasMoreUserSelections && (
+              <div className="Selections__load-more SelectionsList__masonry-item">
+                {selectionsContext.loadingMoreUser ? (
+                  <Loader className="Selections__load-spinner" />
+                ) : (
+                  <button
+                    onClick={handleLoadMore}
+                    type="button"
+                    className="Selections__load-more-button"
+                  >
+                    <ArrowBottomRight />
+                    Voir plus
+                  </button>
+                )}
+              </div>
             )}
-          </div>
+          </SelectionsList>
         )}
       </div>
     </div>

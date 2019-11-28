@@ -106,6 +106,8 @@ class SelectionsProvider extends React.Component {
       this.setState({
         initedMine: true,
         loadingMine: false,
+        mySelectionsNextUrl: data.links.next,
+        hasMoreMySelections: Boolean(data.links.next),
         mySelections: data.data
       });
     });
@@ -114,13 +116,13 @@ class SelectionsProvider extends React.Component {
   fetchMoreMine = () => {
     const nextUrl = this.state.mySelectionsNextUrl;
     this.setState({
-      loadingMoreMy: true
+      loadingMoreMine: true
     });
     return selectionsClient.fetchMore(nextUrl).then(data => {
       this.setState(state => {
         const mySelections = [...state.mySelections, ...data.data];
         return {
-          loadingMoreMobNat: false,
+          loadingMoreMine: false,
           mySelectionsNextUrl: data.links.next,
           hasMoreMySelections: Boolean(data.links.next),
           mySelections

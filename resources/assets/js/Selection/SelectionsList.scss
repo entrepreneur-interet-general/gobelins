@@ -25,23 +25,83 @@
 }
 
 .SelectionsList {
-  @extend %selections-grid;
+  // @extend %selections-grid;
+  @include breakpoint(768px) {
+    overflow: hidden;
+  }
 }
 
-.SelectionsListItem {
-  grid-row: auto;
+.SelectionsList__mobile-container {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: auto 15px;
 }
-@include breakpoint(600px) {
-  .SelectionsListItem:nth-child(odd) {
-    grid-area: auto / left;
-    margin-top: calc(65px + 30px);
+.SelectionsList__header {
+  order: -1; // Pull it to the top on mobile.
+}
+
+.SelectionsList__masonry-container {
+  position: relative;
+  --ext-gutter: 15px;
+  --int-gutter: 0px;
+  --cols: 1;
+  --col-width: calc(
+    (100vw - (var(--ext-gutter) * 2 + var(--int-gutter) * (var(--cols) - 1))) /
+      var(--cols)
+  );
+  margin: 0 var(--ext-gutter);
+
+  @include breakpoint(768px) {
+    width: calc(100% + var(--int-gutter));
+    left: calc(var(--int-gutter) * -1);
+
+    --cols: 2;
+    --ext-gutter: 80px;
+    --int-gutter: 110px;
   }
-  .SelectionsListItem:nth-child(even) {
-    grid-area: auto / right;
-    margin-top: -30px;
+
+  @include breakpoint(1025px) {
+    --ext-gutter: 100px;
+    --int-gutter: 155px;
   }
-  .SelectionsListItem:nth-child(2) {
-    margin-top: 0;
+  @include breakpoint(1152px) {
+    --ext-gutter: 110px;
+    --int-gutter: 180px;
+  }
+  @include breakpoint(1280px) {
+    --ext-gutter: 150px;
+    --int-gutter: 190px;
+  }
+
+  @include breakpoint(1440px) {
+    --ext-gutter: 170px;
+    --int-gutter: 227px;
+  }
+
+  @include breakpoint(1600px) {
+    --int-gutter: 280px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+    --col-width: calc(
+      (1700px - (var(--int-gutter) * (var(--cols) - 1))) / var(--cols)
+    );
+  }
+  @include breakpoint(2200px) {
+    --int-gutter: 377px;
+  }
+}
+
+.SelectionsList__masonry-item {
+  margin-bottom: 50px;
+  @include breakpoint(768px) {
+    position: absolute;
+    width: var(--col-width);
+    padding-left: var(--int-gutter);
+    padding-bottom: 100px;
+    margin-bottom: 0;
   }
 }
 
