@@ -1,9 +1,5 @@
 import client from "./api-client";
 
-function fetchAll() {
-  return client("api/selections");
-}
-
 function fetchMine() {
   return client("api/selections/mine");
 }
@@ -22,6 +18,10 @@ function fetchMineShort() {
 
 function fetchDetail(id) {
   return client(`api/selections/${id}`);
+}
+
+function fetchMore(url) {
+  return client(url);
 }
 
 function create(product_ids, selection) {
@@ -74,12 +74,12 @@ function destroy_collaboration(user, selection) {
 }
 
 export {
-  fetchAll,
   fetchMine,
   fetchMobNat,
   fetchUser,
   fetchMineShort,
   fetchDetail,
+  fetchMore,
   add,
   create,
   remove,

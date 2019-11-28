@@ -12,9 +12,10 @@
   position: absolute;
   top: 10px;
   right: 5px;
-  @include breakpoint(760px) {
+  @include breakpoint(769px) {
     top: 45px;
     right: 20px;
+    position: fixed;
   }
   z-index: 1;
   background-color: transparent;
@@ -53,6 +54,46 @@
   line-height: rem(41px);
   margin: 0;
 }
+.Selections__load-more {
+  grid-row-start: auto;
+  grid-column: right;
+  min-height: 61px;
+  margin-top: -50px;
+  z-index: 1;
+  position: relative;
+
+  &.is-mine {
+    grid-column: left;
+    color: white;
+    margin-top: 50px;
+  }
+}
+.Selections__load-more-button {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0;
+  margin-left: -10px;
+  padding: 10px;
+  border: 0;
+  background-color: transparent;
+
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+
+  cursor: pointer;
+
+  > svg {
+    margin-right: 7px;
+  }
+
+  .is-mine & {
+    color: white;
+  }
+}
+
 .Selections__inset-search {
   display: none;
   grid-row: 1;

@@ -2,6 +2,7 @@ import React from "react";
 
 import * as authClient from "../utils/auth-client";
 import * as selectionsClient from "../utils/selections-client";
+import get from "lodash.get";
 const SelectionsContext = React.createContext();
 
 class SelectionsProvider extends React.Component {
@@ -10,27 +11,63 @@ class SelectionsProvider extends React.Component {
     this.state = {
       loading: false,
       loadingMine: false,
+      loadingMoreMine: false,
       loadingMineShort: false,
       loadingMobNat: false,
+      loadingMoreMobNat: false,
       loadingUser: false,
+      loadingMoreUser: false,
       loadingDetail: false,
+      hasMoreMySelections: Boolean(
+        get(window, "SELECTIONS.mySelections.links.next")
+      ),
+      hasMoreMobNatSelections: Boolean(
+        get(window, "SELECTIONS.mobNatSelections.links.next")
+      ),
+      hasMoreUserSelections: Boolean(
+        get(window, "SELECTIONS.userSelections.links.next")
+      ),
+      mySelectionsNextUrl: get(window, "SELECTIONS.mySelections.links.next"),
+      userSelectionsNextUrl: get(
+        window,
+        "SELECTIONS.userSelections.links.next"
+      ),
+      mobNatSelectionsNextUrl: get(
+        window,
+        "SELECTIONS.mobNatSelections.links.next"
+      ),
       detailSelection: window.SELECTION_DETAIL || null,
       initedMine:
-        window.SELECTIONS && window.SELECTIONS.mySelections ? true : false,
-      mySelections: (window.SELECTIONS && window.SELECTIONS.mySelections) || [],
+        window.SELECTIONS &&
+        window.SELECTIONS.mySelections &&
+        window.SELECTIONS.mySelections.data
+          ? true
+          : false,
+      mySelections:
+        (window.SELECTIONS &&
+          window.SELECTIONS.mySelections &&
+          window.SELECTIONS.mySelections.data) ||
+        [],
       mySelectionsShort:
         (window.SELECTIONS &&
           window.SELECTIONS.mySelections &&
-          window.SELECTIONS.mySelections.map(s => {
+          window.SELECTIONS.mySelections.data &&
+          window.SELECTIONS.mySelections.data.map(s => {
             {
               s.id, s.name, s.public;
             }
           })) ||
         [],
       mobNatSelections:
-        (window.SELECTIONS && window.SELECTIONS.mobNatSelections) || [],
+        (window.SELECTIONS &&
+          window.SELECTIONS.mobNatSelections &&
+          window.SELECTIONS.mobNatSelections.data) ||
+        [],
       userSelections:
-        (window.SELECTIONS && window.SELECTIONS.userSelections) || [],
+        (window.SELECTIONS &&
+          window.SELECTIONS.userSelections &&
+          window.SELECTIONS.userSelections.data) ||
+        [],
       selections: []
     };
   }
@@ -61,21 +98,6 @@ class SelectionsProvider extends React.Component {
     }
   };
 
-  fetchAll = () => {
-    this.setState({
-      loading: true
-    });
-    return selectionsClient.fetchAll().then(data => {
-      this.setState({
-        initedMine: true,
-        loading: false,
-        mySelections: data.mySelections,
-        mobNatSelections: data.mobNatSelections,
-        userSelections: data.userSelections
-      });
-    });
-  };
-
   fetchMine = () => {
     this.setState({
       loadingMine: true
@@ -89,6 +111,24 @@ class SelectionsProvider extends React.Component {
     });
   };
 
+  fetchMoreMine = () => {
+    const nextUrl = this.state.mySelectionsNextUrl;
+    this.setState({
+      loadingMoreMy: true
+    });
+    return selectionsClient.fetchMore(nextUrl).then(data => {
+      this.setState(state => {
+        const mySelections = [...state.mySelections, ...data.data];
+        return {
+          loadingMoreMobNat: false,
+          mySelectionsNextUrl: data.links.next,
+          hasMoreMySelections: Boolean(data.links.next),
+          mySelections
+        };
+      });
+    });
+  };
+
   fetchMobNat = () => {
     this.setState({
       loadingMobNat: true
@@ -96,7 +136,27 @@ class SelectionsProvider extends React.Component {
     return selectionsClient.fetchMobNat().then(data => {
       this.setState({
         loadingMobNat: false,
+        mobNatSelectionsNextUrl: data.links.next,
+        hasMoreMobNatSelections: Boolean(data.links.next),
         mobNatSelections: data.data
+      });
+    });
+  };
+
+  fetchMoreMobNat = () => {
+    const nextUrl = this.state.mobNatSelectionsNextUrl;
+    this.setState({
+      loadingMoreMobNat: true
+    });
+    return selectionsClient.fetchMore(nextUrl).then(data => {
+      this.setState(state => {
+        const mobNatSelections = [...state.mobNatSelections, ...data.data];
+        return {
+          loadingMoreMobNat: false,
+          mobNatSelectionsNextUrl: data.links.next,
+          hasMoreMobNatSelections: Boolean(data.links.next),
+          mobNatSelections
+        };
       });
     });
   };
@@ -108,7 +168,29 @@ class SelectionsProvider extends React.Component {
     return selectionsClient.fetchUser().then(data => {
       this.setState({
         loadingUser: false,
+        userSelectionsNextUrl: data.links.next,
+        hasMoreUserSelections: Boolean(data.links.next),
         userSelections: data.data
+      });
+    });
+  };
+
+  fetchMoreUser = () => {
+    const nextUrl = this.state.userSelectionsNextUrl;
+    this.setState({
+      loadingMoreUser: true
+    });
+    return selectionsClient.fetchMore(nextUrl).then(data => {
+      this.setState(state => {
+        const userSelections = [...state.userSelections, ...data.data];
+        console.log({ userSelections });
+
+        return {
+          loadingMoreUser: false,
+          userSelectionsNextUrl: data.links.next,
+          hasMoreUserSelections: Boolean(data.links.next),
+          userSelections
+        };
       });
     });
   };
@@ -301,10 +383,18 @@ class SelectionsProvider extends React.Component {
           mobNatSelections: this.state.mobNatSelections,
           detailSelection: this.state.detailSelection,
           selections: this.state.selections,
-          fetchAll: this.fetchAll,
           fetchMine: this.fetchMine,
           fetchMobNat: this.fetchMobNat,
           fetchUser: this.fetchUser,
+          fetchMoreMine: this.fetchMoreMine,
+          fetchMoreMobNat: this.fetchMoreMobNat,
+          fetchMoreUser: this.fetchMoreUser,
+          hasMoreMySelections: this.state.hasMoreMySelections,
+          hasMoreMobNatSelections: this.state.hasMoreMobNatSelections,
+          hasMoreUserSelections: this.state.hasMoreUserSelections,
+          loadingMoreMine: this.state.loadingMoreMine,
+          loadingMoreMobNat: this.state.loadingMoreMobNat,
+          loadingMoreUser: this.state.loadingMoreUser,
           fetchMineShort: this.fetchMineShort,
           fetchDetail: this.fetchDetail,
           add: this.add,

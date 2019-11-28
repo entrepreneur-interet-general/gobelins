@@ -31,7 +31,9 @@ function client(endpoint, { body, ...customConfig } = {}) {
     }
   }
 
-  return window.fetch(`/${endpoint}`, config).then(response => {
+  const url = endpoint.startsWith("http") ? endpoint : `/${endpoint}`;
+
+  return window.fetch(url, config).then(response => {
     return response.json().then(json => {
       if (response.ok) {
         return Promise.resolve(json);

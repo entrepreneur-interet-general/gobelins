@@ -15,6 +15,7 @@ import SelectionsList from "./SelectionsList";
 import SelectionInput from "./SelectionInput";
 import Loader from "../Loader";
 import Heart from "../icons/Heart";
+import ArrowBottomRight from "../icons/ArrowBottomRight";
 import SelectionsBlank from "../icons/SelectionsBlank";
 import ImagesPlaceholder from "./ImagesPlaceholder";
 import EditUserModal from "../Auth/EditUserModal";
@@ -162,8 +163,14 @@ class MySelectionsList extends React.Component {
   }
 
   componentWillMount = () => {
-    if (!this.context.loadingMine) {
+    if (!this.context.loadingMine && !this.context.initedMine) {
       this.context.fetchMine();
+    }
+  };
+
+  handleLoadMore = () => {
+    if (this.context.hasMoreMySelections) {
+      this.context.fetchMoreMine();
     }
   };
 
@@ -174,14 +181,30 @@ class MySelectionsList extends React.Component {
           <Loader />
         ) : this.context.mySelections &&
           this.context.mySelections.length > 0 ? (
-          <ul className="SelectionsList">
+          <div className="SelectionsList">
             <SelectionsList
               selections={this.context.mySelections}
               className="MySelections__list-item"
               rightHeader={null}
             />
             <MySelectionsHeader />
-          </ul>
+            {this.context.hasMoreMySelections && (
+              <div className="Selections__load-more is-mine">
+                {this.context.loadingMoreMy ? (
+                  <Loader className="Selections__load-spinner" />
+                ) : (
+                  <button
+                    onClick={this.handleLoadMore}
+                    type="button"
+                    className="Selections__load-more-button"
+                  >
+                    <ArrowBottomRight />
+                    Voir plus
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         ) : (
           <UserHasNoSelections />
         )}

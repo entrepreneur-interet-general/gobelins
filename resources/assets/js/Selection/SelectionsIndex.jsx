@@ -7,6 +7,7 @@ import MySelections from "./MySelections";
 import SelectionsList from "./SelectionsList";
 import ScrollToTop from "../Collection/ScrollToTop";
 import Loader from "../Loader";
+import ArrowBottomRight from "../icons/ArrowBottomRight";
 
 function SelectionsIndex(props) {
   useEffect(() => {
@@ -42,6 +43,12 @@ function MobNatSelections(props) {
     }
   }, []);
 
+  function handleLoadMore() {
+    if (selectionsContext.hasMoreMobNatSelections) {
+      selectionsContext.fetchMoreMobNat();
+    }
+  }
+
   return (
     <div className="Selections__mobnat">
       <div className="SelectionsList">
@@ -55,6 +62,22 @@ function MobNatSelections(props) {
           <br />
           du Mobilier national
         </h1>
+        {selectionsContext.hasMoreMobNatSelections && (
+          <div className="Selections__load-more">
+            {selectionsContext.loadingMoreMobNat ? (
+              <Loader className="Selections__load-spinner" />
+            ) : (
+              <button
+                onClick={handleLoadMore}
+                type="button"
+                className="Selections__load-more-button"
+              >
+                <ArrowBottomRight />
+                Voir plus
+              </button>
+            )}
+          </div>
+        )}
         {/*
           <fieldset className="Selections__inset-search">
             <input type="search" />
@@ -77,10 +100,16 @@ function UserSelections(props) {
     }
   }, []);
 
+  function handleLoadMore() {
+    if (selectionsContext.hasMoreUserSelections) {
+      selectionsContext.fetchMoreUser();
+    }
+  }
+
   return (
     <div className="Selections__users">
       <div className="SelectionsList">
-        {selectionsContext.loadingMobNat ? (
+        {selectionsContext.loadingUser ? (
           <Loader className="SelectionsList__loader" />
         ) : (
           <SelectionsList selections={selectionsContext.userSelections} />
@@ -88,6 +117,22 @@ function UserSelections(props) {
         <h1 className="Selections__inset-header">
           Dernières sélections des utilisateurs
         </h1>
+        {selectionsContext.hasMoreUserSelections && (
+          <div className="Selections__load-more">
+            {selectionsContext.loadingMoreUser ? (
+              <Loader className="Selections__load-spinner" />
+            ) : (
+              <button
+                onClick={handleLoadMore}
+                type="button"
+                className="Selections__load-more-button"
+              >
+                <ArrowBottomRight />
+                Voir plus
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

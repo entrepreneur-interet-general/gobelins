@@ -32,8 +32,14 @@ Route::get('selections/{id}', 'SelectionsController@show')
         ->middleware('api');
 
 // Route::get('selections/list', ['uses' => 'SelectionsController@list']);
-Route::get('selections/mobnat', 'SelectionsController@listMobNatSelections');
-Route::get('selections/user', 'SelectionsController@listUserSelections');
+Route::get('selections/mobnat', [
+    'as' => 'api.mobNatSelections',
+    'uses' => 'SelectionsController@listMobNatSelections'
+]);
+Route::get('selections/user', [
+    'as' => 'api.userSelections',
+    'uses' => 'SelectionsController@listUserSelections'
+]);
 
 
 Route::middleware('auth:api', 'throttle:60,1')->group(function () {
@@ -44,7 +50,10 @@ Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     // Route::get('selections/mine', [
     //     'as' => 'mySelections', 'uses' => 'SelectionsController@mine'
     // ]);
-    Route::get('selections/mine', 'SelectionsController@listMySelections');
+    Route::get('selections/mine', [
+        'as' => 'api.mySelections',
+        'uses' => 'SelectionsController@listMySelections'
+    ]);
 
     Route::get('selections/mine-short', 'SelectionsController@mineShort');
 

@@ -17,6 +17,7 @@ use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
 use \App\Http\Resources\ListedSelection;
+use \App\Http\Resources\SelectionCollection;
 
 class SearchController extends Controller
 {
@@ -171,28 +172,31 @@ class SearchController extends Controller
             $product = $product->toSearchableArray();
         };
 
-        $selections = null;
+        $my_selections = null;
+        $mob_nat_selections = null;
+        $user_selections = null;
         $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
         if ($request->route()->named('selections')) {
-            $selections = [
-                'mySelections' => Auth::check() ? ListedSelection::collection(Auth::user()
-                                    ->selections()
-                                    ->orderBy('updated_at', 'DESC')
-                                    ->with(['users:id,name'])
-                                    ->limit(4)->get()) : null,
-                'mobNatSelections' => ListedSelection::collection($mob_nat_user->selections()
-                                    ->public()
-                                    ->orderBy('updated_at', 'DESC')
-                                    ->with('users:id,name,email')
-                                    ->limit(4)->get()),
-                'userSelections' => ListedSelection::collection(Selection::with('users:id,name,email')
-                        ->public()
-                        ->whereDoesntHave('users', function ($q) {
-                            $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
-                        })
-                        ->orderBy('selections.updated_at', 'DESC')
-                        ->limit(4)->get())
-            ];
+            $my_selections = Auth::check() ? new SelectionCollection(Auth::user()
+                ->selections()
+                ->orderBy('updated_at', 'DESC')
+                ->with(['users:id,name'])
+                ->paginate(4)
+                ->withPath(route('api.mySelections'))) : null;
+            $mob_nat_selections = new SelectionCollection($mob_nat_user->selections()
+                ->public()
+                ->orderBy('updated_at', 'DESC')
+                ->with('users:id,name,email')
+                ->paginate(4)
+                ->withPath(route('api.mobNatSelections')));
+            $user_selections = new SelectionCollection(Selection::with('users:id,name,email')
+                ->public()
+                ->whereDoesntHave('users', function ($q) {
+                    $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+                })
+                ->orderBy('selections.updated_at', 'DESC')
+                ->paginate(4)
+                ->withPath(route('api.userSelections')));
         }
 
         $selection_detail = null;
@@ -214,7 +218,9 @@ class SearchController extends Controller
         return view('site.search', [
             'filters' => $filters,
             'product' => $product,
-            'selections' => $selections,
+            'my_selections' => $my_selections,
+            'mob_nat_selections' => $mob_nat_selections,
+            'user_selections' => $user_selections,
             'selection_detail' => $selection_detail,
             'currentUser' => $currentUser,
         ]);

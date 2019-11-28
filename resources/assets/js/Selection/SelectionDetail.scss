@@ -27,8 +27,9 @@
   color: inherit;
   right: auto;
   left: 5px;
-  @include breakpoint(760px) {
+  @include breakpoint(769px) {
     left: 20px;
+    position: fixed;
   }
 }
 .SelectionDetail .SelectionDetail__close {

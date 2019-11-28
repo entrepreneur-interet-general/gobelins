@@ -26,8 +26,12 @@
             var PRODUCT = {!! json_encode($product) !!};
         @endisset
 
-        @isset($selections)
-            var SELECTIONS = {!! json_encode($selections) !!};
+        @isset($mob_nat_selections, $user_selections)
+            var SELECTIONS = {
+                "mySelections": @json($my_selections),
+                "mobNatSelections": @json($mob_nat_selections),
+                "userSelections": @json($user_selections)
+            };
         @endisset
 
         @isset($selection_detail)
