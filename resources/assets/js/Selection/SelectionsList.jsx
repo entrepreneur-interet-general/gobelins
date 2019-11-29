@@ -3,6 +3,22 @@ import Bricks from "bricks.js";
 import { Media } from "react-breakpoints";
 
 export default function SelectionsList(props) {
+  return (
+    <Media>
+      {({ breakpoints, currentBreakpoint }) =>
+        breakpoints[currentBreakpoint] >= breakpoints.tablet ? (
+          <SelectionListMasonry>{props.children}</SelectionListMasonry>
+        ) : (
+          <div className="SelectionsList__mobile-container">
+            {props.children}
+          </div>
+        )
+      }
+    </Media>
+  );
+}
+
+function SelectionListMasonry(props) {
   let masonryContainerRef = React.createRef();
 
   useEffect(() => {
@@ -36,18 +52,8 @@ export default function SelectionsList(props) {
   }, [props.children]);
 
   return (
-    <Media>
-      {({ breakpoints, currentBreakpoint }) =>
-        breakpoints[currentBreakpoint] >= breakpoints.small ? (
-          <div className="SelectionsList__masonry-container">
-            <div ref={masonryContainerRef}>{props.children}</div>
-          </div>
-        ) : (
-          <div className="SelectionsList__mobile-container">
-            {props.children}
-          </div>
-        )
-      }
-    </Media>
+    <div className="SelectionsList__masonry-container">
+      <div ref={masonryContainerRef}>{props.children}</div>
+    </div>
   );
 }

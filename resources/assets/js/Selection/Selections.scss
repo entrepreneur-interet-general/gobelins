@@ -56,10 +56,19 @@
 }
 .Selections__load-more {
   min-height: 61px;
+  position: relative;
 
   &.is-mine {
     color: white;
   }
+  &.Selections__load-more {
+    margin-bottom: 0;
+  }
+}
+.Selections__load-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 .Selections__load-more-button {
   display: flex;
