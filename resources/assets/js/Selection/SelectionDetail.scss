@@ -20,6 +20,19 @@
   transform: translate(25px, 25px);
 }
 
+.SelectionDetail__cross-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 59px;
+  width: 100%;
+  z-index: 1;
+  background: #fff;
+
+  .SelectionDetail--is-mine & {
+    background-color: #141414;
+  }
+}
 .SelectionDetail__back-to-selections {
   @extend .Selections__close;
 }

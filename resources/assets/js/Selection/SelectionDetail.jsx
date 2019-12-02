@@ -93,15 +93,17 @@ function SelectionDetail(props) {
         "SelectionDetail--is-mine": isMine
       })}
     >
-      <Link
-        className="Selections__close SelectionDetail__close"
-        to="/recherche"
-      >
-        <CrossSimple />
-      </Link>
-      <Link className="SelectionDetail__back-to-selections" to="/selections/">
-        <ArrowBack />
-      </Link>
+      <div className="SelectionDetail__cross-nav-bar">
+        <Link
+          className="Selections__close SelectionDetail__close"
+          to="/recherche"
+        >
+          <CrossSimple />
+        </Link>
+        <Link className="SelectionDetail__back-to-selections" to="/selections/">
+          <ArrowBack />
+        </Link>
+      </div>
       <div className="SelectionDetail__header">
         <div className="SelectionDetail__header-left">
           {isMine && (

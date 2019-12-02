@@ -27,9 +27,9 @@ export default function MySelections(props) {
   const authContext = useAuth();
 
   return authContext.data.authenticated ? (
-    <MySelectionsList />
+    <MySelectionsList {...props} />
   ) : (
-    <NotAuthenticated />
+    <NotAuthenticated {...props} />
   );
 }
 
@@ -177,7 +177,7 @@ class MySelectionsList extends React.Component {
 
   render = () => {
     return (
-      <div className="MySelections">
+      <div className="MySelections" ref={this.props.observeRef}>
         {this.context.loadingMine ? (
           <Loader className="SelectionsList__loader" />
         ) : this.context.mySelections &&
@@ -262,7 +262,7 @@ function NotAuthenticated(props) {
     selectionsContext.fetchMine();
   };
   return (
-    <div className="MySelections">
+    <div className="MySelections" ref={props.observeRef}>
       <div className="MySelections__unauthenticated">
         <ImagesPlaceholder className="MySelections__blank-slate" />
 

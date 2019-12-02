@@ -9,13 +9,12 @@
 }
 
 .Selections__close {
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 5px;
   @include breakpoint(769px) {
     top: 45px;
     right: 20px;
-    position: fixed;
   }
   z-index: 1;
   background-color: transparent;
@@ -27,6 +26,13 @@
 
   svg {
     display: block;
+  }
+
+  svg.is-dark-on-light {
+    color: black;
+  }
+  svg.is-light-on-dark {
+    color: white;
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 
 import { useSelections } from "../context/selections-context";
 import CrossSimple from "../icons/CrossSimple";
@@ -15,17 +16,23 @@ function SelectionsIndex(props) {
     window.document.title = "Sélections — Collection du Mobilier national";
   }, []);
 
+  const [ref, inView] = useInView({
+    threshold: 0.1
+  });
+
   return (
     <div className="Selections">
       <Link className="Selections__close" to="/recherche">
-        <CrossSimple />
+        <CrossSimple
+          className={inView ? "is-light-on-dark" : "is-dark-on-light"}
+        />
       </Link>
 
       <div className="Selections__scroll-to-top">
         <ScrollToTop />
       </div>
 
-      <MySelections />
+      <MySelections observeRef={ref} />
       <MobNatSelections />
       <UserSelections />
     </div>
