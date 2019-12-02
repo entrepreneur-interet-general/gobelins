@@ -54,6 +54,7 @@ class AuthProvider extends React.Component {
         user: data.user,
         authenticated: true
       });
+      return data;
     });
   };
 

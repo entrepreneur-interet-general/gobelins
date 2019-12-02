@@ -109,8 +109,12 @@ class RegisterAction extends React.Component {
     // authClient
     this.context
       .register(this.state)
-      .then(() => {
-        notifier(`Bienvenue, ${this.context.data.user.name} !`);
+      .then(data => {
+        if (data.status === "ok") {
+          notifier(`Bienvenue, ${data.user.name} !`);
+        } else {
+          notifier(`Une erreur est survenue. Veuillez réessayer plus tard. 🙁`);
+        }
       })
       .catch(error => {
         this.setState({

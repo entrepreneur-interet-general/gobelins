@@ -186,7 +186,7 @@ class MySelectionsList extends React.Component {
             <SelectionsList className="MySelections__list-item">
               {this.context.mySelections.map((sel, i) => (
                 <Fragment key={sel.id}>
-                  {i === 1 && (
+                  {(this.context.mySelections.length === 1 || i === 1) && (
                     <MySelectionsHeader className="SelectionsList__header SelectionsList__masonry-item" />
                   )}
                   <SelectionsListItem
