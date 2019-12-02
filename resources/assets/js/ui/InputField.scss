@@ -15,7 +15,7 @@
 
   margin-bottom: 20px;
   @include f-sans;
-  font-size: rem(15px);
+  font-size: rem(16px);
   line-height: rem(21px);
   color: #a6a6a6;
   -webkit-font-smoothing: antialiased;
@@ -23,6 +23,10 @@
 
   &.with-submit {
     width: calc(100% - 18px);
+  }
+
+  @include breakpoint(1025px) {
+    font-size: rem(15px);
   }
 
   @media (hover: hover) {
@@ -70,15 +74,20 @@
     outline: none;
     box-shadow: none;
   }
-
-  &:-webkit-autofill,
-  &:-webkit-autofill:hover,
-  &:-webkit-autofill:focus,
-  &:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 300px #131313 inset !important;
-    -webkit-text-fill-color: #fff;
-  }
 }
+
+// Disable iOS autofill styling (yellow background)
+input.InputField__input:-webkit-autofill,
+input.InputField__input:-webkit-autofill:hover,
+input.InputField__input:-webkit-autofill:focus,
+input.InputField__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 300px #131313 inset !important;
+  -webkit-text-fill-color: #fff;
+  background-color: #131313;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 .InputField__toggle-visibility {
   flex: 0 0 auto;
   height: 100%;
