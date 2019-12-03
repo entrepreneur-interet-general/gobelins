@@ -43,7 +43,9 @@ export default function SelectionsListItem({ selection, className }) {
         <span>par {selection.users.map(u => u.name).join(", ")}</span>
         {selection.public !== true && <PadlockTiny />}
       </div>
-      <div className="SelectionsListItem__desc">{selection.description}</div>
+      <div className="SelectionsListItem__desc">
+        {selection.description && selection.description.substring(0, 160) + "…"}
+      </div>
     </div>
   );
 }
