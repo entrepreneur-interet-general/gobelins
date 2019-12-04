@@ -47,4 +47,16 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+        ];
+    }
 }
