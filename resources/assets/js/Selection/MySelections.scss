@@ -15,8 +15,10 @@
 .MySelections__header {
   color: #fff;
   grid-row: 1;
+  margin-bottom: 20px;
   @include breakpoint(600px) {
     grid-area: 1 / right;
+    margin-bottom: 0;
   }
 
   & h1 {

@@ -112,6 +112,10 @@
   line-height: rem(45px);
   font-weight: normal;
   @extend %selections-grid;
+  grid-row-gap: 35px;
+  @include breakpoint(600px) {
+    grid-row-gap: 50px;
+  }
 }
 .SelectionsListBlankSlate__new,
 .SelectionsListBlankSlate__label-heart {
@@ -132,7 +136,9 @@
 }
 
 .SelectionsListBlankSlate__new {
-  margin-bottom: 40px;
+  @include breakpoint(600px) {
+    margin-bottom: 40px;
+  }
 }
 .SelectionsListBlankSlate__label-heart {
   & svg {
@@ -152,6 +158,7 @@
 }
 .SelectionsListBlankSlate__illu {
   max-width: 100%;
+  grid-row: 3;
   @include breakpoint(600px) {
     grid-area: auto/right;
   }
