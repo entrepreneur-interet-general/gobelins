@@ -102,6 +102,12 @@
   font-weight: normal;
   line-height: rem(41px);
 
+  margin-bottom: 50px;
+
+  @include breakpoint(768px) {
+    margin-bottom: 0;
+  }
+
   & h1 {
     display: inline;
     font-weight: 600;
