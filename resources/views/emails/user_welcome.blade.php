@@ -21,17 +21,14 @@
       color: #2F3133;
       -webkit-text-size-adjust: none;
     }
-
     @media only screen and (max-width: 600px) {
       .email-body_inner {
         width: 100% !important;
       }
-
       .email-footer {
         width: 100% !important;
       }
     }
-
     @media only screen and (max-width: 500px) {
       .button {
         width: 100% !important;
@@ -74,7 +71,7 @@
                         alt="Collection du Mobilier national" width="100%" style="padding-bottom: 60px" /></a>
 
                     <h1
-                      style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; font-weight:normal;  margin-top: 0;"
+                      style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; font-weight:normal;  margin-top: 0;margin-bottom: 0px;"
                       align="left">Bienvenue, {{name}}!</h1>
                     <p style="box-sizing: border-box; color:#2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0;"
                       align="left"> Vous pouvez dorénavant sauvegarder les meubles, œuvres et
@@ -83,7 +80,7 @@
 
 
                     <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0"
-                      style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; margin: 30px auto; padding: 0; text-align: center; width: 100%;">
+                      style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 18px; margin: 30px auto; padding: 0; text-align: center; width: 100%;">
                       <tr>
                         <td align="center"
                           style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;word-break: break-word;">
@@ -99,7 +96,7 @@
                                     <td
                                       style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
                                       <a href="{{action_url}}" class="button button--" target="_blank"
-                                        style="-webkit-text-size-adjust: none; background: #ff4747; border-color: #FF4747; border-radius: 3px; border-style: solid; border-width: 10px 18px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); box-sizing: border-box; color: #FFF; display: inline-block; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none;">confirmer</a>
+                                        style="-webkit-text-size-adjust: none; background: #1B29B6; border-color: #1B29B6; border-radius: 3px; border-style: solid; border-width: 10px 18px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); box-sizing: border-box; color: #FFF; display: inline-block; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-decoration: none;">confirmer</a>
                                     </td>
                                   </tr>
                                 </table>
@@ -116,9 +113,9 @@
                       <tr>
                         <td class="attributes_content"
                           style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;padding: 20px; word-break: break-word;"
-                          bgcolor="FFE7E5">
+                          bgcolor="DEE1FE">
                           <table width="100%" cellpadding="0" cellspacing="0"
-                            style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;color:#FF6A6A">
+                            style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;color:#1B29B6">
                             <tr>
                               <td class="attributes_item"
                                 style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
@@ -130,17 +127,12 @@
                             <tr>
                               <td class="attributes_item"
                                 style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
-                                <strong
-                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Email
-                                  :</strong>
-                                {{ email }}</td>
-                            </tr>
+                             
                             <tr>
                               <td class="attributes_item"
                                 style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; padding: 0; word-break: break-word;">
                                 <strong
-                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Votre
-                                  profil :</strong> {{ profile_url }}</td>
+                                  style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">Votre profil :</strong> {{ profile_url }}</td>
                             </tr>
 
                           </table>
@@ -167,13 +159,13 @@
                     </table>
 
 
-                    <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 20px; "
+                    <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 0px; "
                       align="left">Nous vous souhaitons de belles découvertes sur notre site !
                     </p>
                     <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 20px; "
                       align="left">Si
                       vous avez des questions, n'hésitez pas à nous envoyer un <a href="mailto:{{support_email}}"
-                        style="box-sizing: border-box; color: #ff4747; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
+                        style="box-sizing: border-box; color: #1B29B6; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
 
                       <img src="{{ $message->embed(public_path('images/emails/collection_animated.gif')) }}"
                         alt="Collection du Mobilier national" width="500" style="margin-top: 30px;" />
@@ -185,7 +177,7 @@
                           <td
                             style="box-sizing: border-box; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
                             <p class="sub"
-                              style="box-sizing: border-box; color: #767676;font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 20px;margin-left : 35px; "
+                              style="box-sizing: border-box; color: #767676;font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;font-size: 13px; line-height: 1.5em; margin-top: 20px;"
                               align="left">Si vous rencontrez des problèmes avec le bouton ci-dessus,
                               copiez et collez l’URL ci-dessous dans votre navigateur Web. {{action_url}}
                             </p>
