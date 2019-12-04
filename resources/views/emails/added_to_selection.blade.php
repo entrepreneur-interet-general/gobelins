@@ -22,17 +22,14 @@
       color: #2F3133;
       -webkit-text-size-adjust: none;
     }
-
     @media only screen and (max-width: 600px) {
       .email-body_inner {
         width: 100% !important;
       }
-
       .email-footer {
         width: 100% !important;
       }
     }
-
     @media only screen and (max-width: 500px) {
       .button {
         width: 100% !important;
@@ -73,9 +70,9 @@
                         alt="Collection du Mobilier national" width="100%" style="padding-bottom: 60px" /></a>
 
                     <h1
-                      style="box-sizing: border-box; color: #2F3133; font-family:'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; font-weight: normal; margin-top: 0;"
+                      style="box-sizing: border-box; color: #2F3133; font-family:'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; font-weight: normal; margin-top: 0;margin-bottom: 0;"
                       align="left">Bonjour, {{ $user_added->name }} !</h1>
-                    <p style="box-sizing: border-box; color: #2F3133; font-family:'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0;"
+                    <p style="box-sizing: border-box; color: #2F3133; font-family:'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 3px;"
                       align="left">{{ $user_adding->name }} vous invite à collaborer à sa
                       sélection de meubles, œuvres et textiles du Mobilier national. Commencez la
                       collaboration en cliquant ci-dessous :</p>
@@ -97,7 +94,7 @@
                                     <td
                                       style="box-sizing: border-box; font-family:'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; word-break: break-word;">
                                       <a href="{{ $action_url }}" class="button button--" target="_blank"
-                                        style="-webkit-text-size-adjust: none; background: #ff4747; border-color: #ff4747; border-radius: 3px; border-style: solid; border-width: 10px 18px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); box-sizing: border-box; color: #FFF; display: inline-block; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; text-decoration: none;">participez</a>
+                                        style="-webkit-text-size-adjust: none; background: #1B29B6; border-color: #1B29B6; border-radius: 3px; border-style: solid; border-width: 12px; padding-right:5px; padding-left:5px; margin-top: 10px; font-size: 18px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); box-sizing: border-box; color: #FFF; display: inline-block; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; text-decoration: none;">participez</a>
                                     </td>
                                   </tr>
                                 </table>
@@ -108,10 +105,10 @@
                       </tr>
                     </table>
 
-                    <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; margin-top: 0; margin-bottom: 20px; "
+                    <p style="box-sizing: border-box; color: #2F3133; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif; font-size: 18px; line-height: 1.5em; padding-top: 10px; margin-bottom: 20px; "
                       align="left">Bonne collaboration ! Si vous avez des questions, n'hésitez pas
                       à nous envoyer un <a href="mailto:{{ $support_email }}"
-                        style="box-sizing: border-box; color: #ff4747; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
+                        style="box-sizing: border-box; color:#1B29B6; font-family: 'Helvetica Neue',Helvetica,Arial,Verdana,sans-serif;">message</a>.
 
 
 
