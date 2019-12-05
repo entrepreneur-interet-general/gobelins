@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 import { SelectionsContext } from "../context/selections-context";
 import InputField from "../ui/InputField";
@@ -95,6 +96,12 @@ export default class CollaborationsHandler extends React.Component {
           Inviter vos collaborateurs
         </legend>
 
+        <div
+          className={classNames("CollaborationsHandler__overlay", {
+            "is-visible": Boolean(this.state.email)
+          })}
+        />
+
         <InputField
           label="E-mail"
           type="email"
@@ -105,6 +112,9 @@ export default class CollaborationsHandler extends React.Component {
           onClickButton={this.onSubmit}
           onKeyPress={this.handleKeyPress}
           isLoading={this.state.isAdding}
+          className={classNames("CollaborationsHandler__email-input", {
+            "has-button-inverted": Boolean(this.state.email)
+          })}
         />
 
         <ul className="CollaborationsHandler__items">
