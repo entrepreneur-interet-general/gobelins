@@ -20,9 +20,19 @@ export default class CollaborationsHandler extends React.Component {
       errorMessage: false,
       isAdding: false
     };
+    this.emailInputRef = React.createRef();
   }
 
   onSubmit = () => {
+    if (
+      this.emailInputRef &&
+      this.emailInputRef.current &&
+      (!this.emailInputRef.current.validity.valid ||
+        this.emailInputRef.current.value === "")
+    ) {
+      return;
+    }
+
     this.setState({ isAdding: true });
     this.context
       .create_invitation(this.state.email, this.props.selection)
@@ -106,12 +116,15 @@ export default class CollaborationsHandler extends React.Component {
           label="E-mail"
           type="email"
           value={this.state.email}
-          withButton={<PaperPlane />}
+          withButton={
+            <PaperPlane className="CollaborationsHandler__paper-plane" />
+          }
           name="invitation_email"
           onChange={this.handleInputChange}
           onClickButton={this.onSubmit}
           onKeyPress={this.handleKeyPress}
           isLoading={this.state.isAdding}
+          inputRef={this.emailInputRef}
           className={classNames("CollaborationsHandler__email-input", {
             "has-button-inverted": Boolean(this.state.email)
           })}

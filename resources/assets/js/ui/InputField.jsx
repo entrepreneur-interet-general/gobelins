@@ -9,7 +9,7 @@ export default function InputField(props) {
   const [isDirty, setIsDirty] = useState();
   const [visible, setVisible] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const inputEl = useRef(null);
+  const inputEl = props.inputRef || useRef(null);
   const type = props.type === "password" && visible ? "text" : props.type;
   // Remove props that we don't want to pass down.
   const {
@@ -20,6 +20,7 @@ export default function InputField(props) {
     withButton,
     onClickButton,
     isLoading,
+    inputRef,
     ...otherProps
   } = props;
 

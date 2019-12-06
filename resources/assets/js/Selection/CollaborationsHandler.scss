@@ -36,19 +36,11 @@
     color: black;
   }
 }
-// .CollaborationsHandler__paper-plane.is-emphasized {
-//   color: white;
-//   background-color: #000;
-//   animation: paperPlane 1s infinite ease-in-out alternate;
-// }
-// @keyframes paperPlane {
-//   0% {
-//     transform: scale(1);
-//   }
-//   100% {
-//     transform: scale(1.2);
-//   }
-// }
+@media (hover: hover) {
+  button:hover .CollaborationsHandler__paper-plane {
+    color: $gray-min;
+  }
+}
 .CollaborationsHandler__items {
   margin: 0;
   padding: 0;

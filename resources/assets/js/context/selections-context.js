@@ -72,6 +72,14 @@ class SelectionsProvider extends React.Component {
     };
   }
 
+  componentDidMount = () => {
+    // If we are initializing a detail page, preload the user's
+    // selections, to update them when editing the current selection.
+    if (this.state.detailSelection && this.state.mySelections.length === 0) {
+      this.fetchMine();
+    }
+  };
+
   componentDidUpdate = () => {
     // Eagerly load selections info.
     // if (
