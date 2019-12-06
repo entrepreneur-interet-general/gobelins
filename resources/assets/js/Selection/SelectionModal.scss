@@ -15,7 +15,7 @@
   flex-flow: column nowrap;
   align-items: stretch;
   justify-content: center;
-  max-height: 100%;
+  max-height: calc(100vh - 40px);
   background-color: #131313;
   margin: 20px;
   @include breakpoint(760px) {
