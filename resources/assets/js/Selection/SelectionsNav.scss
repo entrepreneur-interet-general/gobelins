@@ -33,11 +33,6 @@
     }
   }
 
-  &:hover .SelectionsNav__icon {
-    border-left-color: transparent;
-    border-radius: 0 25px 25px 0;
-  }
-
   .SelectionsNav__label {
     display: flex;
     flex: 1 0 auto;
@@ -64,9 +59,15 @@
   .SelectionsNav__heart {
     transition: none;
   }
+}
 
-  &:hover,
-  &:active {
+@media (hover: hover) {
+  .SelectionsNav:hover .SelectionsNav__icon {
+    border-left-color: transparent;
+    border-radius: 0 25px 25px 0;
+  }
+  .SelectionsNav:hover,
+  .SelectionsNav:active {
     width: auto;
     .SelectionsNav__heart {
       transition: fill 200ms linear 500ms;
