@@ -24,11 +24,13 @@ export default function EditSelectionModal(props) {
           <button className="SelectionModal__close" onClick={props.onClose}>
             <CrossSimple />
           </button>
-          <EditSelectionForm
-            selection={props.selection}
-            onClose={props.onClose}
-            onDelete={props.onDelete}
-          />
+          <div className="SelectionModal__content-scrollable">
+            <EditSelectionForm
+              selection={props.selection}
+              onClose={props.onClose}
+              onDelete={props.onDelete}
+            />
+          </div>
         </Fragment>
       </ReactModal2>
     </Gateway>
