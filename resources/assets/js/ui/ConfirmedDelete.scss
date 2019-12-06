@@ -35,23 +35,35 @@
 }
 
 .ConfirmedDelete__buttons-row-wrapper {
-  width: 500px; // Break out !
   position: relative;
+
+  width: calc(100vw - 120px);
+
+  @include breakpoint(768px) {
+    width: 500px; // Break out !
+  }
 }
 .ConfirmedDelete__buttons-row {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
   align-items: center;
-  top: -40px;
+  top: -36px;
+  @include breakpoint(768px) {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row nowrap;
+    top: -40px;
+  }
 
   position: relative;
-
   left: 55px;
 }
 .ConfirmedDelete__large-butt {
   flex: 0 1 auto;
   margin-right: 15px;
+  margin-bottom: 15px;
+  width: auto;
 }
 .ConfirmedDelete__spacer-dot-gif {
   flex: 2 0 100%;

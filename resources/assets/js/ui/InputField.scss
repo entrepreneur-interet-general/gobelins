@@ -21,7 +21,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  &.with-submit {
+  &.with-submit,
+  &.with-button {
     width: calc(100% - 18px);
   }
 
