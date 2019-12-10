@@ -37,37 +37,18 @@ class SelectionsProvider extends React.Component {
         "SELECTIONS.mobNatSelections.links.next"
       ),
       detailSelection: window.SELECTION_DETAIL || null,
-      initedMine:
-        window.SELECTIONS &&
-        window.SELECTIONS.mySelections &&
-        window.SELECTIONS.mySelections.data
-          ? true
-          : false,
-      mySelections:
-        (window.SELECTIONS &&
-          window.SELECTIONS.mySelections &&
-          window.SELECTIONS.mySelections.data) ||
-        [],
+      initedMine: Boolean(get(window, "SELECTIONS.mySelections.data")),
+      mySelections: get(window, "SELECTIONS.mySelections.data") || [],
       mySelectionsShort:
-        (window.SELECTIONS &&
-          window.SELECTIONS.mySelections &&
-          window.SELECTIONS.mySelections.data &&
+        (get(window, "SELECTIONS.mySelections.data") &&
           window.SELECTIONS.mySelections.data.map(s => {
             {
               s.id, s.name, s.public;
             }
           })) ||
         [],
-      mobNatSelections:
-        (window.SELECTIONS &&
-          window.SELECTIONS.mobNatSelections &&
-          window.SELECTIONS.mobNatSelections.data) ||
-        [],
-      userSelections:
-        (window.SELECTIONS &&
-          window.SELECTIONS.userSelections &&
-          window.SELECTIONS.userSelections.data) ||
-        [],
+      mobNatSelections: get(window, "SELECTIONS.mobNatSelections.data") || [],
+      userSelections: get(window, "SELECTIONS.userSelections.data") || [],
       selections: []
     };
   }
@@ -81,25 +62,6 @@ class SelectionsProvider extends React.Component {
   };
 
   componentDidUpdate = () => {
-    // Eagerly load selections info.
-    // if (
-    //   this.state.initedMine === false &&
-    //   this.state.loading === false &&
-    //   authClient.getToken()
-    // ) {
-    //   this.setState({ loading: true }, () => {
-    //     selectionsClient.fetchAll().then(data => {
-    //       this.setState({
-    //         mySelections: data.mySelections,
-    //         mobNatSelections: data.mobNatSelections,
-    //         userSelections: data.userSelections,
-    //         loading: false,
-    //         initedMine: true
-    //       });
-    //     });
-    //   });
-    // }
-
     // Upon logout, purge mySelections.
     if (!authClient.getToken() && this.state.initedMine === true) {
       this.setState({ initedMine: false, mySelections: [] });
