@@ -17,11 +17,11 @@
 .headroom--scrolled {
   transition: transform 200ms ease-in-out;
 }
-html:not(.has-uninitialized-BetaWelcome) .headroom--unpinned {
+.headroom--unpinned {
   position: fixed;
   transform: translateY(-100%);
 }
-html:not(.has-uninitialized-BetaWelcome) .headroom--pinned {
+.headroom--pinned {
   position: fixed;
   transform: translateY(0%);
 }
@@ -91,12 +91,6 @@ html:not(.has-uninitialized-BetaWelcome) .headroom--pinned {
   }
 }
 
-.has-uninitialized-BetaWelcome .FiltersMobile__toggles {
-  opacity: 0;
-}
-.has-initialized-BetaWelcome .FiltersMobile__toggles {
-  opacity: 1;
-}
 .FiltersMobile__toggles {
   width: 100%;
   position: fixed;
@@ -109,7 +103,6 @@ html:not(.has-uninitialized-BetaWelcome) .headroom--pinned {
   justify-content: center;
   align-items: center;
   color: $quasi-black;
-  transition: opacity 0.2s ease-in-out;
 }
 
 .FiltersMobile__toggleholder {

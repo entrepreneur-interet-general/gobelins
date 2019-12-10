@@ -2,16 +2,6 @@
   background-color: #fff;
 }
 
-.has-uninitialized-BetaWelcome .Collection {
-  position: relative;
-  // top: calc(100vh - 256px);
-  pointer-events: none;
-}
-.has-initialized-BetaWelcome .Collection {
-  position: static;
-  pointer-events: all;
-}
-
 .Collection__result {
   min-height: 100vh;
   @include breakpoint($xsmall) {
