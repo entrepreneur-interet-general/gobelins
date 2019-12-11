@@ -441,11 +441,6 @@ class App extends Component {
     );
   }
 
-  handleAddToSelection = product => {
-    this.setState({});
-    console.log("going to launch flow to add product", product);
-  };
-
   render() {
     return (
       <AppProviders>
@@ -480,7 +475,6 @@ class App extends Component {
                         hasMore={!this.state.isLoading && this.state.hasMore}
                         currentPage={this.state.currentPage}
                         onObjectClick={this.handleObjectClick}
-                        onAddToSelection={this.handleAddToSelection}
                       />
                     )}
                   />
