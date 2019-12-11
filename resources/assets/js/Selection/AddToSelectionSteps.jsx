@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import {
-  SelectionsContext,
-  useSelections
-} from "../context/selections-context";
+import { SelectionsContext } from "../context/selections-context";
 import SelectionInput from "./SelectionInput";
 import SelectionPick from "./SelectionPick";
 import Loader from "../Loader";
@@ -16,7 +14,7 @@ export default class AddToSelectionSteps extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      doneAddingProduct: false,
+      doneAddingToSelection: false,
       errorMessage: false,
       loading: true
     };
@@ -48,8 +46,11 @@ export default class AddToSelectionSteps extends React.Component {
     this.setState({ loading: true });
     this.context
       .createAndAdd([this.props.product["_id"]], { name })
-      .then(() => {
-        this.setState({ loading: false, doneAddingProduct: true });
+      .then(data => {
+        this.setState({
+          loading: false,
+          doneAddingToSelection: data.selection
+        });
       })
       .catch(error => {
         this.setState({ loading: false, errorMessage: error.message });
@@ -59,15 +60,15 @@ export default class AddToSelectionSteps extends React.Component {
   handleSelectionPick = selection => {
     this.setState({ loading: true });
     this.context.add(this.props.product["_id"], selection.id).then(() => {
-      this.setState({ loading: false, doneAddingProduct: true });
+      this.setState({ loading: false, doneAddingToSelection: selection });
     });
   };
 
   render() {
     return this.state.loading === true ? (
       <Loader className="SelectionModal__loader" />
-    ) : this.state.doneAddingProduct ? (
-      <DoneAddingProduct />
+    ) : this.state.doneAddingToSelection ? (
+      <DoneAddingProduct selection={this.state.doneAddingToSelection} />
     ) : (
       <div className="SelectionModal__wrapper">
         {this.context.mySelectionsShort &&
@@ -97,10 +98,18 @@ export default class AddToSelectionSteps extends React.Component {
 }
 
 function DoneAddingProduct(props) {
+  useEffect(() => {
+    return () => {
+      document.documentElement.classList.remove("prevent-scroll");
+    };
+  }, []);
+
   return (
     <div className="SelectionModal__added-confirm">
       <div className="SelectionModal__added-illu">
-        <AddedToSelection />
+        <Link to={`/selections/${props.selection.id}`}>
+          <AddedToSelection />
+        </Link>
       </div>
       <p>
         <ArrowBack className="SelectionModal__added-arrow-back" />

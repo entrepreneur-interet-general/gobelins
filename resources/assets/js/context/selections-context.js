@@ -197,8 +197,7 @@ class SelectionsProvider extends React.Component {
       console.log("Products added to selection", data);
       this.setState({
         initedMine: true,
-        loading: false,
-        mySelections: data.mySelections
+        loading: false
       });
       return data;
     });
