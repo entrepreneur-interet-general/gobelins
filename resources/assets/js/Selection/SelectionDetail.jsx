@@ -15,6 +15,7 @@ import Button from "../ui/Button";
 import CollectionGridItem from "../Collection/CollectionGridItem";
 import EditSelectionModal from "./EditSelectionModal";
 import SelectionsBlank from "../icons/SelectionsBlank";
+import AddToSelectionModal from "./AddToSelectionModal";
 
 function SelectionDetail(props) {
   const authContext = useAuth();
@@ -71,6 +72,7 @@ function SelectionDetail(props) {
   }, [selection.products]);
 
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [addingToSelection, setAddingToSelection] = useState(false);
 
   function handleRemoveFromSelection(product) {
     selectionsContext.remove(product.inventory_id, selection.id).then(() => {
@@ -85,6 +87,19 @@ function SelectionDetail(props) {
       props.history.replace("/selections");
       notifier("La sélection a bien été supprimée");
     });
+  }
+
+  function handleSelectionClick(product, ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+
+    setAddingToSelection(product);
+    document.documentElement.classList.add("prevent-scroll");
+  }
+
+  function handleCloseAddToSelection() {
+    setAddingToSelection(false);
+    document.documentElement.classList.remove("prevent-scroll");
   }
 
   return (
@@ -135,9 +150,12 @@ function SelectionDetail(props) {
             <span>
               {" "}
               par{" "}
-              {arrayToSentence(selection.users.map(u => u.name), {
-                lastSeparator: " et "
-              })}
+              {arrayToSentence(
+                selection.users.map(u => u.name),
+                {
+                  lastSeparator: " et "
+                }
+              )}
             </span>
             {selection.public !== true && (
               <PadlockTiny
@@ -162,13 +180,27 @@ function SelectionDetail(props) {
                     className="SelectionDetail__grid-item"
                     datum={prod}
                     onObjectClick={props.onObjectClick}
-                    onSelectionClick={null}
+                    onSelectionClick={!isMine && handleSelectionClick}
                     onRemoveFromSelection={isMine && handleRemoveFromSelection}
                     key={i}
                   />
                 );
               })}
             </div>
+            {addingToSelection && (
+              <AddToSelectionModal
+                product={addingToSelection}
+                onClose={handleCloseAddToSelection}
+                closeButton={
+                  <button
+                    className="SelectionModal__close"
+                    onClick={handleCloseAddToSelection}
+                  >
+                    <CrossSimple />
+                  </button>
+                }
+              />
+            )}
           </div>
         ) : (
           <div className="SelectionDetail__blankslate">

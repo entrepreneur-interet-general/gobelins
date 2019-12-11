@@ -225,7 +225,7 @@ class LoginAction extends React.Component {
         if (this.props.onLogin) {
           this.props.onLogin();
         }
-        notifier(`Bienvenue, ${this.context.data.user.name} !`);
+        // notifier(`Bienvenue, ${data.user.name} !`);
       })
       .catch(error => {
         this.setState({ loading: false, errorMessage: error.message });

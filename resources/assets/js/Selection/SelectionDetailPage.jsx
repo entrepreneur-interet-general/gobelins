@@ -14,7 +14,7 @@ export default function SelectionDetailPage(props) {
     if (!selectionsContext.loadingDetail && should_reload) {
       selectionsContext.fetchDetail(selection_id);
     }
-  }, selection_id);
+  }, [props.match.params.selection_id]);
 
   return selectionsContext.loadingDetail || should_reload ? (
     <Loader className="SelectionDetail__loader" />
