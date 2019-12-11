@@ -39,6 +39,17 @@ body .simple-react-notifier.simple-react-notifier .item {
     margin-right: -10px;
     top: 0;
     flex: 0 0 auto;
+
+    // Hide this visually, for aesthetic reasons,
+    // but keep it for accessibility.
+    &:not(:focus):not(:active) {
+      position: absolute !important;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
   }
 }
 
