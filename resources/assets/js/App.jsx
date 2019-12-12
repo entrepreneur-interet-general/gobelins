@@ -12,6 +12,7 @@ import { GatewayDest, GatewayProvider } from "react-gateway";
 import ReactModal2 from "react-modal2";
 ReactModal2.getApplicationElement = () => document.getElementById("App__main");
 import notifier from "./utils/notifier";
+import get from "lodash.get";
 
 import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
@@ -86,12 +87,13 @@ class App extends Component {
       if (this.cache[s] && this.cache[s].isLoading === false) {
         this.setState(state => {
           this.dispatchAnalyticsEvent();
+          const filterObj = get(location, "state.filterObj", state.filterObj);
           return {
             hits: this.cache[s].data.hits,
             hasMore: this.cache[s].data.hasMore,
             totalHits: this.cache[s].data.totalHits,
             currentPage: this.cache[s].currentPage,
-            filterObj: location.state.filterObj,
+            filterObj,
             isLoading: false
           };
         });
