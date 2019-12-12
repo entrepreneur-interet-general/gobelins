@@ -23,7 +23,7 @@ class RandomProductsComposer
         
         $query = ES::type("products");
         
-        $this->products = $query->body($body)->take(10)->get()->toArray();
+        $this->products = $query->body($body)->take(20)->get()->toArray();
     }
 
     /**
