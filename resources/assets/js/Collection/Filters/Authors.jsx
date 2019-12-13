@@ -85,18 +85,22 @@ class Authors extends Component {
           className="Authors__alphabet"
           disabled={this.state.isAnimating}
         >
-          {this.alphabet.map(letter => {
-            return (
-              <button
-                className="Authors__alphabet-button"
-                type="button"
-                onClick={ev => this.scrollToLetter(ev, letter)}
-                key={"alpha-" + letter}
-              >
-                {letter}
-              </button>
-            );
-          })}
+          <div className="Authors__alphabet-inner">
+            {this.alphabet.map(letter => {
+              return (
+                <div className="Authors__alphabet-button-wrapper">
+                  <button
+                    className="Authors__alphabet-button"
+                    type="button"
+                    onClick={ev => this.scrollToLetter(ev, letter)}
+                    key={"alpha-" + letter}
+                  >
+                    {letter}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         </fieldset>
         <div className="Authors__double-col">
           <AutoSizer>
