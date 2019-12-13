@@ -105,6 +105,10 @@
 @media (hover: hover) {
   .Selections__load-more-button:hover {
     color: #a6a6a6;
+
+    .Selections__load-more-button-text {
+      border-bottom: 1px solid currentColor;
+    }
   }
 }
 

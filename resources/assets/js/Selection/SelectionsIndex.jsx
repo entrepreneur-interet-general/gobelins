@@ -88,7 +88,9 @@ function MobNatSelections(props) {
                     className="Selections__load-more-button"
                   >
                     <ArrowBottomRight />
-                    Voir plus
+                    <span className="Selections__load-more-button-text">
+                      Voir plus
+                    </span>
                   </button>
                 )}
               </div>
@@ -152,7 +154,9 @@ function UserSelections(props) {
                     className="Selections__load-more-button"
                   >
                     <ArrowBottomRight />
-                    Voir plus
+                    <span className="Selections__load-more-button-text">
+                      Voir plus
+                    </span>
                   </button>
                 )}
               </div>

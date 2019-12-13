@@ -210,7 +210,9 @@ class MySelectionsList extends React.Component {
                       className="Selections__load-more-button"
                     >
                       <ArrowBottomRight />
-                      Voir plus
+                      <span className="Selections__load-more-button-text">
+                        Voir plus
+                      </span>
                     </button>
                   )}
                 </div>
