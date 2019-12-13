@@ -1,10 +1,26 @@
 :root {
   --selections-list-text-color: #000;
+  --selections-list-text-color-alt: #7c7c7c;
 }
 
 .SelectionsListItem {
   // width: 100%;
   position: relative;
+}
+
+.SelectionsListItem__link {
+  display: block;
+  text-decoration: none;
+}
+@media (hover: hover) {
+  .SelectionsListItem__link:hover {
+    --selections-list-text-color: #a6a6a6;
+    --selections-list-text-color-alt: #a6a6a6;
+  }
+  .MySelections .SelectionsListItem__link:hover {
+    --selections-list-text-color: #7c7c7c;
+    --selections-list-text-color-alt: #7c7c7c;
+  }
 }
 
 .SelectionsListItem__images-wrapper {
@@ -77,7 +93,7 @@
   @include f-sans;
   font-size: rem(13px);
   line-height: rem(18px);
-  color: #7c7c7c;
+  color: var(--selections-list-text-color-alt);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   overflow: hidden;

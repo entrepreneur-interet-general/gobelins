@@ -13,6 +13,7 @@ export default function SelectionsListItem({ selection, className }) {
   return (
     <div className={classNames("SelectionsListItem", className)}>
       <Link
+        className="SelectionsListItem__link"
         to={{
           pathname: `/selections/${selection.id}`,
           state: { selection: selection }
@@ -30,22 +31,23 @@ export default function SelectionsListItem({ selection, className }) {
             )}
           </div>
         </div>
+        <div className="SelectionsListItem__title-line">
+          <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
+          {Boolean(selection.products) &&
+            Boolean(selection.products.length) && (
+              <span className="SelectionsListItem__count">
+                {selection.products.length} objet
+                {selection.products.length > 1 ? "s" : ""}
+              </span>
+            )}{" "}
+          <span>par {selection.users.map(u => u.name).join(", ")}</span>
+          {selection.public !== true && <PadlockTiny />}
+        </div>
+        <div className="SelectionsListItem__desc">
+          {selection.description &&
+            selection.description.substring(0, 160) + "…"}
+        </div>
       </Link>
-      <div className="SelectionsListItem__title-line">
-        <strong className="SelectionsListItem__name">{selection.name}</strong>{" "}
-        {Boolean(selection.products) &&
-          Boolean(selection.products.length) && (
-            <span className="SelectionsListItem__count">
-              {selection.products.length} objet
-              {selection.products.length > 1 ? "s" : ""}
-            </span>
-          )}{" "}
-        <span>par {selection.users.map(u => u.name).join(", ")}</span>
-        {selection.public !== true && <PadlockTiny />}
-      </div>
-      <div className="SelectionsListItem__desc">
-        {selection.description && selection.description.substring(0, 160) + "…"}
-      </div>
     </div>
   );
 }
