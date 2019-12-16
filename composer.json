@@ -25,6 +25,7 @@
     "league/flysystem": "^1.0",
     "league/flysystem-memory": "^1.0",
     "nothingworks/blade-svg": "^0.3",
+    "orangehill/iseed": "^2.6",
     "seld/signal-handler": "^1.1",
     "spatie/laravel-image-optimizer": "^1.3"
   },
