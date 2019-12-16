@@ -10,9 +10,9 @@ const urlGenerator = new UrlGenerator({
 
 const MEDIA_DIR = "/media/xl";
 
-export default function imageUrl(path, width) {
+export default function imageUrl(path, width, height, options) {
   // Path can contain spaces, that we need to escape.
   const url = `${MEDIA_DIR}/${encodeURIComponent(path)}`;
 
-  return urlGenerator.make(url, width);
+  return urlGenerator.make(url, width, height, options);
 }

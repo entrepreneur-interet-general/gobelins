@@ -23,7 +23,10 @@ export default function SelectionsListItem({ selection, className }) {
           <div className="SelectionsListItem__images">
             {illustrativeImages.length ? (
               illustrativeImages.map((image, i) => {
-                const thumbUrl = imageUrl(image.path, 330);
+                const width = illustrativeImages.length === 1 ? 1420 : 340;
+                const thumbUrl = imageUrl(image.path, width, 720, {
+                  crop: true
+                });
                 return <img src={thumbUrl} alt="" key={i} />;
               })
             ) : (
