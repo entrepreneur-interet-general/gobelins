@@ -8,7 +8,7 @@ La recherche de phrases exactes se fait entre guillemets. Exemples : `"maison ro
 
 On peut mélanger des termes individuels et des phrases : `tapisserie "maison royale"`.
 
-## Correspondence partielle : \* ?
+## Correspondance partielle : \* ?
 
 L’utilisation des caractères `?` et `*` permettent de substituer respectivement un ou plusieurs caractères.
 
