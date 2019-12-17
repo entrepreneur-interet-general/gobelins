@@ -1,0 +1,172 @@
+%selections-grid {
+  --selection-list-ext-gutter: 15px;
+  margin: 0 var(--selection-list-ext-gutter);
+  padding: 0;
+  display: grid;
+  // grid-template-columns: 100%;
+  grid-template-columns: none;
+  grid-auto-rows: auto;
+  grid-row-gap: 50px;
+
+  @include breakpoint(600px) {
+    display: grid;
+    --selection-list-ext-gutter: 40px;
+    grid-template-columns: repeat(9, 1fr 40px) 1fr;
+    grid-template-areas: ". left left left left left left left gutter gutter gutter right right right right right right right .";
+    grid-auto-rows: auto;
+    grid-row-gap: 0;
+  }
+
+  @include breakpoint(1780px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.SelectionsList {
+  // @extend %selections-grid;
+  @include breakpoint(768px) {
+    overflow: hidden;
+  }
+}
+
+.SelectionsList__mobile-container {
+  display: flex;
+  flex-flow: column nowrap;
+  margin: auto 15px;
+}
+.SelectionsList__header {
+  order: -1; // Pull it to the top on mobile.
+}
+
+.SelectionsList__masonry-container {
+  position: relative;
+  --ext-gutter: 15px;
+  --int-gutter: 0px;
+  --cols: 1;
+  --col-width: calc(
+    (100vw - (var(--ext-gutter) * 2 + var(--int-gutter) * (var(--cols) - 1))) /
+      var(--cols)
+  );
+  margin: 0 var(--ext-gutter);
+
+  @include breakpoint(768px) {
+    width: calc(100% + var(--int-gutter));
+    left: calc(var(--int-gutter) * -1);
+
+    --cols: 2;
+    --ext-gutter: 80px;
+    --int-gutter: 110px;
+  }
+
+  @include breakpoint(1025px) {
+    --ext-gutter: 100px;
+    --int-gutter: 155px;
+  }
+  @include breakpoint(1152px) {
+    --ext-gutter: 110px;
+    --int-gutter: 180px;
+  }
+  @include breakpoint(1280px) {
+    --ext-gutter: 150px;
+    --int-gutter: 190px;
+  }
+
+  @include breakpoint(1440px) {
+    --ext-gutter: 170px;
+    --int-gutter: 227px;
+  }
+
+  @include breakpoint(1600px) {
+    --int-gutter: 280px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+    --col-width: calc(
+      (1700px - (var(--int-gutter) * (var(--cols) - 1))) / var(--cols)
+    );
+  }
+  @include breakpoint(2200px) {
+    --int-gutter: 377px;
+  }
+}
+
+.SelectionsList__masonry-item {
+  margin-bottom: 50px;
+  @include breakpoint(768px) {
+    position: absolute;
+    width: var(--col-width);
+    padding-left: var(--int-gutter);
+    padding-bottom: 100px;
+    margin-bottom: 0;
+  }
+}
+
+.SelectionsListBlankSlate {
+  color: #fff;
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  font-weight: normal;
+  @extend %selections-grid;
+  grid-row-gap: 35px;
+  @include breakpoint(600px) {
+    grid-row-gap: 50px;
+  }
+}
+.SelectionsListBlankSlate__new,
+.SelectionsListBlankSlate__label-heart {
+  display: block;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+.SelectionsListBlankSlate__buttons,
+.SelectionsListBlankSlate__top-left,
+.SelectionsListBlankSlate__bottom-left {
+  @include breakpoint(600px) {
+    grid-area: auto/left;
+  }
+}
+
+.SelectionsListBlankSlate__new {
+  @include breakpoint(600px) {
+    margin-bottom: 40px;
+  }
+}
+.SelectionsListBlankSlate__label-heart {
+  & svg {
+    margin-left: 10px;
+  }
+}
+
+.SelectionsListBlankSlate__right {
+}
+
+.SelectionsListBlankSlate__header.SelectionsListBlankSlate__header {
+  @include breakpoint(600px) {
+    grid-area: auto/right;
+    margin-bottom: 60px;
+  }
+  position: static;
+}
+.SelectionsListBlankSlate__illu {
+  max-width: 100%;
+  grid-row: 3;
+  @include breakpoint(600px) {
+    grid-area: auto/right;
+  }
+}
+
+.SelectionsList__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(0, 30px);
+}

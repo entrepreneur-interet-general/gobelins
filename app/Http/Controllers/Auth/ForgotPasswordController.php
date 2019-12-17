@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use \Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -19,6 +20,36 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    /**
+     * Get the response for a successful password reset link.
+     * Modified to return JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetLinkResponse(Request $request, $response)
+    {
+        return $request->expectsJson() ? response()->json([
+            'status' => 'ok']) : back()->with('status', trans($response));
+    }
+
+    /**
+     * Get the response for a failed password reset link.
+     * Modified to return JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    protected function sendResetLinkFailedResponse(Request $request, $response)
+    {
+        return $request->expectsJson() ? response()->json(['message' => trans($response)], 500) : back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => trans($response)]);
+    }
+
 
     /**
      * Create a new controller instance.

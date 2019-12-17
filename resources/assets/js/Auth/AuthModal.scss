@@ -1,0 +1,183 @@
+.AuthModal {
+  padding: 50px 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: center;
+  padding: 40px 20px 60px;
+  @include breakpoint(760px) {
+    padding: 35px 100px 60px;
+  }
+}
+.AuthModal__loading-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% -50%);
+  z-index: 9;
+}
+.AuthModal__action-default {
+  display: flex;
+  flex-flow: column nowrap;
+
+  @include breakpoint(760px) {
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.AuthModal__default-label {
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin-bottom: 65px;
+  margin-right: 40px;
+  @include breakpoint(760px) {
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+}
+
+.AuthModal__default-buttons {
+  width: 165px;
+}
+.AuthModal__default-top-button {
+  margin-bottom: 20px;
+  @include breakpoint(760px) {
+    margin-bottom: 40px;
+  }
+}
+
+/* Login and Register dialogs */
+
+.AuthModal__action-login,
+.AuthModal__action-register {
+  display: flex;
+  flex-flow: column nowrap;
+
+  @include breakpoint(760px) {
+  }
+}
+.AuthModal__login-form {
+}
+.AuthModal__login-fieldset,
+.AuthModal__register-fieldset {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.AuthModal__login-legend,
+.AuthModal__register-legend {
+  margin: 0;
+  padding: 0;
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  margin-bottom: 25px;
+  color: #fff;
+}
+
+.AuthModal__login-input,
+.AuthModal__register-input {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 1px solid #373737;
+}
+
+.AuthModal__login-submit.AuthModal__login-submit,
+.AuthModal__register-submit.AuthModal__register-submit {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 140px;
+}
+
+.AuthModal__error-msg {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 36px;
+  margin: 0;
+  margin-bottom: 25px;
+  padding: 10px;
+  position: relative;
+  border-radius: 3px;
+  background-color: #b7abff;
+  color: #000;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(16px);
+
+  & > div {
+    position: relative;
+    z-index: 2;
+  }
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    text-align: center;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    height: 14px;
+    width: 14px;
+    transform: rotate(45deg);
+    background-color: #b7abff;
+    z-index: 1;
+  }
+}
+
+/* Register dialog */
+
+.AuthModal__register-info {
+  color: #a6a6a6;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(21px);
+  text-align: left;
+}
+
+.AuthModal__switch-links {
+  margin-bottom: 15px;
+  color: #a6a6a6;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(21px);
+  text-align: left;
+
+  & button,
+  & a {
+    margin: 0 30px 0 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      border-bottom: 1px solid #a6a6a6;
+      padding-bottom: 2px;
+    }
+  }
+}

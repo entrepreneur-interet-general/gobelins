@@ -119,6 +119,7 @@
   z-index: 1;
   color: black;
 }
+
 .DetailMainImage__button {
   height: 50px;
   width: 50px;
@@ -146,11 +147,19 @@
     color: $green-medium;
     border-color: $green-medium;
   }
+  &.DetailMainImage__button--selection:hover {
+    color: $heart-red;
+    border-color: $heart-red;
+  }
 
   svg {
     display: block;
     flex: 0 0 auto;
   }
+}
+.DetailMainImage__button--selection svg {
+  position: relative;
+  top: 1px;
 }
 
 .DetailImageList {
@@ -691,6 +700,7 @@
 }
 .DetailDownloadModal__scroller {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .DetailDownloadModal__2cols {
   @include breakpoint(769px) {
@@ -715,6 +725,13 @@
     text-decoration: none;
     border-bottom: 1px dotted black;
   }
+}
+.DetailDownloadModal__download-button {
+  display: inline-block !important;
+  width: auto !important;
+  text-decoration: none;
+  border: 0 !important;
+  margin-bottom: 30px;
 }
 .DetailDownloadModal__headline {
   display: block;

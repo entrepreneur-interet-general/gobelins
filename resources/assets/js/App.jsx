@@ -8,10 +8,18 @@ import {
 import ReactBreakpoints from "react-breakpoints";
 import qs from "qs";
 import merge from "deepmerge";
-import image from "./vendor/folklore-image.js";
+import { GatewayDest, GatewayProvider } from "react-gateway";
+import ReactModal2 from "react-modal2";
+ReactModal2.getApplicationElement = () => document.getElementById("App__main");
+import notifier from "./utils/notifier";
+import get from "lodash.get";
 
+import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";
 import Detail from "./Detail/Detail";
+import SelectionsIndex from "./Selection/SelectionsIndex";
+import SelectionDetailPage from "./Selection/SelectionDetailPage";
+import LibraryBoard from "./ui/LibraryBoard";
 
 const breakpoints = {
   xxsmall: 420,
@@ -79,12 +87,13 @@ class App extends Component {
       if (this.cache[s] && this.cache[s].isLoading === false) {
         this.setState(state => {
           this.dispatchAnalyticsEvent();
+          const filterObj = get(location, "state.filterObj", state.filterObj);
           return {
             hits: this.cache[s].data.hits,
             hasMore: this.cache[s].data.hasMore,
             totalHits: this.cache[s].data.totalHits,
             currentPage: this.cache[s].currentPage,
-            filterObj: location.state.filterObj,
+            filterObj,
             isLoading: false
           };
         });
@@ -181,6 +190,10 @@ class App extends Component {
 
   componentDidMount() {
     this.firstLoad();
+
+    if (window.SESSION_STATUS) {
+      notifier(window.SESSION_STATUS);
+    }
   }
 
   firstLoad() {
@@ -412,6 +425,7 @@ class App extends Component {
 
   handleObjectClick(product, event) {
     event.preventDefault();
+    const prevPath = this.props.location.pathname;
     this.cache[this.props.location.pathname] = {
       type: "detail",
       product: product,
@@ -421,7 +435,8 @@ class App extends Component {
       { productDetail: product, scrollPosition: window.scrollY },
       () => {
         this.props.history.push(`/objet/${product.inventory_id}`, {
-          type: "detail"
+          type: "detail",
+          prevPath
         });
         window.scrollTo(0, 0);
       }
@@ -430,49 +445,83 @@ class App extends Component {
 
   render() {
     return (
-      <ReactBreakpoints
-        breakpoints={breakpoints}
-        debounceResize={true}
-        debounceDelay={100}
-      >
-        <Switch>
-          <Route
-            path="/recherche"
-            render={props => (
-              <Collection
-                {...props}
-                onFilterAdd={this.handleAddFilter}
-                onFilterRemove={this.handleRemoveFilter}
-                onFilterRemoveAll={this.handleRemoveAllFilters}
-                onFilterChange={this.handleFilterChange}
-                isLoadingURL={this.isLoadingSearch.bind(
-                  this,
-                  this.buildSearchParamsFromState()
-                )}
-                isLoading={this.state.isLoading}
-                isLoadingMore={this.state.isLoadingMore}
-                totalHits={this.state.totalHits}
-                filterObj={this.state.filterObj}
-                hits={this.state.hits}
-                loadMore={this.handleNextPageCallback}
-                hasMore={!this.state.isLoading && this.state.hasMore}
-                currentPage={this.state.currentPage}
-                onObjectClick={this.handleObjectClick}
-              />
-            )}
-          />
-          <Route
-            path="/objet/:inventory_id"
-            render={props => (
-              <Detail
-                {...props}
-                product={this.state.productDetail}
-                onBackToCollection={this.handleBackToCollection}
-              />
-            )}
-          />
-        </Switch>
-      </ReactBreakpoints>
+      <AppProviders>
+        <GatewayProvider>
+          <div id="App">
+            <div id="App__main">
+              <ReactBreakpoints
+                breakpoints={breakpoints}
+                debounceResize={true}
+                debounceDelay={100}
+              >
+                <Switch>
+                  <Route
+                    path="/recherche"
+                    render={props => (
+                      <Collection
+                        {...props}
+                        onFilterAdd={this.handleAddFilter}
+                        onFilterRemove={this.handleRemoveFilter}
+                        onFilterRemoveAll={this.handleRemoveAllFilters}
+                        onFilterChange={this.handleFilterChange}
+                        isLoadingURL={this.isLoadingSearch.bind(
+                          this,
+                          this.buildSearchParamsFromState()
+                        )}
+                        isLoading={this.state.isLoading}
+                        isLoadingMore={this.state.isLoadingMore}
+                        totalHits={this.state.totalHits}
+                        filterObj={this.state.filterObj}
+                        hits={this.state.hits}
+                        loadMore={this.handleNextPageCallback}
+                        hasMore={!this.state.isLoading && this.state.hasMore}
+                        currentPage={this.state.currentPage}
+                        onObjectClick={this.handleObjectClick}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/objet/:inventory_id"
+                    render={props => (
+                      <Detail
+                        {...props}
+                        product={this.state.productDetail}
+                        onBackToCollection={this.handleBackToCollection}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/ui"
+                    exact
+                    render={props => <LibraryBoard {...props} />}
+                  />
+                  <Route
+                    path="/selections/"
+                    exact
+                    render={props => (
+                      <SelectionsIndex
+                        {...props}
+                        onBackToCollection={this.handleBackToCollection}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/selections/:selection_id"
+                    render={props => (
+                      <SelectionDetailPage
+                        {...props}
+                        onObjectClick={this.handleObjectClick}
+                        onBackToCollection={this.handleBackToCollection}
+                      />
+                    )}
+                  />
+                </Switch>
+              </ReactBreakpoints>
+            </div>
+            <GatewayDest name="modal" id="App__modal" className="Modal" />
+          </div>
+        </GatewayProvider>
+      </AppProviders>
     );
   }
 }

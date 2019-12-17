@@ -1,0 +1,243 @@
+.SelectionDetail {
+  position: relative;
+  background-color: #fff;
+  color: #000;
+  padding: 60px 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  @include breakpoint(760px) {
+    padding-top: 90px;
+  }
+  &.SelectionDetail--is-mine {
+    background-color: #141414;
+    color: #fff;
+  }
+}
+.SelectionDetail__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(25px, 25px);
+}
+
+.SelectionDetail__cross-nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 59px;
+  width: 100%;
+  z-index: 1;
+  background: #fff;
+
+  .SelectionDetail--is-mine & {
+    background-color: #141414;
+  }
+}
+.SelectionDetail__back-to-selections {
+  @extend .Selections__close;
+}
+.SelectionDetail .SelectionDetail__back-to-selections {
+  color: inherit;
+  right: auto;
+  left: 5px;
+  @include breakpoint(769px) {
+    left: 20px;
+    position: fixed;
+  }
+}
+.SelectionDetail .SelectionDetail__close {
+  color: inherit;
+}
+
+.SelectionDetail__header {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 90px !important;
+
+  @include breakpoint(768px) {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-right: 80px;
+    margin-left: 80px;
+  }
+  @include breakpoint(1025px) {
+    margin-right: 110px;
+    margin-left: 110px;
+  }
+  @include breakpoint(1280px) {
+    margin-right: 150px;
+    margin-left: 150px;
+  }
+  @include breakpoint(1440px) {
+    margin-right: 170px;
+    margin-left: 170px;
+  }
+  @include breakpoint(1600px) {
+    margin-right: 150px;
+    margin-left: 150px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.SelectionDetail__header-left {
+  @include breakpoint(768px) {
+    width: calc((100% - 40px) / 2);
+    margin-right: 40px;
+  }
+}
+.SelectionDetail__header-right {
+  @include breakpoint(768px) {
+    width: calc((100% - 40px) / 2);
+  }
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(20px);
+}
+.SelectionDetail__header-line {
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+
+  margin-bottom: 50px;
+
+  @include breakpoint(768px) {
+    margin-bottom: 0;
+  }
+
+  & h1 {
+    display: inline;
+    font-weight: 600;
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  & > * + * {
+    margin-left: 21px;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: currentColor;
+      width: 2px;
+      height: 1em;
+      top: 6px;
+      left: -10px;
+    }
+  }
+  .SelectionDetail__padlock {
+    margin-left: 10px;
+  }
+}
+.SelectionDetail__edit-button {
+  background-color: inherit;
+  margin-bottom: 30px;
+}
+
+.SelectionDetail__grid {
+  --ext-gutter: 15px;
+  --int-gutter: 15px;
+  --cols: 2;
+  --col-width: calc(
+    (100vw - (var(--ext-gutter) * 2 + var(--int-gutter) * (var(--cols) - 1))) /
+      var(--cols)
+  );
+
+  margin: 0 var(--ext-gutter);
+  @include breakpoint(768px) {
+    --cols: 3;
+    --ext-gutter: 80px;
+    --int-gutter: 40px;
+  }
+
+  @include breakpoint(1025px) {
+    --ext-gutter: 110px;
+    --int-gutter: 80px;
+  }
+  @include breakpoint(1280px) {
+    --ext-gutter: 150px;
+  }
+
+  @include breakpoint(1440px) {
+    --ext-gutter: 170px;
+    --int-gutter: 100px;
+  }
+
+  @include breakpoint(1600px) {
+    --cols: 4;
+    --int-gutter: 85px;
+  }
+  @include breakpoint(1940px) {
+    max-width: 1700px;
+    margin-left: auto;
+    margin-right: auto;
+    --col-width: calc(
+      (1700px - (var(--int-gutter) * (var(--cols) - 1))) / var(--cols)
+    );
+  }
+  @include breakpoint(2200px) {
+    --cols: 5;
+  }
+}
+
+.SelectionDetail__masonry-container {
+  position: relative;
+}
+
+.SelectionDetail__grid-item.SelectionDetail__grid-item {
+  position: absolute;
+  width: var(--col-width);
+
+  .SelectionDetail--is-mine & {
+    color: white;
+
+    &:hover {
+      color: #ccc; // Just a guess.
+    }
+  }
+  @include breakpoint(800px) {
+    width: var(--col-width);
+    &:nth-child(2)::before {
+      height: 60px;
+    }
+  }
+  @include breakpoint(1600px) {
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      height: 60px;
+    }
+  }
+  @include breakpoint(2200px) {
+    &:nth-child(2)::before,
+    &:nth-child(4)::before {
+      height: 60px;
+    }
+  }
+}
+
+.SelectionDetail__blankslate {
+  grid-column-start: 11;
+  grid-column-end: 19;
+
+  > svg {
+    display: block;
+    max-width: 100%;
+  }
+}
+.SelectionDetail__blankslate-txt {
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  font-weight: normal;
+  margin-top: 25px;
+  display: block;
+
+  & svg {
+    margin-left: 10px;
+  }
+}

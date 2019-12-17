@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { hotkeys } from "react-keyboard-shortcuts";
 import { Media } from "react-breakpoints";
+import classNames from "classnames";
 
 import BackToCollection from "./BackToCollection.jsx";
 import MainImage from "./MainImage.jsx";
@@ -11,6 +12,8 @@ import Data from "./Data.jsx";
 import Info from "./Info.jsx";
 import DetailZoomed from "./DetailZoomed.jsx";
 import DownloadModal from "./DownloadModal.jsx";
+import AddToSelectionModal from "../Selection/AddToSelectionModal";
+import CrossSimple from "../icons/CrossSimple";
 
 class Detail extends Component {
   constructor(props) {
@@ -29,7 +32,8 @@ class Detail extends Component {
       mainImageIndex: 0,
       layoutOrientation: this.computeLayoutOrientation(),
       zoomedMode: false,
-      downloadMode: false
+      downloadMode: false,
+      addingToSelection: null
     };
     this.computeLayoutOrientation = this.computeLayoutOrientation.bind(this);
     this.handleMainImageIndex = this.handleMainImageIndex.bind(this);
@@ -61,6 +65,20 @@ class Detail extends Component {
     this.setState({ mainImageIndex: index });
   }
 
+  handleSelectionClick = (product, ev) => {
+    ev.stopPropagation();
+    ev.preventDefault();
+    console.log("handleSelectionClick", product);
+
+    this.setState({ addingToSelection: product });
+    document.documentElement.classList.add("prevent-scroll");
+  };
+
+  handleCloseAddToSelection = () => {
+    this.setState({ addingToSelection: null });
+    document.documentElement.classList.remove("prevent-scroll");
+  };
+
   renderTitle() {
     return (
       <Title
@@ -78,15 +96,20 @@ class Detail extends Component {
           path={this.props.match.path}
           render={props => (
             <article
-              className={
-                "Detail has-" +
-                this.state.layoutOrientation +
-                "-poster" +
-                (this.hasSingleImage ? " has-single-image" : "")
-              }
+              className={classNames(
+                "Detail",
+                `has-${this.state.layoutOrientation}-poster`,
+                { "has-single-image": this.hasSingleImage }
+              )}
             >
               <div className="Detail__left-zone">
-                <BackToCollection onClick={this.props.onBackToCollection} />
+                <BackToCollection
+                  onClick={this.props.onBackToCollection}
+                  prevPath={
+                    this.props.location.state &&
+                    this.props.location.state.prevPath
+                  }
+                />
 
                 <Media>
                   {({ breakpoints, currentBreakpoint }) =>
@@ -96,9 +119,8 @@ class Detail extends Component {
                 </Media>
                 <MainImage
                   image={
-                    this.hasImages
-                      ? this.props.product.images[this.state.mainImageIndex]
-                      : null
+                    this.hasImages &&
+                    this.props.product.images[this.state.mainImageIndex]
                   }
                   onZoom={() => this.setState({ zoomedMode: true })}
                   match={this.props.match}
@@ -110,6 +132,8 @@ class Detail extends Component {
                       downloadMode: true
                     });
                   }}
+                  product={this.props.product}
+                  onSelectionClick={this.handleSelectionClick}
                 />
                 {this.hasImages && this.props.product.images.length > 1 ? (
                   <ImageList
@@ -141,6 +165,20 @@ class Detail extends Component {
                   <Info product={this.props.product} />
                 </div>
               </div>
+              {this.state.addingToSelection && (
+                <AddToSelectionModal
+                  product={this.state.addingToSelection}
+                  onClose={this.handleCloseAddToSelection}
+                  closeButton={
+                    <button
+                      className="SelectionModal__close"
+                      onClick={this.handleCloseAddToSelection}
+                    >
+                      <CrossSimple />
+                    </button>
+                  }
+                />
+              )}
             </article>
           )}
         />
@@ -171,6 +209,10 @@ class Detail extends Component {
             license={
               this.hasImages &&
               this.props.product.images[this.state.mainImageIndex].license
+            }
+            image={
+              this.hasImages &&
+              this.props.product.images[this.state.mainImageIndex]
             }
           />
         )}

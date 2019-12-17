@@ -1,0 +1,17 @@
+.RemoveButton {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+}
+.RemoveButton__initial-cross {
+}
+.RemoveButton .RemoveButton__loader {
+  position: absolute;
+  bottom: 60px;
+  right: 60px;
+}

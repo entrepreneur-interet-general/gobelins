@@ -1,0 +1,90 @@
+.SelectionsNav {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  width: 50px;
+  height: 50px;
+  overflow: visible;
+
+  @include breakpoint(1025px) {
+    position: fixed;
+    top: 38px;
+    right: 12px;
+  }
+
+  .SelectionsNav__icon {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #f0f0f0;
+    background-color: #fff;
+    border-radius: 25px;
+
+    & > svg {
+      position: relative;
+      top: -2px;
+      right: 2px;
+      z-index: 1;
+    }
+  }
+
+  .SelectionsNav__label {
+    display: flex;
+    flex: 1 0 auto;
+    height: 50px;
+    margin-right: -25px;
+    padding: 0 25px 0 20px;
+    position: relative;
+    z-index: 1;
+    flex-flow: column;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 25px 0 0 25px;
+    border-right: 0;
+    white-space: nowrap;
+    @include f-sans;
+    font-size: rem(15px);
+    line-height: rem(21px);
+    transition: opacity 400ms linear;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .SelectionsNav__heart {
+    transition: none;
+  }
+}
+
+@media (hover: hover) {
+  .SelectionsNav:hover .SelectionsNav__icon {
+    border-left-color: transparent;
+    border-radius: 0 25px 25px 0;
+  }
+  .SelectionsNav:hover,
+  .SelectionsNav:active {
+    width: auto;
+    .SelectionsNav__heart {
+      transition: fill 200ms linear 500ms;
+      fill: #f24747;
+    }
+    .SelectionsNav__label {
+      transition: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+/* Simplify the icon for low-resolution devices,
+   to avoid blury gray aliasing. */
+@media (max-resolution: 100dpi) {
+  .SelectionsNav__inner-page {
+    visibility: hidden;
+  }
+}

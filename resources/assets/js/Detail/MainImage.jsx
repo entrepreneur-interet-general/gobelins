@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import ImageLoader from "react-loading-image";
 import { Link } from "react-router-dom";
-// import folkloreImage from "../vendor/folklore-image.js";
 
 import MagnifyingGlass from "../icons/MagnifyingGlass";
 import Download from "../icons/Download";
+import Heart from "../icons/Heart";
 import Loader from "../Loader";
 
 class MainImage extends Component {
@@ -37,7 +37,9 @@ class MainImage extends Component {
               src={imgUrl}
               alt=""
               image={props => (
-                <img src={imgUrl} alt="" className="DetailMainImage__img" />
+                <Link to={`${this.props.match.url}/zoom`}>
+                  <img src={imgUrl} alt="" className="DetailMainImage__img" />
+                </Link>
               )}
               loading={() => <Loader className="DetailMainImage__spinner" />}
               error={() => <div>Error</div>}
@@ -48,19 +50,31 @@ class MainImage extends Component {
               <Link
                 to={`${this.props.match.url}/zoom`}
                 className="DetailMainImage__button DetailMainImage__button--magnifying-glass"
+                title="Agrandir l’image"
               >
                 <MagnifyingGlass />
               </Link>
-              <a
-                href={`/media/orig/${encodeURIComponent(
-                  this.props.image.path.replace(".JPG", ".jpg")
-                )}`}
-                download={downloadFilename}
+              <button
+                type="button"
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
+                title="Télécharger l’image en haute définition"
               >
                 <Download />
-              </a>
+              </button>
+              {this.props.onSelectionClick && (
+                <button
+                  type="button"
+                  className="DetailMainImage__button DetailMainImage__button--selection"
+                  onClick={this.props.onSelectionClick.bind(
+                    this,
+                    this.props.product
+                  )}
+                  title="Ajouter l’objet à une sélection"
+                >
+                  <Heart />
+                </button>
+              )}
             </div>
           </figure>
         ) : (

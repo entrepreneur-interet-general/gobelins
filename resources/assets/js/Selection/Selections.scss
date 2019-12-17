@@ -1,0 +1,138 @@
+.Selections {
+}
+
+.Selections__scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  z-index: 1;
+}
+
+.Selections__close {
+  position: fixed;
+  top: 10px;
+  right: 5px;
+  background-color: #141414;
+  border-radius: 50%;
+  z-index: 1;
+  color: white;
+  border: 0;
+  padding: 12px;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  svg {
+    display: block;
+  }
+
+  @include breakpoint(769px) {
+    top: 45px;
+    right: 20px;
+    padding: 10px;
+    background-color: transparent;
+    svg.is-dark-on-light {
+      color: black;
+    }
+    svg.is-light-on-dark {
+      color: white;
+    }
+  }
+}
+
+.Selections__images-placeholder {
+  flex: 1 1 auto;
+  & span {
+    border: 1px dotted currentColor;
+  }
+}
+.Selections__images-placeholder-wrapper {
+  @extend .SelectionsListItem__images-wrapper;
+}
+.Selections__images-placeholder-inner {
+  @extend .SelectionsListItem__images;
+}
+.Selections__inset-header {
+  grid-row: 1;
+  @include breakpoint(600px) {
+    grid-area: 1 / left;
+  }
+
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+  margin: 0;
+}
+.Selections__load-more {
+  min-height: 61px;
+  position: relative;
+
+  &.is-mine {
+    color: white;
+  }
+  &.Selections__load-more {
+    margin-bottom: 0;
+  }
+}
+.Selections__load-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.Selections__load-more-button {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin: 0;
+  margin-left: -10px;
+  padding: 10px;
+  border: 0;
+  background-color: transparent;
+
+  @include f-sans;
+  font-size: rem(30px);
+  font-weight: normal;
+  line-height: rem(41px);
+
+  cursor: pointer;
+
+  > svg {
+    margin-right: 7px;
+  }
+
+  .is-mine & {
+    color: white;
+  }
+}
+
+@media (hover: hover) {
+  .Selections__load-more-button:hover {
+    color: #a6a6a6;
+
+    .Selections__load-more-button-text {
+      border-bottom: 1px solid currentColor;
+    }
+  }
+}
+
+.Selections__inset-search {
+  display: none;
+  grid-row: 1;
+  @include breakpoint(600px) {
+    display: block;
+    visibility: hidden;
+    grid-area: 1 / right;
+  }
+}
+
+.Selections__mobnat {
+  padding-top: 105px;
+  margin-bottom: 115px;
+  position: relative;
+}
+.Selections__users {
+  padding-top: 105px;
+  border-top: 1px solid #c5c5c5;
+  padding-bottom: 105px;
+  position: relative;
+}

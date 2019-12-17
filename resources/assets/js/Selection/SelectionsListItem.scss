@@ -1,0 +1,102 @@
+:root {
+  --selections-list-text-color: #000;
+  --selections-list-text-color-alt: #7c7c7c;
+}
+
+.SelectionsListItem {
+  // width: 100%;
+  position: relative;
+}
+
+.SelectionsListItem__link {
+  display: block;
+  text-decoration: none;
+}
+@media (hover: hover) {
+  .SelectionsListItem__link:hover {
+    --selections-list-text-color: #a6a6a6;
+    --selections-list-text-color-alt: #a6a6a6;
+  }
+  .MySelections .SelectionsListItem__link:hover {
+    --selections-list-text-color: #7c7c7c;
+    --selections-list-text-color-alt: #7c7c7c;
+  }
+}
+
+.SelectionsListItem__images-wrapper {
+  width: 100%;
+  height: 0;
+  /* Ratio extracted from desktop large designs. */
+  padding-bottom: calc(336 / 664 * 100%);
+  position: relative;
+}
+.SelectionsListItem__images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  --gutter: 10px;
+  color: var(--selections-list-text-color);
+
+  & img,
+  & span {
+    display: block;
+    flex: 1 1 auto;
+    height: 100%;
+    width: calc(25% - (3 * var(--gutter)));
+    object-fit: cover;
+    object-position: center;
+  }
+  & span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  & img + img,
+  & span + span {
+    margin-left: var(--gutter);
+  }
+}
+.SelectionsListItem__title-line {
+  margin-top: 20px;
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(18px);
+  color: var(--selections-list-text-color);
+
+  & > * + * {
+    margin-left: 12px;
+    position: relative;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: var(--selections-list-text-color);
+      width: 1px;
+      height: 1em;
+      top: 2px;
+      left: -7px;
+    }
+  }
+}
+.SelectionsListItem__name {
+  font-weight: 600;
+}
+.SelectionsListItem__count {
+}
+.SelectionsListItem__desc {
+  @include f-sans;
+  font-size: rem(13px);
+  line-height: rem(18px);
+  color: var(--selections-list-text-color-alt);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}

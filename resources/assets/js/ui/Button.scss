@@ -1,0 +1,157 @@
+.Button {
+  display: block;
+  height: 44px;
+  width: 100%;
+  position: relative;
+
+  &.Button__round {
+    width: 44px;
+  }
+  padding: 0;
+  border-radius: 22px;
+  border: 0;
+  background-color: #fff;
+  color: #000;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(44px);
+  cursor: pointer;
+
+  &.Button__dark {
+    background-color: #141414;
+    border-color: #373737;
+    color: #fff;
+    &:hover,
+    &.is-hovered {
+      border-color: #fff;
+    }
+  }
+
+  &.Button__red {
+    background-color: #f24747;
+    border-color: #f24747;
+    color: white;
+  }
+
+  &.Button__warning {
+    color: #f24747;
+  }
+}
+
+.Button__inner {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 22px;
+  height: 100%;
+}
+
+.Button__icon {
+  flex: 0 0 auto;
+  position: relative;
+
+  > svg {
+    display: block;
+  }
+}
+
+.Button__label {
+  flex: 1 1 auto;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.Button__icon + .Button__label {
+  margin-left: 10px;
+}
+
+.Button.Button__small,
+.Button.Button__tiny {
+  display: block;
+  width: auto;
+  height: 36px;
+  border-radius: 18px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: rem(15px);
+  line-height: 120%;
+
+  &.Button__round {
+    width: 36px;
+    & .Button__inner {
+      padding: 0;
+    }
+  }
+
+  & .Button__inner {
+    padding: 0 18px;
+  }
+}
+
+.Button.Button__tiny {
+  height: 26px;
+  border-radius: 13px;
+  &.Button__round {
+    width: 26px;
+  }
+  &.Button__dark:hover,
+  &.Button__dark.is-hovered {
+    border-color: #000;
+  }
+  // .Button__icon {
+  //   position: relative;
+  //   top: -1px;
+  // }
+}
+
+.Button__pop-over {
+  display: block;
+  box-sizing: border-box;
+  width: auto;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+
+  background-color: #373737;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: rem(13px);
+  line-height: rem(16px);
+  text-align: center;
+  color: #fff;
+
+  // By default, placed above.
+  bottom: calc(100% + 18px);
+
+  &.Button__pop-over--at-bottom {
+    bottom: unset;
+    top: calc(100% + 18px);
+
+    &:after {
+      top: unset;
+      bottom: 100%;
+      transform: rotate(180deg);
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: calc(50% - 3px);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 6px 0 6px;
+    border-color: #373737 transparent transparent transparent;
+
+    pointer-events: none;
+  }
+}
+@media (hover: hover) {
+  .Button:hover .Button__pop-over {
+    opacity: 1;
+  }
+}

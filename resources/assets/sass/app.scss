@@ -2,6 +2,7 @@
 @import "~normalize.css";
 @import "~sass-rem";
 @import "~breakpoint-sass";
+@import "~simple-react-notifications/dist/index.css";
 
 // Shared utilities
 @import "shared/aspect-ratio";
@@ -9,18 +10,18 @@
 @import "shared/colors";
 @import "shared/global";
 @import "shared/grids";
+@import "shared/reset-reset";
 @import "shared/spinner";
 @import "shared/typography";
 
 // Blocks
-@import "blocks/BetaWelcome";
 @import "blocks/Info";
 
 // React components
+@import "../js/Auth/AuthModal.scss";
 @import "../js/Collection/Collection.scss";
 @import "../js/Collection/ScrollToTop.scss";
 @import "../js/Collection/ResultCount.scss";
-@import "../js/Detail/Detail.scss";
 @import "../js/Collection/Filters/Authors.scss";
 @import "../js/Collection/Filters/AuthorsMobile.scss";
 @import "../js/Collection/Filters/Periods.scss";
@@ -43,6 +44,25 @@
 @import "../js/Collection/Filters/Styles.scss";
 @import "../js/Collection/Filters/StylesMobile.scss";
 @import "../js/Collection/Settings/Settings.scss";
+@import "../js/Detail/Detail.scss";
+@import "../js/Modal.scss";
+@import "../js/Selection/CollaborationsHandler.scss";
+@import "../js/Selection/SelectionDetail.scss";
+@import "../js/Selection/SelectionModal.scss";
+@import "../js/Selection/Selections.scss";
+@import "../js/Selection/SelectionsNav.scss";
+@import "../js/Selection/SelectionsList.scss";
+@import "../js/Selection/SelectionsListItem.scss";
+@import "../js/Selection/MySelections.scss";
+@import "../js/ui/Button.scss";
+@import "../js/ui/ConfirmedDelete.scss";
+@import "../js/ui/Notification.scss";
+@import "../js/ui/Loader.scss";
+@import "../js/ui/LibraryBoard.scss";
+@import "../js/ui/InputField.scss";
+@import "../js/ui/RemoveButton.scss";
+@import "../js/ui/Switch.scss";
+@import "../js/ui/Textarea.scss";
 
 :root {
   height: 100%;

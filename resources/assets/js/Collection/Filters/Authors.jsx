@@ -56,17 +56,22 @@ class Authors extends Component {
     }
   };
 
-  animationComplete = () =>
+  animationComplete = () => {
     this.setState({
       isAnimating: false
     });
+  };
 
   scrollToLetter = (ev, letter) => {
+    const scrollToItem = window.__INITIAL_STATE__.authors_offsets[letter];
     ev.stopPropagation();
-    if (this.state.isAnimating === true) {
+    if (
+      this.state.isAnimating === true ||
+      scrollToItem === this.state.scrollToItem
+    ) {
       return;
     }
-    const scrollToItem = window.__INITIAL_STATE__.authors_offsets[letter];
+
     this.setState({
       isAnimating: true,
       scrollToItem
@@ -76,20 +81,27 @@ class Authors extends Component {
   render() {
     return (
       <div className="Authors">
-        <div className="Authors__alphabet">
-          {this.alphabet.map(letter => {
-            return (
-              <button
-                className="Authors__alphabet-button"
-                type="button"
-                onClick={ev => this.scrollToLetter(ev, letter)}
-                key={"alpha-" + letter}
-              >
-                {letter}
-              </button>
-            );
-          })}
-        </div>
+        <fieldset
+          className="Authors__alphabet"
+          disabled={this.state.isAnimating}
+        >
+          <div className="Authors__alphabet-inner">
+            {this.alphabet.map(letter => {
+              return (
+                <div className="Authors__alphabet-button-wrapper">
+                  <button
+                    className="Authors__alphabet-button"
+                    type="button"
+                    onClick={ev => this.scrollToLetter(ev, letter)}
+                    key={"alpha-" + letter}
+                  >
+                    {letter}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </fieldset>
         <div className="Authors__double-col">
           <AutoSizer>
             {({ height, width }) => (

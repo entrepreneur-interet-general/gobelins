@@ -9,6 +9,8 @@ class Product extends Model
 {
     use Searchable;
 
+    protected $hidden = ['pivot'];
+
     // Eloquent relationships
 
     public function authorships()
@@ -61,6 +63,11 @@ class Product extends Model
         return $this->belongsTo(ProductionOrigin::class);
     }
 
+    public function selections()
+    {
+        return $this->belongsToMany(Selection::class);
+    }
+
     // Accessors
 
     public function getMaterialsWithAncestorsAttribute()
@@ -100,6 +107,20 @@ class Product extends Model
         return $this->images()->where('is_published', true)->get()->map(function ($image) {
             return $image->toSearchableArray();
         })->all();
+    }
+    
+    /**
+     * TODO: change this to use the is_poster attribute
+     * from gobelins-datasource.
+     *
+     * @return \App\Models\Image|null
+     */
+    public function getPosterImageAttribute()
+    {
+        return $this->images()
+                    ->where('is_published', true)
+                    ->orderBy('is_prime_quality')
+                    ->first();
     }
     
     public function getSearchableStyleAttribute()
@@ -192,7 +213,7 @@ class Product extends Model
         $urls = [];
         if ($images && sizeof($images) > 0) {
             $urls = $images->map(function ($i) {
-                return url(\Folklore\Image\Facades\Image::url($i->path, 600));
+                return url(\Folklore\Image\Support\Facades\Image::url($i->path, 600));
             })->all();
         }
         return $urls;
@@ -207,6 +228,7 @@ class Product extends Model
     public function toSearchableArray()
     {
         return [
+            '_id' => $this->id,
             'title_or_designation' => $this->title_or_designation,
             'denomination' => $this->denomination,
             'description' => in_array($this->publication_code, ['P+D', 'P+D+P', 'P+D+O']) ? $this->description : null,

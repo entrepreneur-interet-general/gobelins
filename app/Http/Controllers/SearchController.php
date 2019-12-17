@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Author;
@@ -10,9 +11,13 @@ use App\Models\Period;
 use App\Models\Style;
 use App\Models\Material;
 use App\Models\ProductionOrigin;
+use App\Models\Selection;
+use App\User;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
+use \App\Http\Resources\ListedSelection;
+use \App\Http\Resources\SelectionCollection;
 
 class SearchController extends Controller
 {
@@ -153,7 +158,7 @@ class SearchController extends Controller
         });
 
         $product = null;
-        if ($inventory_id) {
+        if ($request->route()->named('product')) {
             $product = Product::published()->byInventory($inventory_id)->firstOrFail();
             
             SEO::setTitle($product->seoTitle);
@@ -167,9 +172,57 @@ class SearchController extends Controller
             $product = $product->toSearchableArray();
         };
 
+        $my_selections = null;
+        $mob_nat_selections = null;
+        $user_selections = null;
+        $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
+        if ($request->route()->named('selections')) {
+            $my_selections = Auth::check() ? new SelectionCollection(Auth::user()
+                ->selections()
+                ->orderBy('updated_at', 'DESC')
+                ->with(['users:id,name'])
+                ->paginate(4)
+                ->withPath(route('api.mySelections'))) : null;
+            $mob_nat_selections = new SelectionCollection($mob_nat_user->selections()
+                ->public()
+                ->orderBy('updated_at', 'DESC')
+                ->with('users:id,name,email')
+                ->paginate(4)
+                ->withPath(route('api.mobNatSelections')));
+            $user_selections = new SelectionCollection(Selection::with('users:id,name,email')
+                ->public()
+                ->whereDoesntHave('users', function ($q) {
+                    $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+                })
+                ->orderBy('selections.updated_at', 'DESC')
+                ->paginate(4)
+                ->withPath(route('api.userSelections')));
+        }
+
+        $selection_detail = null;
+        if ($request->route()->named('selection_detail')) {
+            $selection_id = (int) $request->selection_id;
+            $selection_detail = Selection::find($selection_id);
+            $this->authorize('view', $selection_detail);
+            $selection_detail = $selection_detail ? $selection_detail->toSearchableArray() : null;
+        }
+
+        $currentUser = null;
+        if (Auth::check()) {
+            $user = Auth::user();
+            $currentUser = $user->toSearchableArray();
+            $currentUser['api_token'] = $user->api_token;
+        }
+
+
         return view('site.search', [
             'filters' => $filters,
             'product' => $product,
+            'my_selections' => $my_selections,
+            'mob_nat_selections' => $mob_nat_selections,
+            'user_selections' => $user_selections,
+            'selection_detail' => $selection_detail,
+            'currentUser' => $currentUser,
         ]);
     }
 

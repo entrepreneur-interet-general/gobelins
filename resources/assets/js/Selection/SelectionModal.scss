@@ -1,0 +1,317 @@
+.SelectionModal__overlay {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: center;
+
+  @include breakpoint(760px) {
+    align-items: center;
+  }
+}
+.SelectionModal__content {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: center;
+  max-height: calc(100vh - 40px);
+  background-color: #131313;
+  margin: 20px;
+  @include breakpoint(760px) {
+    flex: 0 0 auto;
+    margin: auto;
+    width: 740px;
+    min-height: 425px;
+  }
+}
+.SelectionModal__loader {
+  transform: translate(-25px, -25px);
+}
+.SelectionModal__content-scrollable {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-width: 740px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  margin: 20px;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #131313;
+  color: white;
+  max-height: 100%;
+  @include breakpoint(760px) {
+    flex: 0 0 auto;
+    margin: auto;
+    width: 740px;
+    min-height: 425px;
+  }
+}
+.SelectionModal__close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  @include breakpoint(760px) {
+    top: 20px;
+    right: 20px;
+  }
+  z-index: 1;
+  background-color: transparent;
+  color: white;
+  border: 0;
+  padding: 10px;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  svg {
+    display: block;
+  }
+}
+
+.SelectionModal__wrapper {
+  padding: 50px 0 0;
+  box-sizing: border-box;
+  min-height: 100%;
+  display: flex;
+  width: 100%;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  @include breakpoint(760px) {
+    padding: 35px 100px 60px;
+  }
+
+  &.SelectionModal__wrapper--user {
+    @include breakpoint(760px) {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+}
+
+.SelectionModal__pick-container {
+  font-size: 0px;
+}
+.SelectionModal__pick-fieldset,
+.SelectionModal__input-fieldset {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.SelectionModal__pick-legend,
+.SelectionModal__input-legend {
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  margin-bottom: 15px;
+}
+.SelectionModal__pick-button {
+  box-sizing: border-box;
+  padding: 6px 10px;
+  margin: 0 10px 10px 0;
+  background: #373737;
+  color: #fff;
+  border: 1px solid #373737;
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: left;
+  box-decoration-break: clone;
+
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(43px);
+
+  &:hover,
+  &:focus {
+    background-color: #fff;
+    color: #000;
+    outline: none;
+  }
+}
+
+/* Inputing a new selection */
+.SelectionModal__input-form {
+  display: block;
+  width: 100%;
+}
+.SelectionModal__input-fieldset {
+  @include breakpoint(768px) {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .SelectionModal__wrapper--user & {
+    margin-bottom: 0;
+  }
+}
+.SelectionModal__input-legend {
+  display: block;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.SelectionModal__input-wrapper {
+}
+.SelectionModal__input.SelectionModal__input--at-bottom {
+  margin-bottom: 0;
+}
+.SelectionModal__input-input {
+  width: calc(100% - 50px);
+  background-color: transparent;
+  margin: 0;
+  padding: 0 30px 0 13px;
+  color: #fff;
+  height: 36px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #373737;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+}
+.SelectionModal__input-submit {
+  background-color: #000;
+  border: 1px solid #373737;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  position: relative;
+  left: -18px;
+  top: 2px;
+  cursor: pointer;
+  &:hover {
+    border-color: #fff;
+  }
+
+  & > svg {
+    display: block;
+    margin: auto;
+  }
+}
+
+/* Confirmation dialog */
+
+.SelectionModal__added-confirm {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column-reverse;
+  @include breakpoint(760px) {
+    flex-flow: row nowrap;
+    flex-direction: initial;
+    align-items: center;
+  }
+
+  @include f-sans;
+  font-size: rem(30px);
+  line-height: rem(45px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  & p {
+    margin: 0;
+    padding: 0;
+  }
+}
+.SelectionModal__added-illu {
+  display: block;
+  float: left;
+  margin-top: 30px;
+  @include breakpoint(760px) {
+    margin-top: 0;
+    margin-right: 20px;
+  }
+
+  .AddedToSelection__heart {
+    animation-name: IntroduceHeart;
+    animation-duration: 1.5s;
+    animation-delay: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+  }
+}
+@keyframes IntroduceHeart {
+  from {
+    fill: #000;
+  }
+  to {
+    fill: #f24747;
+  }
+}
+.SelectionModal__added-arrow-back {
+  display: none;
+  @include breakpoint(760px) {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+.SelectionModal__added-arrow-down {
+  display: inline-block;
+  margin-left: 10px;
+  @include breakpoint(760px) {
+    display: none;
+  }
+}
+
+.SelectionModal__error-msg {
+  // Eww, dirty.
+  @extend .AuthModal__error-msg;
+  text-align: center;
+}
+
+/* Edit modal form. */
+
+.SelectionModal__edit-form {
+  box-sizing: border-box;
+  width: 100%;
+  color: #fff;
+  overflow-y: auto;
+
+  @include breakpoint(768px) {
+    padding: 30px 60px;
+  }
+  &.SelectionModal__edit-form--user {
+    padding: 0;
+  }
+}
+.SelectionModal__edit-form-buttons-row {
+  width: 100%;
+  height: 105px;
+  margin-top: 45px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: top;
+
+  @include breakpoint(768px) {
+    height: auto;
+    align-items: center;
+  }
+
+  overflow: hidden; // Because .ConfirmedDelete__buttons-row-wrapper has a fixed width of 500px.
+}
+.SelectionModal__edit-deletion {
+  flex: 1 1 auto;
+}
+.SelectionModal__edit-submit {
+  width: 140px;
+  flex: 0 0 140px;
+}
+
+.SelectionModal__form-label-sep {
+  display: block;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(21px);
+  margin-top: 30px;
+  margin-bottom: 27px;
+}

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -25,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +38,49 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+        return response()->json([
+            'status' => 'ok',
+            'csrfToken' => csrf_token(),
+        ]);
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        Auth::loginUsingId($user->id);
+
+        $request->session()->flash('status', 'Bienvenue, ' . $user->name . ' !');
+
+        return $request->expectsJson()
+        ? response()->json([
+            'status' => 'ok',
+            'csrfToken' => csrf_token(),
+            'token' => $user->api_token,
+            'user' => $user->toArray(),
+        ]) : redirect()->intended('/recherche');
+    }
+
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return $request->expectsJson()
+        ? response()->json(['message' => "Echec de l’authentification"], 401) : redirect('/login')
+        ->withInput($request->only($this->username(), 'remember'))
+        ->withErrors([
+            $this->username() => __('auth.failed'),
+        ]);
     }
 }

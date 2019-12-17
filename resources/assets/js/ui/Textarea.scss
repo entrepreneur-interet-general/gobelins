@@ -1,0 +1,53 @@
+.Textarea {
+  display: block;
+  box-sizing: border-box;
+  position: relative;
+  padding: 10px;
+
+  border: 1px solid #373737;
+  border-radius: 3px;
+
+  margin-bottom: 20px;
+  @include f-sans;
+  font-size: rem(15px);
+  line-height: rem(23px);
+  color: #a6a6a6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:hover,
+  &:focus-within {
+    border-color: #fff;
+  }
+}
+.Textarea__scrollable {
+  height: 140px;
+  width: 100%;
+  overflow: auto;
+  position: relative;
+}
+.Textarea__label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: block;
+  user-select: none;
+}
+.Textarea__el {
+  display: block;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  color: #fff;
+  //   text-indent: 82px;
+  width: 100%;
+  min-height: 6em;
+  resize: none;
+  font-size: inherit;
+  line-height: inherit;
+  overflow: visible;
+
+  &:focus {
+    outline: none;
+  }
+}

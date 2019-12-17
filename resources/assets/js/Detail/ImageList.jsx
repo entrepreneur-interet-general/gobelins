@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import folkloreImage from "../vendor/folklore-image.js";
+import imageUrl from "../utils/image-url";
 
 class ImageList extends Component {
   constructor(props) {
@@ -14,10 +14,7 @@ class ImageList extends Component {
   }
 
   renderListItem(img, index) {
-    let thumbUrl = folkloreImage.url(
-      `/media/xl/${encodeURIComponent(img.path)}`,
-      160
-    );
+    let thumbUrl = imageUrl(img.path, 160);
     return (
       <li key={index}>
         <button type="button" onClick={this.handleClick.bind(null, index)}>

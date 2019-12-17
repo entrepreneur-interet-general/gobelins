@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import ArrowBack from "../icons/ArrowBack.jsx";
 
 class BackToCollection extends Component {
@@ -10,16 +11,22 @@ class BackToCollection extends Component {
   render() {
     return (
       <div className="BackToCollection">
-        <a
-          href="#"
-          className="BackToCollection__button"
-          onClick={this.props.onClick}
-        >
-          <ArrowBack />
-          <span className="BackToCollection__label">
-            Collection du <b>Mobilier national</b>
-          </span>
-        </a>
+        {this.props.prevPath && this.props.prevPath.match("selection") ? (
+          <Link to={this.props.prevPath} className="BackToCollection__button">
+            <ArrowBack />
+          </Link>
+        ) : (
+          <a
+            href="#"
+            className="BackToCollection__button"
+            onClick={this.props.onClick}
+          >
+            <ArrowBack />
+            <span className="BackToCollection__label">
+              Collection du <b>Mobilier national</b>
+            </span>
+          </a>
+        )}
       </div>
     );
   }

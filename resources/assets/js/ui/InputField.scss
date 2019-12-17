@@ -1,0 +1,185 @@
+/* The InputField is actually a <label> element. */
+.InputField {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-items: center;
+
+  height: 36px;
+
+  position: relative;
+
+  background-color: #131313;
+  border: 1px solid #373737;
+  border-radius: 3px;
+
+  margin-bottom: 20px;
+  @include f-sans;
+  font-size: rem(16px);
+  line-height: rem(21px);
+  color: #a6a6a6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.with-submit,
+  &.with-button {
+    width: calc(100% - 18px);
+  }
+
+  @include breakpoint(1025px) {
+    font-size: rem(15px);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: #fff;
+    }
+  }
+  &:focus-within,
+  &.is-active {
+    border-color: #fff;
+  }
+
+  &.is-dirty.is-invalid {
+    border-color: #b7abff !important;
+  }
+}
+
+/* …and the label is a <span> */
+.InputField__label {
+  flex: 0 0 auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  user-select: none;
+}
+
+.InputField__input-wrapper {
+  height: 100%;
+  flex: 1 1 auto;
+}
+
+.InputField__input {
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  color: #fff;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:invalid {
+    // We handle validation state in the parent level.
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+// Disable iOS autofill styling (yellow background)
+input.InputField__input:-webkit-autofill,
+input.InputField__input:-webkit-autofill:hover,
+input.InputField__input:-webkit-autofill:focus,
+input.InputField__input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 300px #131313 inset !important;
+  -webkit-text-fill-color: #fff;
+  background-color: #131313;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.InputField__toggle-visibility {
+  flex: 0 0 auto;
+  height: 100%;
+  padding: 0 10px;
+  margin: 0;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+
+  & > svg {
+    display: block;
+    position: relative;
+    top: 2px;
+  }
+
+  &.is-visible .ToggleVisibility__non-strike,
+  .ToggleVisibility__strike {
+    visibility: visible;
+  }
+
+  .ToggleVisibility__non-strike,
+  &.is-visible .ToggleVisibility__strike {
+    visibility: hidden;
+  }
+}
+.InputField__toggle-visibility.focus-visible {
+  background-color: #373737;
+  outline: none;
+}
+
+.InputField__plus-submit,
+.InputField__end-button {
+  background-color: #000;
+  border: 1px solid #373737;
+  border-radius: 50%;
+  height: 38px;
+  width: 38px;
+  position: relative;
+  left: 17px;
+  top: 0;
+  cursor: pointer;
+  color: #fff;
+
+  .InputField.is-active &,
+  &:hover,
+  &:focus,
+  .InputField:hover & {
+    border-color: #fff;
+    outline: none;
+  }
+
+  .InputField.is-dirty.is-invalid & {
+    border-color: #b7abff !important;
+  }
+
+  & > svg {
+    display: block;
+    margin: auto;
+  }
+}
+.InputField__end-button svg {
+  position: relative;
+  left: -2px;
+  top: 1px;
+
+  .is-loading & {
+    opacity: 0.05;
+  }
+}
+
+.InputField__loader-container {
+  height: 38px;
+  width: 38px;
+  flex: 0 0 38px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -1px;
+  right: -19px;
+
+  & > .InputField__loader {
+    position: relative;
+    left: -2px;
+    height: 65%;
+    width: 65%;
+  }
+}

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { hotkeys } from "react-keyboard-shortcuts";
 
+import Button from "../ui/Button";
+
 class DownloadModal extends Component {
   constructor(props) {
     super(props);
@@ -23,9 +25,8 @@ class DownloadModal extends Component {
           {this.props.license === "LO 2.0" ? (
             <div className="DetailDownloadModal__scroller">
               <header>
-                <b className="DetailDownloadModal__headline">
-                  Votre téléchargement est en cours
-                </b>
+                <DownloadButton {...this.props} />
+                <b className="DetailDownloadModal__headline"></b>
                 <span>
                   Cette image est sous{" "}
                   <a
@@ -69,11 +70,12 @@ class DownloadModal extends Component {
             </div>
           ) : (
             <div className="DetailDownloadModal__scroller">
+              <header>
+                <DownloadButton {...this.props} />
+              </header>
               <div className="DetailDownloadModal__2cols">
                 <p>
-                  <b className="DetailDownloadModal__headline">
-                    Votre téléchargement est en cours
-                  </b>
+                  <b className="DetailDownloadModal__headline"></b>
                   <span>Cette image est réservée à un usage personnel.</span>
                 </p>
                 <p>
@@ -97,6 +99,30 @@ class DownloadModal extends Component {
       </section>
     );
   }
+}
+
+function DownloadButton(props) {
+  let downloadFilename = "";
+  let downloadFilenameRes = props.image
+    ? props.image.path.match(/.*\/(.+)(\.jpg)$/i)
+    : null;
+  if (downloadFilenameRes) {
+    downloadFilename =
+      downloadFilenameRes[1] + " © Mobilier national" + downloadFilenameRes[2];
+  }
+  return (
+    <a
+      className="Button DetailDownloadModal__download-button"
+      href={`/media/orig/${encodeURIComponent(
+        props.image.path.replace(".JPG", ".jpg")
+      )}`}
+      download={downloadFilename}
+    >
+      <span className="Button__inner">
+        <span className="Button__label">Télécharger</span>
+      </span>
+    </a>
+  );
 }
 
 export default hotkeys(DownloadModal);

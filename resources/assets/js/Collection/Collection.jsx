@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Media } from "react-breakpoints";
 
 import CollectionList from "./CollectionList.jsx";
 import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
+import SelectionsNav from "../Selection/SelectionsNav.jsx";
 // import Settings from "./Settings/Settings.jsx";
 
 class Collection extends Component {
@@ -48,10 +49,13 @@ class Collection extends Component {
 
         <Media>
           {({ breakpoints, currentBreakpoint }) =>
-            breakpoints[currentBreakpoint] > breakpoints.small ? (
-              <div className="Collection__scrollToTop">
-                <ScrollToTop />
-              </div>
+            breakpoints[currentBreakpoint] >= breakpoints.small ? (
+              <Fragment>
+                <div className="Collection__scrollToTop">
+                  <ScrollToTop />
+                </div>
+                <SelectionsNav />
+              </Fragment>
             ) : null
           }
         </Media>

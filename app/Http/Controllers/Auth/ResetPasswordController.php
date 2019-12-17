@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -25,7 +26,17 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+
+    // public function redirectTo()
+    // {
+    //     if (Auth::check()) {
+    //         $user = Auth::user();
+    //         session()->flash('status', $user->name . ', votre changement de mot de passe a bien été pris en compte.');
+    //     }
+    
+    //     return '/recherche';
+    // }
 
     /**
      * Create a new controller instance.
@@ -35,5 +46,17 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [
+            'password.confirmed' => 'Les mots de passe ne correspondent pas.',
+        ];
     }
 }

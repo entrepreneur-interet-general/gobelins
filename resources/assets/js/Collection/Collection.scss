@@ -2,16 +2,6 @@
   background-color: #fff;
 }
 
-.has-uninitialized-BetaWelcome .Collection {
-  position: relative;
-  // top: calc(100vh - 256px);
-  pointer-events: none;
-}
-.has-initialized-BetaWelcome .Collection {
-  position: static;
-  pointer-events: all;
-}
-
 .Collection__result {
   min-height: 100vh;
   @include breakpoint($xsmall) {
@@ -39,7 +29,7 @@
 .Collection__cell {
   display: block;
   text-decoration: none;
-  color: inherit;
+  color: $dark-gray;
   cursor: pointer;
   @include breakpoint($xsmall) {
     width: calc((100vw - (15px * 3)) / 2); // 2 columns, 15px gutter
@@ -86,6 +76,10 @@
   }
 }
 .Collection__image-container {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 0;
 }
 .Collection__image-container--empty {
   width: 100%;
@@ -104,6 +98,39 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: #6d6d6d;
+  }
+}
+.Collection__image-selection-button {
+  display: block;
+  padding: 15px;
+  border: 0;
+  background-color: transparent;
+  font-size: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.15s ease-in-out;
+
+  @media (hover: hover) {
+    opacity: 0;
+    .Collection__cell:hover & {
+      opacity: 1;
+    }
+    &:hover {
+      color: $heart-red;
+    }
+  }
+}
+.Collection__remove-button {
+  transition: opacity 0.15s ease-in-out;
+
+  @media (hover: hover) {
+    opacity: 0;
+    .Collection__cell:hover & {
+      opacity: 1;
+    }
   }
 }
 .Collection__cell img {
@@ -126,7 +153,7 @@
   font-size: rem(13px);
   line-height: rem(18px);
   font-weight: 600;
-  color: $dark-gray;
+  color: inherit;
 
   &:empty {
     display: none;
@@ -138,7 +165,7 @@
   font-size: rem(13px);
   line-height: rem(20px);
   font-weight: normal;
-  color: $dark-gray;
+  color: inherit;
 }
 
 .Collection__scrollToTop {

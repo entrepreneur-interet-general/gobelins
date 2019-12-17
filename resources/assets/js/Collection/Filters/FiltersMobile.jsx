@@ -9,6 +9,7 @@ import MobileSearch from "./MobileSearch";
 import Loader from "../../Loader";
 import ResultCount from "../ResultCount";
 import FilterPanelMobile from "./FilterPanelMobile";
+import SelectionsNav from "../../Selection/SelectionsNav";
 
 class FiltersMobile extends Component {
   constructor(props) {
@@ -150,6 +151,9 @@ class FiltersMobile extends Component {
             >
               <MagnifyingGlass width={20} height={20} />
             </button>
+          </div>
+          <div className="FiltersMobile__toggleholder FiltersMobile__toggleholder--center">
+            <SelectionsNav />
           </div>
           <div className="FiltersMobile__toggleholder FiltersMobile__toggleholder--right">
             <ScrollToTop />

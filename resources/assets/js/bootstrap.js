@@ -3,6 +3,13 @@ import ReactDOM from "react-dom";
 import AppRouter from "./AppRouter";
 import "focus-visible";
 import * as Sentry from "@sentry/browser";
+import Bricks from "bricks.js";
+
+/**
+ * Expose a global instance of Bricks,
+ * so we can use it outside of React.
+ */
+window.Bricks = Bricks;
 
 if (process.env.MIX_SENTRY_ENV != "local") {
   Sentry.init({
