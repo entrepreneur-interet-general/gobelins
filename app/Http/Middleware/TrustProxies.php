@@ -9,10 +9,12 @@ class TrustProxies extends Middleware
 {
     /**
      * The trusted proxies for this application.
+     * If none are provided here, the list provided
+     * in config/trustedproxy.php will be used.
      *
      * @var array
      */
-    protected $proxies = '143.126.211.16';
+    protected $proxies;
 
     /**
      * The headers that should be used to detect proxies.
