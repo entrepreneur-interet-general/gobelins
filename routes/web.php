@@ -18,6 +18,7 @@ Route::get('/recherche', 'SearchController@index')
         ->name('search');
 
 Route::get('/objet/{inventory_id}/zoom', 'SearchController@index')
+        ->name('product_zoom')
         ->where('inventory_id', '.*');
 
 Route::get('/objet/{inventory_id}', 'SearchController@index')

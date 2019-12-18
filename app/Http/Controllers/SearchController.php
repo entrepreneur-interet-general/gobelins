@@ -158,7 +158,7 @@ class SearchController extends Controller
         });
 
         $product = null;
-        if ($request->route()->named('product')) {
+        if ($request->route()->named('product') || $request->route()->named('product_zoom')) {
             $product = Product::published()->byInventory($inventory_id)->firstOrFail();
             
             SEO::setTitle($product->seoTitle);
