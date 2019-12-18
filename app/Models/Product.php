@@ -213,7 +213,7 @@ class Product extends Model
         $urls = [];
         if ($images && sizeof($images) > 0) {
             $urls = $images->map(function ($i) {
-                return url(\Folklore\Image\Support\Facades\Image::url($i->path, 600));
+                return url(\FolkloreImage::url($i->path, 600));
             })->all();
         }
         return $urls;
