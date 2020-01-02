@@ -56,7 +56,7 @@ class Selection extends Model
     {
         $ids = [];
         $this->products
-            ->sortByDesc('image_quality_score')
+            // ->sortByDesc('image_quality_score')
             ->each(function ($p) use (&$ids) {
                 if (sizeof($ids) < 4) {
                     $image = $p->posterImage;
