@@ -700,6 +700,7 @@
 }
 .DetailDownloadModal__scroller {
   overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .DetailDownloadModal__2cols {
   @include breakpoint(769px) {
