@@ -1,10 +1,11 @@
+import { hot } from "react-hot-loader/root";
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ScrollMemory from "react-router-scroll-memory";
 
 import App from "./App";
 
-export default function AppRouter() {
+function AppRouter() {
   return (
     <Router>
       <>
@@ -14,3 +15,5 @@ export default function AppRouter() {
     </Router>
   );
 }
+
+export default hot(AppRouter);

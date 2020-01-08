@@ -2,7 +2,7 @@ import React from "react";
 
 import * as authClient from "../utils/auth-client";
 import * as selectionsClient from "../utils/selections-client";
-import get from "lodash.get";
+import get from "lodash/get";
 const SelectionsContext = React.createContext();
 
 class SelectionsProvider extends React.Component {

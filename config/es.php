@@ -214,7 +214,6 @@ return [
                                 ],
                                 'license' => [
                                     'type' => 'text',
-                                    'index' => false,
                                 ],
                             ]
                         ],

@@ -18,7 +18,7 @@
     <meta name="msapplication-TileColor" content="#ff4747">
     <meta name="theme-color" content="#ffffff">
 
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css">
 
     @if (app()->environment('production'))
     <!-- Matomo -->
@@ -88,7 +88,7 @@
     <script crossorigin="anonymous"
         src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=IntersectionObserver">
     </script>
-    <script src="{{ mix('/js/bootstrap.js') }}"></script>
+    <script src="{{ mix('js/bootstrap.js') }}"></script>
 
     @yield('end_body')
 </body>

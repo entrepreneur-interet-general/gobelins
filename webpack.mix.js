@@ -2,6 +2,8 @@ let mix = require("laravel-mix");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -15,23 +17,26 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 
 mix
   .react("resources/assets/js/bootstrap.js", "public/js")
-  .sass("resources/assets/sass/app.scss", "public/css");
-// .webpackConfig({
-//   plugins: [
-//     new BundleAnalyzerPlugin({
-//       analyzerMode: "static",
-//       reportFilename: "../storage/app/public/report.html",
-//       generateStatsFile: true,
-//       statsFilename: "../storage/app/public/stats.json"
-//     })
-//   ]
-// });
-// .options({
-//   hmrOptions: {
-//     host: "gobelins.test",
-//     port: 8080
-//   }
-// });
+  .sass("resources/assets/sass/app.scss", "public/css")
+  .webpackConfig({
+    plugins: [
+      new LodashModuleReplacementPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode: "static",
+        reportFilename: "../storage/app/public/report.html",
+        generateStatsFile: true,
+        statsFilename: "../storage/app/public/stats.json"
+      })
+    ]
+  })
+  .options({
+    processCssUrls: false,
+    hmrOptions: {
+      // host: "gobelins.test",
+      host: "127.0.0.1",
+      port: 8080
+    }
+  });
 
 if (mix.inProduction()) {
   mix.version();

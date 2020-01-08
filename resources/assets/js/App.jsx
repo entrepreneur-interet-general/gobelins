@@ -12,7 +12,7 @@ import { GatewayDest, GatewayProvider } from "react-gateway";
 import ReactModal2 from "react-modal2";
 ReactModal2.getApplicationElement = () => document.getElementById("App__main");
 import notifier from "./utils/notifier";
-import get from "lodash.get";
+import get from "lodash/get";
 
 import AppProviders from "./context/AppProviders";
 import Collection from "./Collection/Collection";

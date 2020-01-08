@@ -11,6 +11,7 @@
       {
         "loose": true
       }
-    ]
+    ],
+    "react-hot-loader/babel"
   ]
 }

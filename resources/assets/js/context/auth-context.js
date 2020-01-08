@@ -29,6 +29,11 @@ class AuthProvider extends React.Component {
             authenticated: true
           });
         });
+      } else {
+        /**
+         * TODO : hit /login_from_token, to login and
+         * 'remember' user in sesssion.
+         */
       }
     } else {
       // If first loading after server-side authentication,
