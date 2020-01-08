@@ -16,8 +16,8 @@
 .MySelections__header {
   color: #fff;
   grid-row: 1;
-  margin-bottom: 20px;
-  @include breakpoint(600px) {
+  margin-bottom: 55px;
+  @include breakpoint(768px) {
     grid-area: 1 / right;
     margin-bottom: 0;
   }

@@ -25,6 +25,7 @@ mix
         analyzerMode: "static",
         reportFilename: "../storage/app/public/report.html",
         generateStatsFile: true,
+        openAnalyzer: false,
         statsFilename: "../storage/app/public/stats.json"
       })
     ]
