@@ -15,20 +15,25 @@ const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
  |
  */
 
+const webpackPlugins = [new LodashModuleReplacementPlugin()];
+
+if (process.env.MIX_ENABLE_BUNDLE_ANALYZER) {
+  webpackPlugins.push(
+    new BundleAnalyzerPlugin({
+      analyzerMode: "static",
+      reportFilename: "../storage/app/public/report.html",
+      generateStatsFile: true,
+      openAnalyzer: false,
+      statsFilename: "../storage/app/public/stats.json"
+    })
+  );
+}
+
 mix
   .react("resources/assets/js/bootstrap.js", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css")
   .webpackConfig({
-    plugins: [
-      new LodashModuleReplacementPlugin(),
-      new BundleAnalyzerPlugin({
-        analyzerMode: "static",
-        reportFilename: "../storage/app/public/report.html",
-        generateStatsFile: true,
-        openAnalyzer: false,
-        statsFilename: "../storage/app/public/stats.json"
-      })
-    ]
+    plugins: webpackPlugins
   })
   .options({
     processCssUrls: false,
