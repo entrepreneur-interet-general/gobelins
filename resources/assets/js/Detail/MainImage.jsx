@@ -54,14 +54,17 @@ class MainImage extends Component {
               >
                 <MagnifyingGlass />
               </Link>
-              <button
-                type="button"
+              <a
+                href={`/media/orig/${encodeURIComponent(
+                  this.props.image.path.replace(".JPG", ".jpg")
+                )}`}
+                download={downloadFilename}
                 onClick={this.props.onDownload}
                 className="DetailMainImage__button DetailMainImage__button--download"
                 title="Télécharger l’image en haute définition"
               >
                 <Download />
-              </button>
+              </a>
               {this.props.onSelectionClick && (
                 <button
                   type="button"

@@ -119,8 +119,9 @@ class Detail extends Component {
                 </Media>
                 <MainImage
                   image={
-                    this.hasImages &&
-                    this.props.product.images[this.state.mainImageIndex]
+                    this.hasImages
+                      ? this.props.product.images[this.state.mainImageIndex]
+                      : null
                   }
                   onZoom={() => this.setState({ zoomedMode: true })}
                   match={this.props.match}
@@ -209,10 +210,6 @@ class Detail extends Component {
             license={
               this.hasImages &&
               this.props.product.images[this.state.mainImageIndex].license
-            }
-            image={
-              this.hasImages &&
-              this.props.product.images[this.state.mainImageIndex]
             }
           />
         )}
