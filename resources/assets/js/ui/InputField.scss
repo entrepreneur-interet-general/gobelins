@@ -51,11 +51,15 @@
   margin-left: 10px;
   margin-right: 10px;
   user-select: none;
+  position: relative;
+  top: -1px;
 }
 
 .InputField__input-wrapper {
   height: 100%;
   flex: 1 1 auto;
+  position: relative;
+  top: -1px;
 }
 
 .InputField__input {
