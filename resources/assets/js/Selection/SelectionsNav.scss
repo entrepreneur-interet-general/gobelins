@@ -70,7 +70,7 @@
   .SelectionsNav:active {
     width: auto;
     .SelectionsNav__heart {
-      transition: fill 200ms linear 500ms;
+      transition: fill 200ms linear 80ms;
       fill: #f24747;
     }
     .SelectionsNav__label {
