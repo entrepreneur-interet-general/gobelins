@@ -329,10 +329,10 @@ class ForgotPasswordAction extends React.Component {
       .resetPassword(this.state)
       .then(data => {
         if (data.status == "ok") {
-          this.setState({
-            sent: true,
-            loading: false
-          });
+          notifier(
+            "Un lien pour réinitialiser votre mot de passe vous a été envoyé par e-mail."
+          );
+          this.props.onCloseModal();
         }
       })
       .catch(error => {
@@ -368,12 +368,6 @@ class ForgotPasswordAction extends React.Component {
             {this.state.errorMessage && (
               <div className="AuthModal__error-msg">
                 {this.state.errorMessage}
-              </div>
-            )}
-            {this.state.sent && (
-              <div className="AuthModal__error-msg">
-                Un lien pour réinitialiser votre mot de passe vous a été envoyé
-                par e-mail.
               </div>
             )}
 

@@ -293,7 +293,11 @@ function NotAuthenticated(props) {
             >
               <CrossSimple />
             </button>
-            <AuthModal action={authModalMode} onLogin={handleLoginCallback} />
+            <AuthModal
+              action={authModalMode}
+              onLogin={handleLoginCallback}
+              onCloseModal={() => setAuthModalOpen(false)}
+            />
           </ReactModal2>
         </Gateway>
       )}
