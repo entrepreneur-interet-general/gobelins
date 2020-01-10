@@ -255,13 +255,19 @@ function NotAuthenticated(props) {
   const handleRegisterClick = () => {
     setAuthModalMode("register");
     setAuthModalOpen(true);
+    document.documentElement.classList.add("prevent-scroll");
   };
   const handleLoginClick = () => {
     setAuthModalMode("login");
     setAuthModalOpen(true);
+    document.documentElement.classList.add("prevent-scroll");
   };
   const handleLoginCallback = () => {
     selectionsContext.fetchMine();
+  };
+  const handleModalClose = () => {
+    setAuthModalOpen(false);
+    document.documentElement.classList.remove("prevent-scroll");
   };
   return (
     <div className="MySelections" ref={props.observeRef}>
@@ -285,18 +291,18 @@ function NotAuthenticated(props) {
           <ReactModal2
             modalClassName="Modal__content SelectionModal__content"
             backdropClassName="Modal__overlay SelectionModal__overlay"
-            onClose={() => setAuthModalOpen(false)}
+            onClose={handleModalClose}
           >
             <button
               className="SelectionModal__close"
-              onClick={() => setAuthModalOpen(false)}
+              onClick={handleModalClose}
             >
               <CrossSimple />
             </button>
             <AuthModal
               action={authModalMode}
               onLogin={handleLoginCallback}
-              onCloseModal={() => setAuthModalOpen(false)}
+              onCloseModal={handleModalClose}
             />
           </ReactModal2>
         </Gateway>
