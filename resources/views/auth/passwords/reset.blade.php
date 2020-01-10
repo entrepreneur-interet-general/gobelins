@@ -87,10 +87,12 @@
                             </button>
                         </label>
 
+                        <!--
                         <div class="AuthModal__switch-links">
                             <a href="{{ route('login') }}">S'identifier</a>
                             <a href="{{ route('register') }}">Pas encore inscrit ?</a>
                         </div>
+                        -->
                         <div class="AuthModal__register-info"></div>
                         <button class="Button AuthModal__register-submit" type="submit">
                             <div class="Button__inner">

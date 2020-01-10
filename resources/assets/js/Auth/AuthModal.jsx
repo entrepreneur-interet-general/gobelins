@@ -172,16 +172,6 @@ class RegisterAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
-            <div className="AuthModal__switch-links">
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.switchToAction(LoginAction);
-                }}
-              >
-                Déjà inscrit ?
-              </button>
-            </div>
             <div className="AuthModal__register-info">
               Ces informations seront seulement utilisées pour accéder
               <br />
@@ -275,24 +265,6 @@ class LoginAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
-            <div className="AuthModal__switch-links">
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.switchToAction(ForgotPasswordAction);
-                }}
-              >
-                Mot de passe oublié ?
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.switchToAction(RegisterAction);
-                }}
-              >
-                Pas encore inscrit ?
-              </button>
-            </div>
             <Button type="submit" className="AuthModal__login-submit">
               Valider
             </Button>
@@ -383,24 +355,6 @@ class ForgotPasswordAction extends React.Component {
             <div className="AuthModal__switch-links">
               Nous vous enverons un lien par email qui vous permettra de
               réinitialiser votre mot de passe.
-              <br />
-              <br />
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.switchToAction(LoginAction);
-                }}
-              >
-                S’identifier
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  this.props.switchToAction(RegisterAction);
-                }}
-              >
-                Pas encore inscrit ?
-              </button>
             </div>
             <Button type="submit" className="AuthModal__login-submit">
               Valider
