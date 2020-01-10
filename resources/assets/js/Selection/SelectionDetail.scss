@@ -223,10 +223,25 @@
 .SelectionDetail__blankslate {
   grid-column-start: 11;
   grid-column-end: 19;
+  --resting-color: #141414;
+  --highlight-color: #f24747;
 
   > svg {
     display: block;
     max-width: 100%;
+  }
+  .SelectionsBlankIcon__heart-1,
+  .SelectionsBlankIcon__heart-2,
+  .SelectionsBlankIcon__heart-3 {
+    animation-name: SelectionsBlankIconHearts;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+  }
+  .SelectionsBlankIcon__heart-2 {
+    animation-delay: 1s;
+  }
+  .SelectionsBlankIcon__heart-3 {
+    animation-delay: 2s;
   }
 }
 .SelectionDetail__blankslate-txt {
@@ -239,5 +254,30 @@
 
   & svg {
     margin-left: 10px;
+    path {
+      --resting-color: #fff;
+      animation-name: SelectionsBlankIconHearts;
+      animation-duration: 4s;
+      animation-iteration-count: infinite;
+      animation-delay: 3.1s;
+    }
+  }
+}
+
+@keyframes SelectionsBlankIconHearts {
+  0% {
+    fill: var(--resting-color);
+  }
+  1% {
+    fill: var(--highlight-color);
+  }
+  20% {
+    fill: var(--highlight-color);
+  }
+  21% {
+    fill: var(--resting-color);
+  }
+  100% {
+    fill: var(--resting-color);
   }
 }
