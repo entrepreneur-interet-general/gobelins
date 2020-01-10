@@ -37,7 +37,7 @@
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
-  margin: 20px;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
   position: relative;
@@ -53,8 +53,8 @@
 }
 .SelectionModal__close {
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 10px;
+  right: 10px;
   @include breakpoint(760px) {
     top: 20px;
     right: 20px;
@@ -73,7 +73,7 @@
 }
 
 .SelectionModal__wrapper {
-  padding: 50px 0 0;
+  padding: 50px 20px 0;
   box-sizing: border-box;
   min-height: 100%;
   display: flex;
@@ -140,6 +140,10 @@
 .SelectionModal__input-form {
   display: block;
   width: 100%;
+  margin-top: 20px;
+  @include breakpoint(768px) {
+    margin-top: 0;
+  }
 }
 .SelectionModal__input-fieldset {
   @include breakpoint(768px) {
@@ -198,8 +202,10 @@
 /* Confirmation dialog */
 
 .SelectionModal__added-confirm {
+  box-sizing: border-box;
   height: 100%;
   width: 100%;
+  padding: 20px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
