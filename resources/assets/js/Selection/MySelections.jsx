@@ -263,7 +263,11 @@ function NotAuthenticated(props) {
     document.documentElement.classList.add("prevent-scroll");
   };
   const handleLoginCallback = () => {
+    document.documentElement.classList.remove("prevent-scroll");
     selectionsContext.fetchMine();
+  };
+  const handleRegisterCallback = () => {
+    document.documentElement.classList.remove("prevent-scroll");
   };
   const handleModalClose = () => {
     setAuthModalOpen(false);
@@ -302,6 +306,7 @@ function NotAuthenticated(props) {
             <AuthModal
               action={authModalMode}
               onLogin={handleLoginCallback}
+              onRegister={handleRegisterCallback}
               onCloseModal={handleModalClose}
             />
           </ReactModal2>

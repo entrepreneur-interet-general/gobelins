@@ -111,6 +111,9 @@ class RegisterAction extends React.Component {
       .then(data => {
         if (data.status === "ok") {
           notifier(`Bienvenue, ${data.user.name} !`);
+          if (this.props.onRegister) {
+            this.props.onRegister();
+          }
         } else {
           notifier(`Une erreur est survenue. Veuillez réessayer plus tard. 🙁`);
         }
