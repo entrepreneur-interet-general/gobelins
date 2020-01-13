@@ -42,7 +42,8 @@ mix
       host: "127.0.0.1",
       port: 8080
     }
-  });
+  })
+  .extract(); // Auto-magically split out vendor JS.
 
 if (mix.inProduction()) {
   mix.version();

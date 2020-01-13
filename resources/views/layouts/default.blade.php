@@ -88,6 +88,8 @@
     <script crossorigin="anonymous"
         src="https://polyfill.io/v3/polyfill.min.js?flags=gated&features=IntersectionObserver">
     </script>
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/bootstrap.js') }}"></script>
 
     @yield('end_body')
