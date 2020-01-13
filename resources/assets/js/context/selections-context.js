@@ -194,9 +194,8 @@ class SelectionsProvider extends React.Component {
   add = (product_id, selection_id) => {
     this.setState({ loading: true });
     return selectionsClient.add(product_id, selection_id).then(data => {
-      console.log("Products added to selection", data);
       this.setState({
-        initedMine: true,
+        initedMine: false, // Force reloading next time my selections are displayed.
         loading: false
       });
       return data;
