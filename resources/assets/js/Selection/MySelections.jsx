@@ -231,16 +231,16 @@ function UserHasNoSelections(props) {
   return (
     <div className="SelectionsListBlankSlate">
       <div className="SelectionsListBlankSlate__top-left">
-        <button className="SelectionsListBlankSlate__new">
+        <div className="SelectionsListBlankSlate__new">
           Créer votre première sélection
-        </button>
+        </div>
       </div>
       <MySelectionsHeader className="SelectionsListBlankSlate__header" />
       <div className="SelectionsListBlankSlate__bottom-left">
-        <button className="SelectionsListBlankSlate__label-heart">
+        <div className="SelectionsListBlankSlate__label-heart">
           ou sauvegardez des objets en cliquant sur les
           <Heart />
-        </button>
+        </div>
       </div>
       <SelectionsBlank className="SelectionsListBlankSlate__illu" />
     </div>

@@ -105,7 +105,84 @@
   }
 }
 
+@keyframes SelectionsListBlankSlate__1 {
+  0% {
+    color: var(--color-on);
+    border-color: var(--color-on);
+  }
+  50% {
+    color: var(--color-on);
+    border-color: var(--color-on);
+  }
+  51% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+  100% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+}
+@keyframes SelectionsListBlankSlate__line {
+  0% {
+    background-color: var(--color-off);
+  }
+  50% {
+    background-color: var(--color-off);
+  }
+  51% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes SelectionsListBlankSlate__2 {
+  0% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+  50% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+  51% {
+    color: var(--color-on);
+    border-color: var(--color-on);
+  }
+  99% {
+    color: var(--color-on);
+    border-color: var(--color-on);
+  }
+  100% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+}
+@keyframes SelectionsBlankIconHearts_sequenced {
+  0% {
+    fill: var(--resting-color);
+  }
+  51% {
+    fill: var(--resting-color);
+  }
+  52% {
+    fill: var(--highlight-color);
+  }
+  60% {
+    fill: var(--highlight-color);
+  }
+  61% {
+    fill: var(--resting-color);
+  }
+  100% {
+    fill: var(--resting-color);
+  }
+}
+
 .SelectionsListBlankSlate {
+  --color-off: #373737;
+  --color-on: #fff;
   color: #fff;
   @include f-sans;
   font-size: rem(30px);
@@ -127,6 +204,68 @@
   padding: 0;
   text-align: left;
 }
+.SelectionsListBlankSlate__new,
+.SelectionsListBlankSlate .MySelections__button:first-child,
+.SelectionsListBlankSlate .MySelections__button:first-child:before {
+  animation-name: SelectionsListBlankSlate__1;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+.SelectionsListBlankSlate .MySelections__button:first-child:before {
+  animation-name: SelectionsListBlankSlate__line;
+}
+@include breakpoint(1025px) {
+  .SelectionsListBlankSlate__top-left {
+    margin-top: 45px;
+    position: relative;
+    z-index: 8;
+  }
+  .SelectionsListBlankSlate__new {
+    display: inline;
+    padding-right: 10px;
+    background-color: #141414;
+    box-decoration-break: clone;
+    position: relative;
+    z-index: 8;
+  }
+}
+@include breakpoint(1025px) {
+  .SelectionsListBlankSlate .MySelections__button:first-child {
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      left: -470px;
+      top: 50%;
+      width: 469px;
+      height: 1px;
+      background-color: transparent;
+    }
+  }
+}
+.SelectionsListBlankSlate__label-heart,
+.SelectionsListBlankSlate__illu {
+  animation-name: SelectionsListBlankSlate__2;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+}
+.SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-1,
+.SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-2,
+.SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-3 {
+  animation-name: SelectionsBlankIconHearts_sequenced;
+  animation-duration: 10s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  --resting-color: #131313;
+  --highlight-color: #f24747;
+}
+.SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-2 {
+  animation-delay: 2s;
+}
+.SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-3 {
+  animation-delay: 3s;
+}
+
 .SelectionsListBlankSlate__buttons,
 .SelectionsListBlankSlate__top-left,
 .SelectionsListBlankSlate__bottom-left {

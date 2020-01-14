@@ -16,8 +16,9 @@
 .MySelections__header {
   color: #fff;
   grid-row: 1;
-  margin-bottom: 55px;
+  margin-bottom: 0px;
   @include breakpoint(768px) {
+    margin-bottom: 55px;
     grid-area: 1 / right;
     margin-bottom: 0;
   }
@@ -29,6 +30,13 @@
     font-size: rem(30px);
     line-height: rem(38px);
     font-weight: normal;
+    @include breakpoint(1025px) {
+      -webkit-line-clamp: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
   }
 }
 
