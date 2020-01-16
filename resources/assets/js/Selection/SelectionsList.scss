@@ -107,14 +107,22 @@
 
 @keyframes SelectionsListBlankSlate__1 {
   0% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+  9% {
+    color: var(--color-off);
+    border-color: var(--color-off);
+  }
+  10% {
     color: var(--color-on);
     border-color: var(--color-on);
   }
-  50% {
+  33% {
     color: var(--color-on);
     border-color: var(--color-on);
   }
-  51% {
+  34% {
     color: var(--color-off);
     border-color: var(--color-off);
   }
@@ -125,12 +133,18 @@
 }
 @keyframes SelectionsListBlankSlate__line {
   0% {
+    background-color: transparent;
+  }
+  9% {
+    background-color: transparent;
+  }
+  10% {
     background-color: var(--color-off);
   }
-  50% {
+  33% {
     background-color: var(--color-off);
   }
-  51% {
+  34% {
     background-color: transparent;
   }
   100% {
@@ -142,11 +156,11 @@
     color: var(--color-off);
     border-color: var(--color-off);
   }
-  50% {
+  32% {
     color: var(--color-off);
     border-color: var(--color-off);
   }
-  51% {
+  33% {
     color: var(--color-on);
     border-color: var(--color-on);
   }
@@ -163,16 +177,16 @@
   0% {
     fill: var(--resting-color);
   }
-  51% {
+  33% {
     fill: var(--resting-color);
   }
-  52% {
+  34% {
     fill: var(--highlight-color);
   }
-  60% {
+  45% {
     fill: var(--highlight-color);
   }
-  61% {
+  46% {
     fill: var(--resting-color);
   }
   100% {
@@ -208,7 +222,7 @@
 .SelectionsListBlankSlate .MySelections__button:first-child,
 .SelectionsListBlankSlate .MySelections__button:first-child:before {
   animation-name: SelectionsListBlankSlate__1;
-  animation-duration: 10s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 .SelectionsListBlankSlate .MySelections__button:first-child:before {
@@ -246,24 +260,24 @@
 .SelectionsListBlankSlate__label-heart,
 .SelectionsListBlankSlate__illu {
   animation-name: SelectionsListBlankSlate__2;
-  animation-duration: 10s;
+  animation-duration: 5s;
   animation-iteration-count: infinite;
 }
 .SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-1,
 .SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-2,
 .SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-3 {
   animation-name: SelectionsBlankIconHearts_sequenced;
-  animation-duration: 10s;
-  animation-delay: 1s;
+  animation-duration: 5s;
+  animation-delay: 0.5s;
   animation-iteration-count: infinite;
   --resting-color: #131313;
   --highlight-color: #f24747;
 }
 .SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-2 {
-  animation-delay: 2s;
+  animation-delay: 1.5s;
 }
 .SelectionsListBlankSlate__illu .SelectionsBlankIcon__heart-3 {
-  animation-delay: 3s;
+  animation-delay: 2.5s;
 }
 
 .SelectionsListBlankSlate__buttons,
