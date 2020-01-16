@@ -38,13 +38,6 @@ function MySelectionsHeader(props) {
   const [selectionInputOpen, setSelectionInputOpen] = useState(false);
   const [editUserOpen, setEditUserOpen] = useState(false);
 
-  useEffect(() => {
-    isMounted = true;
-    return () => {
-      isMounted = false;
-    };
-  });
-
   function handleLogout() {
     const tok = document
       .querySelector("meta[name=csrf-token]")
