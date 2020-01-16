@@ -113,10 +113,7 @@ class SelectionsController extends Controller
             $selection->refreshPosterImages();
         }
 
-        return [
-            'selection' => $selection,
-            'mySelections' => $this->listMySelections()
-        ];
+        return ['selection' => $selection];
     }
 
     /**

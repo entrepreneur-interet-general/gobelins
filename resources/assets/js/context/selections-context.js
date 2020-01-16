@@ -228,10 +228,10 @@ class SelectionsProvider extends React.Component {
     return selectionsClient.create(product_ids, selection).then(data => {
       this.setState({
         initedMine: true,
-        loading: false,
-        mySelections: data.mySelections
+        loading: false
       });
       this.fetchMineShort();
+      this.fetchMine();
       return data;
     });
   };
@@ -255,10 +255,11 @@ class SelectionsProvider extends React.Component {
       cb();
       this.setState({
         loading: false,
-        mySelections: data.mySelections,
+        initedMine: false,
         detailSelection: null
       });
       this.fetchMineShort();
+      this.fetchMine();
       return data;
     });
   };

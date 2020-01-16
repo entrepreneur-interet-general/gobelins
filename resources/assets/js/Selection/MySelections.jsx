@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Gateway } from "react-gateway";
 import ReactModal2 from "react-modal2";
 import classNames from "classnames";
@@ -38,6 +38,13 @@ function MySelectionsHeader(props) {
   const [selectionInputOpen, setSelectionInputOpen] = useState(false);
   const [editUserOpen, setEditUserOpen] = useState(false);
 
+  useEffect(() => {
+    isMounted = true;
+    return () => {
+      isMounted = false;
+    };
+  });
+
   function handleLogout() {
     const tok = document
       .querySelector("meta[name=csrf-token]")
@@ -54,11 +61,9 @@ function MySelectionsHeader(props) {
       });
   }
   function openAddSelectionModal(ev) {
-    document.documentElement.classList.add("prevent-scroll");
     setSelectionInputOpen(true);
   }
   function onCloseAddSelectionModal() {
-    document.documentElement.classList.remove("prevent-scroll");
     setSelectionInputOpen(false);
   }
   function openEditUserModal(ev) {
@@ -112,18 +117,18 @@ function SelectionInputModal(props) {
   const selectionsContext = useSelections();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  useEffect(() => {
+    document.documentElement.classList.add("prevent-scroll");
+    return () => {
+      document.documentElement.classList.remove("prevent-scroll");
+    };
+  });
   const handleSubmitNewSelection = name => {
     setLoading(true);
-    selectionsContext
-      .createAndAdd([], { name })
-      .then(() => {
-        props.onClose();
-        document.documentElement.classList.remove("prevent-scroll");
-      })
-      .catch(error => {
-        setLoading(false);
-        setErrorMessage(error.message);
-      });
+    selectionsContext.createAndAdd([], { name }).catch(error => {
+      setLoading(false);
+      setErrorMessage(error.message);
+    });
   };
   return (
     <Gateway into="modal">
@@ -255,23 +260,24 @@ function NotAuthenticated(props) {
   const handleRegisterClick = () => {
     setAuthModalMode("register");
     setAuthModalOpen(true);
-    document.documentElement.classList.add("prevent-scroll");
   };
   const handleLoginClick = () => {
     setAuthModalMode("login");
     setAuthModalOpen(true);
-    document.documentElement.classList.add("prevent-scroll");
   };
   const handleLoginCallback = () => {
-    document.documentElement.classList.remove("prevent-scroll");
     selectionsContext.fetchMine();
   };
-  const handleRegisterCallback = () => {
-    document.documentElement.classList.remove("prevent-scroll");
-  };
+  const handleRegisterCallback = () => {};
   const handleModalClose = () => {
     setAuthModalOpen(false);
-    document.documentElement.classList.remove("prevent-scroll");
+  };
+  const modalProps = {
+    handleModalClose,
+    authModalMode,
+    handleLoginCallback,
+    handleRegisterCallback,
+    handleModalClose
   };
   return (
     <div className="MySelections" ref={props.observeRef}>
@@ -290,28 +296,38 @@ function NotAuthenticated(props) {
           </Button>
         </div>
       </div>
-      {authModalOpen && (
-        <Gateway into="modal">
-          <ReactModal2
-            modalClassName="Modal__content SelectionModal__content"
-            backdropClassName="Modal__overlay SelectionModal__overlay"
-            onClose={handleModalClose}
-          >
-            <button
-              className="SelectionModal__close"
-              onClick={handleModalClose}
-            >
-              <CrossSimple />
-            </button>
-            <AuthModal
-              action={authModalMode}
-              onLogin={handleLoginCallback}
-              onRegister={handleRegisterCallback}
-              onCloseModal={handleModalClose}
-            />
-          </ReactModal2>
-        </Gateway>
-      )}
+      {authModalOpen && <NotAuthenticatedModal {...modalProps} />}
     </div>
+  );
+}
+
+function NotAuthenticatedModal(props) {
+  useEffect(() => {
+    document.documentElement.classList.add("prevent-scroll");
+    return () => {
+      document.documentElement.classList.remove("prevent-scroll");
+    };
+  });
+  return (
+    <Gateway into="modal">
+      <ReactModal2
+        modalClassName="Modal__content SelectionModal__content"
+        backdropClassName="Modal__overlay SelectionModal__overlay"
+        onClose={props.handleModalClose}
+      >
+        <button
+          className="SelectionModal__close"
+          onClick={props.handleModalClose}
+        >
+          <CrossSimple />
+        </button>
+        <AuthModal
+          action={props.authModalMode}
+          onLogin={props.handleLoginCallback}
+          onRegister={props.handleRegisterCallback}
+          onCloseModal={props.handleModalClose}
+        />
+      </ReactModal2>
+    </Gateway>
   );
 }
