@@ -129,14 +129,16 @@ class DetailZoomed extends Component {
                 <button
                   type="button"
                   className="DetailZoomed__button DetailZoomed__button--prev"
+                  onClick={this.handlePrev}
                 >
-                  <ArrowPrev onClick={this.handlePrev} />
+                  <ArrowPrev />
                 </button>
                 <button
                   type="button"
                   className="DetailZoomed__button DetailZoomed__button--next"
+                  onClick={this.handleNext}
                 >
-                  <ArrowNext onClick={this.handleNext} />
+                  <ArrowNext />
                 </button>
               </React.Fragment>
             ) : null}

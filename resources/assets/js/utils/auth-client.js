@@ -3,7 +3,11 @@ import client from "./api-client";
 const localStorageKey = "__auth_token__";
 
 function setToken(token) {
-  window.localStorage.setItem(localStorageKey, token);
+  if (token) {
+    window.localStorage.setItem(localStorageKey, token);
+  } else {
+    window.localStorage.removeItem(localStorageKey);
+  }
 }
 
 function handleUserResponse(data) {
@@ -73,7 +77,7 @@ function resetPassword({ email, csrfToken }) {
 }
 
 function getToken() {
-  return window.localStorage.getItem(localStorageKey);
+  return window.localStorage && window.localStorage.getItem(localStorageKey);
 }
 
 export {

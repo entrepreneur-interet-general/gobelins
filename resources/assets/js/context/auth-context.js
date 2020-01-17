@@ -23,12 +23,18 @@ class AuthProvider extends React.Component {
     // Eagerly load user profile info.
     if (!this.state.authenticated) {
       if (authClient.getToken()) {
-        authClient.getProfile().then(data => {
-          this.setState({
-            user: { ...data },
-            authenticated: true
+        authClient
+          .getProfile()
+          .then(data => {
+            this.setState({
+              user: { ...data },
+              authenticated: true
+            });
+          })
+          .catch(e => {
+            console.log("Error attempting to auth from token", e);
+            authClient.setToken(null);
           });
-        });
       } else {
         /**
          * TODO : hit /login_from_token, to login and
