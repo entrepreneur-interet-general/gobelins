@@ -32,14 +32,25 @@
   .SelectionDetail--is-mine & {
     background-color: #141414;
   }
+
+  @include breakpoint(768px) {
+    background-color: transparent;
+    position: static;
+    height: auto;
+  }
 }
 .SelectionDetail__back-to-selections {
   @extend .Selections__close;
 }
+.SelectionDetail .Selections__close {
+  background-color: #fff;
+}
+
 .SelectionDetail .SelectionDetail__back-to-selections {
   color: inherit;
   right: auto;
   left: 5px;
+  background-color: #fff;
   @include breakpoint(769px) {
     left: 20px;
     position: fixed;
