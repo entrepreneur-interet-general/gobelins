@@ -64,7 +64,7 @@ class MainImage extends Component {
                     )}
                     title="Ajouter l’objet à une sélection"
                   >
-                    <Heart />
+                    <Heart width="20" height="20" />
                   </button>
                 </div>
               </div>
