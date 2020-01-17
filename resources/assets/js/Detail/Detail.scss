@@ -157,9 +157,44 @@
     flex: 0 0 auto;
   }
 }
-.DetailMainImage__button--selection svg {
-  position: relative;
-  top: 1px;
+// .DetailMainImage__aspect-ratio-container {
+//   position: static;
+// }
+.DetailMainImage__aspect-ratio-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  max-height: 100%;
+}
+.DetailMainImage__button--selection {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  margin-bottom: 0;
+  margin-right: 0;
+  border: 0;
+  background-color: transparent;
+  svg {
+    position: relative;
+    top: 1px;
+  }
+}
+@media (hover: hover) {
+  .DetailMainImage__fig .DetailMainImage__button--selection {
+    opacity: 0;
+    transition: opacity 0.15s ease-in-out;
+    svg {
+      // Push down temporarily. --aspect-ratio value has been
+      // overly rounded because was calculated from thumbnail images :(
+      // Should be fixed in next data import.
+      top: 3px;
+    }
+  }
+  .DetailMainImage__fig:hover .DetailMainImage__button--selection {
+    opacity: 1;
+  }
 }
 
 .DetailImageList {

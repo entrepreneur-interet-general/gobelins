@@ -46,6 +46,30 @@ class MainImage extends Component {
               className="DetailMainImage__img"
             />
 
+            {this.props.onSelectionClick && (
+              <div
+                className="DetailMainImage__aspect-ratio-container"
+                style={{
+                  "--aspect-ratio":
+                    this.props.image.width / this.props.image.height
+                }}
+              >
+                <div>
+                  <button
+                    type="button"
+                    className="DetailMainImage__button DetailMainImage__button--selection"
+                    onClick={this.props.onSelectionClick.bind(
+                      this,
+                      this.props.product
+                    )}
+                    title="Ajouter l’objet à une sélection"
+                  >
+                    <Heart />
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="DetailMainImage__toolbar">
               <Link
                 to={`${this.props.match.url}/zoom`}
@@ -65,19 +89,6 @@ class MainImage extends Component {
               >
                 <Download />
               </a>
-              {this.props.onSelectionClick && (
-                <button
-                  type="button"
-                  className="DetailMainImage__button DetailMainImage__button--selection"
-                  onClick={this.props.onSelectionClick.bind(
-                    this,
-                    this.props.product
-                  )}
-                  title="Ajouter l’objet à une sélection"
-                >
-                  <Heart />
-                </button>
-              )}
             </div>
           </figure>
         ) : (
