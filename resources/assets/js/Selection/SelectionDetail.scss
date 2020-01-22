@@ -42,7 +42,12 @@
 .SelectionDetail__back-to-selections {
   @extend .Selections__close;
 }
-.SelectionDetail .Selections__close {
+.SelectionDetail:not(.SelectionDetail--is-mine) .Selections__close {
+  background-color: #fff;
+}
+.SelectionDetail:not(.SelectionDetail--is-mine) .Selections__close,
+.SelectionDetail:not(.SelectionDetail--is-mine)
+  .SelectionDetail__back-to-selections {
   background-color: #fff;
 }
 
@@ -50,7 +55,6 @@
   color: inherit;
   right: auto;
   left: 5px;
-  background-color: #fff;
   @include breakpoint(769px) {
     left: 20px;
     position: fixed;

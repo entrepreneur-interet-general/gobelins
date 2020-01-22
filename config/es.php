@@ -72,9 +72,47 @@ return [
                 'number_of_shards' => 1,
                 'number_of_replicas' => 0,
                 'analysis' => [
+                    'filter' => [
+                        'french_elision' => [
+                            'type' => 'elision',
+                            'articles_case' => true,
+                            'articles' => ['l', 'm', 't', 'qu', 'n', 's', 'j',
+                                            'd', 'c', 'jusqu', 'quoiqu',
+                                            'lorsqu', 'puisqu']
+                        ],
+                        'french_synonym' => [
+                            'type' => 'synonym',
+                            'ignore_case' => true,
+                            'expand' => true,
+                            'synonyms' => [
+                                'carton, modele'
+                            ]
+                        ],
+                        'french_stemmer' => [
+                            'type' => 'stemmer',
+                            'language' => 'light_french'
+                        ]
+                    ],
                     'analyzer' => [
+                        'french_heavy' => [
+                            'tokenizer' => 'icu_tokenizer',
+                            'filter' => [
+                                'french_elision',
+                                'icu_folding',
+                                'french_synonym',
+                                'french_stemmer'
+                            ]
+                        ],
+                        'french_light' => [
+                            'tokenizer' => 'icu_tokenizer',
+                            'filter' => [
+                                'french_elision',
+                                'icu_folding'
+                            ]
+                        ],
                         'author_name_analyzer' => [
                             'type'=> 'standard',
+                            'filter' => ['icu_folding'], // remove accents, etc.
                             'stopwords'=> ['de', 'du', 'le', 'la', 'et', 'da', 'l', 'd', 'van', 'von', 'der']
                         ]
                     ]
@@ -86,23 +124,29 @@ return [
                     'properties' => [
                         'title_or_designation' => [
                             'type' => 'text',
-                            'analyzer' => 'french',
+                            'analyzer' => 'french_heavy',
                         ],
                         'denomination' => [
                             'type' => 'text',
-                            'analyzer' => 'french',
+                            'analyzer' => 'french_heavy',
                         ],
                         'description' => [
                             'type' => 'text',
-                            'analyzer' => 'french',
+                            'analyzer' => 'french_light',
+                            'fields' => [
+                                'stemmed' => [
+                                    'type' => 'text',
+                                    'analyzer' => 'french_heavy'
+                                ]
+                            ]
                         ],
                         'bibliography' => [
                             'type' => 'text',
-                            'analyzer' => 'french',
+                            'analyzer' => 'french_heavy',
                         ],
                         'acquisition_origin' => [
                             'type' => 'text',
-                            'analyzer' => 'french',
+                            'analyzer' => 'french_heavy',
                         ],
                         'acquisition_date' => [
                             'type' => 'text',
@@ -139,7 +183,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'analyzer' => 'french',
+                                    'analyzer' => 'french_heavy',
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -228,7 +272,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'analyzer' => 'french',
+                                    'analyzer' => 'french_heavy',
                                 ],
                             ],
                         ],
@@ -240,7 +284,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'analyzer' => 'french',
+                                    'analyzer' => 'french_heavy',
                                 ],
                                 'mapping_key' => [
                                     'type' => 'text',
@@ -260,7 +304,7 @@ return [
                                 ],
                                 'name' => [
                                     'type' => 'text',
-                                    'analyzer' => 'french',
+                                    'analyzer' => 'french_heavy',
                                 ],
                                 'label' => [
                                     'type' => 'text',

@@ -99,11 +99,13 @@ export default function CollectionGridItem({
           {display_name}
           {datum.authors && datum.authors.length > 0 ? ", " : ""}
         </h2>
-        <small className="Collection__cell-authors">
-          {datum.authors
-            .map(a => [a.last_name, a.first_name].join(" "))
-            .join(", ")}
-        </small>
+        {datum.authors && (
+          <small className="Collection__cell-authors">
+            {datum.authors
+              .map(a => [a.last_name, a.first_name].join(" "))
+              .join(", ")}
+          </small>
+        )}
       </div>
     </a>
   );

@@ -10,7 +10,7 @@
   "require": {
     "php": "^7.2",
     "artesaos/seotools": "^0.16.0",
-    "basemkhirat/elasticsearch": "^1.3",
+    "basemkhirat/elasticsearch": "dev-dev-scout-engine",
     "caouecs/laravel-lang": "~4.0",
     "fideloper/proxy": "^4.0",
     "flynsarmy/csv-seeder": "^1.0",
@@ -19,7 +19,7 @@
     "kalnoy/nestedset": "^5.0",
     "laravel/framework": "^6.0",
     "laravel/helpers": "^1.1",
-    "laravel/scout": "^7.2",
+    "laravel/scout": "^7.0",
     "laravel/tinker": "^2.0",
     "laravelium/sitemap": "6.0.*",
     "league/flysystem": "^1.0",
@@ -42,6 +42,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/silasrm/laravel-image"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/nedbaldessin/elasticsearch"
     }
   ],
   "autoload": {

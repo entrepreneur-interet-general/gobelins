@@ -19,8 +19,8 @@ class CollectionGrid extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevIds = prevProps.hits.map(p => p["_id"]);
-    const currentIds = this.props.hits.map(p => p["_id"]);
+    const prevIds = prevProps.hits.map(p => p["id"]);
+    const currentIds = this.props.hits.map(p => p["id"]);
     if (!isEqual(prevIds, currentIds)) {
       this.infiniteScroll.current.forcePack();
     }
@@ -38,7 +38,7 @@ class CollectionGrid extends Component {
       return (
         <CollectionGridItem
           datum={datum}
-          key={datum["_id"] + "-" + index}
+          key={datum["id"] + "-" + index}
           onObjectClick={this.props.onObjectClick}
           onSelectionClick={this.handleSelectionClick}
         />

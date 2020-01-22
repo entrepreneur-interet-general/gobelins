@@ -45,7 +45,7 @@ export default class AddToSelectionSteps extends React.Component {
   handleSubmitNewSelection = name => {
     this.setState({ loading: true });
     this.context
-      .createAndAdd([this.props.product["_id"]], { name })
+      .createAndAdd([this.props.product["id"]], { name })
       .then(data => {
         this.setState({
           loading: false,
@@ -59,7 +59,7 @@ export default class AddToSelectionSteps extends React.Component {
 
   handleSelectionPick = selection => {
     this.setState({ loading: true });
-    this.context.add(this.props.product["_id"], selection.id).then(() => {
+    this.context.add(this.props.product["id"], selection.id).then(() => {
       this.setState({ loading: false, doneAddingToSelection: selection });
     });
   };

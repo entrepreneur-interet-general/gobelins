@@ -6,6 +6,24 @@
 
    `$ php artisan gobelins:refresh-selections`
 
+2. Installer un plugin Elasticsearch
+
+   Relancer le playbook Ansible (dans le répertoire `gobelins-devops`) :
+
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/online elasticsearchservers.yml --limit=staging -K`
+
+   …soit, au besoin, installer manuellement :
+
+   `$ sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu`
+
+   …et redémarrer le service Elasticsearch pour prendre en compte le nouveau plugin.
+
+3. Re-indexer le contenu
+
+   `$ php artisan es:indices:drop`
+   `$ php artisan es:indices:create`
+   `$ php artisan scout:import "\App\Models\Products"`
+
 ## Effectué le 2019-12-17
 
 Procédure déployement "Sélections".
