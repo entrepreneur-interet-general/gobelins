@@ -371,7 +371,6 @@ class SearchController extends Controller
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'query_string' => [
                         'query' => $q,
-                        'analyzer' => 'french_heavy',
                         'fields' => [
                             'authors.last_name^3',
                             'product_types.name^10',
