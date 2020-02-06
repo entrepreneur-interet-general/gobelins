@@ -42,8 +42,10 @@
             this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
         }]);
 
-        _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
+        // enable the use of navigator.sendBeacon()
+        _paq.push(['alwaysUseSendBeacon']);
+        _paq.push(['trackPageView']);
         (function() {
             var u="https://mobiliernational.matomo.cloud/";
             _paq.push(['setTrackerUrl', u+'matomo.php']);

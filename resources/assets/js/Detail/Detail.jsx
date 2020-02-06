@@ -125,13 +125,17 @@ class Detail extends Component {
                   }
                   onZoom={() => this.setState({ zoomedMode: true })}
                   match={this.props.match}
-                  onDownload={() => {
+                  onDownload={url => {
                     window.document.documentElement.classList.add(
                       "prevent-scroll"
                     );
                     this.setState({
                       downloadMode: true
                     });
+                    if (window._paq) {
+                      window._paq.push(["trackLink", url, "download"]);
+                    }
+                    return false;
                   }}
                   product={this.props.product}
                   onSelectionClick={this.handleSelectionClick}

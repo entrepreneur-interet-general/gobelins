@@ -19,6 +19,11 @@ class MainImage extends Component {
           this.props.image.path.replace(".JPG", ".jpg")
         )}`
       : "";
+    let downloadUrl = this.props.image
+      ? `${location.origin}/media/orig/${encodeURIComponent(
+          this.props.image.path.replace(".JPG", ".jpg")
+        )}`
+      : "";
     let downloadFilename = "";
     let downloadFilenameRes = this.props.image
       ? this.props.image.path.match(/.*\/(.+)(\.jpg)$/i)
@@ -79,11 +84,9 @@ class MainImage extends Component {
                 <MagnifyingGlass />
               </Link>
               <a
-                href={`/media/orig/${encodeURIComponent(
-                  this.props.image.path.replace(".JPG", ".jpg")
-                )}`}
+                href={downloadUrl}
                 download={downloadFilename}
-                onClick={this.props.onDownload}
+                onClick={() => this.props.onDownload(downloadUrl)}
                 className="DetailMainImage__button DetailMainImage__button--download"
                 title="Télécharger l’image en haute définition"
               >
