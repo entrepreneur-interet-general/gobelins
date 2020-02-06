@@ -15,7 +15,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@sentry/browser": "^5.10.2",
+    "@sentry/browser": "^5.12.1",
     "@svgr/cli": "^2.4.1",
     "babel-preset-react": "^6.24.1",
     "cross-env": "^5.2.0",
