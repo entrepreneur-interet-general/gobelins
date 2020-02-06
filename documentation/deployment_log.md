@@ -22,7 +22,7 @@
 
    `$ php artisan es:indices:drop`
    `$ php artisan es:indices:create`
-   `$ php artisan scout:import "\App\Models\Products"`
+   `$ php artisan scout:import "\App\Models\Product"`
 
 ## Effectué le 2019-12-17
 

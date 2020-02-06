@@ -91,7 +91,11 @@ return [
                         'french_stemmer' => [
                             'type' => 'stemmer',
                             'language' => 'light_french'
-                        ]
+                        ],
+                        'authors_stop' => [
+                            'type' => 'stop',
+                            'stopwords'=> ['de', 'du', 'le', 'la', 'et', 'da', 'l', 'd', 'van', 'von', 'der']
+                        ],
                     ],
                     'analyzer' => [
                         'french_heavy' => [
@@ -111,9 +115,12 @@ return [
                             ]
                         ],
                         'author_name_analyzer' => [
-                            'type'=> 'standard',
-                            'filter' => ['icu_folding'], // remove accents, etc.
-                            'stopwords'=> ['de', 'du', 'le', 'la', 'et', 'da', 'l', 'd', 'van', 'von', 'der']
+                            'type'=> 'custom',
+                            'tokenizer' => 'icu_tokenizer',
+                            'filter' => [
+                                'icu_folding', // remove accents, etc.
+                                'authors_stop'
+                            ]
                         ]
                     ]
                 ],
