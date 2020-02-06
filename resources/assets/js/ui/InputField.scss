@@ -130,6 +130,7 @@ input.InputField__input:-webkit-autofill:active {
 
 .InputField__plus-submit,
 .InputField__end-button {
+  flex: 0 0 auto;
   background-color: #131313;
   border: 1px solid #373737;
   border-radius: 50%;
