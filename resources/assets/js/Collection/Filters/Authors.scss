@@ -6,8 +6,10 @@
   flex: 1 1 auto;
   position: relative;
   max-height: calc(100% - 60px);
+  @include breakpoint(768px) {
+    flex-direction: row;
+  }
   @include breakpoint(1025px) {
-    flex-flow: row nowrap;
     position: absolute;
     top: 0;
     left: 0;
