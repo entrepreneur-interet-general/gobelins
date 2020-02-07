@@ -50,6 +50,13 @@
   justify-content: center;
   align-content: stretch;
   overflow: hidden;
+  @include breakpoint(768px) {
+    justify-content: flex-start;
+    padding-top: 50px;
+  }
+  @include breakpoint(1025px) {
+    padding-top: 0;
+  }
 }
 .FilterPanelMobile__close {
   position: absolute;
