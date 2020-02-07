@@ -350,10 +350,16 @@ class SearchController extends Controller
                 // Coquillages au bord de la mer, etc.
                 // Not using 'default_operator' => 'AND' because of this:
                 // https://github.com/elastic/elasticsearch/issues/29148#issuecomment-376458216
+                // Another option would be to use `copy_to` to merge all
+                // relevant fields together, but then we'd loose boosting.
+                // See: https://stackoverflow.com/questions/57904019/elasticsearch-and-in-query-string-vs-default-operator-and
                 if (preg_match('/([(:"]| \+| -)/', $request->input('q')) || preg_match('/\b(AND|OR|NOT)\b/', $request->input('q'))) {
                     $q = $request->input('q');
                 } else {
-                    $a = explode(' ', strtolower($request->input('q')));
+                    // Tokenize by splitting on spaces or dashes
+                    // use-case : "Notre-dame"
+                    $a = mb_split(' |-', strtolower($request->input('q')));
+                    // Strip stop words
                     $stopwords = ['de','du','le','la',
                     'et','da','l','d','van',
                     'von','der','au','pour',
@@ -361,6 +367,7 @@ class SearchController extends Controller
                     $f = array_filter($a, function ($item) use ($stopwords) {
                         return ! in_array($item, $stopwords);
                     });
+                    // Force boolean AND operator.
                     $q = implode(' AND ', $f);
                 }
 
