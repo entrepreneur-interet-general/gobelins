@@ -67,7 +67,7 @@
 .SelectionDetail__header {
   margin-left: 15px;
   margin-right: 15px;
-  margin-bottom: 90px !important;
+  margin-bottom: 50px !important;
 
   @include breakpoint(768px) {
     display: flex;
@@ -78,6 +78,7 @@
   @include breakpoint(1025px) {
     margin-right: 110px;
     margin-left: 110px;
+    margin-bottom: 90px !important;
   }
   @include breakpoint(1280px) {
     margin-right: 150px;
@@ -236,12 +237,16 @@
 }
 
 .SelectionDetail__blankslate {
-  grid-column-start: 11;
-  grid-column-end: 19;
+  @extend .SelectionDetail__header;
+  margin-right: 0;
+  margin-left: 0;
   --resting-color: #141414;
   --highlight-color: #f24747;
 
-  > svg {
+  .SelectionDetail__blankslate-illu {
+    @extend .SelectionDetail__header-left;
+  }
+  .SelectionsBlankIcon {
     display: block;
     max-width: 100%;
   }
@@ -260,11 +265,11 @@
   }
 }
 .SelectionDetail__blankslate-txt {
+  @extend .SelectionDetail__header-right;
   @include f-sans;
   font-size: rem(30px);
   line-height: rem(45px);
   font-weight: normal;
-  margin-top: 25px;
   display: block;
 
   & svg {

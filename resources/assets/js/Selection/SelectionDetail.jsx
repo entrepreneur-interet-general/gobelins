@@ -204,7 +204,9 @@ function SelectionDetail(props) {
           </div>
         ) : (
           <div className="SelectionDetail__blankslate">
-            <SelectionsBlank />
+            <div className="SelectionDetail__blankslate-illu">
+              <SelectionsBlank />
+            </div>
             <span className="SelectionDetail__blankslate-txt">
               Commencer à ajouter des objets en cliquant sur les
               <Heart />
