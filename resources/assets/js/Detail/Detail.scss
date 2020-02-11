@@ -343,17 +343,17 @@
 .Detail__right-zone-dblcol {
   width: 100%;
   position: relative;
-  @include breakpoint(768px) {
+  @include breakpoint(1025px) {
     display: flex;
     flex-flow: row nowrap;
   }
   .DetailData {
-    @include breakpoint(768px) {
-      flex: 0 0 auto;
-      width: calc((100% - 20px) / 2);
-      margin-right: 20px;
-    }
-    @include breakpoint($medium-up) {
+    // @include breakpoint(768px) {
+    //   flex: 0 0 auto;
+    //   width: calc((100% - 20px) / 2);
+    //   margin-right: 20px;
+    // }
+    @include breakpoint(1025px) {
       flex: 0 0 auto;
       width: calc((((100% - (40px * 5)) / 6) * 2) + (1 * 40px));
       margin-right: 40px;
@@ -362,11 +362,11 @@
   .DetailInfo {
     margin: 0;
     padding: 0;
-    @include breakpoint(768px) {
-      flex: 0 0 auto;
-      width: calc((100% - 20px) / 2);
-    }
-    @include breakpoint($medium-up) {
+    // @include breakpoint(768px) {
+    //   flex: 0 0 auto;
+    //   width: calc((100% - 20px) / 2);
+    // }
+    @include breakpoint(1025px) {
       flex: 1 1 auto;
       padding-right: 40px;
     }

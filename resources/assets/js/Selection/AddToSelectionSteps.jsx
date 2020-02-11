@@ -70,28 +70,30 @@ export default class AddToSelectionSteps extends React.Component {
     ) : this.state.doneAddingToSelection ? (
       <DoneAddingProduct selection={this.state.doneAddingToSelection} />
     ) : (
-      <div className="SelectionModal__wrapper">
-        {this.context.mySelectionsShort &&
-        this.context.mySelectionsShort.length > 0 ? (
-          <>
-            <SelectionPick
-              onPick={this.handleSelectionPick}
-              selections={this.context.mySelectionsShort}
-              username={this.props.user.name}
-            />
+      <div className="SelectionModal__outer-wrapper">
+        <div className="SelectionModal__wrapper">
+          {this.context.mySelectionsShort &&
+          this.context.mySelectionsShort.length > 0 ? (
+            <>
+              <SelectionPick
+                onPick={this.handleSelectionPick}
+                selections={this.context.mySelectionsShort}
+                username={this.props.user.name}
+              />
+              <SelectionInput
+                onSubmit={this.handleSubmitNewSelection}
+                errorMessage={this.state.errorMessage}
+                isFirst={false}
+              />
+            </>
+          ) : (
             <SelectionInput
               onSubmit={this.handleSubmitNewSelection}
               errorMessage={this.state.errorMessage}
-              isFirst={false}
+              isFirst={true}
             />
-          </>
-        ) : (
-          <SelectionInput
-            onSubmit={this.handleSubmitNewSelection}
-            errorMessage={this.state.errorMessage}
-            isFirst={true}
-          />
-        )}
+          )}
+        </div>
       </div>
     );
   }
@@ -105,19 +107,23 @@ function DoneAddingProduct(props) {
   }, []);
 
   return (
-    <div className="SelectionModal__added-confirm">
-      <div className="SelectionModal__added-illu">
-        <Link to={`/selections/${props.selection.id}`}>
-          <AddedToSelection />
-        </Link>
+    <div className="SelectionModal__outer-wrapper">
+      <div className="SelectionModal__wrapper">
+        <div className="SelectionModal__added-confirm">
+          <div className="SelectionModal__added-illu">
+            <Link to={`/selections/${props.selection.id}`}>
+              <AddedToSelection />
+            </Link>
+          </div>
+          <p>
+            <ArrowBack className="SelectionModal__added-arrow-back" />
+            L’objet a été sauvegardé !
+            <br />
+            Retrouvez-le ici.
+            <ArrowDown className="SelectionModal__added-arrow-down" />
+          </p>
+        </div>
       </div>
-      <p>
-        <ArrowBack className="SelectionModal__added-arrow-back" />
-        L’objet a été sauvegardé !
-        <br />
-        Retrouvez-le ici.
-        <ArrowDown className="SelectionModal__added-arrow-down" />
-      </p>
     </div>
   );
 }

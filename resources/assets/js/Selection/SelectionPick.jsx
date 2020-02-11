@@ -2,14 +2,12 @@ import React, { Fragment } from "react";
 
 export default function SelectionPick(props) {
   return (
-    <fieldset className="SelectionModal__pick-fieldset">
-      <legend className="SelectionModal__pick-legend">
+    <div className="SelectionModal__pick-fieldset">
+      <div className="SelectionModal__pick-legend">
         {props.username
-          ? `${
-              props.username
-            }, à quelle sélection souhaitez-vous l’ajouter\u00a0?`
+          ? `${props.username}, à quelle sélection souhaitez-vous l’ajouter\u00a0?`
           : "À quelle sélection souhaitez-vous l’ajouter\u00a0?"}
-      </legend>
+      </div>
       <div className="SelectionModal__pick-container">
         {props.selections.map((s, i) => (
           <Fragment key={i}>
@@ -24,6 +22,6 @@ export default function SelectionPick(props) {
           </Fragment>
         ))}
       </div>
-    </fieldset>
+    </div>
   );
 }
