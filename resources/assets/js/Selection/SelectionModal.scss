@@ -98,6 +98,10 @@
       padding-right: 40px;
     }
   }
+  &.SelectionModal__wrapper--no-pad {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .SelectionModal__pick-container {

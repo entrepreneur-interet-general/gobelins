@@ -36,7 +36,11 @@ export default class AddToSelectionModal extends React.Component {
                       product={this.props.product}
                     />
                   ) : (
-                    <AuthModal onCloseModal={this.props.onClose} />
+                    <div className="SelectionModal__outer-wrapper">
+                      <div className="SelectionModal__wrapper SelectionModal__wrapper--no-pad">
+                        <AuthModal onCloseModal={this.props.onClose} />
+                      </div>
+                    </div>
                   )}
                 </div>
               </Fragment>
