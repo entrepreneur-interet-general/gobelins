@@ -294,12 +294,13 @@
   width: 100%;
   color: #fff;
   overflow-y: auto;
+  padding: 40px 20px 0;
 
   @include breakpoint(768px) {
     padding: 30px 60px;
   }
   &.SelectionModal__edit-form--user {
-    padding: 0;
+    // padding: 0;
   }
 }
 .SelectionModal__edit-form-buttons-row {

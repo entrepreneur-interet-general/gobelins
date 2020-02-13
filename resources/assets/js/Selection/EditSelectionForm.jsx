@@ -51,67 +51,60 @@ export default class SelectionEditForm extends React.Component {
 
   render() {
     return (
-      <div className="SelectionModal__outer-wrapper">
-        <div className="SelectionModal__wrapper">
-          <form
-            className="SelectionModal__edit-form"
-            onSubmit={this.handleSubmit}
-          >
-            <fieldset
-              className="SelectionModal__input-fieldset"
-              disabled={this.state.loading}
-            >
-              <legend className="SelectionModal__input-legend">Modifier</legend>
-              {this.state.errorMessage && (
-                <div className="SelectionModal__error-msg">
-                  {this.state.errorMessage}
-                </div>
-              )}
+      <form className="SelectionModal__edit-form" onSubmit={this.handleSubmit}>
+        <fieldset
+          className="SelectionModal__input-fieldset"
+          disabled={this.state.loading}
+        >
+          <legend className="SelectionModal__input-legend">Modifier</legend>
+          {this.state.errorMessage && (
+            <div className="SelectionModal__error-msg">
+              {this.state.errorMessage}
+            </div>
+          )}
 
-              <InputField
-                className="SelectionModal__input"
-                type="text"
-                name="name"
-                label="Nom"
-                value={this.state.name}
-                onChange={this.handleChange}
-                required
-                maxLength="255"
+          <InputField
+            className="SelectionModal__input"
+            type="text"
+            name="name"
+            label="Nom"
+            value={this.state.name}
+            onChange={this.handleChange}
+            required
+            maxLength="255"
+          />
+
+          <Textarea
+            className="SelectionModal__textarea"
+            name="description"
+            label="Description"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+
+          <Switch
+            name="public"
+            checked={this.state.public}
+            labelOn="Public"
+            labelOff="Privé"
+            onChange={this.handleChange}
+          />
+
+          <CollaborationsHandler selection={this.props.selection} />
+
+          <div className="SelectionModal__edit-form-buttons-row">
+            <div className="SelectionModal__edit-deletion">
+              <ConfirmedDelete
+                onDelete={this.props.onDelete}
+                deleteLabel="Supprimer la sélection"
               />
-
-              <Textarea
-                className="SelectionModal__textarea"
-                name="description"
-                label="Description"
-                value={this.state.description}
-                onChange={this.handleChange}
-              />
-
-              <Switch
-                name="public"
-                checked={this.state.public}
-                labelOn="Public"
-                labelOff="Privé"
-                onChange={this.handleChange}
-              />
-
-              <CollaborationsHandler selection={this.props.selection} />
-
-              <div className="SelectionModal__edit-form-buttons-row">
-                <div className="SelectionModal__edit-deletion">
-                  <ConfirmedDelete
-                    onDelete={this.props.onDelete}
-                    deleteLabel="Supprimer la sélection"
-                  />
-                </div>
-                <Button type="submit" className="SelectionModal__edit-submit">
-                  Enregistrer
-                </Button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+            </div>
+            <Button type="submit" className="SelectionModal__edit-submit">
+              Enregistrer
+            </Button>
+          </div>
+        </fieldset>
+      </form>
     );
   }
 }
