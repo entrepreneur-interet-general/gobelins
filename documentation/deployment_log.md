@@ -2,11 +2,7 @@
 
 ## _En attente_
 
-1. Rafraîchir les images de listing des sélections :
-
-   `$ php artisan gobelins:refresh-selections`
-
-2. Installer un plugin Elasticsearch
+1. Installer un plugin Elasticsearch
 
    Relancer le playbook Ansible (dans le répertoire `gobelins-devops`) :
 
@@ -18,11 +14,34 @@
 
    …et redémarrer le service Elasticsearch pour prendre en compte le nouveau plugin.
 
-3. Re-indexer le contenu
+2. Déployer le site
 
-   `$ php artisan es:indices:drop`
-   `$ php artisan es:indices:create`
-   `$ php artisan scout:import "\App\Models\Product"`
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/online site.yml --limit=staging -K`
+
+3. Mettre le site en maintenance
+
+   ```
+   $ cd /var/www/gobelins/current
+   $ php artisan down
+   ```
+
+4. Rafraîchir les images de listing des sélections :
+
+   ```
+   $ cd /var/www/gobelins/current
+   $ php artisan gobelins:refresh-selections
+   ```
+
+5. Re-indexer le contenu
+
+   ```
+    $ cd /var/www/gobelins/current
+    $ php artisan es:indices:drop
+    $ php artisan es:indices:create
+    $ php artisan scout:import "\App\Models\Product"
+   ```
+
+   … cette opération peut prendre approximativement 20-30 minutes.
 
 ## Effectué le 2019-12-17
 
