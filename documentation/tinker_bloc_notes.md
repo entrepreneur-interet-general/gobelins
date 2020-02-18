@@ -75,3 +75,9 @@ $this->progress_bar = $this->output->createProgressBar(\App\Models\Image::count(
 $this->progress_bar->finish();
 
 ```
+
+## Not tinker, but useful. Dump Elasticsearch using elasticdump command (https://github.com/taskrabbit/elasticsearch-dump)
+
+```
+    $ elasticdump --input=http://127.0.0.1:9201/gobelins_search_1/ --output=/Users/ned/EIG/dump_json/dump.json --type=data --sourceOnly=true --overwrite=true
+```
