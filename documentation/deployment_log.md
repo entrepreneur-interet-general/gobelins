@@ -16,7 +16,7 @@
 
 2. Déployer le site
 
-   `$ ansible-playbook --vault-password-file=vault_password -i inventory/online site.yml --limit=staging -K`
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/online deploy-gobelins.yml --limit=staging -K`
 
 3. Mettre le site en maintenance
 
