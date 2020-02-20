@@ -6,6 +6,7 @@ use App\User;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\View;
 
 use App\Mail\EmailVerification;
 
@@ -25,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
         VerifyEmail::toMailUsing(function ($notifiable, $verificationUrl) {
             return new EmailVerification($verificationUrl, $notifiable);
         });
+
+        View::composer(
+            ['site.search', 'site.selection'],
+            'App\Http\View\Composers\FiltersComposer'
+        );
     }
 
     /**

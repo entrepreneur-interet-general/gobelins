@@ -203,11 +203,21 @@
 
 .SelectionDetail__masonry-container {
   position: relative;
+
+  .is-ssr & {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+  }
 }
 
 .SelectionDetail__grid-item.SelectionDetail__grid-item {
   position: absolute;
   width: var(--col-width);
+
+  .is-ssr & {
+    position: static;
+  }
 
   .SelectionDetail--is-mine & {
     color: white;

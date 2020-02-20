@@ -208,10 +208,15 @@ class SelectionsController extends Controller
             $user->can('view', $selection);
         }
 
+        $resource =new SelectionResource($selection);
+
         if ($request->expectsJson()) {
-            return new SelectionResource($selection);
+            return $resource;
         } else {
-            return view('site.selection', ['selection' => $selection]);
+            return view('site.selection', [
+                'selection' => $selection,
+                'selection_resource' => $resource
+            ]);
         }
     }
 

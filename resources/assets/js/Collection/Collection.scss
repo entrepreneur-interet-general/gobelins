@@ -140,6 +140,12 @@
   width: 100%;
   height: 100%;
   background-color: #f1f1f4;
+
+  .is-ssr & {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
 }
 .Collection__cell-label {
   margin-top: 20px;
