@@ -16,6 +16,7 @@ use App\User;
 use ES;
 use Illuminate\Support\Facades\Cache;
 use SEO;
+use Artesaos\SEOTools\Facades\JsonLd;
 use \App\Http\Resources\ListedSelection;
 use \App\Http\Resources\SelectionCollection;
 
@@ -163,10 +164,12 @@ class SearchController extends Controller
             
             SEO::setTitle($product->seoTitle);
             SEO::setDescription($product->seoDescription);
+            JsonLd::setType('CreativeWork');
             $seoImages = $product->seoImages;
             if ($seoImages) {
                 SEO::opengraph()->addImages($seoImages);
                 SEO::twitter()->setImage($seoImages[0]);
+                JsonLd::setImage($seoImages[0]);
             }
 
             $product = $product->toSearchableArray();
