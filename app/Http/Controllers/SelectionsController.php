@@ -252,7 +252,12 @@ class SelectionsController extends Controller
                 $selection->users()->attach($request->user()->id);
             }
 
-            $request->session()->flash('status', 'Bienvenue, ' . $request->user()->name . ' ! Vous pouvez désormais participer à cette sélection.');
+            $request->session()->flash(
+                'status',
+                'Bienvenue, ' .
+                $request->user()->name .
+                ' ! Vous pouvez désormais participer à cette sélection.'
+            );
 
 
             $invitation->delete();
@@ -260,5 +265,49 @@ class SelectionsController extends Controller
             $request->session()->forget('accepted_invitation');
         }
         return redirect(route('selection_detail', ['selection_id' => $selection_id]));
+    }
+
+    /**
+     * Sitemap
+     * Generate dynamically (but cached) a sitemap for selections.
+     * The route to this method will be added to the statically
+     * generated sitemap.xml file.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function sitemap(Request $request)
+    {
+        // create new sitemap object
+        $sitemap = \App::make('sitemap');
+
+        // set cache key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean)
+        // by default cache is disabled
+        $sitemap->setCache('laravel.sitemap', 60);
+
+        // check if there is cached sitemap and build new only if is not
+        if (!$sitemap->isCached()) {
+            \App\Models\Selection::with('images')
+            ->public()
+            ->orderBy('updated_at', 'asc')
+            ->chunk(100, function ($selections) use (&$sitemap) {
+                foreach ($selections as $s) {
+                    $images = [];
+                    if ($s->images) {
+                        $images = $s->images->map(function ($i) {
+                            return [
+                                'url' => secure_url('/media/orig/' . $i->path),
+                            ];
+                        })->all();
+                    }
+                    
+                    $timestamp = $s->updated_at;
+                    $permalink = route('selection_detail', $s->id);
+                    $sitemap->add($permalink, $timestamp, null, null, $images);
+                }
+            });
+        }
+
+        return $sitemap->render('xml');
     }
 }

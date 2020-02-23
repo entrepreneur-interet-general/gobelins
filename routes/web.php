@@ -33,6 +33,9 @@ Route::get('/selections', 'SearchController@index')
 Route::get('/selections/{id}', 'SelectionsController@show')
         ->name('selection_detail')
         ->where('id', '[0-9]+');
+
+Route::get('/selections/sitemap', 'SelectionsController@sitemap')
+        ->name('selections_sitemap');
         
 Route::get('/selections/{selection_id}/invitation', 'SelectionsController@invitation')
         ->name('invitation_landing')

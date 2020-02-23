@@ -1,5 +1,26 @@
 # Journal de mise en production
 
+## Lundi 24 février 2020
+
+1. Jouer le playbook site.yml (pour les modifs sur la config nginx)
+
+2. Créer manuellement le répertoire /var/www/gobelins/shared/sitemaps
+
+   ```
+   $ cd /var/www/gobelins
+   $ sudo mkdir shared/public/sitemaps
+   $ sudo chown nginx:nginx shared/public/sitemaps
+   ```
+
+3. Jouer le playbook deploy-gobelins.yml (pour déployer le code)
+
+4. Regénérer les sitemaps
+
+   ```
+   $ cd /var/www/gobelins/current
+   $ php artisan generate:sitemaps
+   ```
+
 ## _En attente_
 
 1. Installer un plugin Elasticsearch

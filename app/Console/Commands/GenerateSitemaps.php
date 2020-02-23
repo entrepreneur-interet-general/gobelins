@@ -44,6 +44,9 @@ class GenerateSitemaps extends Command
         $counter = 0;
         $sitemapCounter = 0;
 
+        // Add selections dynamic sitemap.
+        $sitemap->addSitemap(secure_url(route('selections_sitemap', [], false)));
+
         \App\Models\Product::with('images')
             ->published()
             ->orderBy('id', 'asc')
@@ -101,7 +104,10 @@ class GenerateSitemaps extends Command
         }
 
         // generate new sitemapindex that will contain all generated sitemaps above
-        $sitemap->store('sitemapindex', 'sitemap')  ;
+        // Sitemaps are stored in a directory shared between deploys
+        // (/var/www/gobelins/shared/sitemaps), see gobelins-devops repo.
+        $path = public_path().DIRECTORY_SEPARATOR.'sitemaps';
+        $sitemap->store('sitemapindex', 'sitemap', $path);
 
         $end = microtime(true);
         $this->info("Took ".($end - $start) ." seconds to complete\n");
