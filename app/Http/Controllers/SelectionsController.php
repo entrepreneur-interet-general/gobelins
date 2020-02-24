@@ -205,10 +205,10 @@ class SelectionsController extends Controller
         
         if (!$selection->public) {
             $user = $request->user('api') ?: $request->user('web');
-            if ($user) {
-                $user->can('view', $selection);
+            if ($user && $user->can('view', $selection)) {
+                # continue...
             } else {
-                abort(403, 'Sélection privée');
+                return redirect('selections')->with('status', 'Désolé, cette sélection est privée.');
             }
         }
 
