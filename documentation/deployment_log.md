@@ -1,6 +1,6 @@
 # Journal de mise en production
 
-## Lundi 24 février 2020
+## _En attente_
 
 1. Jouer le playbook site.yml (pour les modifs sur la config nginx)
 
@@ -21,7 +21,7 @@
    $ php artisan generate:sitemaps
    ```
 
-## _En attente_
+## Effectué le 2019-02-13
 
 1. Installer un plugin Elasticsearch
 
