@@ -1,8 +1,13 @@
 # Journal de mise en production
 
-## _En attente_
+## Effectué le 2020-02-24
 
 1. Jouer le playbook site.yml (pour les modifs sur la config nginx)
+
+   ```
+   $ git pull
+   $ ansible-playbook --vault-password-file=vault_password -i inventory/production site.yml --limit=production -K
+   ```
 
 2. Créer manuellement le répertoire /var/www/gobelins/shared/sitemaps
 
@@ -18,10 +23,11 @@
 
    ```
    $ cd /var/www/gobelins/current
-   $ php artisan generate:sitemaps
+   $ sudo -u nginx
+   $ php -d memory_limit:1024M artisan generate:sitemaps
    ```
 
-## Effectué le 2019-02-13
+## Effectué le 2020-02-13
 
 1. Installer un plugin Elasticsearch
 
