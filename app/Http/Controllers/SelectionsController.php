@@ -202,10 +202,14 @@ class SelectionsController extends Controller
     {
         $selection = Selection::findOrFail($id);
 
-        $user = $request->user('api') ?: $request->user('web');
-
-        if (!$selection->public && $user) {
-            $user->can('view', $selection);
+        
+        if (!$selection->public) {
+            $user = $request->user('api') ?: $request->user('web');
+            if ($user) {
+                $user->can('view', $selection);
+            } else {
+                abort(403, 'Sélection privée');
+            }
         }
 
         $resource =new SelectionResource($selection);
