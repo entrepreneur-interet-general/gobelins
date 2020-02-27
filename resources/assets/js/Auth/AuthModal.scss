@@ -8,8 +8,15 @@
   align-items: stretch;
   justify-content: center;
   padding: 40px 20px 60px;
-  @include breakpoint(760px) {
+  @include breakpoint(400px) {
+    padding: 35px 40px 35px;
+  }
+  @include breakpoint(769px) {
     padding: 35px 100px 35px;
+  }
+  @include breakpoint(1025px) {
+    padding-left: 130px;
+    padding-right: 130px;
   }
 }
 .AuthModal__loading-overlay {

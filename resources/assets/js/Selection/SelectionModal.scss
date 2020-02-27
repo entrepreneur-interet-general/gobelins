@@ -18,11 +18,15 @@
   max-height: calc(100vh - 40px);
   background-color: #131313;
   margin: 20px;
-  @include breakpoint(760px) {
+  width: calc(100% - 40px);
+  @include breakpoint(646px) {
     flex: 0 0 auto;
     margin: auto;
-    width: 740px;
+    width: 617px;
     min-height: 425px;
+  }
+  @include breakpoint(769px) {
+    width: 740px;
   }
 }
 .SelectionModal__loader {
@@ -33,9 +37,8 @@
 .SelectionModal__content-scrollable {
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
-  max-width: 740px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
@@ -46,7 +49,13 @@
   background-color: #131313;
   color: white;
   max-height: 100%;
-  @include breakpoint(760px) {
+  @include breakpoint(646px) {
+    flex: 0 0 auto;
+    margin: auto;
+    width: 100%;
+    min-height: 100%;
+  }
+  @include breakpoint(769px) {
     flex: 0 0 auto;
     margin: auto;
     width: 740px;
