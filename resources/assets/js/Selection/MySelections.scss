@@ -12,7 +12,9 @@
   --selections-list-text-color: #fff;
   --selections-list-text-color-alt: #a6a6a6;
 }
-
+.MySelections__loader {
+  top: 25px;
+}
 .MySelections__header {
   color: #fff;
   grid-row: 1;

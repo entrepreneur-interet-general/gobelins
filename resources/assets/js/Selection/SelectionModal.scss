@@ -26,7 +26,9 @@
   }
 }
 .SelectionModal__loader {
-  transform: translate(-25px, -25px);
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 .SelectionModal__content-scrollable {
   display: flex;
@@ -218,7 +220,7 @@
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  padding: 20px;
+  padding: 20px 0;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;

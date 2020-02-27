@@ -25,9 +25,8 @@
 }
 
 .SelectionsList {
-  // @extend %selections-grid;
   @include breakpoint(768px) {
-    overflow: hidden;
+    // overflow: hidden;
   }
 }
 
@@ -52,7 +51,8 @@
   margin: 0 var(--ext-gutter);
 
   @include breakpoint(768px) {
-    width: calc(100% + var(--int-gutter));
+    // width: calc(100% - var(--int-gutter));
+    width: 100%;
     left: calc(var(--int-gutter) * -1);
 
     --cols: 2;
@@ -318,8 +318,7 @@
 }
 
 .SelectionsList__loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(0, 30px);
+  position: relative;
+  margin: 0 auto;
+  width: 0;
 }

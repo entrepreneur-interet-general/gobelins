@@ -177,7 +177,7 @@ class MySelectionsList extends React.Component {
     return (
       <div className="MySelections" ref={this.props.observeRef}>
         {this.context.loadingMine ? (
-          <Loader className="SelectionsList__loader" />
+          <Loader className="SelectionsList__loader MySelections__loader" />
         ) : this.context.mySelections &&
           this.context.mySelections.length > 0 ? (
           <div className="SelectionsList">
