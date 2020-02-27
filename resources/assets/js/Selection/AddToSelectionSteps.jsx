@@ -112,7 +112,7 @@ function DoneAddingProduct(props) {
         <div className="SelectionModal__added-confirm">
           <div className="SelectionModal__added-illu">
             <Link to={`/selections/${props.selection.id}`}>
-              <AddedToSelection />
+              <AddedToSelection className="SelectionModal__added-illu-svg" />
             </Link>
           </div>
           <p>

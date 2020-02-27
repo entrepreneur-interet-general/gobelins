@@ -258,6 +258,9 @@
     animation-fill-mode: forwards;
   }
 }
+.SelectionModal__added-illu-svg {
+  max-width: 100%;
+}
 @keyframes IntroduceHeart {
   from {
     fill: #000;
