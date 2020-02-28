@@ -90,7 +90,7 @@
   transform: translate(-50%, -50%);
 }
 .DetailMainImage__img {
-  max-width: 100%;
+  width: 100%;
   @include breakpoint($medium-up) {
     position: absolute;
     width: 100%;
