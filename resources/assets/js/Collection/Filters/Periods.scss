@@ -4,7 +4,7 @@
   left: 288px;
   width: calc(288px + 80px);
   z-index: 1;
-  height: 100vh;
+  height: 100%;
   box-sizing: border-box;
   background-color: $red-darker;
 
@@ -68,7 +68,7 @@
     background-color: #ff6363;
   }
 
-//  &:before {
+  //  &:before {
   //  content: "";
   //  position: absolute;
   //  display: block;
