@@ -268,6 +268,7 @@ class SearchController extends Controller
                             'authors.first_name',
                             'acquisition_origin',
                             'legacy_inventory_number',
+                            'bibliography',
                         ],
                     ],
                 ];
