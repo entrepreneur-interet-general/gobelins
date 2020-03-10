@@ -2,11 +2,19 @@
 
 ## Sourcing
 
-Source images are copied from the on-premices file server, using SyncToy, to an external hard drive.
+Source images are copied from the on-premices file server, using a sync utility, to an external hard drive, formatted as NTFS (so read-only under MacOS).
 
 `R:\Appliwin\photos\HD`
 
-This results in a large folder of images, about 300 GB.
+This results in a large folder of images, about 350 GB.
+
+## TODO
+
+- Keep all filenames just like the originials (with .JPG)
+- rename locally and on beta the files using a task (both in orig and xl, all versions)
+- change frontend to not downcase extensions anymore
+- then, for updates, we can just rsync normally again, based on file size (not mtime).
+- rsync --fuzzy --delete-after ??
 
 ## Images sizes
 
