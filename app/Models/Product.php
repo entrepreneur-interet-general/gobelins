@@ -104,14 +104,20 @@ class Product extends Model
 
     public function getSearchableImagesAttribute()
     {
-        return $this->images()->where('is_published', true)->get()->map(function ($image) {
-            return $image->toSearchableArray();
-        })->all();
+        return $this->images()
+                        ->where('is_published', true)
+                        ->orderBy('is_poster', 'DESC')
+                        ->orderBy('is_prime_quality', 'DESC')
+                        ->get()
+                        ->map(function ($image) {
+                            return $image->toSearchableArray();
+                        })->all();
     }
     
     /**
-     * TODO: change this to use the is_poster attribute
-     * from gobelins-datasource.
+     * The "poster" image of a product should be marked
+     * as such from our datasource. If not, just take the
+     * highest quality one.
      *
      * @return \App\Models\Image|null
      */
@@ -119,7 +125,8 @@ class Product extends Model
     {
         return $this->images()
                     ->where('is_published', true)
-                    ->orderBy('is_prime_quality')
+                    ->orderBy('is_poster', 'DESC')
+                    ->orderBy('is_prime_quality', 'DESC')
                     ->first();
     }
     

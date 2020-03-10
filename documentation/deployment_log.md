@@ -1,5 +1,11 @@
 # Journal de mise en production
 
+## En attente
+
+1. php artisan migrate (pour créer is_poster);
+2. …import…
+3. php artisan gobelins:refresh-selections
+
 ## Effectué le 2020-02-24
 
 1. Jouer le playbook site.yml (pour les modifs sur la config nginx)
