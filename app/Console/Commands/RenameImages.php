@@ -29,13 +29,6 @@ class RenameImages extends Command
     protected $progress_bar;
 
     /**
-     * Skip this many images when resuming the command.
-     *
-     * @var integer
-     */
-    protected $skip = 0;
-
-    /**
      * Create a new command instance.
      *
      * @return void
@@ -52,10 +45,6 @@ class RenameImages extends Command
      */
     public function handle()
     {
-        if ($this->option('skip')) {
-            $this->skip = (int) $this->option('skip');
-        }
-
         $this->processImages();
     }
 
@@ -68,9 +57,9 @@ class RenameImages extends Command
      */
     private function processImages()
     {
-        $this->progress_bar = $this->output->createProgressBar(Image::where('path', 'like', '%.JPG')->count() - $this->skip);
+        $this->progress_bar = $this->output->createProgressBar(Image::where('path', 'like', '%.JPG')->count());
 
-        \App\Models\Image::where('path', 'like', '%.JPG')->orderBy('id', 'DESC')->skip(28000)->chunk(500, function ($images) {
+        \App\Models\Image::where('path', 'like', '%.JPG')->orderBy('id', 'DESC')->chunk(500, function ($images) {
             foreach ($images as $img) {
                 // Get all files from the directory of the image (only orig).
                 $dir_listing = glob(dirname(public_path() . '/media/orig/' . $img->path) . '/*');
