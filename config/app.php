@@ -220,4 +220,8 @@ return [
 
     ],
 
+    'datasource_baseuri' => env('DATASOURCE_BASEURI'),
+    'http_auth_username' => env('HTTP_AUTH_USERNAME'),
+    'http_auth_password' => env('HTTP_AUTH_PASSWORD'),
+
 ];

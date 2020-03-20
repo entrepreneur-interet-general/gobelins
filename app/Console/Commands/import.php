@@ -87,14 +87,14 @@ class Import extends Command
     private function initHttpClient()
     {
         $this->client = new Client([
-            'base_uri' => env('DATASOURCE_BASEURI'),
+            'base_uri' => config('app.datasource_baseuri'),
             'timeout'  => 15.0,
         ]);
     }
 
     private function setupProgressBar()
     {
-        $this->http_options = env('HTTP_AUTH_USERNAME') ? ['auth' => [env('HTTP_AUTH_USERNAME'), env('HTTP_AUTH_PASSWORD')]] : [];
+        $this->http_options = config('app.http_auth_username') ? ['auth' => config('app.http_auth_username'), config('app.http_auth_password')] : [];
         $response = $this->client->request('GET', '/api/products', $this->http_options);
         if ($response->getStatusCode() === 200) {
             $json_resp = json_decode($response->getBody());
@@ -108,7 +108,7 @@ class Import extends Command
      */
     private function loadScom()
     {
-        $this->comment('Loading from datasource: ' . env('DATASOURCE_BASEURI'));
+        $this->comment('Loading from datasource: ' . config('app.datasource_baseuri'));
 
         // The root request endpoint.
         // All subsequent requests will be crawled from the next page in the response.
