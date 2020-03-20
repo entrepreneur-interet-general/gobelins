@@ -96,14 +96,14 @@ class RenameImages extends Command
                             in_array($case_insensitive_name, $dir_listing, true)) {
                                 $this->progress_bar->clear();
 
-                                $this->warn('-------------------------------------------');
-                                $this->warn('OK! Found an orig file to rename! File is :');
-                                $this->warn($case_insensitive_name);
-                                $this->warn('Rename to :');
-                                $this->warn($new_name);
-                                $this->warn('And parent directory listing is');
-                                var_dump($dir_listing);
-                                $this->warn('-------------------------------------------');
+                                // $this->warn('-------------------------------------------');
+                                // $this->warn('OK! Found an orig file to rename! File is :');
+                                // $this->warn($case_insensitive_name);
+                                // $this->warn('Rename to :');
+                                // $this->warn($new_name);
+                                // $this->warn('And parent directory listing is');
+                                // var_dump($dir_listing);
+                                // $this->warn('-------------------------------------------');
 
                                 
                                 $this->warn('Rename: ' . $case_insensitive_name);
