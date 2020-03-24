@@ -24,6 +24,14 @@ $ cd public/media/orig
 $ find . -type f -mtime -365 | parallel --eta -q gm mogrify -preserve-timestamp -resize '1500x1500>' -format jpg -strip -output-directory ~/EIG/gobelins/public/media/xl -create-directories {}
 ```
 
+# Image duplication
+
+```
+$ ./goduf -summary /Volumes/Transcend/MediaLibrary/HD/
+2020/03/16 11:37:24 Final count: 9190 duplicate files in 3035 sets
+2020/03/16 11:37:24 Redundant data size: 15596944130 bytes (14 GiB)
+```
+
 # Upload orig files to staging
 
 ```
@@ -44,4 +52,21 @@ Rsync options:
 
 ```
 $ rsync -rvzhte ssh --size-only --progress ./public/media/orig/ root@tarabiscot:/var/www/gobelins/shared/public/media/orig/
+$ rsync -rvzhte ssh --size-only --progress ./public/media/orig/ root@tarabiscot:/var/www/gobelins/shared/public/media/orig/
+
+$ rsync \
+    --compress \
+    --verbose \
+    --recursive \
+    --times \
+    --delete \
+    --delete-after \
+    --fuzzy \
+    --human-readable \
+    -e ssh \
+    --itemize-changes \
+    --stats \
+    --dry-run \
+    ./public/media/orig/ \
+    root@tarabiscot:/var/www/gobelins/shared/public/media/orig/
 ```

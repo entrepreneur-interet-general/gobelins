@@ -11,10 +11,50 @@ This results in a large folder of images, about 350 GB.
 ## TODO
 
 - Keep all filenames just like the originials (with .JPG)
-- rename locally and on beta the files using a task (both in orig and xl, all versions)
+- rename locally
+- make a local dump of the gobelins DB, without the UGC tables
+- on staging :
+  - load the dump of the DB, do have the newly added images in the DB
+  - run the gobelins:renameimages command, so the images have the canonical extensions
 - change frontend to not downcase extensions anymore
 - then, for updates, we can just rsync normally again, based on file size (not mtime).
-- rsync --fuzzy --delete-after ??
+- rsync --fuzzy --delete-after ?? => should not be needed.
+
+```
+$ pg_dump --host=localhost \
+          --username=homestead \
+          --clean \
+          --no-owner \
+          --exclude-table=public.users \
+          --exclude-table=public.image_selection \
+          --exclude-table=public.invitations \
+          --exclude-table=public.migrations \
+          --exclude-table=public.password_resets \
+          --exclude-table=public.product_selection \
+          --exclude-table=public.selection_user \
+          --exclude-table=public.selections \
+          --exclude-table=public.users \
+          gobelins \
+          > ./dump_mars_2020.sql
+
+
+// test
+$ psql  --host=localhost \
+        --username=homestead \
+        --dbname=gob_test \
+        --file=dump_mars_2020.sql
+```
+
+Sur staging:
+
+```
+$ sudo su -l postgres
+$ createdb -T gobelins gobelins_backup
+$ psql  --host=localhost \
+        --username=gobelins \
+        --dbname=gobelins \
+        --file=/var/www/gobelins/shared/dump_mars_2020.sql
+```
 
 ## Images sizes
 
