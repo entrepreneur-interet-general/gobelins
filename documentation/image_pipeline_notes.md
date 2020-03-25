@@ -24,6 +24,13 @@ $ cd public/media/orig
 $ find . -type f -mtime -365 | parallel --eta -q gm mogrify -preserve-timestamp -resize '1500x1500>' -format jpg -strip -output-directory ~/EIG/gobelins/public/media/xl -create-directories {}
 ```
 
+and
+
+```
+$ cd public/media/orig
+$ find ~/EIG/gobelins/public/media/xl -type f -mtime -365 | parallel --eta -q gm mogrify -preserve-timestamp -resize '1500x1500>' -format jpg -strip -output-directory ~/EIG/gobelins/public/media/xl -create-directories {}
+```
+
 # Image duplication
 
 ```
@@ -59,9 +66,8 @@ $ rsync \
     --verbose \
     --recursive \
     --times \
+    --size-only \
     --delete \
-    --delete-after \
-    --fuzzy \
     --human-readable \
     -e ssh \
     --itemize-changes \
@@ -69,4 +75,21 @@ $ rsync \
     --dry-run \
     ./public/media/orig/ \
     root@tarabiscot:/var/www/gobelins/shared/public/media/orig/
+```
+
+Sync the XL images to staging.
+
+```
+rsync \
+    --compress \
+    --verbose \
+    --recursive \
+    --times \
+    --size-only \
+    --human-readable \
+    -e ssh \
+    --itemize-changes \
+    --stats \
+    ~/EIG/gobelins/public/media/xl/ \
+    root@tarabiscot:/var/www/gobelins/shared/public/media/xl/
 ```
