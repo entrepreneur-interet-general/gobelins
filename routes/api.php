@@ -41,6 +41,11 @@ Route::get('selections/user', [
     'uses' => 'SelectionsController@listUserSelections'
 ]);
 
+Route::any('oai-pmh', [
+    'as' => 'api.oai-pmh',
+    'uses' => 'OaiPmhController@index'
+]);
+
 
 Route::middleware('auth:api', 'throttle:60,1')->group(function () {
     Route::get('/user/me', 'UserController@me');
