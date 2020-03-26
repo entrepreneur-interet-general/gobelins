@@ -15,13 +15,11 @@ class MainImage extends Component {
 
   render() {
     let imgUrl = this.props.image
-      ? `/media/xl/${encodeURIComponent(
-          this.props.image.path.replace(".JPG", ".jpg")
-        )}`
+      ? `/media/xl/${encodeURIComponent(this.props.image.path)}`
       : "";
     let downloadUrl = this.props.image
       ? `${location.origin}/media/orig/${encodeURIComponent(
-          this.props.image.path.replace(".JPG", ".jpg")
+          this.props.image.path
         )}`
       : "";
     let downloadFilename = "";
