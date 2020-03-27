@@ -14,7 +14,7 @@
 ```
 $ scp ned@51.15.165.39:/home/ned/datasource_2020-03-26.dump .
 $ sudo su postgres
-$ pg_restore -d datastore datastore_2020-03-26.dump
+$ pg_restore -d datasource datasource_2020-03-26.dump
 ```
 
 ---

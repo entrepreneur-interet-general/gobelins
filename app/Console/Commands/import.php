@@ -173,7 +173,7 @@ class Import extends Command
                         $images = collect($item->images)
                             // Store full path of image file.
                             ->map(function ($img_obj) {
-                                $img_obj->full_path = public_path('media/orig/' . trim($img_obj->path));
+                                $img_obj->full_path = public_path('media/xl/' . trim($img_obj->path));
                                 return $img_obj;
                             })
                             // Remove items for which we don't have a file.
