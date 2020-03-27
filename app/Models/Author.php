@@ -47,39 +47,51 @@ class Author extends Model
         ];
     }
 
-    // public function getFullNameAttribute()
-    // {
-    //     // Remove all biographical information,
-    //     // by convention between parentesis.
-    //     if (strpos($this->name, '(') !== false) {
-    //         $truncated = trim(substr($this->name, 0, strpos($this->name, '(')));
-    //     } else {
-    //         $truncated = trim($this->name);
-    //     }
-    //     return $truncated;
-    // }
+    /**
+     * Legacy name attribute, with biographical infomation removed.
+     *
+     * @return string
+     */
+    public function getRawFullNameAttribute()
+    {
+        // Remove all biographical information,
+        // by convention between parentesis.
+        if (strpos($this->name, '(') !== false) {
+            $truncated = trim(substr($this->name, 0, strpos($this->name, '(')));
+        } else {
+            $truncated = trim($this->name);
+        }
+        return $truncated;
+    }
 
-    // private function splitNameSegments()
-    // {
-    //     $matches = [];
-    //     if (preg_match('/^([- A-Z]+)\b((?:[A-Z](?:\p{L}|-| )+)*)$/u', $this->fullName, $matches) === 1) {
-    //         $this->attributes['first_name'] = trim($matches[2]);
-    //         $this->attributes['last_name'] = trim($matches[1]);
-    //     } else {
-    //         $this->attributes['first_name'] = '';
-    //         $this->attributes['last_name'] = $this->fullName;
-    //     }
-    // }
+    /**
+     * Parse the rawFullName into an array of [firstName, lastName]
+     *
+     * @return array
+     */
+    private function splitNameSegments()
+    {
+        $matches = [];
+        if (preg_match('/^([- A-Z]+)\b((?:[A-Z](?:\p{L}|-| )+)*)$/u', $this->rawFullName, $matches) === 1) {
+            return [
+                trim($matches[2]),
+                trim($matches[1])
+            ];
+        } else {
+            return [
+                '',
+                $this->rawFullName,
+            ];
+        }
+    }
     
-    // public function getFirstNameAttribute()
-    // {
-    //     $this->splitNameSegments();
-    //     return $this->attributes['first_name'];
-    // }
+    public function getCompositeFirstNameAttribute()
+    {
+        return $this->splitNameSegments()[0];
+    }
         
-    // public function getLastNameAttribute()
-    // {
-    //     $this->splitNameSegments();
-    //     return $this->attributes['last_name'];
-    // }
+    public function getCompositeLastNameAttribute()
+    {
+        return $this->splitNameSegments()[1];
+    }
 }

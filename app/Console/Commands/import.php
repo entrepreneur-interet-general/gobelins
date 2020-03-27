@@ -255,7 +255,7 @@ class Import extends Command
                                     'legacy_id' => $as->author->id,
                                     'name' => $as->author->name,
                                     'first_name' => $as->author->first_name,
-                                    'last_name' => $as->author->last_name,
+                                    'last_name' => $as->author->last_name ?: $as->author->composite_last_name,
                                     'date_of_birth' => $as->author->date_of_birth,
                                     'year_of_birth' => $as->author->year_of_birth,
                                     'date_of_death' => $as->author->date_of_death,
