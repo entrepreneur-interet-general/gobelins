@@ -50,29 +50,32 @@ class Author extends Model
     /**
      * Legacy name attribute, with biographical infomation removed.
      *
+     * @param string $name
      * @return string
      */
-    public function getRawFullNameAttribute()
+    public static function extractFullName($name)
     {
         // Remove all biographical information,
         // by convention between parentesis.
-        if (strpos($this->name, '(') !== false) {
-            $truncated = trim(substr($this->name, 0, strpos($this->name, '(')));
+        if (strpos($name, '(') !== false) {
+            $truncated = trim(substr($name, 0, strpos($name, '(')));
         } else {
-            $truncated = trim($this->name);
+            $truncated = trim($name);
         }
         return $truncated;
     }
 
     /**
-     * Parse the rawFullName into an array of [firstName, lastName]
+     * Parse the legacy raw full name into an array of [firstName, lastName]
      *
+     * @param string $nameField
      * @return array
      */
-    private function splitNameSegments()
+    private static function splitNameSegments($nameField)
     {
         $matches = [];
-        if (preg_match('/^([- A-Z]+)\b((?:[A-Z](?:\p{L}|-| )+)*)$/u', $this->rawFullName, $matches) === 1) {
+        $fullName = self::extractFullName($nameField);
+        if (preg_match('/^([- A-Z]+)\b((?:[A-Z](?:\p{L}|-| )+)*)$/u', $fullName, $matches) === 1) {
             return [
                 trim($matches[2]),
                 trim($matches[1])
@@ -80,18 +83,20 @@ class Author extends Model
         } else {
             return [
                 '',
-                $this->rawFullName,
+                $fullName,
             ];
         }
     }
     
-    public function getCompositeFirstNameAttribute()
+    /**
+     * Extract a lastName from the legacy (datasource) 'name' attribute
+     *
+     * @param string $name
+     * @return string
+     */
+    public static function extractLastName($name)
     {
-        return $this->splitNameSegments()[0];
-    }
-        
-    public function getCompositeLastNameAttribute()
-    {
-        return $this->splitNameSegments()[1];
+        $first_last = self::splitNameSegments($name);
+        return $first_last[1];
     }
 }
