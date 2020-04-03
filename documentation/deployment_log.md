@@ -26,19 +26,21 @@ $ php artisan migrate
 5. Sur prod, importer les données dans Postgres (ceci va prendre quelques heures) :
 
 ```
+$ cd /var/www/gobelins/current
 $ php artisan gobelins:import
-$ php artisan gobelins:refresh-selections
 ```
 
 6. Sur prod, regenerer les sélections :
 
 ```
+$ cd /var/www/gobelins/current
 $ php artisan gobelins:refresh-selections
 ```
 
 7. Sur prod, passer le site en maintenance, supprimer puis recréer l'index ElasticSearch, puis indexer les données (ceci devrait prendre environ 1h) :
 
 ```
+$ cd /var/www/gobelins/current
 $ php artisan down
 $ php artisan es:indices:drop
 $ php artisan es:indices:create
@@ -49,6 +51,7 @@ $ php artisan up
 8. Enfin, regénérer les fichiers sitemap.xml (pour SEO) :
 
 ```
+$ cd /var/www/gobelins/current
 $ php artisan generate:sitemaps
 ```
 
