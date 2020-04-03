@@ -2,14 +2,13 @@
 
 ## En attente
 
-0. Deploy gobelins, comme d'habiture.
+1. Deployer l'application gobelins :
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> deploy-gobelins.yml --limit=production`
 
-1. Deploy gobelins-datasource :
+2. Deployer l'application gobelins-datasource :
    `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> deploy-datasource.yml --limit=production`
 
----
-
-2. Sur serveur de prod, copier le dump fourni, et écraser la base :
+3. Sur serveur de prod, copier le dump fourni, et écraser la base :
 
 ```
 $ scp ned@51.15.165.39:/home/ned/datasource_2020-03-26.dump .
@@ -17,43 +16,40 @@ $ sudo su postgres
 $ pg_restore -d datasource datasource_2020-03-26.dump
 ```
 
----
-
-ou
-
----
-
-2. Sur le serveur de prod, supprimer manuellement la base utilisée par datasource ("postgres"), et la recréer.
-
-```
-$ cd /var/www/datasource/shared/storage/app/scom_latest
-$ sudo su -l postgres
-$ dropdb postgres
-$ createdb postgres -T template1
-$ exit
-$ cd /var/www/datasource/current
-$
-```
-
-2. (bis) Lancer l'import sur datasource (sudo pour écrire dans le fichier log) :
-
-```
-$ cd /var/www/datasource/current
-$ sudo php artisan gobelins:import_scom
-```
-
----
-
-3. Sur prod :
+4. Sur prod, lancer les migrations de la base Postgres :
 
 ```
 $ cd /var/www/gobelins/current
 $ php artisan migrate
+```
+
+5. Sur prod, importer les données dans Postgres (ceci va prendre quelques heures) :
+
+```
 $ php artisan gobelins:import
 $ php artisan gobelins:refresh-selections
+```
+
+6. Sur prod, regenerer les sélections :
+
+```
+$ php artisan gobelins:refresh-selections
+```
+
+7. Sur prod, passer le site en maintenance, supprimer puis recréer l'index ElasticSearch, puis indexer les données (ceci devrait prendre environ 1h) :
+
+```
+$ php artisan down
 $ php artisan es:indices:drop
 $ php artisan es:indices:create
 $ php artisan scout:import "\App\Models\Product"
+$ php artisan up
+```
+
+8. Enfin, regénérer les fichiers sitemap.xml (pour SEO) :
+
+```
+$ php artisan generate:sitemaps
 ```
 
 ## Effectué le 2020-02-24
