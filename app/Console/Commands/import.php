@@ -177,6 +177,7 @@ class Import extends Command
                                     'bibliography' => $item->bibliography,
                                     'is_published' => $item->publication_state->is_published,
                                     'publication_code' => $item->publication_state->code,
+                                    'legacy_updated_on' => $item->updated_on,
                                 ]
                             );
                         });
