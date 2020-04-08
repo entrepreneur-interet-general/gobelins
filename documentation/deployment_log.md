@@ -2,6 +2,15 @@
 
 ## En attente
 
+Regénérer les fichiers sitemap.xml (pour SEO) :
+
+```
+$ cd /var/www/gobelins/current
+$ php artisan generate:sitemaps
+```
+
+## Finalisé le 2020-04-06
+
 1. Deployer l'application gobelins :
    `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> deploy-gobelins.yml --limit=production`
 

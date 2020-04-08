@@ -70,18 +70,23 @@ class GenerateSitemaps extends Command
 
                     $images = [];
                     if ($p->images) {
-                        $images = $p->images->map(function ($i) {
-                            $attrs = [
-                                'url' => secure_url('/media/orig/' . $i->path),
-                                // 'title' => '',
-                                // 'caption' => '',
-                            ];
-                            // Not currently active with this package.
-                            if (isset($i->licence) && $i->licence === 'LO 2.0') {
-                                $attrs['license'] = 'https://github.com/etalab/licence-ouverte/blob/master/LO.md';
-                            }
-                            return $attrs;
-                        })->all();
+                        $images = $p->images()
+                                    ->where('is_published', true)
+                                    ->orderBy('is_poster', 'DESC')
+                                    ->orderBy('is_prime_quality', 'DESC')
+                                    ->get()
+                                    ->map(function ($i) {
+                                        $attrs = [
+                                            'url' => secure_url('/media/orig/' . $i->path),
+                                            // 'title' => '',
+                                            // 'caption' => '',
+                                        ];
+                                        // Not currently active with this package.
+                                        if (isset($i->licence) && $i->licence === 'LO 2.0') {
+                                            $attrs['license'] = 'https://github.com/etalab/licence-ouverte/blob/master/LO.md';
+                                        }
+                                        return $attrs;
+                                    })->all();
                     }
                     
                     // add product to items array
