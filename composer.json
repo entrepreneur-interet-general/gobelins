@@ -16,6 +16,7 @@
     "flynsarmy/csv-seeder": "^1.0",
     "folklore/image": "0.3.28",
     "guzzlehttp/guzzle": "^6.3",
+    "illuminated/console-logger": "^6.1",
     "kalnoy/nestedset": "^5.0",
     "laravel/framework": "^6.0",
     "laravel/helpers": "^1.1",

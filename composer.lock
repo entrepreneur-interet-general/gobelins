@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2de0f672fb54780ed713802a986085f2",
+    "content-hash": "e82adaa7352cb0f36fe8e6d6c98bd4d1",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -992,6 +992,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2018-07-31T13:22:33+00:00"
         },
         {
@@ -1042,7 +1043,131 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
+        },
+        {
+            "name": "illuminated/console-logger",
+            "version": "6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmitry-ivanov/laravel-console-logger.git",
+                "reference": "6c2fa70de3ef019347bd2bb4f90351a992b622b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-console-logger/zipball/6c2fa70de3ef019347bd2bb4f90351a992b622b9",
+                "reference": "6c2fa70de3ef019347bd2bb4f90351a992b622b9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^6.0",
+                "illuminate/support": "^6.0",
+                "illuminated/helper-functions": "^6.0",
+                "monolog/monolog": "^1.12|^2.0",
+                "php": "^7.2",
+                "psr/http-message": "^1.0",
+                "psr/log": "^1.0",
+                "symfony/finder": "^4.3"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3",
+                "illuminated/testing-tools": "^6.0",
+                "mockery/mockery": "^1.2",
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "integrations/autoload.php"
+                ],
+                "psr-4": {
+                    "Illuminated\\Console\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Ivanov",
+                    "email": "dmitry.g.ivanov@gmail.com"
+                }
+            ],
+            "description": "Logging and notifications for Laravel console commands.",
+            "keywords": [
+                "command",
+                "console",
+                "laravel",
+                "logger",
+                "notifications"
+            ],
+            "time": "2020-02-23T15:40:33+00:00"
+        },
+        {
+            "name": "illuminated/helper-functions",
+            "version": "6.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dmitry-ivanov/laravel-helper-functions.git",
+                "reference": "5642da8330e1598e17d6582fcedfd9191bda723d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dmitry-ivanov/laravel-helper-functions/zipball/5642da8330e1598e17d6582fcedfd9191bda723d",
+                "reference": "5642da8330e1598e17d6582fcedfd9191bda723d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "ext-simplexml": "*",
+                "illuminate/support": "^6.0",
+                "nesbot/carbon": "^2.0",
+                "php": "^7.2",
+                "spatie/array-to-xml": "^2.7",
+                "symfony/filesystem": "^4.3",
+                "symfony/finder": "^4.3",
+                "symfony/process": "^4.3",
+                "symfony/var-dumper": "^4.3"
+            },
+            "require-dev": {
+                "illuminated/testing-tools": "^6.0",
+                "mockery/mockery": "^1.2",
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/autoload.php"
+                ],
+                "psr-4": {
+                    "Illuminated\\Helpers\\": "src/Helpers/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Ivanov",
+                    "email": "dmitry.g.ivanov@gmail.com"
+                }
+            ],
+            "description": "Laravel-specific and pure PHP helper functions.",
+            "keywords": [
+                "Backtrace",
+                "functions",
+                "helpers",
+                "laravel",
+                "multiarray",
+                "xml"
+            ],
+            "time": "2020-03-07T17:27:34+00:00"
         },
         {
             "name": "imagine/imagine",
@@ -1141,6 +1266,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -1187,6 +1313,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -2736,6 +2863,56 @@
             "time": "2019-07-29T10:26:24+00:00"
         },
         {
+            "name": "spatie/array-to-xml",
+            "version": "2.11.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/array-to-xml.git",
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/bdb5bc735b0639f6f438e935b13f7ac216239679",
+                "reference": "bdb5bc735b0639f6f438e935b13f7ac216239679",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^8.0",
+                "spatie/phpunit-snapshot-assertions": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\ArrayToXml\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://murze.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert an array to xml",
+            "homepage": "https://github.com/spatie/array-to-xml",
+            "keywords": [
+                "array",
+                "convert",
+                "xml"
+            ],
+            "time": "2019-08-21T06:32:31+00:00"
+        },
+        {
             "name": "spatie/image-optimizer",
             "version": "1.2.1",
             "source": {
@@ -3274,6 +3451,56 @@
                 "standards"
             ],
             "time": "2019-09-17T09:54:03+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v4.4.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2020-01-21T08:20:44+00:00"
         },
         {
             "name": "symfony/finder",
@@ -6580,56 +6807,6 @@
                 "phra"
             ],
             "time": "2020-01-13T10:41:09+00:00"
-        },
-        {
-            "name": "symfony/filesystem",
-            "version": "v4.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/filesystem.git",
-                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/266c9540b475f26122b61ef8b23dd9198f5d1cfd",
-                "reference": "266c9540b475f26122b61ef8b23dd9198f5d1cfd",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-ctype": "~1.8"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Filesystem\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Filesystem Component",
-            "homepage": "https://symfony.com",
-            "time": "2020-01-21T08:20:44+00:00"
         },
         {
             "name": "theseer/tokenizer",

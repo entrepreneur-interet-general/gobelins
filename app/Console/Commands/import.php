@@ -7,9 +7,13 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use Seld\Signal\SignalHandler;
+use Illuminated\Console\Loggable;
 
 class Import extends Command
 {
+    use Loggable;
+
+    
     /**
      * The name and signature of the console command.
      *
@@ -110,11 +114,14 @@ class Import extends Command
     {
         $this->comment('Loading from datasource: ' . config('app.datasource_baseuri'));
 
+        $this->logInfo('Starting import from datasource…');
+        
         // The root request endpoint.
         // All subsequent requests will be crawled from the next page in the response.
         // products?page=3033
         $next_page = '/api/products';
         if ($this->option('from')) {
+            $this->logInfo('Resuming import from page ' . $this->option('from'));
             $next_page .= '?page=' . $this->option('from');
         }
 
@@ -181,11 +188,17 @@ class Import extends Command
                                 if (file_exists($img_obj->full_path)) {
                                     return true;
                                 } else {
+                                    $this->logWarning('[Page ' . $this->current_page . '] Missing image file for product ' . $item->inventory_id . ' : ' . $img_obj->full_path);
+
+
                                     $this->progress_bar->clear();
                                     $this->warn('Error on product: ' . $item->inventory_id);
                                     $this->warn('Missing image file: ' . $img_obj->full_path);
                                     $this->info('Current page:' . $this->current_page);
                                     $this->progress_bar->display();
+
+                                    file_put_contents(storage_path('logs/missing_files.log'), $img_obj->full_path . "\n", FILE_APPEND);
+
                                     return false;
                                 }
                             })
@@ -201,12 +214,13 @@ class Import extends Command
                                 if ($img_obj->width && $img_obj->height) {
                                     return true;
                                 } else {
+                                    $this->logWarning('[Page ' . $this->current_page . '] Invalid or corrupted image file for product ' . $item->inventory_id . ' : ' . $img_obj->full_path);
+
                                     $this->progress_bar->clear();
                                     $this->warn('Error on product: ' . $item->inventory_id);
                                     $this->warn('Invalid image:' . $img_obj->full_path);
                                     $this->info('Current page:' . $this->current_page);
                                     $this->progress_bar->display();
-                                    file_put_contents(storage_path('logs/missing_files.log'), $img_obj->full_path . "\n", FILE_APPEND);
                                     return false;
                                 }
                             })
@@ -397,16 +411,21 @@ class Import extends Command
                     });
 
                     if ($this->signal_handle->isTriggered()) {
+                        $this->logCritical('Interrupted at page ' . $this->current_page);
+
                         $this->progress_bar->clear();
                         $this->info(implode("\n", $this->report));
                         $this->warn('Interrupted at page ' . $this->current_page . '. To resume the import, run:');
                         $this->warn('$ php artisan gobelins:import -vvv --from=' . $this->current_page);
                         exit;
                     } else {
+                        $this->logInfo('Completed import of page ' . $this->current_page);
+
                         $next_page = $json_resp->links->next ?: false;
                     }
                 } else {
                     $this->comment('Unfulfilled request :(');
+                    $this->logCritical('Could not fetch data from API', ['http_response_code' => $response->getStatusCode()]);
                 }
             } catch (ClientException $e) {
                 echo Psr7\str($e->getRequest());
