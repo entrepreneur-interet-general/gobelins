@@ -92,7 +92,7 @@ class Import extends Command
     {
         $this->client = new Client([
             'base_uri' => config('app.datasource_baseuri'),
-            'timeout'  => 15.0,
+            'timeout'  => 30.0,
         ]);
     }
 
