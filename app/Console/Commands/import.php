@@ -57,7 +57,7 @@ class Import extends Command
     
     
     /**
-     * Any shared HTTP options, like auth…
+     * Any shared HTTP options
      */
     protected $http_options = [
         'allow_redirects' => true,
@@ -71,6 +71,14 @@ class Import extends Command
     public function __construct()
     {
         parent::__construct();
+
+
+        $this->http_options = array_merge($this->http_options, [
+            'auth' => [
+                config('app.datasource_username'),
+                config('app.datasource_password'),
+            ],
+        ]);
     }
 
     /**
@@ -100,7 +108,6 @@ class Import extends Command
 
     private function setupProgressBar()
     {
-        $this->http_options = config('app.http_auth_username') ? ['auth' => config('app.http_auth_username'), config('app.http_auth_password')] : $this->http_options;
         $response = $this->client->request('GET', '/api/products', $this->http_options);
         if ($response->getStatusCode() === 200) {
             $json_resp = json_decode($response->getBody());

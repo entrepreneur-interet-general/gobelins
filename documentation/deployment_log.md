@@ -2,6 +2,9 @@
 
 ## En attente
 
+Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
+
 Regénérer les fichiers sitemap.xml (pour SEO) :
 
 ```
@@ -185,7 +188,6 @@ Procédure déployement "Sélections".
    → Sur le serveur de production, éditer les chemins vers les fichiers CSV, et executer le SQL suivant :
 
    ```sql
-
     COPY users FROM '/var/www/gobelins/shared/migrations/users.csv' DELIMITER ',' CSV HEADER;
 
     COPY selections FROM '/var/www/gobelins/shared/migrations/selections.csv' DELIMITER ',' CSV HEADER;
@@ -199,5 +201,4 @@ Procédure déployement "Sélections".
     SELECT setval('selections_id_seq', ( SELECT GREATEST(MAX(id)+1, nextval('selections_id_seq'))-1 FROM selections ));
 
     SELECT setval('users_id_seq', ( SELECT GREATEST(MAX(id)+1, nextval('users_id_seq'))-1 FROM users ));
-
    ```
