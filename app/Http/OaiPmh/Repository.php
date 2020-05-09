@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Http\OaiPmh;
 
 use DateTime;
 use OpenSkos2\OaiPmh\Concept as OaiConcept;
 use Picturae\OaiPmh\Exception\IdDoesNotExistException;
 use Picturae\OaiPmh\Implementation\MetadataFormatType as ImplementationMetadataFormatType;
+use Picturae\OaiPmh\Implementation\Record as OaiRecord;
+use Picturae\OaiPmh\Implementation\Record\Header as OaiRecordHeader;
 use Picturae\OaiPmh\Implementation\RecordList as OaiRecordList;
 use Picturae\OaiPmh\Implementation\Repository\Identity as ImplementationIdentity;
 use Picturae\OaiPmh\Implementation\Set;
@@ -17,7 +19,9 @@ use Picturae\OaiPmh\Interfaces\Repository as OaiRepository;
 use Picturae\OaiPmh\Interfaces\Repository\Identity;
 use Picturae\OaiPmh\Interfaces\SetList as InterfaceSetList;
 
-class Product implements OaiRepository
+use \App\Models\Product as ProductModel;
+
+class Repository implements OaiRepository
 {
     /**
      * @return string the base URL of the repository
@@ -26,6 +30,14 @@ class Product implements OaiRepository
     {
         // return 'http://my-data-provider/oai-pmh';
         return route('api.oai-pmh');
+    }
+
+    /**
+     * @return string The humain readable name of the repository
+     */
+    public function getRepositoryName()
+    {
+        return 'Mobilier National MN/Lab';
     }
 
     /**
@@ -43,7 +55,23 @@ class Product implements OaiRepository
      */
     public function identify()
     {
-        return new ImplementationIdentity();
+        return new ImplementationIdentity(
+            $this->getRepositoryName(),
+            $this->getEarliestDateStamp(),
+            $this->getDeletedRecord(),
+            $this->getAdminEmails(),
+            $this->getGranularity()
+        );
+    }
+
+    public function getDeletedRecord()
+    {
+        return 'no';
+    }
+
+    public function getAdminEmails()
+    {
+        return config('app.oai_admin_emails_array');
     }
 
     /**
@@ -52,7 +80,7 @@ class Product implements OaiRepository
     public function listSets()
     {
         $items = [];
-        $items[] = new Set('my:spec', 'Title of spec');
+        // $items[] = new Set('my:spec', 'Title of spec');
         return new SetList($items);
     }
 
@@ -73,16 +101,31 @@ class Product implements OaiRepository
      */
     public function getRecord($metadataFormat, $identifier)
     {
-        // Fetch record
-        $record = $this->getSomeRecord($identifier);
+        $product = ProductModel::published()->byInventory($identifier)->first();
 
         // Throw exception if it does not exists
-        if (!record) {
-            throw new IdDoesNotExistException('No matching identifier ' . $identifier, $exc->getCode(), $exc);
+        if (!$product) {
+            throw new IdDoesNotExistException('No matching identifier ' . $identifier);
+        }
+        
+        $header = new OaiRecordHeader($identifier, new \DateTime($product->legacy_updated_on));
+
+        // Fetch record metadata
+        switch ($metadataFormat) {
+            case 'edm':
+                # TODO :)
+                break;
+
+            case 'oai_dc':
+            default:
+                $formatter = new FormatterOaiDc($product);
+                $metadata = $formatter->getXmlDocument();
+                break;
         }
 
-        return new Record($record);
+        return new OaiRecord($header, $metadata);
     }
+
 
     /**
      * @param string $metadataFormat metadata format of the records to be fetch or null if only headers are fetched
@@ -102,6 +145,7 @@ class Product implements OaiRepository
 
         return new OaiRecordList($items, $token);
     }
+
 
     /**
      * @param string $token
@@ -138,11 +182,11 @@ class Product implements OaiRepository
             'http://www.openarchives.org/OAI/2.0/oai_dc/'
         );
 
-        $formats[] = new ImplementationMetadataFormatType(
-            'oai_rdf',
-            'http://www.openarchives.org/OAI/2.0/rdf.xsd',
-            'http://www.w3.org/2004/02/skos/core#'
-        );
+        // $formats[] = new ImplementationMetadataFormatType(
+        //     'oai_rdf',
+        //     'http://www.openarchives.org/OAI/2.0/rdf.xsd',
+        //     'http://www.w3.org/2004/02/skos/core#'
+        // );
 
         return $formats;
     }
@@ -218,6 +262,7 @@ class Product implements OaiRepository
     private function getEarliestDateStamp()
     {
         // Fetch earliest timestamp
-        return new DateTime();
+        // return new DateTime();
+        return new DateTime('2019-01-01');
     }
 }

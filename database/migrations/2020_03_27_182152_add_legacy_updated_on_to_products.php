@@ -14,7 +14,7 @@ class AddLegacyUpdatedOnToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->addDate('legacy_updated_on');
+            $table->date('legacy_updated_on')->nullable();
         });
     }
 
