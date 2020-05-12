@@ -3,7 +3,7 @@
 namespace App\Http\OaiPmh;
 
 use DateTime;
-use OpenSkos2\OaiPmh\Concept as OaiConcept;
+// use OpenSkos2\OaiPmh\Concept as OaiConcept;
 use Picturae\OaiPmh\Exception\IdDoesNotExistException;
 use Picturae\OaiPmh\Implementation\MetadataFormatType as ImplementationMetadataFormatType;
 use Picturae\OaiPmh\Implementation\Record as OaiRecord;
@@ -23,6 +23,15 @@ use \App\Models\Product as ProductModel;
 
 class Repository implements OaiRepository
 {
+
+    
+    /**
+     * Pagination: number of records per page.
+     *
+     * @var integer
+     */
+    private $limit = 100;
+
     /**
      * @return string the base URL of the repository
      */
@@ -108,27 +117,41 @@ class Repository implements OaiRepository
             throw new IdDoesNotExistException('No matching identifier ' . $identifier);
         }
         
-        $header = new OaiRecordHeader($identifier, new \DateTime($product->legacy_updated_on));
-
-        // Fetch record metadata
-        switch ($metadataFormat) {
-            case 'edm':
-                # TODO :)
-                break;
-
-            case 'oai_dc':
-            default:
-                $formatter = new FormatterOaiDc($product);
-                $metadata = $formatter->getXmlDocument();
-                break;
-        }
-
-        return new OaiRecord($header, $metadata);
+        return $this->buildRecord($metadataFormat, $product);
     }
 
+    /**
+     * @param string $metadataFormat
+     * @param \App\Models\Product $product
+     * @return OaiRecord|OaiRecordHeader
+     */
+    private function buildRecord($metadataFormat, $product)
+    {
+        $header = new OaiRecordHeader(
+            $product->inventory_id,
+            new \DateTime($product->legacy_updated_on)
+        );
+
+        if ($metadataFormat) {
+            switch ($metadataFormat) {
+                case 'edm':
+                    # TODO :)
+                    break;
+
+                case 'oai_dc':
+                default:
+                    $formatter = new FormatterOaiDc($product);
+                    $metadata = $formatter->getXmlDocument();
+                    break;
+            }
+            return new OaiRecord($header, $metadata);
+        } else {
+            return $header;
+        }
+    }
 
     /**
-     * @param string $metadataFormat metadata format of the records to be fetch or null if only headers are fetched
+     * @param string $metadataFormat metadata format of the records to be fetched or null if only headers are fetched
      * (listIdentifiers)
      * @param DateTime $from
      * @param DateTime $until
@@ -137,13 +160,51 @@ class Repository implements OaiRepository
      */
     public function listRecords($metadataFormat = null, DateTime $from = null, DateTime $until = null, $set = null)
     {
-        $items = [];
-        $items[] = new OaiConcept($concept);
+        $paginatedProducts = $this->fetchProducts(
+            $metadataFormat,
+            $from,
+            $until
+        );
 
-        // Show token only if more records exists then are shown
-        $token = $this->encodeResumptionToken($this->limit, $from, $until, $metadataFormat, $set);
+        $token = null;
+        if ($paginatedProducts->hasMorePages()) {
+            $token = $this->encodeResumptionToken(
+                $this->limit,
+                $from,
+                $until,
+                $metadataFormat,
+                $set
+            );
+        }
 
-        return new OaiRecordList($items, $token);
+        $records = $paginatedProducts->map(function ($product) use ($metadataFormat) {
+            return $this->buildRecord($metadataFormat, $product);
+        });
+
+        return new OaiRecordList($records, $token);
+    }
+
+    /**
+     * @param string $metadataFormat
+     * @param DateTime $from
+     * @param DateTime $until
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    public function fetchProducts($metadataFormat, DateTime $from = null, DateTime $until = null)
+    {
+        $query = ProductModel::where('is_published', true)
+                        ->orderBy('legacy_updated_on', 'ASC')
+                        ->orderBy('inventory_id', 'ASC');
+        if ($from) {
+            $query->where('legacy_updated_on', '>=', $from);
+        }
+        if ($until) {
+            $query->where('legacy_updated_on', '<=', $until);
+        }
+        if (!$metadataFormat) {
+            $query->select('id', 'inventory_id', 'legacy_updated_on');
+        }
+        return $query->paginate($this->limit);
     }
 
 
@@ -159,7 +220,7 @@ class Repository implements OaiRepository
 
         // Only show if there are more records available else $token = null;
         $token = $this->encodeResumptionToken(
-            $params['offset'] + 100,
+            $params['offset'] + $this->limit,
             $params['from'],
             $params['until'],
             $params['metadataPrefix'],
