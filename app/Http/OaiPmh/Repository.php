@@ -160,16 +160,35 @@ class Repository implements OaiRepository
      */
     public function listRecords($metadataFormat = null, DateTime $from = null, DateTime $until = null, $set = null)
     {
-        $paginatedProducts = $this->fetchProducts(
+        return $this->buildRecordsList(
             $metadataFormat,
             $from,
             $until
         );
+    }
+
+    /**
+     * @param string $metadataFormat metadata format of the records to be fetched or null if only headers are fetched
+     * (listIdentifiers)
+     * @param DateTime $from
+     * @param DateTime $until
+     * @param string $set name of the set containing this record
+     * @return RecordList
+     */
+    private function buildRecordsList($metadataFormat = null, DateTime $from = null, DateTime $until = null, $page = 0, $set = null)
+    {
+        $paginatedProducts = $this->fetchProducts(
+            $metadataFormat,
+            $from,
+            $until,
+            $page
+        );
 
         $token = null;
         if ($paginatedProducts->hasMorePages()) {
+            $nextPage = $paginatedProducts->currentPage() + 1;
             $token = $this->encodeResumptionToken(
-                $this->limit,
+                $nextPage,
                 $from,
                 $until,
                 $metadataFormat,
@@ -188,9 +207,10 @@ class Repository implements OaiRepository
      * @param string $metadataFormat
      * @param DateTime $from
      * @param DateTime $until
+     * @param integer $page
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public function fetchProducts($metadataFormat, DateTime $from = null, DateTime $until = null)
+    public function fetchProducts($metadataFormat, DateTime $from = null, DateTime $until = null, $page = 0)
     {
         $query = ProductModel::where('is_published', true)
                         ->orderBy('legacy_updated_on', 'ASC')
@@ -204,7 +224,7 @@ class Repository implements OaiRepository
         if (!$metadataFormat) {
             $query->select('id', 'inventory_id', 'legacy_updated_on');
         }
-        return $query->paginate($this->limit);
+        return $query->paginate($this->limit, ['*'], 'page', $page);
     }
 
 
@@ -216,18 +236,12 @@ class Repository implements OaiRepository
     {
         $params = $this->decodeResumptionToken($token);
 
-        $records = $this->GetRecords($params);
-
-        // Only show if there are more records available else $token = null;
-        $token = $this->encodeResumptionToken(
-            $params['offset'] + $this->limit,
+        return $this->buildRecordsList(
+            $params['metadataPrefix'],
             $params['from'],
             $params['until'],
-            $params['metadataPrefix'],
-            $params['set']
+            $params['page']
         );
-
-        return new OaiRecordList($items, $token);
     }
 
     /**
@@ -283,7 +297,7 @@ class Repository implements OaiRepository
     /**
      * Get resumption token
      *
-     * @param int $offset
+     * @param int $page
      * @param DateTime $from
      * @param DateTime $util
      * @param string $metadataPrefix
@@ -291,14 +305,14 @@ class Repository implements OaiRepository
      * @return string
      */
     private function encodeResumptionToken(
-        $offset = 0,
+        int $page = 0,
         DateTime $from = null,
         DateTime $util = null,
         $metadataPrefix = null,
         $set = null
     ) {
         $params = [];
-        $params['offset'] = $offset;
+        $params['page'] = $page;
         $params['metadataPrefix'] = $metadataPrefix;
         $params['set'] = $set;
         $params['from'] = null;
