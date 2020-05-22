@@ -85,7 +85,7 @@ class FormatterOaiDc
         $language = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
             'dc:language',
-            'fr-FR'
+            'fr'
         );
         $this->root->appendChild($language);
     }
