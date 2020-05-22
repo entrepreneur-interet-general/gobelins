@@ -66,11 +66,11 @@ class FormatterOaiDc
             'http://www.w3.org/2001/XMLSchema-instance'
         );
 
-        $this->root->setAttributeNS(
-            'http://www.w3.org/2000/xmlns/',
-            'xmlns:rdf',
-            'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
-        );
+        // $this->root->setAttributeNS(
+        //     'http://www.w3.org/2000/xmlns/',
+        //     'xmlns:rdf',
+        //     'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+        // );
         
         $this->root->setAttributeNS(
             'http://www.w3.org/2001/XMLSchema-instance',
@@ -154,13 +154,13 @@ class FormatterOaiDc
                 'dc:creator',
                 $name
             );
-            if ($author->isni_uri) {
-                $creator->setAttributeNS(
-                    'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-                    'rdf:resource',
-                    $author->isni_uri
-                );
-            }
+            // if ($author->isni_uri) {
+            //     $creator->setAttributeNS(
+            //         'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+            //         'rdf:resource',
+            //         $author->isni_uri
+            //     );
+            // }
             $this->root->appendChild($creator);
         });
     }

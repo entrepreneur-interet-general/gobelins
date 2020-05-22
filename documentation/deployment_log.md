@@ -1,6 +1,19 @@
 # Journal de mise en production
 
-## En attente
+## En attente - OAI-PMH
+
+Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
+
+Rapatrier les informations de modification :
+
+```
+$ cd /var/www/gobelins/current
+$ php artisan migrate
+$ php artisan gobelins:importupdatedon
+```
+
+## Finalisé le 11/04/2020
 
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
 `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
