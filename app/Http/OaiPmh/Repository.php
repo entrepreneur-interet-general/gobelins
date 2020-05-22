@@ -200,7 +200,7 @@ class Repository implements OaiRepository
             return $this->buildRecord($metadataFormat, $product);
         });
 
-        return new OaiRecordList($records, $token);
+        return new OaiRecordList($records, $token, $paginatedProducts->total());
     }
 
     /**
