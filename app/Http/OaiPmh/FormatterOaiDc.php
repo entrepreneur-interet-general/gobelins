@@ -24,6 +24,7 @@ class FormatterOaiDc
 
     private $fields = [
         'Root',
+        'Language',
         'Title',
         'Identifier',
         'Description',
@@ -77,6 +78,16 @@ class FormatterOaiDc
             'schemaLocation',
             'http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd'
         );
+    }
+
+    private function createLanguageElement()
+    {
+        $language = $this->document->createElementNS(
+            'http://purl.org/dc/elements/1.1/',
+            'dc:language',
+            'fr-FR'
+        );
+        $this->root->appendChild($language);
     }
 
     private function createTitleElement()
