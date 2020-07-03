@@ -225,5 +225,6 @@ return [
     'datasource_password' => env('DATASOURCE_PASSWORD'),
     'http_auth_username' => env('HTTP_AUTH_USERNAME'),
     'http_auth_password' => env('HTTP_AUTH_PASSWORD'),
+    'oai_admin_emails_array' => array_map('trim', explode(',', env('OAI_ADMIN_EMAILS')))
 
 ];
