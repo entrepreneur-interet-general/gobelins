@@ -2,7 +2,7 @@
 
 namespace App\Http\OaiPmh;
 
-class RecordMetadataBuider
+class RecordMetadataBuilder
 {
     /**
      * @var string

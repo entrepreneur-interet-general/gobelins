@@ -54,13 +54,13 @@ class FormatterOaiDc
             'oai_dc:dc'
         );
         $this->document->appendChild($this->root);
-        
+
         $this->root->setAttributeNS(
             'http://www.w3.org/2000/xmlns/',
             'xmlns:dc',
             'http://purl.org/dc/elements/1.1/'
         );
-        
+
         $this->root->setAttributeNS(
             'http://www.w3.org/2000/xmlns/',
             'xmlns:xsi',
@@ -72,7 +72,7 @@ class FormatterOaiDc
         //     'xmlns:rdf',
         //     'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
         // );
-        
+
         $this->root->setAttributeNS(
             'http://www.w3.org/2001/XMLSchema-instance',
             'schemaLocation',
@@ -114,20 +114,23 @@ class FormatterOaiDc
     {
         $description = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:description',
-            $this->product->description
+            'dc:description'
         );
+        $textNode = $this->document->createTextNode($this->product->description);
+        $description->appendChild($textNode);
         $this->root->appendChild($description);
     }
 
     private function createTypeElement()
     {
-        $type = $this->document->createElementNS(
-            'http://purl.org/dc/elements/1.1/',
-            'dc:type',
-            $this->product->productType->mapping_key
-        );
-        $this->root->appendChild($type);
+        if ($this->product->productType) {
+            $type = $this->document->createElementNS(
+                'http://purl.org/dc/elements/1.1/',
+                'dc:type',
+                $this->product->productType->mapping_key
+            );
+            $this->root->appendChild($type);
+        }
     }
 
     private function createPublisherElement()
@@ -143,9 +146,9 @@ class FormatterOaiDc
     private function createFormatElement()
     {
         $long = $this->product->length_or_diameter ? 'Longueur : ' . number_format($this->product->length_or_diameter, 2) . " m\n" : '';
-        
+
         $lar = $this->product->height_or_thickness ? 'Largeur : ' . number_format($this->product->height_or_thickness, 2) . " m\n" : '';
-        
+
         $haut = $this->product->depth_or_width ? 'Hauteur : ' . number_format($this->product->depth_or_width, 2) . " m\n" : '';
 
         $format = $this->document->createElementNS(
@@ -233,7 +236,7 @@ class FormatterOaiDc
     public function getXmlDocument()
     {
         collect($this->fields)->map(function ($field) {
-            $this->{'create'.$field.'Element'}();
+            $this->{'create' . $field . 'Element'}();
         });
 
         return $this->document;
