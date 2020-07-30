@@ -7,8 +7,8 @@ use DateTime;
 use Picturae\OaiPmh\Exception\IdDoesNotExistException;
 use Picturae\OaiPmh\Implementation\MetadataFormatType as ImplementationMetadataFormatType;
 use Picturae\OaiPmh\Implementation\Record as OaiRecord;
-use Picturae\OaiPmh\Implementation\Record\Header as OaiRecordHeader;
 use Picturae\OaiPmh\Implementation\RecordList as OaiRecordList;
+use Picturae\OaiPmh\Implementation\Record\Header as OaiRecordHeader;
 use Picturae\OaiPmh\Implementation\Repository\Identity as ImplementationIdentity;
 use Picturae\OaiPmh\Implementation\Set;
 use Picturae\OaiPmh\Implementation\SetList;
@@ -18,19 +18,17 @@ use Picturae\OaiPmh\Interfaces\RecordList;
 use Picturae\OaiPmh\Interfaces\Repository as OaiRepository;
 use Picturae\OaiPmh\Interfaces\Repository\Identity;
 use Picturae\OaiPmh\Interfaces\SetList as InterfaceSetList;
-
 use \App\Models\Product as ProductModel;
 
 class Repository implements OaiRepository
 {
 
-    
     /**
      * Pagination: number of records per page.
      *
      * @var integer
      */
-    private $limit = 100;
+    private $limit = 25;
 
     /**
      * @return string the base URL of the repository
@@ -116,7 +114,7 @@ class Repository implements OaiRepository
         if (!$product) {
             throw new IdDoesNotExistException('No matching identifier ' . $identifier);
         }
-        
+
         return $this->buildRecord($metadataFormat, $product);
     }
 
@@ -213,8 +211,8 @@ class Repository implements OaiRepository
     public function fetchProducts($metadataFormat, DateTime $from = null, DateTime $until = null, $page = 0)
     {
         $query = ProductModel::where('is_published', true)
-                        ->orderBy('legacy_updated_on', 'ASC')
-                        ->orderBy('inventory_id', 'ASC');
+            ->orderBy('legacy_updated_on', 'ASC')
+            ->orderBy('inventory_id', 'ASC');
         if ($from) {
             $query->where('legacy_updated_on', '>=', $from);
         }
@@ -226,7 +224,6 @@ class Repository implements OaiRepository
         }
         return $query->paginate($this->limit, ['*'], 'page', $page);
     }
-
 
     /**
      * @param string $token

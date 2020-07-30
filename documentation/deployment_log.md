@@ -5,12 +5,22 @@
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
 `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
 
+Deployer l'upgrade vers PHP 7.4 (nouveau stable) :
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> webservers.yml --limit=production`
+
 Rapatrier les informations de modification :
 
 ```
 $ cd /var/www/gobelins/current
 $ php artisan migrate
 $ php artisan gobelins:importupdatedon
+```
+
+Appliquer le correctif 'Vente' :
+
+```
+$ cd /var/www/gobelins/current
+$ php artisan gobelins:hotfixvente
 ```
 
 ## Finalisé le 11/04/2020
