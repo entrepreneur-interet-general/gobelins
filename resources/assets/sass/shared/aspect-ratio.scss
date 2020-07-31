@@ -12,6 +12,7 @@
       content: "";
       display: block;
       padding-bottom: calc(100% / (var(--aspect-ratio)));
+      pointer-events: none;
     }
     > :first-child {
       position: absolute;
