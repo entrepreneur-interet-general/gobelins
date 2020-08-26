@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use A17\Twill\Models\Model;
 
 class Period extends Model
 {
-    protected $fillable =  [
+    protected $fillable = [
         'legacy_id',
         'name',
         'start_year',
@@ -14,7 +14,7 @@ class Period extends Model
     ];
 
     protected $touches = ['products'];
-    
+
     public function products()
     {
         return $this->hasMany(Product::class);

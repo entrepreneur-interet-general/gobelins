@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use A17\Twill\Models\Model;
 use App\Models\Traits\Mappable;
 
 class Style extends Model
@@ -35,7 +35,7 @@ class Style extends Model
         $paths = [];
         $dir_path = public_path('/media/_images-didactiques/styles/' . $this->name);
         if (file_exists($dir_path)) {
-            for ($i=1; $i < 4; $i++) {
+            for ($i = 1; $i < 4; $i++) {
                 $name = rawurlencode($this->name);
                 $paths[] = "/media/_images-didactiques/styles/$name/$i.jpg";
             }
