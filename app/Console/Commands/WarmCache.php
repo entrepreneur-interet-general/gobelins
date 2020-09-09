@@ -10,11 +10,8 @@ use Illuminate\Console\Command;
 
 // use GuzzleHttp\Exception\RequestException;
 
-
-use Illuminate\Support\Facades\DB;
-use \App\Models\Product;
-use ImageOptimizer;
 use Image;
+use \App\Models\Product;
 
 class WarmCache extends Command
 {
@@ -63,7 +60,7 @@ class WarmCache extends Command
 
         Product::with(['images'])->chunk(100, function ($prods) {
             foreach ($prods as $prod) {
-                $img = $prod->images()->published()->first();
+                $img = $prod->posterImage;
                 if ($img) {
                     $xl_path = '/media/xl/' . $img->path;
                     $thumb_path = public_path() . Image::url($xl_path, 600);
@@ -76,7 +73,6 @@ class WarmCache extends Command
                 // $this->progress_bar->advance();
             }
         });
-
 
         // $this->progress_bar->finish();
     }

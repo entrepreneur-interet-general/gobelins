@@ -47,7 +47,7 @@ class Product extends Model
     {
         return $this->belongsTo(ProductType::class);
     }
-    
+
     public function style()
     {
         return $this->belongsTo(Style::class);
@@ -105,15 +105,15 @@ class Product extends Model
     public function getSearchableImagesAttribute()
     {
         return $this->images()
-                        ->where('is_published', true)
-                        ->orderBy('is_poster', 'DESC')
-                        ->orderBy('is_prime_quality', 'DESC')
-                        ->get()
-                        ->map(function ($image) {
-                            return $image->toSearchableArray();
-                        })->all();
+            ->where('is_published', true)
+            ->orderBy('is_poster', 'DESC')
+            ->orderBy('is_prime_quality', 'DESC')
+            ->get()
+            ->map(function ($image) {
+                return $image->toSearchableArray();
+            })->all();
     }
-    
+
     /**
      * The "poster" image of a product should be marked
      * as such from our datasource. If not, just take the
@@ -124,17 +124,17 @@ class Product extends Model
     public function getPosterImageAttribute()
     {
         return $this->images()
-                    ->where('is_published', true)
-                    ->orderBy('is_poster', 'DESC')
-                    ->orderBy('is_prime_quality', 'DESC')
-                    ->first();
+            ->where('is_published', true)
+            ->orderBy('is_poster', 'DESC')
+            ->orderBy('is_prime_quality', 'DESC')
+            ->first();
     }
-    
+
     public function getSearchableStyleAttribute()
     {
         return $this->style ? $this->style->toSearchableArray() : [];
     }
-    
+
     public function getSearchableProductionOriginAttribute()
     {
         return $this->productionOrigin ? $this->productionOrigin->toSearchableArray() : [];
@@ -144,7 +144,7 @@ class Product extends Model
     {
         return $this->entryMode ? $this->entryMode->toSearchableArray() : [];
     }
-    
+
     // Fillables
 
     protected $fillable = [
@@ -170,8 +170,8 @@ class Product extends Model
         'is_published',
         'publication_code',
         'entry_mode_id',
+        'legacy_updated_on',
     ];
-
 
     // Eloquent scopes
 
@@ -220,12 +220,12 @@ class Product extends Model
         $urls = [];
         if ($images && sizeof($images) > 0) {
             $urls = $images->map(function ($i) {
-                return url(\FolkloreImage::url('/media/xl/'.$i->path, 600));
+                return url(\FolkloreImage::url('/media/xl/' . $i->path, 600));
             })->all();
         }
         return $urls;
     }
-    
+
     /**
      * Get the indexable data array for the model.
      * This data will be stored in Elasticsearch.
