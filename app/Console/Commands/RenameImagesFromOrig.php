@@ -67,7 +67,7 @@ class RenameImagesFromOrig extends Command
             } else {
                 foreach ($files_to_rename as $f) {
                     $new_name = str_replace('.jpg', '.JPG', $f);
-                    if ($f !== $new_name) {
+                    if ($f !== $new_name && !file_exists($new_name)) {
                         echo "Uppercasing ext: $f\n";
                         rename($f, $new_name);
                     }
