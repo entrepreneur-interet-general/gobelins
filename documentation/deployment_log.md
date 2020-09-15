@@ -1,12 +1,23 @@
 # Journal de mise en production
 
-## En attente - OAI-PMH
+## En attente - OAI-PMH et nouveaux contenus
 
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
 `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
 
 Deployer l'upgrade vers PHP 7.4 (nouveau stable) :
 `$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> webservers.yml --limit=production`
+
+Déployer gobelins-datasource
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> deploy-datasource.yml --limit=production`
+
+- import datasource database depuis `/var/www/datasource/datasource_gac.dump` sur staging.
+- import sur gobelins
+- commande gobelins:refresh-selection
+- commande php artisan generate:sitemaps
+- vérifier que les images sont bien créées dans xl, lors de la consultation de sélections.
+
+## Jamais utilisé, car non déployé
 
 Rapatrier les informations de modification :
 
