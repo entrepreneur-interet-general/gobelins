@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4200cafffb2352519a93bc626c526fc7",
+    "content-hash": "87a39907fe3a655d821bdd8975610fab",
     "packages": [
         {
             "name": "artesaos/seotools",
@@ -206,12 +206,12 @@
             "version": "7.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/caouecs/Laravel-lang.git",
+                "url": "https://github.com/caouecs/lang.git",
                 "reference": "fe2872f7c2dd19afb11d83443a81ac9e8e4cb2b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/fe2872f7c2dd19afb11d83443a81ac9e8e4cb2b8",
+                "url": "https://api.github.com/repos/caouecs/lang/zipball/fe2872f7c2dd19afb11d83443a81ac9e8e4cb2b8",
                 "reference": "fe2872f7c2dd19afb11d83443a81ac9e8e4cb2b8",
                 "shasum": ""
             },
@@ -241,6 +241,7 @@
                 "laravel",
                 "lpm"
             ],
+            "abandoned": "https://github.com/Laravel-Lang/lang",
             "time": "2020-07-14T08:27:14+00:00"
         },
         {
@@ -1738,6 +1739,69 @@
                 "ui"
             ],
             "time": "2020-06-30T20:56:33+00:00"
+        },
+        {
+            "name": "laravelium/sitemap",
+            "version": "v7.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Laravelium/laravel-sitemap.git",
+                "reference": "9326fc2452d0de95327fb85a7f7119213c660942"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Laravelium/laravel-sitemap/zipball/9326fc2452d0de95327fb85a7f7119213c660942",
+                "reference": "9326fc2452d0de95327fb85a7f7119213c660942",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "~7.0",
+                "illuminate/support": "~7.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "laravel/framework": "~7.0",
+                "orchestra/testbench-core": "~5.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravelium\\Sitemap\\SitemapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Laravelium\\Sitemap": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rumen Damyanov",
+                    "email": "r@alfamatter.com",
+                    "homepage": "https://darumen.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravelium Sitemap package for Laravel.",
+            "homepage": "https://gitlab.com/Laravelium",
+            "keywords": [
+                "Sitemap",
+                "generator",
+                "google-news",
+                "html",
+                "laravel",
+                "laravelium",
+                "php",
+                "xml"
+            ],
+            "time": "2020-03-21T19:06:08+00:00"
         },
         {
             "name": "league/commonmark",
@@ -8820,7 +8884,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.5"
+        "php": "^7.4.8"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
