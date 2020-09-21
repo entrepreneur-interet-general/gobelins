@@ -1,21 +1,29 @@
 # Journal de mise en production
 
-## En attente - OAI-PMH et nouveaux contenus
+## Finalisé le 17/09/2020 - OAI-PMH et nouveaux contenus
 
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
-`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> site.yml --limit=production --tags="dotenv"`
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 site.yml --limit=production --tags="dotenv"`
 
 Deployer l'upgrade vers PHP 7.4 (nouveau stable) :
-`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> webservers.yml --limit=production`
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 webservers.yml --limit=production`
 
 Déployer gobelins-datasource
-`$ ansible-playbook --vault-password-file=vault_password -i inventory/<production> deploy-datasource.yml --limit=production`
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 deploy-datasource.yml --limit=production`
 
-- import datasource database depuis `/var/www/datasource/datasource_gac.dump` sur staging.
-- import sur gobelins
-- commande gobelins:refresh-selection
-- commande php artisan generate:sitemaps
-- vérifier que les images sont bien créées dans xl, lors de la consultation de sélections.
+Déployer gobelins
+`$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 deploy-gobelins.yml --limit=production`
+
+Import datasource database depuis `/var/www/datasource/datasource_gac.dump` sur staging.
+
+Sur gobelins :
+
+```
+$ cd /var/www/gobelins/current
+$ php artisan gobelins:import
+$ php artisan gobelins:refresh-selection
+$ php -d memory_limit=-1 artisan generate:sitemaps
+```
 
 ## Jamais utilisé, car non déployé
 
@@ -125,7 +133,7 @@ $ php artisan generate:sitemaps
    ```
    $ cd /var/www/gobelins/current
    $ sudo -u nginx
-   $ php -d memory_limit:1024M artisan generate:sitemaps
+   $ php -d memory_limit=-1 artisan generate:sitemaps
    ```
 
 ## Effectué le 2020-02-13
