@@ -15,6 +15,10 @@ return [
             ],
         ],
     ],
+    'articles' => [
+        'title' => 'Articles',
+        'module' => true,
+    ],
     'pages' => [
         'title' => 'Pages',
         'module' => true,
