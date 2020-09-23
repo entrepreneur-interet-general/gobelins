@@ -20,6 +20,7 @@ class Article extends Model implements Sortable
         'subtitle',
         'byline',
         'lead',
+        'section_id',
         'position',
         'publish_start_date',
         'publish_end_date',
@@ -59,4 +60,11 @@ class Article extends Model implements Sortable
             ],
         ],
     ];
+
+    /* Relations */
+
+    public function section()
+    {
+        return $this->belongsTo(Section::class);
+    }
 }

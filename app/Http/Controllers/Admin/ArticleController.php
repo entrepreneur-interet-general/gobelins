@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use A17\Twill\Http\Controllers\Admin\ModuleController;
+use App\Repositories\SectionRepository;
 
 class ArticleController extends ModuleController
 {
@@ -54,6 +55,10 @@ class ArticleController extends ModuleController
             'title' => 'Introduction',
             'field' => 'lead',
         ],
+        // 'tags' => [
+        //     'title' => 'Étiquettes',
+        //     'field' => 'tags',
+        // ],
         // 'presenterMethodField' => [ // presenter column
         //     'title' => 'Field title',
         //     'field' => 'presenterMethod',
@@ -62,6 +67,7 @@ class ArticleController extends ModuleController
     ];
 
     protected $filters = [
+        'sections' => 'section_id',
     ];
 
     /*
@@ -70,12 +76,14 @@ class ArticleController extends ModuleController
     protected function indexData($request)
     {
         return [
+            'sectionsList' => app(SectionRepository::class)->listAll(),
         ];
     }
 
     protected function formData($request)
     {
         return [
+            'sections' => app(SectionRepository::class)->listAll(),
         ];
     }
 }

@@ -24,6 +24,10 @@ return [
                 'title' => 'Articles',
                 'module' => true,
             ],
+            'sections' => [
+                'title' => 'Rubriques',
+                'module' => true,
+            ],
         ],
 
     ],

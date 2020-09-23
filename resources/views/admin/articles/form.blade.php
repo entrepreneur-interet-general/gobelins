@@ -18,6 +18,13 @@
 'label' => "Étiquettes"
 ])
 
+@formField('select', [
+'name' => 'section_id',
+'label' => 'Rubrique',
+'unpack' => true,
+'options' => $sections,
+])
+
 @formField('wysiwyg', [
 'name' => 'lead',
 'label' => 'Introduction',

@@ -18,4 +18,18 @@ class ArticleRepository extends ModuleRepository
     {
         $this->model = $model;
     }
+
+    public function filter($query, array $scopes = [])
+    {
+        $this->addRelationFilterScope($query, $scopes, 'section_id', 'section');
+
+        $this->searchIn($query, $scopes, 'search', [
+            'title',
+            'subtitle',
+            'byline',
+            'lead',
+        ]);
+
+        return parent::filter($query, $scopes);
+    }
 }
