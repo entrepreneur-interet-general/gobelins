@@ -1,6 +1,55 @@
 @extends('twill::layouts.form', ['contentFieldsetLabel' => 'Données SCOM'])
 
+
 @section('contentFields')
+
+@if ($item->images)
+<div style="padding-top: 35px;">
+    <table>
+        @foreach ($item->images as $i)
+        <tr>
+            <td>
+                <img src="/media/xl{{ image_url($i->path, 600) }}" />
+            </td>
+            <td style="vertical-align: top; padding-left: 15px;">
+
+                @if($i->is_poster)
+                ⭐️ image principale<br>
+                @endif
+
+                @if($i->is_published)
+                🟢 publié<br>
+                @endif
+
+                @if($i->is_reviewed)
+                ✅ vérifié<br>
+                @endif
+
+                @if($i->is_prime_quality)
+                🖼 image de qualité<br>
+                @endif
+
+                @if($i->is_documentation_quality)
+                📂 image de documentation<br>
+                @endif
+
+                @if($i->has_privacy_issue)
+                👁 violation de vie privée<br>
+                @endif
+
+                @if($i->has_marking)
+                🏷 présence de marquages<br>
+                @endif
+
+
+
+            </td>
+        </tr>
+        @endforeach
+    </table>
+</div>
+@endif
+
 @formField('input', [
 'name' => 'category',
 'label' => 'Catégorie',

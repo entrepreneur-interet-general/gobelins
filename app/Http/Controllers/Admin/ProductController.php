@@ -45,6 +45,11 @@ class ProductController extends ModuleController
      * Available columns of the index view
      */
     protected $indexColumns = [
+        'listing_thumbnail' => [
+            'thumb' => true,
+            'present' => true,
+            'presenter' => 'listing_thumbnail',
+        ],
         'inventory_id' => [
             'title' => 'Numéro d’inventaire',
             'field' => 'inventory_id',
@@ -57,11 +62,18 @@ class ProductController extends ModuleController
             'title' => 'Dénomination',
             'field' => 'denomination',
         ],
-        // 'presenterMethodField' => [ // presenter column
-        //     'title' => 'Field title',
-        //     'field' => 'presenterMethod',
-        //     'present' => true,
-        // ]
+    ];
+
+    protected $browserColumns = [
+        'listing_thumbnail' => [
+            'thumb' => true,
+            'present' => true,
+            'presenter' => 'listing_thumbnail',
+        ],
+        'inventory_id' => [
+            'title' => 'Numéro d’inventaire',
+            'field' => 'inventory_id',
+        ],
     ];
 
     protected $filters = [
