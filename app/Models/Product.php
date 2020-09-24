@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use A17\Twill\Models\Model;
+use App\Models\Presenters\Admin\ArticlePresenter as AdminArticlePresenter;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
@@ -10,6 +11,8 @@ class Product extends Model
     use Searchable;
 
     protected $hidden = ['pivot'];
+
+    public $presenterAdmin = AdminArticlePresenter::class;
 
     // Eloquent relationships
 

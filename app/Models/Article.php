@@ -9,10 +9,13 @@ use A17\Twill\Models\Behaviors\HasRevisions;
 use A17\Twill\Models\Behaviors\HasSlug;
 use A17\Twill\Models\Behaviors\Sortable;
 use A17\Twill\Models\Model;
+use App\Models\Presenters\Admin\ArticlePresenter as AdminArticlePresenter;
 
 class Article extends Model implements Sortable
 {
     use HasBlocks, HasSlug, HasMedias, HasRevisions, HasPosition;
+
+    public $presenterAdmin = AdminArticlePresenter::class;
 
     protected $fillable = [
         'published',

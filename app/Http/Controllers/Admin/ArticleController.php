@@ -51,19 +51,16 @@ class ArticleController extends ModuleController
             'title' => 'Par',
             'field' => 'byline',
         ],
-        'lead' => [
+        'truncatedLead' => [
             'title' => 'Introduction',
-            'field' => 'lead',
+            'field' => 'truncatedLead',
+            'present' => true,
         ],
-        // 'tags' => [
-        //     'title' => 'Étiquettes',
-        //     'field' => 'tags',
-        // ],
-        // 'presenterMethodField' => [ // presenter column
-        //     'title' => 'Field title',
-        //     'field' => 'presenterMethod',
-        //     'present' => true,
-        // ]
+        'tagsAsString' => [
+            'title' => 'Étiquettes',
+            'field' => 'tagsAsString',
+            'present' => true,
+        ],
     ];
 
     protected $filters = [
