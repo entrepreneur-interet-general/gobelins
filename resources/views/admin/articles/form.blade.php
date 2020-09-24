@@ -43,4 +43,7 @@
 "clean",
 ],
 ])
+
+@formField('block_editor')
+
 @stop
