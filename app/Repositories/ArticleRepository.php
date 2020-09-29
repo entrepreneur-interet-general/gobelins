@@ -32,4 +32,11 @@ class ArticleRepository extends ModuleRepository
 
         return parent::filter($query, $scopes);
     }
+
+    // public function getFormFields($object)
+    // {
+    //     $fields = parent::getFormFields($object);
+    //     $fields['browsers']['products'] = $this->getFormFieldsForBrowser($object, 'products');
+    //     return $fields;
+    // }
 }
