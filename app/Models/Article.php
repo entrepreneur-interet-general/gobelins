@@ -72,4 +72,9 @@ class Article extends Model implements Sortable
     {
         return $this->belongsTo(Section::class);
     }
+
+    public function related()
+    {
+        return $this->belongsToMany(__CLASS__, 'article_related_article', 'article_id', 'related_article_id')->orderBy('position');
+    }
 }

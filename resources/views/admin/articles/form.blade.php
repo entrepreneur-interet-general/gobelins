@@ -88,6 +88,15 @@
             ],
         ])
 
+        @formField('browser', [
+            'routePrefix' => 'savoir-faire',
+            'moduleName' => 'articles',
+            'name' => 'related',
+            'label' => 'Mises en avant',
+            'max' => 3,
+            'note' => 'Par défaut, 3 articles de la même rubriques seront mis en avant'
+        ])
+
     @endformFieldset
 
 @stop
