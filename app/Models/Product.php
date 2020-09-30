@@ -2,17 +2,35 @@
 
 namespace App\Models;
 
+use A17\Twill\Models\Behaviors\HasMedias;
 use A17\Twill\Models\Model;
 use App\Models\Presenters\Admin\ProductPresenter as AdminProductPresenter;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use Searchable;
+    use Searchable, HasMedias;
 
     protected $hidden = ['pivot'];
 
     public $presenterAdmin = AdminProductPresenter::class;
+
+    // Twill requirement
+    public $slugAttributes = [
+        'inventory_id',
+    ];
+
+    // Twill images
+    public $mediasParams = [
+        'cover' => [ // role name
+            'default' => [ // crop name
+                [
+                    'name' => 'default',
+                    'ratio' => 16 / 9,
+                ],
+            ],
+        ],
+    ];
 
     // Eloquent relationships
 
@@ -79,6 +97,31 @@ class Product extends Model
             return \App\Models\Material::ancestorsAndSelf($m->id)->all();
         })->flatten()->unique('id');
     }
+
+    /**
+     * Start dirty hacks to get Twill to properly list
+     * browser items in a block, upon page reload.
+     * For some reason,
+     * A17\Twill\Repositories\Behaviors\HandleBrowsers::getFormFieldsForRelatedBrowser()
+     * does not use  ProductController::$browserColumns.
+     * Refs: https://github.com/area17/twill/issues/75
+     *
+     */
+    public function getTitleInBrowserAttribute()
+    {
+        return $this->inventory_id;
+    }
+
+    public function defaultCmsImage($params)
+    {
+        return $this->presentAdmin()->listing_thumbnail();
+    }
+
+    public function getAdminEditUrlAttribute()
+    {
+        return route('admin.collection.products.edit', ['product' => $this]);
+    }
+    /* End dirty hacks */
 
     /**
      * Get all the related Materials in a flat array,

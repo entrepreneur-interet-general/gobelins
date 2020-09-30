@@ -3,9 +3,11 @@
 namespace App\Models\Presenters\Admin;
 
 use App\Models\Presenters\Presenter;
+use ImageService;
 
 class ProductPresenter extends Presenter
 {
+
     public function tagsAsString()
     {
         return $this->tags->map(function ($tag) {
@@ -22,7 +24,8 @@ class ProductPresenter extends Presenter
         if ($image) {
             return image_url('/media/xl/' . $image->path, 160);
         }
-        return null;
+        return ImageService::getTransparentFallbackUrl([]);
 
     }
+
 }

@@ -31,8 +31,8 @@ return [
         ],
 
     ],
-    'pages' => [
-        'title' => 'Pages',
-        'module' => true,
-    ],
+    // 'pages' => [
+    //     'title' => 'Pages',
+    //     'module' => true,
+    // ],
 ];
