@@ -15,6 +15,21 @@ return [
                 'icon' => 'flex-grid',
                 'component' => 'a17-block-product_grid',
             ],
+            'centered_text' => [
+                'title' => 'Texte centré',
+                'icon' => 'quote',
+                'component' => 'a17-block-centered_text',
+            ],
+            'double_col_text' => [
+                'title' => 'Texte sur 2 colonnes',
+                'icon' => 'text-2col',
+                'component' => 'a17-block-double_col_text',
+            ],
+            'definition' => [
+                'title' => 'Définition',
+                'icon' => 'text',
+                'component' => 'a17-block-definition',
+            ],
         ],
         'repeaters' => [
         ],
