@@ -19,6 +19,13 @@
         'note' => 'Par X, Y, & Z',
     ])
 
+    @formField('medias', [
+        'name' => 'cover',
+        'label' => 'Image de couverture',
+        'note' => 'Aussi utilisé dans les pages de rubrique',
+    ])
+
+
     @formField('tags', [
         'label' => "Étiquettes"
     ])
@@ -94,7 +101,8 @@
             'name' => 'related',
             'label' => 'Mises en avant',
             'max' => 3,
-            'note' => 'Par défaut, 3 articles de la même rubriques seront mis en avant'
+            'note' => 'Ajoutez jusqu’a 3 articles',
+            'fieldNote' => 'Par défaut, 3 articles de la même rubrique seront mis en avant'
         ])
 
     @endformFieldset
