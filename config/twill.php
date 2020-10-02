@@ -45,6 +45,11 @@ return [
                 'icon' => 'fix-grid',
                 'component' => 'a17-block-generic_grid',
             ],
+            'embed' => [
+                'title' => 'Code',
+                'icon' => 'text',
+                'component' => 'a17-block-embed',
+            ],
         ],
         'repeaters' => [
             'generic_grid_item' => [
