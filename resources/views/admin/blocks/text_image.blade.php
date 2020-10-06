@@ -33,3 +33,8 @@
     'label' => 'Images',
     'max' => 6,
 ])
+
+@formField('checkbox', [
+    'name' => 'dark_bg',
+    'label' => 'Fond noir'
+])

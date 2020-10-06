@@ -6,3 +6,8 @@
     'maxlength' => 500,
     'rows' => 3
 ])
+
+@formField('checkbox', [
+    'name' => 'dark_bg',
+    'label' => 'Fond noir'
+])

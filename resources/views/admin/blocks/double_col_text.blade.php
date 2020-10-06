@@ -10,3 +10,8 @@
         "clean",
     ],
 ])
+
+@formField('checkbox', [
+    'name' => 'dark_bg',
+    'label' => 'Fond noir'
+])

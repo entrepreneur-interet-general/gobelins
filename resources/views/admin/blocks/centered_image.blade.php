@@ -7,3 +7,8 @@
     'name' => 'full_width',
     'label' => 'Pleine page'
 ])
+
+@formField('checkbox', [
+    'name' => 'dark_bg',
+    'label' => 'Fond noir'
+])

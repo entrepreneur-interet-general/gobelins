@@ -9,3 +9,8 @@
     'type' => 'textarea',
     'rows' => 2,
 ])
+
+@formField('checkbox', [
+    'name' => 'dark_bg',
+    'label' => 'Fond noir'
+])
