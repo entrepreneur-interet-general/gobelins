@@ -10,12 +10,14 @@ use A17\Twill\Models\Behaviors\HasSlug;
 use A17\Twill\Models\Behaviors\Sortable;
 use A17\Twill\Models\Model;
 use App\Models\Presenters\Admin\ArticlePresenter as AdminArticlePresenter;
+use App\Models\Presenters\ArticlePresenter as ArticlePresenter;
 
 class Article extends Model implements Sortable
 {
     use HasBlocks, HasSlug, HasMedias, HasRevisions, HasPosition;
 
     public $presenterAdmin = AdminArticlePresenter::class;
+    public $presenter = ArticlePresenter::class;
 
     protected $fillable = [
         'published',
@@ -27,6 +29,11 @@ class Article extends Model implements Sortable
         'bibliography',
         'section_id',
         'position',
+        'publish_start_date',
+        'publish_end_date',
+    ];
+
+    protected $dates = [
         'publish_start_date',
         'publish_end_date',
     ];

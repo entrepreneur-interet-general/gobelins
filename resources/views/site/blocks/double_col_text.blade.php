@@ -1,16 +1,3 @@
-
-@formField('medias', [
-    'name' => 'media',
-    'label' => 'Image',
-    'withVideoUrl' => false,
-])
-
-@formField('checkbox', [
-    'name' => 'circled_image',
-    'label' => 'Image ronde'
-])
-
-
 @formField('wysiwyg', [
     'name' => 'body',
     'label' => 'Texte',

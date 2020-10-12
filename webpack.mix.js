@@ -24,7 +24,7 @@ if (process.env.MIX_ENABLE_BUNDLE_ANALYZER) {
       reportFilename: "../storage/app/public/report.html",
       generateStatsFile: true,
       openAnalyzer: false,
-      statsFilename: "../storage/app/public/stats.json"
+      statsFilename: "../storage/app/public/stats.json",
     })
   );
 }
@@ -32,16 +32,17 @@ if (process.env.MIX_ENABLE_BUNDLE_ANALYZER) {
 mix
   .react("resources/assets/js/bootstrap.js", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css")
+  .sass("resources/assets/sass/blocks.scss", "public/css")
   .webpackConfig({
-    plugins: webpackPlugins
+    plugins: webpackPlugins,
   })
   .options({
     processCssUrls: false,
     hmrOptions: {
       // host: "gobelins.test",
       host: "127.0.0.1",
-      port: 8080
-    }
+      port: 8080,
+    },
   })
   .extract(); // Auto-magically split out vendor JS.
 

@@ -62,7 +62,9 @@
 
     @formFieldset(['id' => 'body', 'title' => 'Corps de page'])
 
-        @formField('block_editor')
+        @formField('block_editor', [
+            'withoutSeparator' => true,
+        ])
 
     @endformFieldset
 
