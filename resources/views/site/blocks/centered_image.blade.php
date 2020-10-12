@@ -1,14 +1,10 @@
-@formField('medias', [
-    'name' => 'centered_image',
-    'label' => 'Image',
-])
 
-@formField('checkbox', [
-    'name' => 'full_width',
-    'label' => 'Pleine page'
-])
+<figure class="CenteredImage @if($block->input('dark_bg')) Article__dark-block @endif @if($block->input('full_width')) CenteredImage__full-width @endif">
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    <img src="{{ $block->image('centered_image', 'desktop') }}" alt="{{ $block->imageAltText('centered_image') }}" class="CenteredImage__img">
+    
+    <figcaption class="CenteredImage__figcaption">
+        {{ $block->imageCaption('centered_image') }}
+    </figcaption>
+
+</figure>
