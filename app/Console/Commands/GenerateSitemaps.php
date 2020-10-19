@@ -41,10 +41,10 @@ class GenerateSitemaps extends Command
 
         // generate new sitemap file
         $sitemap = \App::make('sitemap');
+
         $counter = 0;
         $sitemapCounter = 0;
-        $sitemaps_path = public_path().DIRECTORY_SEPARATOR.'sitemaps';
-
+        $sitemaps_path = public_path() . DIRECTORY_SEPARATOR . 'sitemaps';
 
         // Add selections dynamic sitemap.
         $sitemap->addSitemap(secure_url(route('selections_sitemap', [], false)));
@@ -71,24 +71,24 @@ class GenerateSitemaps extends Command
                     $images = [];
                     if ($p->images) {
                         $images = $p->images()
-                                    ->where('is_published', true)
-                                    ->orderBy('is_poster', 'DESC')
-                                    ->orderBy('is_prime_quality', 'DESC')
-                                    ->get()
-                                    ->map(function ($i) {
-                                        $attrs = [
-                                            'url' => secure_url('/media/orig/' . $i->path),
-                                            // 'title' => '',
-                                            // 'caption' => '',
-                                        ];
-                                        // Not currently active with this package.
-                                        if (isset($i->licence) && $i->licence === 'LO 2.0') {
-                                            $attrs['license'] = 'https://github.com/etalab/licence-ouverte/blob/master/LO.md';
-                                        }
-                                        return $attrs;
-                                    })->all();
+                            ->where('is_published', true)
+                            ->orderBy('is_poster', 'DESC')
+                            ->orderBy('is_prime_quality', 'DESC')
+                            ->get()
+                            ->map(function ($i) {
+                                $attrs = [
+                                    'url' => secure_url('/media/orig/' . $i->path),
+                                    // 'title' => '',
+                                    // 'caption' => '',
+                                ];
+                                // Not currently active with this package.
+                                if (isset($i->licence) && $i->licence === 'LO 2.0') {
+                                    $attrs['license'] = 'https://github.com/etalab/licence-ouverte/blob/master/LO.md';
+                                }
+                                return $attrs;
+                            })->all();
                     }
-                    
+
                     // add product to items array
                     // $p->freq = 'weekly';
                     // $p->priority = '0.5';
@@ -117,6 +117,6 @@ class GenerateSitemaps extends Command
         $sitemap->store('sitemapindex', 'sitemap', $sitemaps_path);
 
         $end = microtime(true);
-        $this->info("Took ".($end - $start) ." seconds to complete\n");
+        $this->info("Took " . ($end - $start) . " seconds to complete\n");
     }
 }

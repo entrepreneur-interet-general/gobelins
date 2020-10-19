@@ -24,6 +24,7 @@
     "laravel/scout": "^8.1.0",
     "laravel/tinker": "^2.4",
     "laravel/ui": "^2.0",
+    "laravelium/sitemap": "7.*",
     "league/flysystem": "^1.0",
     "league/flysystem-memory": "^1.0",
     "nothingworks/blade-svg": "^0.3",

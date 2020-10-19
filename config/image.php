@@ -12,7 +12,7 @@ return [
     | possible to declare a filter with an array or a closure instead of a Filter
     | Class.
     |
-    */
+     */
     'filters' => [
         'blur' => \Folklore\Image\Filters\Blur::class,
         'colorize' => \Folklore\Image\Filters\Colorize::class,
@@ -21,7 +21,7 @@ return [
         'interlace' => \Folklore\Image\Filters\Interlace::class,
         'negative' => \Folklore\Image\Filters\Negative::class,
         'rotate' => \Folklore\Image\Filters\Rotate::class,
-        'resize' => \Folklore\Image\Filters\Resize::class
+        'resize' => \Folklore\Image\Filters\Resize::class,
     ],
 
     /*
@@ -32,7 +32,7 @@ return [
     | This option define the default source to be used by the Image facade. The
     | source determine where the image files are read and saved.
     |
-    */
+     */
     'source' => 'public',
 
     /*
@@ -44,7 +44,7 @@ return [
     |
     | Supported driver: "local", "filesystem"
     |
-    */
+     */
     'sources' => [
 
         'public' => [
@@ -52,7 +52,7 @@ return [
             'driver' => 'local',
 
             // The path where the images are stored.
-            'path' => public_path()
+            'path' => public_path(),
         ],
 
         'cloud' => [
@@ -70,8 +70,8 @@ return [
             'cache' => true,
 
             // The path where you want to put cached files
-            'cache_path' => storage_path('image/cache')
-        ]
+            'cache_path' => storage_path('image/cache'),
+        ],
 
     ],
 
@@ -85,7 +85,7 @@ return [
     | These are the defaults values and you can overide it in each routes or
     | when generating an url using the `pattern` parameter.
     |
-    */
+     */
     'url' => [
         // The format of the url that will be generated. The `{filters}` placeholder
         // will be replaced by the filters according to the `filters_format`.
@@ -112,7 +112,7 @@ return [
             'basename' => '([^\/\.]+?)',
             'filename' => '([^\/]+)',
             'extension' => '(jpeg|jpg|gif|png)',
-        ]
+        ],
     ],
 
     /*
@@ -122,7 +122,7 @@ return [
     |
     | Default configuration for image routes. See routes/image.php
     |
-    */
+     */
     'routes' => [
         // Path to the routes file that will be automatically loaded. Set to null
         // to prevent auto-loading of routes.
@@ -144,7 +144,7 @@ return [
         'pattern_name' => 'image_pattern',
 
         // The middleware used when a route as `cache` enabled
-        'cache_middleware' => 'image.middleware.cache'
+        'cache_middleware' => 'image.middleware.cache',
     ],
 
     /*
@@ -157,7 +157,7 @@ return [
     |
     | Supported: "gd", "imagick", "gmagick"
     |
-    */
+     */
     'driver' => 'gd',
 
     /*
@@ -167,7 +167,18 @@ return [
     |
     | When manipulating an image, the memory limit is increased to this value
     |
-    */
+     */
     'memory_limit' => '128M',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Write image
+    |--------------------------------------------------------------------------
+    |
+    | When serving an image, write the manipulated image in the same directory
+    | as the original image so the next request will serve this static file
+    |
+     */
+    'write_image' => true,
 
 ];

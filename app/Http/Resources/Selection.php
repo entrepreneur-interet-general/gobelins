@@ -2,11 +2,8 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Resources\User as UserResource;
 use Elasticsearch\ClientBuilder;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class Selection extends JsonResource
 {
@@ -28,13 +25,12 @@ class Selection extends JsonResource
     {
         $canUpdateThis = $request->user('api') && $request->user('api')->can('update', $this->resource);
 
-
-        $product_ids = $this->resource->products()->allRelatedIds();
+        $product_ids = $this->resource->products()->where('is_published', true)->select('id')->get()->pluck('id')->toArray();
         if (sizeof($product_ids)) {
             $es = $this->client->mget([
                 "index" => "gobelins_search",
                 "type" => "products",
-                "body" => ["ids" => $this->resource->products()->allRelatedIds()]
+                "body" => ["ids" => $product_ids],
             ]);
             $products = collect($es['docs'])->map(function ($d) {
                 $d['_source']['_id'] = $d['_id'];
@@ -43,7 +39,7 @@ class Selection extends JsonResource
         } else {
             $products = [];
         }
-        
+
         return [
             'id' => $this->id,
             'name' => $this->name,

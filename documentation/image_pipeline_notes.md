@@ -93,3 +93,8 @@ rsync \
     ~/EIG/gobelins/public/media/xl/ \
     root@tarabiscot:/var/www/gobelins/shared/public/media/xl/
 ```
+
+# Notes pour refactoring du traitement des images
+
+- Supprimer tout le répertoire "xl" local, parce que mogrify a modifié les extensions "jpg".
+- Remplacer la routine de traitement, avec quelque chose à base de la librairie nodejs "sharp". sharp-cli ? Peut-être basé sur la lib async ([example](https://gist.github.com/moose56/15b2172d95d5ded056383a3942145787)) pour optimiser le temps de traitement.

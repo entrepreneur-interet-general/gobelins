@@ -218,6 +218,7 @@ class Product extends Model
         'is_published',
         'publication_code',
         'entry_mode_id',
+        'legacy_updated_on',
     ];
 
     // Eloquent scopes
