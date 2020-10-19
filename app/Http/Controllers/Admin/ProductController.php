@@ -81,6 +81,12 @@ class ProductController extends ModuleController
         'types' => 'product_type_id',
     ];
 
+    public function getBrowserData($prependScope = [])
+    {
+
+        return parent::getBrowserData(['is_published' => true]);
+    }
+
     /*
      * Add anything you would like to have available in your module's index view
      */

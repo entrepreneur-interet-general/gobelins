@@ -1,26 +1,10 @@
-@formField('radios', [
-    'name' => 'columns',
-    'label' => 'Colonnage',
-    'default' => 3,
-    'inline' => true,
-    'options' => [
-        [
-            'value' => 2,
-            'label' => '2 colonnes'
-        ],
-        [
-            'value' => 3,
-            'label' => '3 colonnes'
-        ],
-    ]
-])
 
-@formField('repeater', [
-    'type' => 'generic_grid_item',
-    'label' => 'Colonnes',
-])
+<div class="GenericGrid GenericGrid--{{ $block->input('columns') }}-cols @if($block->input('dark_bg')) Article__dark-block @endif">
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    @foreach($block->children->filter(function($it) { return $it->type === 'generic_grid_item';}) as $item)
+
+        @include('site.blocks.generic_grid_item', ['block' => $item])
+
+    @endforeach
+
+</div>

@@ -60,4 +60,5 @@ class ProductType extends Model
             return $anc->toSearchableArray();
         })->prepend($leaf)->all();
     }
+
 }

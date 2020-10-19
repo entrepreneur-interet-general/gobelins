@@ -1,30 +1,15 @@
+<div class="GenericGrid__item">
 
-@formField('medias', [
-    'name' => 'media',
-    'label' => 'Image',
-    'withVideoUrl' => false,
-])
+    @if ($block->hasImage('generic_grid_image'))
+        <img
+            src="{{ $block->image('generic_grid_image') }}"
+            alt="{{ $block->imageAltText('generic_grid_image') }}"
+            width='100'
+            class="GenericGrid__item-image @if($block->input('circled_image')) GenericGrid__item-image--circled @endif">
+    @endif
 
-@formField('checkbox', [
-    'name' => 'circled_image',
-    'label' => 'Image ronde'
-])
+    <div class="GenericGrid__item-body">
+        {!! $block->input('body') !!}
+    </div>
 
-
-@formField('wysiwyg', [
-    'name' => 'body',
-    'label' => 'Texte',
-    'toolbarOptions' => [
-        'bold',
-        'italic',
-        ["script" => "super"],
-        ["script" => "sub"],
-        'link',
-        "clean",
-    ],
-])
-
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+</div>

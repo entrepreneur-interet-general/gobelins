@@ -5,6 +5,7 @@ namespace App\Models;
 use A17\Twill\Models\Behaviors\HasMedias;
 use A17\Twill\Models\Model;
 use App\Models\Presenters\Admin\ProductPresenter as AdminProductPresenter;
+use App\Models\Presenters\ProductPresenter;
 use Laravel\Scout\Searchable;
 
 class Product extends Model
@@ -14,6 +15,7 @@ class Product extends Model
     protected $hidden = ['pivot'];
 
     public $presenterAdmin = AdminProductPresenter::class;
+    public $presenter = ProductPresenter::class;
 
     // Twill requirement
     public $slugAttributes = [

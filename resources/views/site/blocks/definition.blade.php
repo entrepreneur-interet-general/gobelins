@@ -1,16 +1,11 @@
-@formField('input', [
-    'name' => 'term',
-    'label' => 'Terme à définir',
-])
+<dl class="Definition @if($block->input('dark_bg')) Article__dark-block @endif">
 
-@formField('input', [
-    'name' => 'definition',
-    'label' => 'Définition',
-    'type' => 'textarea',
-    'rows' => 2,
-])
+    <dt class="Definition__term">
+        {{ $block->input('term') }}
+    </dt>
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    <dd class="Definition__description">
+        {{ $block->input('description') }}
+    </dd>
+
+</dl>

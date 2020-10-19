@@ -1,6 +1,6 @@
 
 @formField('medias', [
-    'name' => 'media',
+    'name' => 'generic_grid_image',
     'label' => 'Image',
     'withVideoUrl' => false,
 ])

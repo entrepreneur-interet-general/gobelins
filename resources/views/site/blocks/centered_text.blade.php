@@ -1,22 +1,5 @@
-@formField('wysiwyg', [
-    'name' => 'body',
-    'label' => 'Texte',
-    'toolbarOptions' => [
-        'bold',
-        'italic',
-        ["script" => "super"],
-        ["script" => "sub"],
-        'link',
-        "clean",
-    ],
-])
+<div class="CenteredText @if($block->input('dark_bg')) Article__dark-block @endif @if($block->input('is_quote')) CenteredText--is_quote @endif">
 
-@formField('checkbox', [
-    'name' => 'is_quote',
-    'label' => 'Citation'
-])
+    {!! $block->input('body') !!}
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+</div>

@@ -53,7 +53,7 @@
 
     <main class="Article__main">
 
-        {!! $item->renderBlocks() !!}
+        {!! $item->renderBlocks(false) !!}
 
         @if($item->footnotes)
             <div class="Article__footnotes">

@@ -1,40 +1,21 @@
-@formField('wysiwyg', [
-    'name' => 'body',
-    'label' => 'Texte',
-    'toolbarOptions' => [
-        'bold',
-        'italic',
-        ["script" => "super"],
-        ["script" => "sub"],
-        'link',
-        "clean",
-    ],
-])
+<div class="TextImage @if($block->input('dark_bg')) Article__dark-block @endif @if($block->input('image_alignment') === 'right') TextImage--img-right @else TextImage--img-left @endif">
 
-@formField('radios', [
-    'name' => 'image_alignment',
-    'label' => 'Alignement image',
-    'default' => 'right',
-    'inline' => true,
-    'options' => [
-        [
-            'value' => 'right',
-            'label' => 'droite'
-        ],
-        [
-            'value' => 'left',
-            'label' => 'Gauche'
-        ],
-    ]
-])
+    <div class="TextImage__body">
 
-@formField('medias', [
-    'name' => 'media',
-    'label' => 'Images',
-    'max' => 6,
-])
+        {!! $block->input('body') !!}
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    </div>
+
+    <div class="TextImage__images">
+        @foreach($block->imagesAsArrays('side_images', 'default') as $image)
+            
+            <figure class="TextImage__figure">
+                <img src="{{ $image['src'] }}" alt="{{ $image['alt'] }}" width="100" class="TextImage">
+                <figcaption class="TextImage__image-caption">
+                    {{ $image['caption'] }}
+                </figcaption>
+            </figure>
+
+        @endforeach
+    </div>
+</div>

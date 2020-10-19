@@ -1,17 +1,9 @@
-@formField('wysiwyg', [
-    'name' => 'body',
-    'label' => 'Texte',
-    'toolbarOptions' => [
-        'bold',
-        'italic',
-        ["script" => "super"],
-        ["script" => "sub"],
-        'link',
-        "clean",
-    ],
-])
+<div class="DoubleColText @if($block->input('dark_bg')) Article__dark-block @endif">
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    <div class="DoubleColText__container">
+
+        {!! $block->input('body') !!}
+    
+    </div>
+
+</div>

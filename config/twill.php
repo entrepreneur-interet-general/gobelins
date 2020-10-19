@@ -4,6 +4,7 @@ return [
     'locale' => 'fr',
     'fallback_locale' => 'en',
     'block_editor' => [
+        'block_preview_render_childs' => false,
         'blocks' => [
             'heading2' => [
                 'title' => 'Intertitre',
@@ -52,6 +53,30 @@ return [
             ],
         ],
         'crops' => [
+            'side_images' => [
+                'default' => [
+                    [
+                        'name' => 'default',
+                        'ratio' => 16 / 9,
+                        'minValues' => [
+                            'width' => 100,
+                            'height' => 100,
+                        ],
+                    ],
+                ],
+            ],
+            'generic_grid_image' => [
+                'default' => [
+                    [
+                        'name' => 'default',
+                        'ratio' => 1,
+                        'minValues' => [
+                            'width' => 100,
+                            'height' => 100,
+                        ],
+                    ],
+                ],
+            ],
             'centered_image' => [
                 'desktop' => [
                     [

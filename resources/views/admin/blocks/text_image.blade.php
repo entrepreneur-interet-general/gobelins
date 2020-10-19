@@ -29,7 +29,7 @@
 ])
 
 @formField('medias', [
-    'name' => 'media',
+    'name' => 'side_images',
     'label' => 'Images',
     'max' => 6,
 ])

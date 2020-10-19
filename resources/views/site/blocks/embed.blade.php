@@ -1,12 +1,9 @@
-@formField('input', [
-    'name' => 'embed',
-    'label' => 'Code à intégrer',
-    'type' => 'textarea',
-    'note' => 'Copier-coller ici le code HTML fourni',
-    'rows' => 2,
-])
+<div class="Embed @if($block->input('dark_bg')) Article__dark-block @endif">
 
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
-])
+    <div class="Embed__container">
+
+        {!! $block->input('embed') !!}
+    
+    </div>
+
+</div>
