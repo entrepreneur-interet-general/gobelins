@@ -10,7 +10,6 @@
     'label' => 'Image ronde'
 ])
 
-
 @formField('wysiwyg', [
     'name' => 'body',
     'label' => 'Texte',
@@ -22,9 +21,4 @@
         'link',
         "clean",
     ],
-])
-
-@formField('checkbox', [
-    'name' => 'dark_bg',
-    'label' => 'Fond noir'
 ])

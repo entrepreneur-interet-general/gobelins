@@ -1,5 +1,11 @@
 # Journal de mise en production
 
+## En attente
+
+deploy dotenv for nginx and php max upload limits
+`$ php artisan migrate`
+`$ php artisan twill:superadmin`
+
 ## Finalisé le 17/09/2020 - OAI-PMH et nouveaux contenus
 
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
