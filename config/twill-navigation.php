@@ -15,9 +15,9 @@ return [
             ],
         ],
     ],
-    'savoir-faire' => [
-        'title' => 'Savoir-faire',
-        'route' => 'admin.savoir-faire.articles.index',
+    'encyclopedie' => [
+        'title' => 'Encyclopédie',
+        'route' => 'admin.encyclopedie.articles.index',
         'primary_navigation' => [
 
             'articles' => [

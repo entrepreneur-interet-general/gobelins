@@ -1,4 +1,24 @@
-
 @mixin content-grid() {
-    margin: 0 15px;
+  margin: 0 15px;
+}
+
+@mixin article-grid() {
+  display: grid;
+  grid-template-columns:
+    [full-start] 25px
+    [main-start first-half-start] 1fr
+    [first-half-end] 15px
+    [second-half-start] 1fr
+    [second-half-end main-end] 25px
+    [full-end];
+  @include breakpoint($medium-up) {
+    grid-template-columns: repeat(15, [col] 1fr);
+  }
+  @include breakpoint($a-xxlarge-up) {
+    grid-template-columns: 200px repeat(15, [col] 1fr) 200px;
+  }
+}
+
+%article-grid {
+  @include article-grid();
 }

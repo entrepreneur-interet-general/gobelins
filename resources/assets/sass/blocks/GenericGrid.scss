@@ -1,0 +1,54 @@
+.GenericGrid {
+  @extend %article-grid;
+}
+
+.GenericGrid--3-cols .GenericGrid__item {
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    &:nth-child(1n) {
+      grid-column: 3 / 6;
+    }
+    &:nth-child(2n) {
+      grid-column: 7 / 10;
+    }
+    &:nth-child(3n) {
+      grid-column: 11 / 14;
+    }
+  }
+  @include breakpoint($a-xxlarge-up) {
+    &:nth-child(1n) {
+      grid-column: 4 / 7;
+    }
+    &:nth-child(2n) {
+      grid-column: 8 / 11;
+    }
+    &:nth-child(3n) {
+      grid-column: 12 / 15;
+    }
+  }
+}
+
+.GenericGrid__figure {
+  margin: 0;
+  padding: 0;
+}
+
+.GenericGrid__figcaption {
+  @include f-sans;
+  font-size: rem(18px);
+  line-height: 145%;
+  color: $a-gris-clair;
+  margin-top: 22px;
+  margin-bottom: 40px;
+}
+
+.GenericGrid__item-image {
+  display: block;
+  width: 100%;
+}
+
+.GenericGrid__item-body {
+  @include f-sans;
+  font-size: rem(18px);
+  line-height: 145%;
+}

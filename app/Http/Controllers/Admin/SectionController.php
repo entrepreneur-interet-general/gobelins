@@ -8,7 +8,7 @@ class SectionController extends ModuleController
 {
     protected $moduleName = 'sections';
 
-    protected $permalinkBase = 'savoir-faire/rubriques';
+    protected $permalinkBase = 'encyclopedie/rubriques';
 
     /*
      * Options of the index view

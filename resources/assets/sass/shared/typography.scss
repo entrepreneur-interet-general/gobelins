@@ -31,6 +31,15 @@
 }
 
 @font-face {
+  font-family: "Source Sans Pro";
+  src: url(/fonts/SourceSans3-Light.otf.woff2) format("woff2"),
+    url(/fonts/SourceSans3-Light.otf.woff) format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Source Serif Pro";
   src: url(/fonts/SourceSerifPro-Regular.otf.woff2) format("woff2"),
     url(/fonts/SourceSerifPro-Regular.otf.woff) format("woff");
@@ -45,6 +54,15 @@
     url(/fonts/SourceSerifPro-Semibold.otf.woff) format("woff");
   font-weight: 600;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  src: url(/fonts/SourceSerifPro-It.otf.woff2) format("woff2"),
+    url(/fonts/SourceSerifPro-It.otf.woff) format("woff");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 

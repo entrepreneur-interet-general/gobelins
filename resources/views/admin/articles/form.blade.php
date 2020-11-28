@@ -98,7 +98,7 @@
         ])
 
         @formField('browser', [
-            'routePrefix' => 'savoir-faire',
+            'routePrefix' => 'encyclopedie',
             'moduleName' => 'articles',
             'name' => 'related',
             'label' => 'Mises en avant',

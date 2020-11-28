@@ -9,7 +9,7 @@ class ArticleController extends ModuleController
 {
     protected $moduleName = 'articles';
 
-    protected $permalinkBase = 'savoir-faire';
+    protected $permalinkBase = 'encyclopedie';
 
     /*
      * Options of the index view

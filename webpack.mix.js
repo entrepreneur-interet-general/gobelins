@@ -32,7 +32,7 @@ if (process.env.MIX_ENABLE_BUNDLE_ANALYZER) {
 mix
   .react("resources/assets/js/bootstrap.js", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css")
-  .sass("resources/assets/sass/blocks.scss", "public/css")
+  .sass("resources/assets/sass/article.scss", "public/css")
   .webpackConfig({
     plugins: webpackPlugins,
   })

@@ -1,5 +1,70 @@
 .Heading2 {
-  font-size: 20px;
-  margin: 0;
-  padding: 0;
+  @extend %article-grid;
+  counter-increment: heading2-counter;
+  padding: 130px 0 60px;
+  @include breakpoint($medium-up) {
+    padding: 200px 0 100px;
+  }
+  @include breakpoint($a-xxlarge-up) {
+    padding: 250px 0 120px;
+  }
+}
+
+.Heading2__counter {
+  display: block;
+  grid-column: main;
+  text-align: center;
+  @include f-sans;
+  font-style: normal;
+  font-weight: normal;
+
+  font-size: rem(18px);
+  line-height: 130%;
+
+  @include breakpoint($medium-up) {
+    grid-column: 1 / 3;
+    position: relative;
+    top: 20px; // Alignement optique sur la baseline du titre.
+  }
+  @include breakpoint($a-xxlarge-up) {
+    grid-column: 3 / 4;
+    text-align: left;
+    position: relative;
+    top: 20px; // Alignement optique sur la baseline du titre.
+    left: -1rem;
+  }
+}
+
+.Heading2__counter-index {
+  color: $a-gris-fonce;
+  &::after {
+    content: counter(heading2-counter);
+  }
+}
+.Heading2__counter-count {
+  color: #acacac;
+  &::before {
+    content: " | " counter(heading2-total-counter);
+  }
+}
+
+.Heading2__title {
+  display: block;
+  @include f-sans;
+  font-style: normal;
+  font-weight: 400;
+  font-size: rem(30px);
+  line-height: 145%;
+  text-align: center;
+  grid-column: main;
+
+  @include breakpoint($medium-up) {
+    grid-column: 3 / 10;
+    font-size: rem(40px);
+    line-height: 130%;
+    text-align: left;
+  }
+  @include breakpoint($a-xxlarge-up) {
+    grid-column: 4 / 10;
+  }
 }

@@ -69,7 +69,7 @@ return [
                 'default' => [
                     [
                         'name' => 'default',
-                        'ratio' => 1,
+                        // 'ratio' => 1,
                         'minValues' => [
                             'width' => 100,
                             'height' => 100,

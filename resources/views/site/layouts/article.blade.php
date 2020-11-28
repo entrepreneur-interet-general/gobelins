@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="fr-FR" class="no-js BlocksLayout @yield('html_classes')">
+<html dir="ltr" lang="fr-FR" class="no-js ArticleLayout @yield('html_classes')">
 
 <head>
     <meta charset="utf-8">

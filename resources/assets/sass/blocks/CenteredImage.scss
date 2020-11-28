@@ -1,0 +1,39 @@
+.CenteredImage {
+  @extend %article-grid;
+  margin: 0;
+  padding: 0;
+}
+
+.CenteredImage__img {
+  display: block;
+  width: 100%;
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 6 / 14;
+  }
+}
+.CenteredImage__figcaption {
+  @include f-sans;
+  font-size: rem(18px);
+  line-height: 145%;
+  color: $a-gris-clair;
+  margin-top: 22px;
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 6 / 14;
+  }
+}
+
+.CenteredImage.CenteredImage--full-width {
+  .CenteredImage__img {
+    grid-column: 1 / -1;
+  }
+  .CenteredImage__figcaption {
+    @include breakpoint($medium-up) {
+      grid-column: 3 / -3;
+    }
+    @include breakpoint($a-xxlarge-up) {
+      grid-column: 4 / -4;
+    }
+  }
+}
