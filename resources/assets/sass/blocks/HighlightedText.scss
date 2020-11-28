@@ -1,0 +1,31 @@
+.HighlightedText {
+  @extend %article-grid;
+
+  @include f-sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: rem(26px);
+  line-height: 145%;
+
+  & strong,
+  & b,
+  & em {
+    background-color: #e2e9ff;
+    font-weight: normal;
+    padding: 0 3px;
+  }
+
+  & p {
+    margin: 0;
+    padding: 0;
+  }
+}
+.HighlightedText__inner {
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 3 / 8;
+  }
+
+  border-left: 2px solid currentColor;
+  padding-left: 20px;
+}

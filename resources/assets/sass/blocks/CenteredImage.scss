@@ -13,11 +13,7 @@
   }
 }
 .CenteredImage__figcaption {
-  @include f-sans;
-  font-size: rem(18px);
-  line-height: 145%;
-  color: $a-gris-clair;
-  margin-top: 22px;
+  @extend %image-caption;
   grid-column: main;
   @include breakpoint($medium-up) {
     grid-column: 6 / 14;

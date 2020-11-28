@@ -51,6 +51,11 @@ return [
                 'icon' => 'text',
                 'component' => 'a17-block-embed',
             ],
+            'highlighted_text' => [
+                'title' => 'Texte mis en exergue',
+                'icon' => 'text',
+                'component' => 'a17-block-highlighted_text',
+            ],
         ],
         'crops' => [
             'side_images' => [

@@ -1,0 +1,10 @@
+/* Shared styles for article blocks */
+
+%image-caption {
+  @include f-sans;
+  font-size: rem(16px);
+  line-height: 145%;
+  color: $a-gris-medium;
+  margin-top: 22px;
+  margin-bottom: 40px;
+}

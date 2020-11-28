@@ -34,12 +34,7 @@
 }
 
 .GenericGrid__figcaption {
-  @include f-sans;
-  font-size: rem(18px);
-  line-height: 145%;
-  color: $a-gris-clair;
-  margin-top: 22px;
-  margin-bottom: 40px;
+  @extend %image-caption;
 }
 
 .GenericGrid__item-image {
