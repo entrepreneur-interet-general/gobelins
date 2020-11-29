@@ -3,8 +3,10 @@
 
     <img src="{{ $block->image('centered_image', 'desktop') }}" alt="{{ $block->imageAltText('centered_image') }}" class="CenteredImage__img">
     
-    <figcaption class="CenteredImage__figcaption">
-        {{ $block->imageCaption('centered_image') }}
-    </figcaption>
+    @if ($block->imageCaption('centered_image'))
+        <figcaption class="CenteredImage__figcaption">
+            {{ $block->imageCaption('centered_image') }}
+        </figcaption>
+    @endif
 
 </figure>

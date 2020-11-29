@@ -86,7 +86,7 @@ return [
                 'desktop' => [
                     [
                         'name' => 'desktop',
-                        'ratio' => 16 / 9,
+                        // 'ratio' => 16 / 9,
                         'minValues' => [
                             'width' => 100,
                             'height' => 100,
@@ -96,7 +96,7 @@ return [
                 'tablet' => [
                     [
                         'name' => 'tablet',
-                        'ratio' => 4 / 3,
+                        // 'ratio' => 4 / 3,
                         'minValues' => [
                             'width' => 100,
                             'height' => 100,
@@ -106,7 +106,7 @@ return [
                 'mobile' => [
                     [
                         'name' => 'mobile',
-                        'ratio' => 1,
+                        // 'ratio' => 1,
                         'minValues' => [
                             'width' => 100,
                             'height' => 100,

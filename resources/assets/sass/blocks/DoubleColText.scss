@@ -1,3 +1,18 @@
 .DoubleColText {
   @extend %article-grid;
+  margin: 80px 0;
+  @include breakpoint($a-xxlarge-up) {
+    margin: 100px 0;
+  }
+}
+
+.DoubleColText__container {
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 3 / -3;
+    columns: 2;
+    column-gap: calc(100% / 11);
+  }
+
+  @extend %rich-text;
 }

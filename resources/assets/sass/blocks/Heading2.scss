@@ -1,6 +1,7 @@
 .Heading2 {
   @extend %article-grid;
   counter-increment: heading2-counter;
+  margin: 0;
   padding: 130px 0 60px;
   @include breakpoint($medium-up) {
     padding: 200px 0 100px;

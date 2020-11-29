@@ -43,7 +43,5 @@
 }
 
 .GenericGrid__item-body {
-  @include f-sans;
-  font-size: rem(18px);
-  line-height: 145%;
+  @extend %rich-text;
 }
