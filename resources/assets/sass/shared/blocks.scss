@@ -14,15 +14,13 @@
   font-size: rem(18px);
   line-height: 145%;
 
-  & strong,
-  & b,
-  & em {
+  & strong {
     background-color: #e2e9ff;
     font-weight: normal;
     padding: 0 3px;
-    .Article__dark-block & {
-      background-color: #2e2e2e;
-    }
+  }
+  .on-dark-bg & strong {
+    background-color: #2e2e2e;
   }
 
   & p {
@@ -37,5 +35,64 @@
     &:hover {
       color: #4f4f4f;
     }
+  }
+}
+
+@mixin rich-text() {
+  @include f-sans;
+  font-size: rem(18px);
+  line-height: 145%;
+
+  & strong {
+    background-color: #e2e9ff;
+    font-weight: normal;
+    padding: 0 3px;
+  }
+
+  & p {
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+
+  & a {
+    text-underline-offset: 5px;
+    text-decoration-skip-ink: all;
+    color: #7c7c7c;
+    &:hover {
+      color: #4f4f4f;
+    }
+  }
+}
+
+/* Apply dark background to blocks */
+.on-dark-bg {
+  background-color: $a-dark-bg;
+  color: #fff;
+  position: relative;
+}
+
+@mixin dark-margin-top($height) {
+  &:before {
+    content: "";
+    background-color: $a-dark-bg;
+    position: absolute;
+    top: calc(#{$height} * -1);
+    left: 0;
+    right: 0;
+    height: $height;
+    z-index: -1;
+  }
+}
+
+@mixin dark-margin-bottom($height) {
+  &:after {
+    content: "";
+    background-color: $a-dark-bg;
+    position: absolute;
+    bottom: calc(#{$height} * -1);
+    left: 0;
+    right: 0;
+    height: $height;
+    z-index: -1;
   }
 }

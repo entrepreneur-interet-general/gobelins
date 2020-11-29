@@ -1,4 +1,4 @@
-<div class="Definition @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="Definition @if($block->input('dark_bg')) on-dark-bg @endif">
 
     <dl class="Definition__inner">
 

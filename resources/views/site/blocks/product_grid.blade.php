@@ -6,7 +6,7 @@
 @endphp
 
 
-<div class="ArticleCollectionGrid @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="ArticleCollectionGrid @if($block->input('dark_bg')) on-dark-bg @endif">
 
     @foreach($products as $prod)
 

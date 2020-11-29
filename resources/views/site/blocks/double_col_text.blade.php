@@ -1,4 +1,4 @@
-<div class="DoubleColText @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="DoubleColText @if($block->input('dark_bg')) on-dark-bg @endif">
 
     <div class="DoubleColText__container">
 

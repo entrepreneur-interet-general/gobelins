@@ -1,5 +1,5 @@
 
-<div class="GenericGrid GenericGrid--{{ $block->input('columns') }}-cols @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="GenericGrid GenericGrid--{{ $block->input('columns') }}-cols @if($block->input('dark_bg')) on-dark-bg @endif">
 
     @foreach($block->children->filter(function($it) { return $it->type === 'generic_grid_item';}) as $item)
 

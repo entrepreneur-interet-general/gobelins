@@ -5,6 +5,15 @@
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;
   }
+
+  &.on-dark-bg {
+    @include dark-margin-top(80px);
+    @include dark-margin-bottom(80px);
+    @include breakpoint($a-xxlarge-up) {
+      @include dark-margin-top(100px);
+      @include dark-margin-bottom(100px);
+    }
+  }
 }
 
 .CenteredImage__img {
@@ -31,6 +40,12 @@
 
 .CenteredImage.CenteredImage--full-width {
   margin: 0;
+  &:before {
+    display: none;
+  }
+  &:after {
+    display: none;
+  }
   .CenteredImage__img {
     grid-column: 1 / -1;
   }

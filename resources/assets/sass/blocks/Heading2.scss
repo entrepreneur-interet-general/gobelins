@@ -1,13 +1,39 @@
 .Heading2 {
   @extend %article-grid;
   counter-increment: heading2-counter;
-  margin: 0;
-  padding: 130px 0 60px;
+  padding: 0;
+  margin: 130px 0 60px;
   @include breakpoint($medium-up) {
-    padding: 200px 0 100px;
+    margin: 200px 0 100px;
   }
   @include breakpoint($a-xxlarge-up) {
-    padding: 250px 0 120px;
+    margin: 250px 0 120px;
+  }
+
+  :not(.on-dark-bg) + &.on-dark-bg {
+    padding-top: 130px;
+    &:before {
+      display: none;
+    }
+    @include breakpoint($medium-up) {
+      padding-top: 200px;
+    }
+    @include breakpoint($a-xxlarge-up) {
+      padding-top: 250px;
+    }
+  }
+
+  &.on-dark-bg {
+    @include dark-margin-top(130px);
+    @include dark-margin-bottom(60px);
+    @include breakpoint($medium-up) {
+      @include dark-margin-top(200px);
+      @include dark-margin-bottom(100px);
+    }
+    @include breakpoint($a-xxlarge-up) {
+      @include dark-margin-top(250px);
+      @include dark-margin-bottom(120px);
+    }
   }
 }
 
@@ -37,7 +63,7 @@
 }
 
 .Heading2__counter-index {
-  color: $a-gris-fonce;
+  // color: $a-gris-fonce;
   &::after {
     content: counter(heading2-counter);
   }

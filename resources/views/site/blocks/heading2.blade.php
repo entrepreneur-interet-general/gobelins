@@ -1,4 +1,4 @@
-<h2 class="Heading2 @if($block->input('dark_bg')) Article__dark-block @endif">
+<h2 class="Heading2 @if($block->input('dark_bg')) on-dark-bg @endif">
     
     <span class="Heading2__counter">
         <span class="Heading2__counter-index"></span>

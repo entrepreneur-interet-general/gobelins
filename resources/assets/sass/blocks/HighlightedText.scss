@@ -12,6 +12,18 @@
   & p {
     margin: 0;
   }
+
+  &.on-dark-bg {
+    & strong {
+      background-color: #2e2e2e;
+    }
+    @include dark-margin-top(80px);
+    @include dark-margin-bottom(80px);
+    @include breakpoint($a-xxlarge-up) {
+      @include dark-margin-top(100px);
+      @include dark-margin-bottom(100px);
+    }
+  }
 }
 .HighlightedText__inner {
   grid-column: main;

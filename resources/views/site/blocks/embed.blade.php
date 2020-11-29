@@ -1,4 +1,4 @@
-<div class="Embed @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="Embed @if($block->input('dark_bg')) on-dark-bg @endif">
 
     <div class="Embed__container">
 

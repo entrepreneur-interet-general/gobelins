@@ -1,4 +1,4 @@
-<div class="TextImage @if($block->input('dark_bg')) Article__dark-block @endif @if($block->input('image_alignment') === 'right') TextImage--img-right @else TextImage--img-left @endif">
+<div class="TextImage @if($block->input('dark_bg')) on-dark-bg @endif @if($block->input('image_alignment') === 'right') TextImage--img-right @else TextImage--img-left @endif">
 
     <div class="TextImage__body">
 
