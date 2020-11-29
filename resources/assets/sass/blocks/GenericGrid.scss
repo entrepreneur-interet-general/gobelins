@@ -28,6 +28,26 @@
   }
 }
 
+.GenericGrid--2-cols .GenericGrid__item {
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    &:nth-child(1n) {
+      grid-column: 3 / 8;
+    }
+    &:nth-child(2n) {
+      grid-column: 9 / -3;
+    }
+  }
+  @include breakpoint($a-xxlarge-up) {
+    &:nth-child(1n) {
+      grid-column: 4 / 9;
+    }
+    &:nth-child(2n) {
+      grid-column: 10 / -4;
+    }
+  }
+}
+
 .GenericGrid__figure {
   margin: 0;
   padding: 0;
