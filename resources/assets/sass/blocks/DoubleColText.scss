@@ -13,6 +13,9 @@
     columns: 2;
     column-gap: calc(100% / 11);
   }
+  @include breakpoint($a-xxlarge-up) {
+    grid-column: 4 / -4;
+  }
 
   @extend %rich-text;
 }

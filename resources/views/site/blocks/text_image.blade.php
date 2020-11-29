@@ -10,10 +10,12 @@
         @foreach($block->imagesAsArrays('side_images', 'default') as $image)
             
             <figure class="TextImage__figure">
-                <img src="{{ $image['src'] }}" alt="{{ $image['alt'] }}" width="100" class="TextImage">
-                <figcaption class="TextImage__image-caption">
-                    {{ $image['caption'] }}
-                </figcaption>
+                <img src="{{ $image['src'] }}" alt="{{ $image['alt'] }}" class="TextImage__img">
+                @if($image['caption'])
+                    <figcaption class="TextImage__figcaption">
+                        {{ $image['caption'] }}
+                    </figcaption>
+                @endif
             </figure>
 
         @endforeach
