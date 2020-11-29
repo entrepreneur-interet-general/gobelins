@@ -1,3 +1,53 @@
 .Definition {
   @extend %article-grid;
+
+  margin: 80px 0;
+  @include breakpoint($a-xxlarge-up) {
+    margin: 100px 0;
+  }
+
+  @extend %rich-text;
+  font-size: rem(18px);
+  line-height: 145%;
+  & p {
+    margin: 0;
+  }
+  color: $a-bleu-fonce;
+  &.Article__dark-block {
+    color: $a-rose-poudre;
+  }
+}
+
+.Definition + .Definition {
+  margin-top: -40px;
+}
+
+.Definition__inner {
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 3 / 8;
+  }
+  @include breakpoint($a-xxlarge-up) {
+    grid-column: 4 / 10;
+  }
+
+  position: relative;
+  margin: 0;
+  padding-left: 20px;
+
+  & dt,
+  & dd {
+    margin: 0;
+    padding: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 7px;
+    bottom: 4px;
+    width: 1px;
+    left: 0;
+    background-color: currentColor;
+  }
 }

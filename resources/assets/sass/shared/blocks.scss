@@ -20,6 +20,9 @@
     background-color: #e2e9ff;
     font-weight: normal;
     padding: 0 3px;
+    .Article__dark-block & {
+      background-color: #2e2e2e;
+    }
   }
 
   & p {

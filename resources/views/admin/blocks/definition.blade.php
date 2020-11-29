@@ -4,7 +4,7 @@
 ])
 
 @formField('input', [
-    'name' => 'definition',
+    'name' => 'description',
     'label' => 'Définition',
     'type' => 'textarea',
     'rows' => 2,

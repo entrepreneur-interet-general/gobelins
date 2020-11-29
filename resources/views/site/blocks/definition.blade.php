@@ -1,11 +1,15 @@
-<dl class="Definition @if($block->input('dark_bg')) Article__dark-block @endif">
+<div class="Definition @if($block->input('dark_bg')) Article__dark-block @endif">
 
-    <dt class="Definition__term">
-        {{ $block->input('term') }}
-    </dt>
+    <dl class="Definition__inner">
 
-    <dd class="Definition__description">
-        {{ $block->input('description') }}
-    </dd>
+        <dt class="Definition__term">
+            Définition : {{ $block->input('term') }}
+        </dt>
 
-</dl>
+        <dd class="Definition__description">
+            {{ $block->input('description') }}
+        </dd>
+    
+    </dl>
+
+</div>
