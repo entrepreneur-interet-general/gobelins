@@ -6,7 +6,12 @@
 @endphp
 
 
-<div class="ArticleCollectionGrid @if($block->input('dark_bg')) on-dark-bg @endif">
+<div class="ArticleCollectionGrid @if($block->input('dark_bg')) on-dark-bg @endif" data-colcade="columns: .ArticleCollectionGrid__column, items: .ArticleCollectionGrid__item">
+
+
+    <div class="ArticleCollectionGrid__column"></div>
+    <div class="ArticleCollectionGrid__column"></div>
+    <div class="ArticleCollectionGrid__column"></div>
 
     @foreach($products as $prod)
 
@@ -15,22 +20,17 @@
             @if ($prod->posterImage)
                 <img src="{{  image_url('/media/xl/' . $prod->posterImage->path, 600) }}" alt="" class="ArticleCollectionGrid__thumbnail">
             @else
-                <div className="ArticleCollectionGrid__no-image">Pas d'image</div>
+                <div class="ArticleCollectionGrid__no-image"><span>Objet sans image</span></div>
             @endif
 
-            <div className="ArticleCollectionGrid__label">
+            <div class="ArticleCollectionGrid__label">
 
-                <strong class="ArticleCollectionGrid__name">
-                    {{ $prod->present()->nameInListing }}
-                </strong>
-
-                <em class="ArticleCollectionGrid__authors">
-                    {{ $prod->present()->authorsInListing }}
-                </em>
+                <strong class="ArticleCollectionGrid__name">{{ $prod->present()->nameInListing }}</strong><em class="ArticleCollectionGrid__authors">{{ $prod->present()->authorsInListing }}</em>
 
             </div>
 
         </a>
     @endforeach
+
 
 </div>

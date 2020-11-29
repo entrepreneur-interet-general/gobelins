@@ -5,24 +5,24 @@
 .GenericGrid--3-cols .GenericGrid__item {
   grid-column: main;
   @include breakpoint($medium-up) {
-    &:nth-child(1n) {
+    &:nth-child(3n + 1) {
       grid-column: 3 / 6;
     }
-    &:nth-child(2n) {
+    &:nth-child(3n + 2) {
       grid-column: 7 / 10;
     }
-    &:nth-child(3n) {
+    &:nth-child(3n + 3) {
       grid-column: 11 / 14;
     }
   }
   @include breakpoint($a-xxlarge-up) {
-    &:nth-child(1n) {
+    &:nth-child(3n + 1) {
       grid-column: 4 / 7;
     }
-    &:nth-child(2n) {
+    &:nth-child(3n + 2) {
       grid-column: 8 / 11;
     }
-    &:nth-child(3n) {
+    &:nth-child(3n + 3) {
       grid-column: 12 / 15;
     }
   }
@@ -31,25 +31,25 @@
 .GenericGrid--2-cols .GenericGrid__item {
   grid-column: main;
   @include breakpoint($medium-up) {
-    &:nth-child(1n) {
+    &:nth-child(odd) {
       grid-column: 3 / 8;
     }
-    &:nth-child(2n) {
+    &:nth-child(even) {
       grid-column: 9 / -3;
     }
   }
   @include breakpoint($a-xxlarge-up) {
-    &:nth-child(1n) {
+    &:nth-child(odd) {
       grid-column: 4 / 9;
     }
-    &:nth-child(2n) {
+    &:nth-child(even) {
       grid-column: 10 / -4;
     }
   }
 }
 
 .GenericGrid__figure {
-  margin: 0;
+  margin: 0 0 40px;
   padding: 0;
 }
 
@@ -60,6 +60,11 @@
 .GenericGrid__item-image {
   display: block;
   width: 100%;
+
+  &.GenericGrid__item-image--circled {
+    /* Peligro: if the image isn't square, this will become a funky oval. */
+    border-radius: 50%;
+  }
 }
 
 .GenericGrid__item-body {

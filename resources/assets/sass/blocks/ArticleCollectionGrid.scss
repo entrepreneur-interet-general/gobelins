@@ -1,3 +1,72 @@
 .ArticleCollectionGrid {
   @extend %article-grid;
 }
+.ArticleCollectionGrid__column:nth-child(1) {
+  grid-column: first-half;
+  @include breakpoint($medium-up) {
+    grid-column: 3 / 6;
+  }
+}
+.ArticleCollectionGrid__column:nth-child(2) {
+  grid-column: second-half;
+  @include breakpoint($medium-up) {
+    grid-column: 7 / 10;
+  }
+}
+.ArticleCollectionGrid__column:nth-child(3) {
+  display: none;
+  @include breakpoint($medium-up) {
+    display: block;
+    grid-column: 11 / 14;
+  }
+}
+.ArticleCollectionGrid__item {
+  display: block;
+  width: 100%;
+  margin-bottom: 40px;
+  color: inherit;
+  text-decoration: none;
+  @include f-sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: rem(13px);
+  line-height: rem(20px);
+}
+.ArticleCollectionGrid__thumbnail {
+  display: block;
+  width: 100%;
+}
+.ArticleCollectionGrid__label {
+  margin-top: 12px;
+}
+.ArticleCollectionGrid__name {
+  font-weight: 600;
+  font-style: normal;
+}
+.ArticleCollectionGrid__authors {
+  font-weight: normal;
+  font-style: normal;
+}
+.ArticleCollectionGrid__name:not(:empty)
+  + .ArticleCollectionGrid__authors:not(:empty):before {
+  content: ", ";
+}
+
+.ArticleCollectionGrid > .ArticleCollectionGrid__item {
+  display: none;
+}
+
+.ArticleCollectionGrid__no-image {
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  background-color: #f1f1f4;
+
+  & span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6d6d6d;
+  }
+}

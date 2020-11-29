@@ -10,6 +10,8 @@
 
 <body>
     @yield('content')
+
+    <script src="https://unpkg.com/colcade@0/colcade.js"></script>
 </body>
 
 </html>
