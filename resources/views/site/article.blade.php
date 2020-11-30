@@ -93,13 +93,23 @@
 
             @if($item->footnotes)
                 <div class="Article__footnotes">
-                    {!! $item->footnotes !!}
+                    <div class="Article__vertical-label">
+                        <span>Notes</span>
+                    </div>
+                    <div class="Article__double-col-container">
+                        {!! $item->footnotes !!}
+                    </div>
                 </div>
             @endif
 
             @if($item->bibliography)
                 <div class="Article__bibliography">
-                    {!! $item->bibliography !!}
+                    <div class="Article__vertical-label">
+                        <span>Bibliographie</span>
+                    </div>
+                    <div class="Article__double-col-container">
+                        {!! $item->bibliography !!}
+                    </div>
                 </div>
             @endif
 
@@ -107,11 +117,20 @@
 
         <footer class="Article__footer">
 
+            <div class="Article__vertical-label">
+                <span>À lire aussi</span>
+            </div>
+
             @foreach($item->present()->featuredArticles as $article)
-                <div class="RelatedArticle">
-                    {{ $article->title }}
-                    <img src="{{ $article->image('cover', 'vertical') }}" alt="" width="100" class="RelatedArticle__thumb">
-                </div>
+                <a class="Article__footer-featured" href="{{ route('article.show',['slug' => $article->slug]) }}">
+                    <img src="{{ $article->image('cover', 'vertical') }}" alt="" class="Article__footer-featured-thumb">
+                    <div class="Article__footer-featured-title">
+                        {{ $article->title }}
+                        <div class="Article__footer-featured-subtitle">
+                            {{ $article->subtitle }}
+                        </div>
+                    </div>
+                </a>
             @endforeach
         </footer>
 

@@ -290,4 +290,113 @@ body {
 .Article__footnotes,
 .Article__bibliography {
   @extend %article-grid;
+  border-top: 1px solid $a-bleu-fonce;
+
+  color: $a-bleu-fonce;
+  & .Article__double-col-container {
+    grid-column: main;
+    padding: 0 0 15px;
+    @include breakpoint($medium-up) {
+      padding: 50px 0 35px;
+      grid-column: 3 / -3;
+      columns: 2;
+      column-gap: calc(100% / 11);
+    }
+    @include breakpoint($a-xxlarge-up) {
+      grid-column: 4 / -4;
+    }
+
+    @extend %rich-text;
+  }
+}
+.Article__vertical-label {
+  margin: 35px 0 25px;
+  @include f-sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: rem(16px);
+  line-height: rem(20px);
+  color: $a-bleu-fonce;
+  grid-column: main;
+  @include breakpoint($medium-up) {
+    grid-column: 1 / 2;
+    text-align: right;
+  }
+  @include breakpoint($a-xxlarge-up) {
+    grid-column: 2 / 3;
+  }
+  & span {
+    @include breakpoint($medium-up) {
+      display: block;
+      transform-origin: bottom right;
+      transform: rotate(-90deg);
+      margin-top: 5px;
+    }
+  }
+}
+
+.Article__footer {
+  @extend %article-grid;
+  background-color: #2b2f98;
+  & .Article__vertical-label {
+    color: #fff;
+    & span {
+      @include breakpoint($medium-up) {
+        margin-top: 40px;
+      }
+    }
+  }
+}
+.Article__footer-featured {
+  &:nth-of-type(odd) {
+    grid-column: first-half;
+  }
+  &:nth-of-type(even) {
+    grid-column: second-half;
+  }
+  margin: 0 0 40px 0;
+  @include breakpoint($medium-up) {
+    margin: 95px 0;
+    &:nth-of-type(3n + 1) {
+      grid-column: 3 / 6;
+    }
+    &:nth-of-type(3n + 2) {
+      grid-column: 7 / 10;
+    }
+    &:nth-of-type(3n + 3) {
+      grid-column: 11 / 14;
+    }
+  }
+  @include breakpoint($a-xxlarge-up) {
+    &:nth-of-type(3n + 1) {
+      grid-column: 4 / 7;
+    }
+    &:nth-of-type(3n + 2) {
+      grid-column: 8 / 11;
+    }
+    &:nth-of-type(3n + 3) {
+      grid-column: 12 / 15;
+    }
+  }
+}
+
+.Article__footer-featured-thumb {
+  display: block;
+  width: 100%;
+}
+.Article__footer-featured-title {
+  margin-top: 10px;
+  @include f-sans;
+  font-style: normal;
+  font-weight: normal;
+
+  font-size: rem(16px);
+  @include breakpoint($medium-up) {
+    font-size: rem(20px);
+  }
+  line-height: 140%;
+  color: #fff;
+  .Article__footer-featured-subtitle {
+    opacity: 0.6;
+  }
 }
