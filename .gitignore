@@ -2,7 +2,10 @@
 /public/hot
 /public/storage
 /public/css/app.css
+/public/css/article.css
 /public/js/app.js
+/public/js/article.js
+/public/js/article.js.LICENSE
 /public/js/bootstrap.js
 /public/js/vendor.js
 /public/js/manifest.js

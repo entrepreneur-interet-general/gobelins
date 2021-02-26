@@ -11,7 +11,7 @@
     [second-half-start] 1fr
     [second-half-end main-end] 25px
     [full-end];
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     grid-template-columns: repeat(15, [col] 1fr);
   }
   @include breakpoint($a-xxlarge-up) {

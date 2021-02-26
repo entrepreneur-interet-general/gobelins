@@ -1,4 +1,4 @@
-.DoubleColText {
+.SingleColText {
   @extend %article-grid;
   margin: 80px 0;
   @include breakpoint($a-xxlarge-up) {
@@ -6,20 +6,18 @@
   }
 }
 
-.DoubleColText__container {
+.SingleColText__container {
   grid-column: main;
   @include breakpoint($medium-up) {
-    grid-column: 3 / -3;
-    columns: 2;
-    column-gap: calc(100% / 11);
+    grid-column: 6 / -4;
   }
   @include breakpoint($a-xxlarge-up) {
-    grid-column: 4 / -4;
+    grid-column: 7 / -5;
   }
 
   @extend %rich-text;
 }
 
-.DoubleColText__container blockquote {
+.SingleColText__container blockquote {
   @extend %definition-blockquote;
 }

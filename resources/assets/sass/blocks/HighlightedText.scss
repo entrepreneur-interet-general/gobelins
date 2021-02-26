@@ -6,16 +6,9 @@
     margin: 100px 0;
   }
 
-  @extend %rich-text;
-  font-size: rem(26px);
-  line-height: 145%;
-  & p {
-    margin: 0;
-  }
-
   &.on-dark-bg {
-    & strong {
-      background-color: #2e2e2e;
+    & .HighlightedText__inner::before {
+      background-color: $a-or-fond-noir;
     }
     @include dark-margin-top(80px);
     @include dark-margin-bottom(80px);
@@ -35,8 +28,14 @@
   }
 
   position: relative;
-  //   border-left: 2px solid currentColor;
   padding-left: 20px;
+
+  @extend %rich-text;
+  font-size: rem(26px);
+  line-height: 145%;
+  & p {
+    margin: 0;
+  }
 
   &::before {
     content: "";
@@ -45,6 +44,6 @@
     bottom: 8px;
     width: 2px;
     left: 0;
-    background-color: currentColor;
+    background-color: $a-or-fond-clair;
   }
 }

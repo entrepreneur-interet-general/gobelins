@@ -30,6 +30,7 @@ if (process.env.MIX_ENABLE_BUNDLE_ANALYZER) {
 }
 
 mix
+  .js("resources/assets/js/article.js", "public/js")
   .react("resources/assets/js/bootstrap.js", "public/js")
   .sass("resources/assets/sass/app.scss", "public/css")
   .sass("resources/assets/sass/article.scss", "public/css")
@@ -44,7 +45,18 @@ mix
       port: 8080,
     },
   })
-  .extract(); // Auto-magically split out vendor JS.
+  .extract([
+    'react',
+    'react-dom',
+    'lodash',
+    'array-to-sentence',
+    'map-cache',
+    'object-assign',
+    'path-root-regex',
+    'is-windows',
+    'path-root',
+    '@sentry/browser',
+  ]);
 
 if (mix.inProduction()) {
   mix.version();

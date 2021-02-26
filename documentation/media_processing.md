@@ -108,6 +108,11 @@ Images are stored in `public/media/xl` directory.
 $ find /path/to/media/xl/ -type f -iname "*.jpg" | parallel --eta -q gm mogrify -resize '1500x1500>' -format jpg -strip {}
 ```
 
+```
+$
+sharp -i 'rototo/**/*.{jpg,JPG}' -o '{dir}' resize 1500 1500 --fit inside --withoutEnlargement --optimise
+```
+
 ### Warm the cache !
 
 We precalculate the listing (grid) version of the images, to be sure that displaying a search result will

@@ -25,6 +25,7 @@
 @import "blocks/GenericGrid";
 @import "blocks/Heading2";
 @import "blocks/HighlightedText";
+@import "blocks/SingleColText";
 @import "blocks/TextImage";
 
 :root {
@@ -50,7 +51,10 @@ body {
 
 .Article__cover-text {
   grid-column: main;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px 1023px) {
+    grid-column: 2 / -2;
+  }
+  @include breakpoint(1024px) {
     grid-column: 2 / 7;
   }
   // @include breakpoint($a-xxlarge-up) {
@@ -61,7 +65,12 @@ body {
 .Article__cover-image-container {
   margin: 60px -25px;
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px 1023px) {
+    margin-top: 85px;
+    margin-left: calc(100vw / 15 * -1);
+    margin-right: calc(100vw / 15 * -1);
+  }
+  @include breakpoint(1024px) {
     position: absolute;
     left: 50%;
     top: 0;
@@ -73,8 +82,9 @@ body {
 }
 
 .Article__cover-image {
-  max-width: 100vw;
-  @include breakpoint($medium-up) {
+  width: 100vw;
+  display: block;
+  @include breakpoint(1024px) {
     height: 100vh;
     width: 50vw;
     object-fit: cover;
@@ -100,7 +110,7 @@ body {
   flex-flow: column;
   align-items: center;
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: block;
     flex: 0 0 auto;
     margin-top: 35px;
@@ -109,7 +119,7 @@ body {
 .Article__logo-container img {
   display: block;
   margin-bottom: 4px;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: inline;
     position: relative;
     top: 3px;
@@ -122,7 +132,7 @@ body {
   font-style: italic;
   line-height: rem(22.1px);
   letter-spacing: 0.03em;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: inline;
   }
 }
@@ -137,7 +147,7 @@ body {
   line-height: rem(26px);
   letter-spacing: 0.05em;
   text-align: center;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: block;
     text-align: left;
   }
@@ -147,17 +157,23 @@ body {
   margin-top: 58px;
   margin-bottom: 0;
   text-align: center;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     flex: 2 0 auto;
-    margin: 80px 0;
+    max-width: 450px;
+    margin: 80px auto;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: stretch;
   }
+  @include breakpoint(1024px) {
+    max-width: initial;
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 .Article__h1-inner {
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: block;
   }
 }
@@ -242,15 +258,31 @@ body {
     color: inherit;
   }
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
+    max-width: 560px;
+    margin: 100px auto 100px;
+  }
+  @include breakpoint(1024px) {
+    max-width: initial;
     margin: 140px 0 110px;
   }
 }
 
 .Article__tags {
   font-size: 0px;
-  margin: 60px 0 160px;
+  margin: 60px 0 100px;
   padding: 0;
+  @include breakpoint(768px) {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include breakpoint(1024px) {
+    max-width: initial;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 160px;
+  }
 }
 .Article__tag {
   @include f-sans;
@@ -287,6 +319,13 @@ body {
   counter-increment: heading2-total-counter;
 }
 
+.Article__bottom-spacer {
+  display: block;
+  height: 130px;
+  @include breakpoint($medium-up) {
+    height: 200px;
+  }
+}
 .Article__footnotes,
 .Article__bibliography {
   @extend %article-grid;
@@ -298,6 +337,7 @@ body {
     padding: 0 0 15px;
     @include breakpoint($medium-up) {
       padding: 50px 0 35px;
+      min-height: 110px;
       grid-column: 3 / -3;
       columns: 2;
       column-gap: calc(100% / 11);
@@ -307,6 +347,13 @@ body {
     }
 
     @extend %rich-text;
+    a,
+    a:hover {
+      color: inherit;
+    }
+    p {
+      orphans: 3;
+    }
   }
 }
 .Article__vertical-label {
@@ -348,6 +395,7 @@ body {
   }
 }
 .Article__footer-featured {
+  text-decoration: none;
   &:nth-of-type(odd) {
     grid-column: first-half;
   }

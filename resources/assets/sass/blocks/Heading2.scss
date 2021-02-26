@@ -3,7 +3,7 @@
   counter-increment: heading2-counter;
   padding: 0;
   margin: 130px 0 60px;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     margin: 200px 0 100px;
   }
   @include breakpoint($a-xxlarge-up) {
@@ -15,7 +15,7 @@
     &:before {
       display: none;
     }
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       padding-top: 200px;
     }
     @include breakpoint($a-xxlarge-up) {
@@ -26,7 +26,7 @@
   &.on-dark-bg {
     @include dark-margin-top(130px);
     @include dark-margin-bottom(60px);
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       @include dark-margin-top(200px);
       @include dark-margin-bottom(100px);
     }
@@ -48,7 +48,7 @@
   font-size: rem(18px);
   line-height: 130%;
 
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     grid-column: 1 / 3;
     position: relative;
     top: 20px; // Alignement optique sur la baseline du titre.
@@ -85,13 +85,13 @@
   text-align: center;
   grid-column: main;
 
-  @include breakpoint($medium-up) {
-    grid-column: 3 / 10;
+  @include breakpoint(768px) {
+    grid-column: 3 / -5;
     font-size: rem(40px);
     line-height: 130%;
     text-align: left;
   }
   @include breakpoint($a-xxlarge-up) {
-    grid-column: 4 / 10;
+    grid-column: 4 / -8;
   }
 }

@@ -91,6 +91,8 @@
 
             {!! $item->renderBlocks(false) !!}
 
+            <div class="Article__bottom-spacer"></div>
+
             @if($item->footnotes)
                 <div class="Article__footnotes">
                     <div class="Article__vertical-label">

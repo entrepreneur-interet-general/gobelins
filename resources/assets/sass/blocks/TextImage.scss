@@ -75,3 +75,7 @@
     }
   }
 }
+
+.TextImage__body blockquote {
+  @extend %definition-blockquote;
+}

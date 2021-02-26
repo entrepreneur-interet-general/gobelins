@@ -7,14 +7,12 @@
   }
 
   @extend %rich-text;
+  @include f-serif;
   font-size: rem(18px);
   line-height: 145%;
+  font-style: italic;
   & p {
     margin: 0;
-  }
-  color: $a-bleu-fonce;
-  &.on-dark-bg {
-    color: $a-rose-poudre;
   }
 }
 
@@ -33,21 +31,33 @@
 
   position: relative;
   margin: 0;
-  padding-left: 20px;
 
   & dt,
   & dd {
     margin: 0;
     padding: 0;
   }
+  & dt {
+    color: $a-or-fond-clair;
+  }
+  .on-dark-bg & dt {
+    color: $a-or-fond-noir;
+  }
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 7px;
-    bottom: 4px;
-    width: 1px;
-    left: 0;
-    background-color: currentColor;
+// We are using <blockquote> to markup definitions :(
+// Because we can't get Quill to output custom tags right now.
+%definition-blockquote {
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 40px;
+  @include f-serif;
+  font-style: italic;
+
+  & strong {
+    color: $a-or-fond-clair;
+  }
+  .on-dark-bg & dt {
+    color: $a-or-fond-noir;
   }
 }

@@ -6,6 +6,7 @@
         'italic',
         ["script" => "super"],
         ["script" => "sub"],
+        "blockquote",
         'link',
         "clean",
     ],

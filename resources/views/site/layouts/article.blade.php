@@ -11,7 +11,9 @@
 <body>
     @yield('content')
 
-    <script src="https://unpkg.com/colcade@0/colcade.js"></script>
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/article.js') }}"></script>
+
 </body>
 
 </html>

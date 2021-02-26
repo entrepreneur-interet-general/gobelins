@@ -83,7 +83,6 @@ class ProductController extends ModuleController
 
     public function getBrowserData($prependScope = [])
     {
-
         return parent::getBrowserData(['is_published' => true]);
     }
 

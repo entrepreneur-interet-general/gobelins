@@ -15,38 +15,15 @@
   line-height: 145%;
 
   & strong {
-    background-color: #e2e9ff;
+    // background-color: #e2e9ff;
+    // padding: 0 3px;
     font-weight: normal;
-    padding: 0 3px;
+    color: $a-or-fond-clair;
   }
-  .on-dark-bg & strong {
-    background-color: #2e2e2e;
-  }
-
-  & p {
-    padding: 0;
-    margin: 0 0 1rem;
-  }
-
-  & a {
-    text-underline-offset: 5px;
-    text-decoration-skip-ink: all;
-    color: #7c7c7c;
-    &:hover {
-      color: #4f4f4f;
-    }
-  }
-}
-
-@mixin rich-text() {
-  @include f-sans;
-  font-size: rem(18px);
-  line-height: 145%;
-
-  & strong {
-    background-color: #e2e9ff;
-    font-weight: normal;
-    padding: 0 3px;
+  .on-dark-bg & strong,
+  &.on-dark-bg strong {
+    // background-color: #2e2e2e;
+    color: $a-or-fond-noir;
   }
 
   & p {

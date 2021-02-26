@@ -1,7 +1,9 @@
 @php
     
     $selected_items_ids = $block->browserIds('products');
-    $products = \App\Models\Product::find($selected_items_ids);
+    $products = \App\Models\Product::find($selected_items_ids)->sortBy(function($p) use ($selected_items_ids) {
+        return array_search($p->getKey(), $selected_items_ids);
+    });
 
 @endphp
 
