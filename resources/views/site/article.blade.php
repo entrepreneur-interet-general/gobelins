@@ -115,6 +115,17 @@
                 </div>
             @endif
 
+            @if($item->present()->photoCredits)
+                <div class="Article__credits">
+                    <div class="Article__vertical-label">
+                        <span>Crédits photo</span>
+                    </div>
+                    <div class="Article__double-col-container">
+                        {{ $item->present()->photoCredits->join(', ') }}.
+                    </div>
+                </div>
+            @endif
+
         </main>
 
         <footer class="Article__footer">

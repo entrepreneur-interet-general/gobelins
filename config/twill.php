@@ -133,5 +133,14 @@ return [
             'products' => 'collection',
         ],
     ],
+    'media_library' => [
+        'extra_metadatas_fields' => [
+            [
+                'name' => 'credit',
+                'label' => 'Crédits photo',
+                'type' => 'text',
+            ],
+        ],
+    ],
 
 ];

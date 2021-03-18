@@ -327,7 +327,8 @@ body {
   }
 }
 .Article__footnotes,
-.Article__bibliography {
+.Article__bibliography,
+.Article__credits {
   @extend %article-grid;
   border-top: 1px solid $a-bleu-fonce;
 

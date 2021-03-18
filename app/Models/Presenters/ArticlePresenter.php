@@ -33,4 +33,14 @@ class ArticlePresenter extends Presenter
             return $related;
         }
     }
+
+    /**
+     * Retreive all photographic credits from all blocks of this article.
+     *
+     * @return Collection
+     */
+    public function photoCredits()
+    {
+        return $this->blocks->pluck('medias')->reject(function ($c) {return $c->isEmpty();})->flatten()->pluck('credit')->filter()->unique();
+    }
 }
