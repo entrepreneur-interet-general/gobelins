@@ -30,7 +30,7 @@ function Authors(props) {
       <DataUnitTemplate
         label={label}
         value={props.authors
-          .map(a => [a.first_name, a.last_name].join(" "))
+          .map((a) => [a.first_name, a.last_name].join(" "))
           .join(", ")}
       />
     );
@@ -60,7 +60,7 @@ function Types(props) {
   if (props.types && props.types instanceof Array && props.types.length > 0) {
     const label = props.types.length > 1 ? label_plural : label_singular;
     const val = props.types
-      .filter(t => t.is_leaf)[0]
+      .filter((t) => t.is_leaf)[0]
       .mapping_key.split(" > ")
       .filter((v, i, a) => a.indexOf(v) === i)
       .join(", ");
@@ -92,8 +92,8 @@ function Materials(props) {
           // Annoying corner-case: don't repeat "cuir" and "skaï".
           // Fortunately, we don't have any products classified in
           // the generic "cuir et skaï" category…
-          .filter(m => m.name != "Cuir et skaï")
-          .map(m => m.name)
+          .filter((m) => m.name != "Cuir et skaï")
+          .map((m) => m.name)
           .join(", ")}
       />
     );
@@ -115,22 +115,23 @@ function ProductionOrigin(props) {
 function Dimensions(props) {
   const has_dims = props.l || props.w || props.h; // values can be null!
   let dims = [
+    parseFloat(props.h || 0),
     parseFloat(props.l || 0),
     parseFloat(props.w || 0),
-    parseFloat(props.h || 0)
   ];
-  const is_small = has_dims && dims.filter(d => d > 0 && d < 1).length > 0;
+  const is_small = has_dims && dims.filter((d) => d > 0 && d < 1).length > 0;
   dims = is_small
     ? dims
-        .map(d => parseFloat((d * 100).toFixed(2)))
-        .map(d => (Number.isInteger(d) ? parseInt(d) : d))
+        .map((d) => parseFloat((d * 100).toFixed(2)))
+        .map((d) => (Number.isInteger(d) ? parseInt(d) : d))
     : dims;
   const unit = is_small ? "cm" : "m";
+  const label_dims = dims[0] === 0 ? "(L × l)" : "(H × L × pr)";
   return has_dims ? (
     <DataUnitTemplate
-      label="Dimensions (L × l × h)"
+      label={"Dimensions " + label_dims}
       value={
-        dims.map(d => d.toString().replace(".", ",")).join(" × ") + " " + unit
+        dims.map((d) => d.toString().replace(".", ",")).join(" × ") + " " + unit
       }
     />
   ) : null;
@@ -141,7 +142,7 @@ function Acquisition(props) {
     ? new Date(props.acquisitionDate).toLocaleDateString("fr-FR", {
         day: "numeric",
         month: "short",
-        year: "numeric"
+        year: "numeric",
       })
     : null;
   return props.acquisitionOrigin ||
@@ -152,7 +153,7 @@ function Acquisition(props) {
       value={[
         acquisitionDate,
         props.acquisitionMode.name,
-        props.acquisitionOrigin
+        props.acquisitionOrigin,
       ]
         .filter(Boolean)
         .join(" – ")}
@@ -197,7 +198,7 @@ function Data(props) {
           period={{
             name: props.product.period_name,
             startYear: props.product.period_start_year,
-            endYear: props.product.period_end_year
+            endYear: props.product.period_end_year,
           }}
         />
         <Materials materials={props.product.materials} />
