@@ -1,5 +1,28 @@
 # Journal de mise en production
 
+## Finalisé le 05/05/2020 - Nouveaux contenus
+
+1. Sur datasource
+
+```
+psql  --host=localhost --username=gobelins --dbname=datasource --file=datasource_2020-05-05.sql
+```
+
+2. Deployer l'application gobelins-datasource :
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 deploy-datasource.yml --limit=production`
+
+3. Déployer l'application gobelins
+   `$ ansible-playbook --vault-password-file=vault_password -i inventory/cmn-p0-app201 deploy-gobelins.yml --limit=production`
+
+Sur gobelins:
+
+```
+$ cd /var/www/gobelins/current
+$ php artisan gobelins:import
+$ php artisan gobelins:refresh-selections
+$ php -d memory_limit=-1 artisan generate:sitemaps
+```
+
 ## Finalisé le 17/09/2020 - OAI-PMH et nouveaux contenus
 
 Deployer les modifs sur les fichiers .env (pour datasource_username, etc) :
@@ -21,7 +44,7 @@ Sur gobelins :
 ```
 $ cd /var/www/gobelins/current
 $ php artisan gobelins:import
-$ php artisan gobelins:refresh-selection
+$ php artisan gobelins:refresh-selections
 $ php -d memory_limit=-1 artisan generate:sitemaps
 ```
 
