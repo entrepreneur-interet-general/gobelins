@@ -2,28 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
-use App\Models\ProductType;
-use App\Models\Author;
-use App\Models\Period;
-use App\Models\Style;
-use App\Models\Material;
-use App\Models\ProductionOrigin;
 use App\Models\Selection;
 use App\User;
+use Artesaos\SEOTools\Facades\JsonLd;
 use ES;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use SEO;
-use Artesaos\SEOTools\Facades\JsonLd;
-use \App\Http\Resources\ListedSelection;
 use \App\Http\Resources\SelectionCollection;
 
 class SearchController extends Controller
 {
     private static $RESULTS_PER_PAGE = 25;
-    
+
     /**
      * Search page
      * Gather filter data, and boot the React app.
@@ -33,7 +26,7 @@ class SearchController extends Controller
         $product = null;
         if ($request->route()->named('product') || $request->route()->named('product_zoom')) {
             $product = Product::published()->byInventory($inventory_id)->firstOrFail();
-            
+
             SEO::setTitle($product->seoTitle);
             SEO::setDescription($product->seoDescription);
             JsonLd::setType('CreativeWork');
@@ -53,25 +46,25 @@ class SearchController extends Controller
         $mob_nat_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
         if ($request->route()->named('selections')) {
             $my_selections = Auth::check() ? new SelectionCollection(Auth::user()
-                ->selections()
-                ->orderBy('updated_at', 'DESC')
-                ->with(['users:id,name'])
-                ->paginate(4)
-                ->withPath(route('api.mySelections'))) : null;
+                    ->selections()
+                    ->orderBy('updated_at', 'DESC')
+                    ->with(['users:id,name'])
+                    ->paginate(4)
+                    ->withPath(route('api.mySelections'))) : null;
             $mob_nat_selections = new SelectionCollection($mob_nat_user->selections()
-                ->public()
-                ->orderBy('updated_at', 'DESC')
-                ->with('users:id,name,email')
-                ->paginate(4)
-                ->withPath(route('api.mobNatSelections')));
+                    ->public()
+                    ->orderBy('updated_at', 'DESC')
+                    ->with('users:id,name,email')
+                    ->paginate(4)
+                    ->withPath(route('api.mobNatSelections')));
             $user_selections = new SelectionCollection(Selection::with('users:id,name,email')
-                ->public()
-                ->whereDoesntHave('users', function ($q) {
-                    $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
-                })
-                ->orderBy('selections.updated_at', 'DESC')
-                ->paginate(4)
-                ->withPath(route('api.userSelections')));
+                    ->public()
+                    ->whereDoesntHave('users', function ($q) {
+                        $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+                    })
+                    ->orderBy('selections.updated_at', 'DESC')
+                    ->paginate(4)
+                    ->withPath(route('api.userSelections')));
         }
 
         $selection_detail = null;
@@ -89,7 +82,6 @@ class SearchController extends Controller
             $currentUser['api_token'] = $user->api_token;
         }
 
-
         return view('site.search', [
             'product' => $product,
             'my_selections' => $my_selections,
@@ -103,7 +95,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         $query = ES::type("products");
-        
+
         $filters = [];
 
         $inventory_roots = Cache::rememberForever('distinct_inventory_roots', function () {
@@ -117,13 +109,13 @@ class SearchController extends Controller
                 ->sort()->values()->implode('|');
             return '(' . $out . ')';
         });
-        
+
         $product_type_ids = [];
         if (is_array($request->input('product_type_ids'))) {
             $product_type_ids = $request->input('product_type_ids');
             $filters[] = ['terms' => ['product_types.id' => $product_type_ids]];
         }
-        
+
         $style_ids = [];
         if (is_array($request->input('style_ids'))) {
             $style_ids = $request->input('style_ids');
@@ -135,7 +127,7 @@ class SearchController extends Controller
             $author_ids = $request->input('author_ids');
             $filters[] = ['terms' => ['authors.id' => $author_ids]];
         }
-        
+
         $period_start_year = false;
         $period_end_year = false;
         if (is_numeric($request->input('period_start_year')) && is_numeric($request->input('period_end_year'))) {
@@ -143,21 +135,21 @@ class SearchController extends Controller
             $period_end_year = (int) $request->input('period_end_year');
             $filters[] = [
                 'bool' => [
-                    'should' => [
+                    'must' => [
                         ['bool' => [
                             'must' => [
                                 ['range' => ['period_start_year' => ['lt' => $period_end_year]]],
                                 ['range' => ['period_end_year' => ['gt' => $period_start_year]]],
-                            ]
+                            ],
                         ]],
                         ['bool' => [
                             'must' => [
                                 ['range' => ['conception_year' => ['lte' => $period_end_year]]],
                                 ['range' => ['conception_year' => ['gte' => $period_start_year]]],
-                            ]
-                        ]]
-                    ]
-                ]
+                            ],
+                        ]],
+                    ],
+                ],
             ];
         }
 
@@ -174,11 +166,11 @@ class SearchController extends Controller
         }
 
         $dimensions = collect(['length_or_diameter_lte',
-                               'length_or_diameter_gte',
-                               'depth_or_width_lte',
-                               'depth_or_width_gte',
-                               'height_or_thickness_lte',
-                               'height_or_thickness_gte']);
+            'length_or_diameter_gte',
+            'depth_or_width_lte',
+            'depth_or_width_gte',
+            'height_or_thickness_lte',
+            'height_or_thickness_gte']);
         $sanitized_dimensions = [];
         $dimensions->filter(function ($d) use ($request) {
             return $request->$d;
@@ -190,7 +182,7 @@ class SearchController extends Controller
                 $sanitized_dimensions[$d] = (float) $request->input($d);
             }
         });
-        
+
         $body = [
             'query' => [
                 'function_score' => [
@@ -199,22 +191,22 @@ class SearchController extends Controller
                         // Display products with good images first, then bad images, then those without images.
                         'field' => 'image_quality_score',
                         'factor' => 1.2,
-                        'missing' => 1
+                        'missing' => 1,
                     ],
                     'query' => [
                         // Filter terms are boolean AND i.e. "must".
-                        'bool' => []
-                    ]
-                ]
-            ]
+                        'bool' => [],
+                    ],
+                ],
+            ],
         ];
         if ($request->input('q')) {
-            if (preg_match('/^'.$inventory_roots.'[- \/][0-9]+[- \/][0-9]{3}$/i', $request->input('q'), $matches)) {
+            if (preg_match('/^' . $inventory_roots . '[- \/][0-9]+[- \/][0-9]{3}$/i', $request->input('q'), $matches)) {
                 // Inventory id exact match
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'match' => [
-                        'inventory_id_as_keyword' => str_replace([' ', '/'], '-', strtoupper($request->input('q')))
-                    ]
+                        'inventory_id_as_keyword' => str_replace([' ', '/'], '-', strtoupper($request->input('q'))),
+                    ],
                 ];
             } else {
                 // Full text search
@@ -234,12 +226,12 @@ class SearchController extends Controller
                     // use-case : "Notre-dame"
                     $a = mb_split(' |-', strtolower($request->input('q')));
                     // Strip stop words
-                    $stopwords = ['de','du','le','la',
-                    'et','da','l','d','van',
-                    'von','der','au','pour',
-                    'sur','à','a','en','par'];
+                    $stopwords = ['de', 'du', 'le', 'la',
+                        'et', 'da', 'l', 'd', 'van',
+                        'von', 'der', 'au', 'pour',
+                        'sur', 'à', 'a', 'en', 'par'];
                     $f = array_filter($a, function ($item) use ($stopwords) {
-                        return ! in_array($item, $stopwords);
+                        return !in_array($item, $stopwords);
                     });
                     // Force boolean AND operator.
                     $q = implode(' AND ', $f);
@@ -248,7 +240,7 @@ class SearchController extends Controller
                 // Remove all forward slashes, that are interpreted
                 // as regular expression searches.
                 $q = str_replace('/', ' ', $q);
-                
+
                 $body['query']['function_score']['query']['bool']['must'] = [
                     'query_string' => [
                         'query' => $q,
@@ -290,27 +282,27 @@ class SearchController extends Controller
             'all' => [
                 'global' => (object) null,
                 'aggs' => [],
-            ]
+            ],
         ];
         foreach ($aggregated_filters as $k => $v) {
             $body['aggs']['all']['aggs'][$k] = [
                 'terms' => [
                     'field' => $v,
                     'size' => 5000,
-                ]
+                ],
             ];
         };
-        
+
         if (sizeof($filters) === 0 && empty($request->input('q'))) {
             // Randomize the default results.
             // TODO: store the seed client-side, to have consistent
             // random scoring across pagination.
             $body["query"] = [
-                "function_score"=> [
+                "function_score" => [
                     "functions" => [
-                        ["random_score"=> ["seed"=> time()]]
-                    ]
-                ]
+                        ["random_score" => ["seed" => time()]],
+                    ],
+                ],
             ];
             $body["sort"] = [['image_quality_score' => 'desc'], '_score'];
         }
@@ -321,7 +313,7 @@ class SearchController extends Controller
 
         $pagination = $query->body($body)->paginate(self::$RESULTS_PER_PAGE);
         $raw_aggs = $query->response()['aggregations']['all'];
-        
+
         $aggs = [];
         foreach ($aggregated_filters as $k => $v) {
             $buckets = $raw_aggs[$k]['buckets'];

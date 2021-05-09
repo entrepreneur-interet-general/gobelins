@@ -15,12 +15,12 @@ export default class AuthModal extends React.Component {
         props.action && props.action === "login"
           ? LoginAction
           : props.action && props.action === "register"
-          ? RegisterAction
-          : DefaultAction,
-      loading: true
+            ? RegisterAction
+            : DefaultAction,
+      loading: true,
     };
   }
-  switchToAction = actionComponent => {
+  switchToAction = (actionComponent) => {
     this.setState({ action: actionComponent });
   };
   render() {
@@ -36,10 +36,10 @@ export default class AuthModal extends React.Component {
 const ActionComponents = {
   default: DefaultAction,
   login: LoginAction,
-  register: RegisterAction
+  register: RegisterAction,
 };
 
-const DefaultAction = props => {
+const DefaultAction = (props) => {
   return (
     <div className="AuthModal__action-default">
       <div className="AuthModal__default-label">
@@ -68,7 +68,7 @@ const DefaultAction = props => {
   );
 };
 
-const LoaderOverlay = props => {
+const LoaderOverlay = (props) => {
   return (
     <div className="AuthModal__loading-overlay">
       <Loader />
@@ -89,26 +89,26 @@ class RegisterAction extends React.Component {
       password: "",
       csrfToken: document
         .querySelector("meta[name=csrf-token]")
-        .getAttribute("content")
+        .getAttribute("content"),
     };
   }
-  handleInputChange = ev => {
+  handleInputChange = (ev) => {
     const target = ev.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  handleSubmit = ev => {
+  handleSubmit = (ev) => {
     ev.preventDefault();
     this.setState({ loading: true });
     // authClient
     this.context
       .register(this.state)
-      .then(data => {
+      .then((data) => {
         if (data.status === "ok") {
           notifier(`Bienvenue, ${data.user.name} !`);
           if (this.props.onRegister) {
@@ -118,11 +118,11 @@ class RegisterAction extends React.Component {
           notifier(`Une erreur est survenue. Veuillez réessayer plus tard. 🙁`);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           loading: false,
           errorMessage: error.message,
-          errors: flatten(Object.values(error.errors))
+          errors: flatten(Object.values(error.errors)),
         });
       });
   };
@@ -202,11 +202,11 @@ class LoginAction extends React.Component {
       password: "",
       csrfToken: document
         .querySelector("meta[name=csrf-token]")
-        .getAttribute("content")
+        .getAttribute("content"),
     };
   }
 
-  handleSubmit = ev => {
+  handleSubmit = (ev) => {
     ev.preventDefault();
     this.setState({ loading: true });
 
@@ -219,18 +219,18 @@ class LoginAction extends React.Component {
         }
         // notifier(`Bienvenue, ${data.user.name} !`);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false, errorMessage: error.message });
       });
   };
 
-  handleInputChange = ev => {
+  handleInputChange = (ev) => {
     const target = ev.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -267,6 +267,16 @@ class LoginAction extends React.Component {
               onChange={this.handleInputChange}
               required
             />
+            <div className="AuthModal__switch-links">
+              <button
+                type="button"
+                onClick={() => {
+                  this.props.switchToAction(ForgotPasswordAction);
+                }}
+              >
+                Mot de passe oublié ?
+              </button>
+            </div>
             <Button type="submit" className="AuthModal__login-submit">
               Valider
             </Button>
@@ -290,18 +300,18 @@ class ForgotPasswordAction extends React.Component {
       email: "",
       csrfToken: document
         .querySelector("meta[name=csrf-token]")
-        .getAttribute("content")
+        .getAttribute("content"),
     };
   }
 
-  handleSubmit = ev => {
+  handleSubmit = (ev) => {
     ev.preventDefault();
     this.setState({ loading: true, errorMessage: false });
 
     // authClient
     this.context
       .resetPassword(this.state)
-      .then(data => {
+      .then((data) => {
         if (data.status == "ok") {
           notifier(
             "Un lien pour réinitialiser votre mot de passe vous a été envoyé par e-mail."
@@ -309,22 +319,22 @@ class ForgotPasswordAction extends React.Component {
           this.props.onCloseModal();
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           loading: false,
           sent: false,
-          errorMessage: error.message
+          errorMessage: error.message,
         });
       });
   };
 
-  handleInputChange = ev => {
+  handleInputChange = (ev) => {
     const target = ev.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 

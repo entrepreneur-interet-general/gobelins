@@ -20,9 +20,9 @@ class Image extends Model
     ];
 
     protected $touches = ['product'];
-    
+
     protected $hidden = [
-        'pivot' // Hide from toArray()
+        'pivot', // Hide from toArray()
     ];
 
     // Maps the directory name to a human name.
@@ -39,11 +39,11 @@ class Image extends Model
         'GLOMET' => 'Valérie Glomet',
         'ISAKOVITCH' => 'Sandra Isakovitch',
         'MANCEL' => 'Nicolas Mancel',
-        'MONTAGNE' => 'Lucile Montagne',
+        // 'MONTAGNE' => 'Lucile Montagne',
         // 'SARASA' => 'Marina Sarasa',
         'THARAUD' => 'Marie-Amélie Tharaud',
     ];
-    
+
     public function product()
     {
         return $this->belongsTo(Product::class);
