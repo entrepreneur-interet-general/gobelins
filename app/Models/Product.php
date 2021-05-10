@@ -14,6 +14,10 @@ class Product extends Model
 
     protected $hidden = ['pivot'];
 
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
+
     public $presenterAdmin = AdminProductPresenter::class;
     public $presenter = ProductPresenter::class;
 
