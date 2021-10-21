@@ -5,6 +5,11 @@
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;
   }
+
+  &.on-dark-bg {
+    margin-bottom: 0;
+    padding-bottom: 80px;
+  }
 }
 
 .DoubleColText__container {

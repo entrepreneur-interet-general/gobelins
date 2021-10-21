@@ -1,6 +1,11 @@
 .GenericGrid {
   @extend %article-grid;
   position: relative;
+
+  &.on-dark-bg {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
 }
 
 .GenericGrid--3-cols .GenericGrid__item {
@@ -71,8 +76,10 @@
   width: 100%;
 
   &.GenericGrid__item-image--circled {
-    /* Peligro: if the image isn't square, this will become a funky oval. */
     border-radius: 50%;
+    /* Peligro: if the image isn't square, this will become a funky oval. */
+    aspect-ratio: 1;
+    object-fit: cover;
   }
 }
 
