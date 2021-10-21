@@ -217,9 +217,15 @@ body {
 }
 
 .Article__arrow-down {
-  flex: 1 0 auto;
+  // flex: 1 0 auto;
   display: block;
-  margin: 50px auto;
+  margin: 30px auto;
+  @include breakpoint($medium-up) {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: relative;
+    top: calc(30vh / 2);
+  }
 }
 
 .Article__meta-wrap {

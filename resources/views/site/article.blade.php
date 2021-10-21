@@ -39,15 +39,15 @@
                                 </svg>
                                 <span class="Article__reading-time-label">20 min</span>
                             </div>
+                            <svg width="20" height="27" viewBox="0 0 20 27" class="Article__arrow-down">
+                                <path d="M18.7441 18.1543L9.97363 26.5" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M0.999268 18L9.97388 26.5" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.97365 26.5L9.97363 1" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </span>
                     </h1>
 
 
-                    <svg width="20" height="27" viewBox="0 0 20 27" class="Article__arrow-down">
-                        <path d="M18.7441 18.1543L9.97363 26.5" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M0.999268 18L9.97388 26.5" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M9.97365 26.5L9.97363 1" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
 
                     <div class="Article__meta-wrap">
                         <strong class="Article__byline">
