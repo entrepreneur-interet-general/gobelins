@@ -12,7 +12,7 @@
     [second-half-end main-end] 25px
     [full-end];
   @include breakpoint(768px) {
-    grid-template-columns: repeat(15, [col] 1fr);
+    grid-template-columns: repeat(15, [col] minmax(0, 1fr));
   }
   @include breakpoint($a-xxlarge-up) {
     grid-template-columns: 200px repeat(15, [col] 1fr) 200px;

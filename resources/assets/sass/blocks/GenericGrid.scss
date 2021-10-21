@@ -1,5 +1,6 @@
 .GenericGrid {
   @extend %article-grid;
+  position: relative;
 }
 
 .GenericGrid--3-cols .GenericGrid__item {

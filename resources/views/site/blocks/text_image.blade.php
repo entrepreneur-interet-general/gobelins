@@ -1,5 +1,7 @@
 <div class="TextImage @if($block->input('dark_bg')) on-dark-bg @endif @if($block->input('image_alignment') === 'right') TextImage--img-right @else TextImage--img-left @endif">
 
+    <div class="has-decorative-bg"></div>
+
     <div class="TextImage__body">
 
         {!! $block->input('body') !!}

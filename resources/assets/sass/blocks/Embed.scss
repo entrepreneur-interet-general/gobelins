@@ -1,4 +1,5 @@
 .Embed {
   @extend %article-grid;
+  position: relative;
   display: none;
 }

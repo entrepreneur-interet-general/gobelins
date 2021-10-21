@@ -10,9 +10,8 @@
                 <div class="Article__cover-primary">
 
                     <div class="Article__logo-container">
-                        <img src="/images/logos/mn.svg" alt="" height="14" width="44">
                         <div class="Article__logo-encyclo">
-                            encyclopédie des savoir-faire
+                            Encyclopédie des savoir-faire
                         </div>
                         <div class="Article__logo-mobnat">
                             Mobilier National
@@ -29,6 +28,17 @@
                                     {{ $item->subtitle }}
                                 </span>
                             @endif
+                            <div class="Article__reading-time">
+                                <svg width="22" height="9" class="Article__reading-time-icon" alt="Temps de lecture">
+                                    <title>Temps de lecture</title>
+                                    <circle cx="16.0009" cy="4.55556" r="3.55556" stroke="white"/>
+                                    <circle cx="6.22157" cy="4.55556" r="3.55556" stroke="white"/>
+                                    <path d="M12.4435 4.5561C12.4435 3.57426 11.8466 2.77832 11.1102 2.77832C10.3738 2.77832 9.77686 3.57426 9.77686 4.5561" stroke="white"/>
+                                    <path d="M1 3.55566H2.4" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M19.8906 3.55566H21.0017" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="Article__reading-time-label">20 min</span>
+                            </div>
                         </span>
                     </h1>
 
@@ -95,6 +105,7 @@
 
             @if($item->footnotes)
                 <div class="Article__footnotes">
+                    <div class="Article__footnotes-decoration"></div>
                     <div class="Article__vertical-label">
                         <span>Notes</span>
                     </div>
@@ -115,22 +126,25 @@
                 </div>
             @endif
 
-            @if($item->present()->photoCredits)
-                <div class="Article__credits">
-                    <div class="Article__vertical-label">
-                        <span>Crédits photo</span>
-                    </div>
-                    <div class="Article__double-col-container">
-                        {{ $item->present()->photoCredits->join(', ') }}.
-                    </div>
+
+            <div class="Article__credits">
+                <div class="Article__vertical-label">
+                    <span>Crédits photo</span>
                 </div>
-            @endif
+                <div class="Article__double-col-container">
+                    <p>{{ $item->present()->photoCredits->join(', ') }}.</p>
+                </div>
+            </div>
 
         </main>
 
+        <div class="Article__footer-decoration">
+            <div class="Article__footer-decoration-inner"></div>
+        </div>
+
         <footer class="Article__footer">
 
-            <div class="Article__vertical-label">
+            <div class="Article__footer-label">
                 <span>À lire aussi</span>
             </div>
 
@@ -148,5 +162,7 @@
         </footer>
 
     </article>
+
+    @include('site._site_footer')
 
 @stop

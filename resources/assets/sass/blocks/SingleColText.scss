@@ -1,5 +1,6 @@
 .SingleColText {
   @extend %article-grid;
+  position: relative;
   margin: 80px 0;
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;

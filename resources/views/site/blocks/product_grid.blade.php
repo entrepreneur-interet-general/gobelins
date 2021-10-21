@@ -10,7 +10,6 @@
 
 <div class="ArticleCollectionGrid @if($block->input('dark_bg')) on-dark-bg @endif" data-colcade="columns: .ArticleCollectionGrid__column, items: .ArticleCollectionGrid__item">
 
-
     <div class="ArticleCollectionGrid__column"></div>
     <div class="ArticleCollectionGrid__column"></div>
     <div class="ArticleCollectionGrid__column"></div>

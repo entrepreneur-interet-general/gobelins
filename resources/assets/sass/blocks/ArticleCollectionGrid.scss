@@ -1,5 +1,6 @@
 .ArticleCollectionGrid {
   @extend %article-grid;
+  position: relative;
 }
 .ArticleCollectionGrid__column:nth-child(1) {
   grid-column: first-half;

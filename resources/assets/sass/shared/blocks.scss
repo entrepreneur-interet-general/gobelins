@@ -2,11 +2,13 @@
 
 %image-caption {
   @include f-sans;
-  font-size: rem(16px);
+  font-style: italic;
+  font-size: rem(13px);
   line-height: 145%;
-  color: $a-gris-medium;
+  color: #000;
   margin-top: 22px;
   margin-bottom: 40px;
+  text-align: center;
 }
 
 %rich-text {
@@ -46,6 +48,7 @@
   background-color: $a-dark-bg;
   color: #fff;
   position: relative;
+  z-index: 1;
 }
 
 @mixin dark-margin-top($height) {
@@ -72,4 +75,78 @@
     height: $height;
     z-index: -1;
   }
+}
+
+:not(.on-dark-bg) + .on-dark-bg .has-decorative-bg {
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  height: 417px;
+  width: 743px;
+  top: -418px;
+  right: 0px;
+  overflow: hidden;
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    height: 812px;
+    width: 812px;
+    top: 90px;
+    right: -70px;
+    z-index: -1;
+    background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%
+      ),
+      #6167ff;
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+    box-shadow: inset 0px 0px 200px 20px #ffffff;
+    background-repeat: no-repeat;
+  }
+
+  &:after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 345px;
+    height: 345px;
+    right: -16px;
+    top: 0;
+    z-index: -1;
+    background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%
+      ),
+      #ff8989;
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+    box-shadow: inset 0px 0px 200px 20px #ffffff;
+  }
+}
+
+.on-dark-bg + :not(.on-dark-bg) .has-decorative-bg {
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  height: 802px;
+  width: 802px;
+  top: -246px;
+  right: 204px;
+  z-index: -1;
+  background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(255, 255, 255, 0) 0%,
+      #ffffff 100%
+    ),
+    #b86e00;
+  mix-blend-mode: multiply;
+  opacity: 0.3;
+  box-shadow: inset 0px 0px 200px 20px #ffffff;
+  background-repeat: no-repeat;
 }

@@ -1,5 +1,6 @@
 .CenteredImage {
   @extend %article-grid;
+  position: relative;
   padding: 0;
   margin: 80px 0;
   @include breakpoint($a-xxlarge-up) {

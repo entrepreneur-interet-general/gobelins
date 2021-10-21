@@ -3,6 +3,7 @@
   counter-increment: heading2-counter;
   padding: 0;
   margin: 130px 0 60px;
+  position: relative;
   @include breakpoint(768px) {
     margin: 200px 0 100px;
   }
@@ -34,6 +35,10 @@
       @include dark-margin-top(250px);
       @include dark-margin-bottom(120px);
     }
+  }
+
+  &:not(.on-dark-bg) .has-decorative-bg {
+    top: -550px !important;
   }
 }
 
