@@ -41,6 +41,18 @@
       color: #4f4f4f;
     }
   }
+
+  & h3 {
+    @include f-serif;
+    font-weight: normal;
+    font-size: rem(24px);
+    line-height: 145%;
+    color: $a-or-fond-clair;
+  }
+  .on-dark-bg & h3,
+  &.on-dark-bg h3 {
+    color: $a-or-fond-noir;
+  }
 }
 
 /* Apply dark background to blocks */

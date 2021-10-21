@@ -14,6 +14,7 @@
     'name' => 'body',
     'label' => 'Texte',
     'toolbarOptions' => [
+        ["header"=> "3" ],
         'bold',
         'italic',
         ["script" => "super"],
