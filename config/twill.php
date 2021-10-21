@@ -22,11 +22,6 @@ return [
                 'icon' => 'text-2col',
                 'component' => 'a17-block-double_col_text',
             ],
-            'centered_text' => [
-                'title' => 'Texte centré',
-                'icon' => 'quote',
-                'component' => 'a17-block-centered_text',
-            ],
             'highlighted_text' => [
                 'title' => 'Texte mis en exergue',
                 'icon' => 'text',
