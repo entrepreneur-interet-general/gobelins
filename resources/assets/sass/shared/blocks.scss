@@ -9,6 +9,10 @@
   margin-top: 22px;
   margin-bottom: 40px;
   text-align: center;
+  .on-dark-bg &,
+  &.on-dark-bg {
+    color: #fff;
+  }
 }
 
 %rich-text {
