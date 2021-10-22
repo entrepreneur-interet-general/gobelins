@@ -16,7 +16,7 @@
 
     @foreach($products as $prod)
 
-        <a href="{{ route('product', ['inventory_id' => $prod->inventory_id]) }}" class="ArticleCollectionGrid__item">
+        <a href="{{ route('product', ['inventory_id' => $prod->inventory_id]) }}" target="_blank" class="ArticleCollectionGrid__item">
 
             @if ($prod->posterImage)
                 <img src="{{  image_url('/media/xl/' . $prod->posterImage->path, 600) }}" alt="" class="ArticleCollectionGrid__thumbnail">
