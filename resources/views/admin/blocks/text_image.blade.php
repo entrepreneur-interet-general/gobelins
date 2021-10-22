@@ -4,6 +4,7 @@
     'toolbarOptions' => [
         'bold',
         'italic',
+        ["color" => "#7c7c7c"],
         ["script" => "super"],
         ["script" => "sub"],
         "blockquote",
