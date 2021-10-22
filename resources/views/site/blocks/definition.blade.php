@@ -5,7 +5,7 @@
     <dl class="Definition__inner">
 
         <dt class="Definition__term">
-            Définition : {{ $block->input('term') }}
+            Définition {{ $block->input('term') }} :
         </dt>
 
         <dd class="Definition__description">
