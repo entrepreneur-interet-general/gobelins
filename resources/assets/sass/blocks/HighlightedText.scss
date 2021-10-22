@@ -22,10 +22,10 @@
 .HighlightedText__inner {
   grid-column: main;
   @include breakpoint($medium-up) {
-    grid-column: 3 / 8;
+    grid-column: 3 / 10;
   }
   @include breakpoint($a-xxlarge-up) {
-    grid-column: 4 / 10;
+    grid-column: 4 / 11;
   }
 
   position: relative;
