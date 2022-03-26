@@ -1,5 +1,7 @@
 .SiteFooter {
   background-color: #f2f2f2;
+  position: relative;
+  z-index: 1;
   @extend %article-grid;
   padding: 90px 0;
   @include breakpoint(768px) {

@@ -47,11 +47,14 @@ Route::get('/encyclopedie/{slug}', 'ArticleController@show')
     ->name('article.show')
     ->where('slug', '.*');
 
+Route::get('/encyclopedie', 'ArticleController@home')
+    ->name('article.home');
+
 /* Internal routes */
 Route::get('/ui', 'SearchController@index')
     ->name('ui');
 
 /* Static pages routes */
-Route::get('/info', 'HomeController@info');
+Route::get('/info', 'HomeController@info')->name('static_info');
 
 Auth::routes(['verify' => true]);
