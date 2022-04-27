@@ -27,21 +27,21 @@
   display: grid;
   position: relative;
   
-  grid-template-columns: [full-start] 15px [main-start first-half-start] 1fr [first-half-end] 15px [second-half-start] 1fr [second-half-end main-end] 15px [full-end];
+  grid-template-columns: [full-start] 15px [main-start first-half-start] minmax(0, 1fr) [first-half-end] 15px [second-half-start] minmax(0, 1fr) [second-half-end main-end] 15px [full-end];
   
   @include breakpoint(768px) {
     grid-template-columns:
-      [full-start] 40px [main-start] repeat(6, 1fr) [main-end] 40px [full-end];
+      [full-start] 40px [main-start] repeat(6, minmax(0, 1fr)) [main-end] 40px [full-end];
     column-gap: 20px;
   }
   
   @include breakpoint($large-up) {
-    grid-template-columns: repeat(20, [col] 1fr);
+    grid-template-columns: repeat(20, [col] minmax(0, 1fr));
     column-gap: 0;
   }
   
   @include breakpoint($a-xxlarge-up) {
-    grid-template-columns: repeat(22, [col] 1fr);
+    grid-template-columns: repeat(22, [col] minmax(0, 1fr));
     column-gap: 0;
   }
 }
