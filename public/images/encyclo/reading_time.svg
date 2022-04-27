@@ -1,0 +1,8 @@
+<svg width="22" height="9" viewBox="0 0 22 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <title>Temps de lecture</title>
+    <circle cx="16.0009" cy="4.55556" r="3.55556" stroke="currentColor"></circle>
+    <circle cx="6.22157" cy="4.55556" r="3.55556" stroke="currentColor"></circle>
+    <path d="M12.4435 4.5561C12.4435 3.57426 11.8466 2.77832 11.1102 2.77832C10.3738 2.77832 9.77686 3.57426 9.77686 4.5561" stroke="currentColor"></path>
+    <path d="M1 3.55566H2.4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M19.8906 3.55566H21.0017" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>

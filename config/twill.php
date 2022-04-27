@@ -22,11 +22,11 @@ return [
                 'icon' => 'text-2col',
                 'component' => 'a17-block-double_col_text',
             ],
-            'centered_text' => [
-                'title' => 'Texte centré',
-                'icon' => 'quote',
-                'component' => 'a17-block-centered_text',
-            ],
+            // 'centered_text' => [
+            //     'title' => 'Texte centré',
+            //     'icon' => 'quote',
+            //     'component' => 'a17-block-centered_text',
+            // ],
             'highlighted_text' => [
                 'title' => 'Texte mis en exergue',
                 'icon' => 'text',
@@ -139,6 +139,41 @@ return [
                 'name' => 'credit',
                 'label' => 'Crédits photo',
                 'type' => 'text',
+            ],
+        ],
+    ],
+    'enabled' => [
+        'buckets' => true,
+    ],
+    // 'bucketsRoutes' => [
+    //     'homepage' => 'encyclopedie',
+    // ],
+    'buckets' => [
+        'homepage' => [
+            'name' => 'Accueil',
+            'buckets' => [
+                'home_primary_features' => [
+                    'name' => 'À la une',
+                    'bucketables' => [
+                        [
+                            'module' => 'articles',
+                            'name' => 'Articles',
+                            'scopes' => ['published' => true],
+                        ],
+                    ],
+                    'max_items' => 3,
+                ],
+                'home_secondary_features' => [
+                    'name' => 'Six premiers',
+                    'bucketables' => [
+                        [
+                            'module' => 'articles',
+                            'name' => 'Articles',
+                            'scopes' => ['published' => true],
+                        ],
+                    ],
+                    'max_items' => 6,
+                ],
             ],
         ],
     ],

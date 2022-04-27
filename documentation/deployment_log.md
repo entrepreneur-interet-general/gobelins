@@ -6,6 +6,26 @@ deploy dotenv for nginx and php max upload limits
 `$ php artisan migrate`
 `$ php artisan twill:superadmin`
 
+## En attente staging :
+
+Sur la DB, mettre à jour la relation polymorphique.
+
+```
+UPDATE blocks SET blockable_type = 'articles' WHERE blockable_type = 'App\Models\Article';
+UPDATE tags SET namespace = 'articles' WHERE namespace = 'App\Models\Article';
+UPDATE tagged SET taggable_type = 'articles' WHERE taggable_type = 'App\Models\Article';
+UPDATE mediables SET mediable_type = 'articles' WHERE mediable_type = 'App\Models\Article';
+```
+
+Ne pas oublier de mettre à jour .env pour ajouter :
+`FILE_LIBRARY_ENDPOINT_TYPE=local`
+
+Recalculer les crops pour les articles déjà existants :
+
+```
+php artisan twill:refresh-crops article cover
+```
+
 ## Finalisé le 05/05/2020 - Nouveaux contenus
 
 1. Sur datasource

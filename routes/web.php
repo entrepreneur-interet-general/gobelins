@@ -47,6 +47,10 @@ Route::get('/encyclopedie/{slug}', 'ArticleController@show')
     ->name('article.show')
     ->where('slug', '.*');
 
+Route::get('/encyclopedie/tag/{tag}', 'ArticleController@list')
+    ->name('articles.by_tag')
+    ->where('tag', '.*');
+
 Route::get('/encyclopedie', 'ArticleController@home')
     ->name('article.home');
 

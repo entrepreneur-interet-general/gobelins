@@ -50,6 +50,12 @@ class Article extends Model implements Sortable
                     'ratio' => 3 / 5,
                 ],
             ],
+            'horizontal' => [
+                [
+                    'name' => 'Paysage',
+                    'ratio' => 16 / 9,
+                ],
+            ],
         ],
     ];
 

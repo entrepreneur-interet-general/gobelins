@@ -39,6 +39,11 @@ class ArticleRepository extends ModuleRepository
         parent::afterSave($object, $fields);
     }
 
+    public function inSection($section, $qty = 6)
+    {
+        return Article::published()->where('section_id', '=', $section->id)->orderBy('updated_at', 'DESC')->limit($qty)->get();
+    }
+
     public function getFormFields($object)
     {
         $fields = parent::getFormFields($object);

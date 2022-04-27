@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\User;
-use App\Observers\UserObserver;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\View;
-
 use App\Mail\EmailVerification;
+use App\Observers\UserObserver;
+use App\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +31,11 @@ class AppServiceProvider extends ServiceProvider
             ['site.search', 'site.selection'],
             'App\Http\View\Composers\FiltersComposer'
         );
+
+        Relation::morphMap([
+            'articles' => 'App\Models\Article',
+        ]);
+
     }
 
     /**

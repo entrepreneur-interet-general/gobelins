@@ -28,8 +28,22 @@ return [
                 'title' => 'Rubriques',
                 'module' => true,
             ],
+            // 'featured' => [
+            //     'title' => 'Page d’accueil',
+            //     'route' => 'admin.featured.homepage',
+            // ],
         ],
 
+    ],
+    'featured' => [
+        'title' => 'Accueil',
+        'route' => 'admin.featured.homepage',
+        'primary_navigation' => [
+            'homepage' => [
+                'title' => 'Page d’accueil',
+                'route' => 'admin.featured.homepage',
+            ],
+        ],
     ],
     // 'pages' => [
     //     'title' => 'Pages',

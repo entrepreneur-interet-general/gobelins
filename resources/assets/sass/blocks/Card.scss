@@ -1,0 +1,144 @@
+.Card {
+    max-width: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-items: start;
+    align-items: flex-start;
+    position: relative;
+}
+
+.Card.is-new::before {
+    content: 'Nouveau';
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px 7px 10px;
+    position: absolute;
+    top: -12.5px;
+    left: 0;
+    z-index: 1;
+    background: #3338BA;
+    border-radius: 50px;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #FFFFFF;
+}
+
+.Card__text {
+    order: 2;
+    margin-top: 14px;
+    // margin-bottom: 30px;
+}
+
+.Card__title,
+.Card__subtitle  {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(13px);
+    line-height: 150%;
+    color: #000000;
+    
+    @include breakpoint(768px) {
+        font-size: rem(24px);
+    }
+}
+.Card__title {
+    @include breakpoint(768px) {
+        margin-right: 10px;
+    }
+}
+.Card__subtitle  {
+    font-style: italic;
+
+    &::before {
+        content: ' | ';
+        display: inline;
+        font-style: normal;
+    }
+}
+
+.Card__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Card__meta {
+    display: block;
+    margin: 7px 0 0 0;
+    padding: 0;
+    @include breakpoint(768px) {
+        display: inline;
+        line-height: 33px;
+    }
+}
+.Card__reading-time {
+    display: inline-flex;
+    height: 23px;
+    margin: 0 5px 0 0;
+    position: relative;
+    border: 1px solid #000;
+    border-radius: 11.5px;
+    align-items: center;
+    user-select: none;
+}
+
+.Card__reading-time-icon {
+    width: 22px;
+    height: 9px;
+    color: #000;
+    margin: 0 5px 0 9px;
+}
+
+.Card__reading-time-label {
+    @include f-sans;
+    font-size: rem(13px);
+    font-weight: normal;
+    color: #000;
+    margin-right: 9px;
+}
+
+.Card__tag {
+    display: none;
+    @include breakpoint(768px) {
+        display: inline-flex;
+        margin-right: 4px;
+    }
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px 7px 10px;
+    background: #EDEDED;
+    border-radius: 50px;
+    user-select: none;
+    text-decoration: none;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 100%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #000000;
+    text-transform: lowercase;
+}
+
+.Card__fig {
+    order: 1;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.Card__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+}

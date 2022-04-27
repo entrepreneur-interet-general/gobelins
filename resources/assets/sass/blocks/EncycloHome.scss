@@ -1,0 +1,677 @@
+.EncycloHome {
+        background-image: url(/images/encyclo/bg/art_s_1.svg),
+                          url(/images/encyclo/bg/art_s_2.svg);
+        background-position: top 406px right 0px, 
+                             top 887px left 0;
+        background-repeat: no-repeat;
+}
+
+
+.EncycloHome__header {
+    @extend %encyclo-grid;
+    @include breakpoint($large-up) {
+        grid-template-rows: 50vh 50vh auto;
+    }
+}
+/* Blue background halo */
+.EncycloHome__header:before {
+    //content: '';
+    // display: block;
+    // position: absolute;
+    // z-index: -1;
+    // width: 419px;
+    // height: 419px;
+    // right: 0;
+    // top: 406px;
+    
+    // background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%),
+    // #6167FF;
+    // mix-blend-mode: multiply;
+    // opacity: 0.6;
+    // box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    
+    // @include breakpoint(768px) {
+    //     width: 628px;
+    //     height: 628px;
+    //     left: -346px;
+    //     top: 262px;
+        
+    //     opacity: 0.7;
+    // }
+}
+
+.EncycloHome__header:after {
+    @include breakpoint($large-up) {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 628px;
+        height: 628px;
+        left: calc(50vw - 628px / 2);
+        // right: 27.71%;
+        top: -262px;
+        // bottom: 96.34%;
+        
+        background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%),
+        #FF8989;
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+        box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    }
+}
+
+.EncyloHome__header_illu {
+    grid-column: full;
+    order: 1;
+    @include breakpoint(768px) {
+        order: 3;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 11 / 22;
+        grid-row: 2;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 12 / 24;
+    }
+}
+
+.EncycloHome__corp {
+    grid-column: full;
+    order: 2;
+    background-color: #0D0D0D;
+    padding: 26px 0 37px 0;
+    @include breakpoint(768px) {
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        flex-flow: row;
+        // justify-content: left;
+        // padding-left: 118px;
+        justify-content: center;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 11 / 22;
+        grid-row: 1;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: stretch;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 12 / 24;
+    }
+}
+
+
+
+.EncycloHome__vid {
+    width: 100%;
+    display: block;
+
+    @include breakpoint($large-up) {
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.EncycloHome__title {
+    margin: 0;
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(26px);
+    line-height: 135%;
+    text-align: center;
+    letter-spacing: 0.03em;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #F4F4F4;
+    white-space: pre-wrap;
+    
+    @include breakpoint(768px) {
+        text-align: left;
+        margin-right: 123px;
+        margin-top: 48px;
+        margin-bottom: 53px;
+    }
+
+    @include breakpoint($large-up) {
+        margin: 0 0 0 143px;
+        white-space: initial;
+    }
+}
+
+.EncyloHome__title_corp {
+    margin: 0;
+    margin-bottom: 10px;
+    @include f-sans;
+    font-weight: 300;
+    font-size: rem(23px);
+    line-height: 119.41%;
+    text-align: center;
+    letter-spacing: 0.03em;
+    font-variant: small-caps;
+    font-feature-settings: 'pnum' on, 'onum' on;   
+    color: #FFFFFF;
+    order: 1;
+
+    @include breakpoint(768px) {
+        margin-bottom: 12px;
+    }
+    @include breakpoint($large-up) {
+        order: 2;
+    }
+
+}
+
+.EncycloHome__corp_logos {
+    display: flex;
+    flex-flow: row;
+    order: 2;
+    justify-content: center;
+    gap: 16px;
+
+    @include breakpoint(768px) {
+        justify-content: left;
+    }
+    @include breakpoint($large-up) {
+        order: 1;
+        margin-top: 8px;
+        margin-right: 15px;
+    }
+}
+.EncycloHome__mn_gris {
+    display: block;
+    width: 45px;
+    height: 14px;
+}
+.EncycloHome__marianne {
+    display: block;
+    width: 38px;
+    height: 14px;
+}
+.EncycloHome__corp_sig {
+    display: flex;
+    flex-flow: column;
+    margin-top: 14px;
+    
+    @include breakpoint(768px) {
+        margin-top: 54px;
+    }
+
+    @include breakpoint($large-up) {
+        flex-flow: row;
+        align-items: start;
+        margin: 6px 0 0 143px;
+    }
+}
+
+.EncycloHome__intro {
+    grid-column: main;
+    margin-top: 43px;
+    order: 3;
+    @include breakpoint(768px) {
+        order: 1;
+        margin-top: 98px;
+        margin-bottom: 96px;
+        grid-column: main;
+    }
+    @include breakpoint($large-up) {
+        order: 1;
+        grid-column: 1 / 11;
+        grid-row: 1 / -1;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 1 / 12;
+        margin-top: 300px;
+    }
+}
+.EncycloHome__intro_lines {
+    margin: 0;
+    padding: 0;
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(35px);
+    line-height: 140%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #AE6E0D;
+    @include breakpoint(768px) {
+        width: 646px;
+        margin: 0 auto;
+        font-size: rem(60px);
+        line-height: 135%;
+    }
+    @include breakpoint($large-up) {
+        line-height: 140%;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        font-size: rem(70px);
+    }
+}
+.EncycloHome__intro_lines a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 9px;
+    text-decoration-skip-ink: auto;
+    color: inherit;
+}
+.EncycloHome__line1 {
+    @include breakpoint(768px) {
+        padding-left: 117px;
+    }
+}
+
+.EncycloHome__line2 {
+    white-space: pre-wrap;
+    @include breakpoint(768px) {
+        white-space: initial;
+        padding-left: 243px;
+    }
+}
+.EncycloHome__line3 {
+    @include breakpoint(768px) {
+        padding-left: 180px;
+    }
+}
+.EncycloHome__line4 {
+    @include breakpoint(768px) {
+        padding-left: 63px;
+    }
+}
+.EncycloHome__line5 {
+    @include breakpoint(768px) {
+        padding-left: 274px;
+    }
+}
+
+.EncycloHome__layus {
+    position: relative;
+    margin: 45px 0 0 0;
+    padding: 55px 0 0 0;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(16px);
+    line-height: 140%;
+    letter-spacing: 0.03em;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #AE6E0D;
+
+    &:before {
+        content: '';
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAyMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTkuNDQ1MyAxLjA5ODYzTDEwLjUwMzkgOS4wOTkxMiIgc3Ryb2tlPSIjQUU2RTBEIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xIDFMMTAuNTAzOSA5LjA5ODYzIiBzdHJva2U9IiNBRTZFMEQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+");
+        width: 20px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        left: calc(50% - 10px);
+        top: 0;
+        @include breakpoint($large-up) {
+            top: -20px;
+        }
+    }
+
+    @include breakpoint(768px) {
+        max-width: 528px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    @include breakpoint($large-up) {
+        max-width: 432px;
+        margin-top: 102px;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        max-width: 574px;
+        font-size: rem(18px);
+    }
+}
+
+
+
+
+
+
+/********************************** UNE **************************************/
+
+
+.EncycloHome__une {
+    margin-top: 103px;
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 239px;
+    }
+}
+.EncycloHome__section_title {
+    margin: 0;
+    padding: 0;
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(35px);
+    line-height: 150.84%;
+    text-align: center;
+    color: #000000;
+    @include breakpoint(768px) {
+        font-size: rem(40px);
+    }
+    @include breakpoint($a-xxlarge-up) {
+        font-size: rem(60px);
+    }
+}
+
+.EncycloHome__cardstack {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @extend %encyclo-grid;
+}
+
+.EncycloHome__une .EncycloHome__section_title {
+    margin-bottom: 50;
+}
+
+.EncycloHome__cardstack--featured_primary {
+    margin: 76px 0 0 0;
+    @include breakpoint(768px) {
+        margin: 66px 0 0 0;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 116px;
+    }
+}
+
+.EncycloHome__cardstack--featured_primary li:nth-child(1) {
+    grid-column: main;
+    & .Card__subtitle {
+        font-size: inherit;
+    }
+    @include breakpoint(768px) {
+        grid-column: main;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 4 / -4;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / -5;
+    }
+}
+.EncycloHome__cardstack--featured_primary li:nth-child(2) {
+    grid-column: first-half;
+    margin-top: 101px;
+    @include breakpoint(768px) {
+        grid-column: 2 / 5;
+        margin-top: 181px;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 4 / 10;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / 11;
+    }
+}
+.EncycloHome__cardstack--featured_primary li:nth-child(3) {
+    grid-column: second-half;
+    margin-top: 42px;
+    @include breakpoint(768px) {
+        grid-column: 5 / 8;
+        margin-top: 65px;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 12 / 18;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 13 / 19;
+    }
+}
+
+
+
+
+/***************************** Latest ****************************/
+
+.EncycloHome__latest {
+    margin-top: 60px;
+    @include breakpoint(768px) {
+        margin-top: 160px;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 280px;
+    }
+}
+.EncycloHome__latest_top {
+    @extend %encyclo-grid;
+}
+
+%EncycloHome__aside {
+    grid-column: main;
+    margin: 0;
+    padding: 0;
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(35px);
+    line-height: 140%;
+    color: #3338BA;
+    
+    @include breakpoint(768px) {
+        grid-column: 3 / 8;
+        font-size: rem(40px);
+    }
+    
+    @include breakpoint($large-up) {
+        grid-column: 9 / 18;
+    }
+    
+    @include breakpoint($a-xxlarge-up) {
+        font-size: rem(60px);
+        grid-column: 10 / 19;
+    }
+}
+.EncycloHome__latest_title {
+    @extend %EncycloHome__aside;
+}
+.EncycloHome__latest_link {
+    display: block;
+    grid-column: main;
+    margin-top: 12px;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(20px);
+    line-height: 150.84%;
+    color: #3338BA;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 1px;
+    
+    @include breakpoint(768px) {
+        grid-column: 3 / 8;
+    }
+    
+    @include breakpoint($large-up) {
+        grid-column: 9 / 18;
+    }
+    
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 10 / 19;
+    }
+}
+
+.EncycloHome__cardstack--featured_secondary {
+    margin-top: 100px;
+    grid-row-gap: 20px;
+    @include breakpoint(768px) {
+        margin-top: 160px;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 240px;
+    }
+}
+.EncycloHome__cardstack--featured_secondary li:nth-child(odd) {
+    @include breakpoint(0px 767px) {
+        grid-column: first-half;
+    }
+}
+.EncycloHome__cardstack--featured_secondary li:nth-child(even) {
+    @include breakpoint(0px 767px) {
+        grid-column: second-half;
+        margin-top: 60px;
+    }
+}
+.EncycloHome__cardstack--featured_secondary li:nth-child(3n+1) {
+    @include breakpoint(768px) {
+        grid-column: 2 / 4;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 4 / 8;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / 9;
+    }
+}
+.EncycloHome__cardstack--featured_secondary li:nth-child(3n+2) {
+    @include breakpoint(768px) {
+        grid-column: 4 / 6;
+        margin-top: 75px;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 9 / 13;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 90px;
+        grid-column: 10 / 14;
+    }
+}
+.EncycloHome__cardstack--featured_secondary li:nth-child(3n+3) {
+    @include breakpoint(768px) {
+        grid-column: 6 / 8;
+        margin-top: calc(75px + 75px);
+    }
+    @include breakpoint($large-up) {
+        grid-column: 14 / 18;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: calc(90px + 90px);
+        grid-column: 15 / 19;
+    }
+}
+
+
+
+
+
+/***************************** Sections ****************************/
+
+.EncycloHome__section {
+    @extend %encyclo-grid;
+}
+.EncycloHome__section-inner {
+    grid-column: main;
+    position: relative;
+    @include breakpoint(768px) {
+        grid-column: 2 / 8;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 4 / -4;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / -5;
+    }
+}
+.EncycloHome__section_top {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: baseline;
+    margin: 80px 0 calc(44px - 15px);;
+    border-top: 1px solid #AE6E0D;
+    padding-top: 44px;
+}
+.EncycloHome__section_title {
+    flex: 1 0 auto;
+    text-align: left;
+}
+.EncycloHome__section_link {
+    flex: 0 0 auto;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(18px);
+    line-height: 23px;
+    color: #AE6E0D;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 1px;
+}
+
+.EncycloHome__section_stack {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    align-items: top;
+    overflow: hidden;
+    max-width: 100%;
+}
+.EncycloHome__section_stack li {
+    width: calc((100% - 15px) / 2);
+    flex: 0 0 calc((100% - 15px) / 2);
+    margin-right: 15px;
+    margin-top: 15px; /* <- To account for the "Nouveau" badge. */
+    @include breakpoint(768px) {
+        flex: 0 0 calc((100% - (20px + 20px)) / 3);
+        width: calc((100% - (20px + 20px)) / 3);
+        margin-right: 20px;
+    }
+    @include breakpoint($large-up) {
+        flex: 0 0 calc((100vw / 20) * 4);
+        width: calc((100vw / 20) * 4);
+        margin-right: calc(100vw / 20);
+    }
+    @include breakpoint($a-xxlarge-up) {
+        flex: 0 0 calc((100vw / 22) * 4);
+        width: calc((100vw / 22) * 4);
+        margin-right: calc(100vw / 22);
+    }
+
+}
+
+
+
+/*********************** Pre footer *********************/
+
+.EncycloHome__prefoot {
+    @extend %encyclo-grid;
+    margin-top: 80px;
+}
+.EncycloHome__prefoot_aside {
+    @extend %EncycloHome__aside;
+
+    & a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 8px;
+        text-decoration-thickness: 1px;
+    }
+}
+.EncycloHome_aside_sig {
+    display: block;
+    margin-top: 16px;
+    font-size: rem(20px);
+    line-height: 175.5%;
+}
+.EncycloHome__prefoot_img {
+    grid-column: full;
+    display: block;
+    width: 100%;
+    margin-top: 77px;
+    aspect-ratio: auto;
+    object-fit: cover;
+    @include breakpoint(768px) {
+        grid-column: 1 / -1;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / -5;
+    }
+}
