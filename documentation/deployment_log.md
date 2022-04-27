@@ -26,6 +26,8 @@ Recalculer les crops pour les articles déjà existants :
 php artisan twill:refresh-crops article cover
 ```
 
+Reset SELinux if needed.
+
 ## Finalisé le 05/05/2020 - Nouveaux contenus
 
 1. Sur datasource
