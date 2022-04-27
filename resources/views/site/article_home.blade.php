@@ -82,7 +82,7 @@ ateliers</a><span class="EncycloHome__comma">,</span></span>
                         </h2>
                         <a href="#" class="EncycloHome__section_link">Tout voir</a>
                     </div>
-                    <ul class="EncycloHome__section_stack">
+                    <ul class="EncycloHome__section_stack" data-carousel>
                         @each('site._card', $section_articles[$s->slug], 'article')
                     </ul>
                 </div>

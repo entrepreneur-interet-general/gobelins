@@ -35,6 +35,8 @@
     "classnames": "^2.2.6",
     "colcade": "^0.2.0",
     "deepmerge": "^2.1.1",
+    "flickity": "^3.0.0",
+    "flickity-imagesloaded": "^2.0.0",
     "focus-visible": "^4.1.5",
     "laravel-image": "^1.0.3",
     "lodash.debounce": "^4.0.8",

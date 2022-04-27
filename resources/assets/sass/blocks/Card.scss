@@ -5,6 +5,11 @@
     justify-items: start;
     align-items: flex-start;
     position: relative;
+
+    &.flickity-cell {
+        position: absolute;
+        top: 0;
+    }
 }
 
 .Card.is-new::before {
