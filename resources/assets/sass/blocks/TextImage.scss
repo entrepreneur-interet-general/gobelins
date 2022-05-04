@@ -34,9 +34,9 @@
 .TextImage--img-right {
   .TextImage__body {
     grid-column: main;
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       grid-row: 1;
-      grid-column: 3 / 8;
+      grid-column: 2 / 8;
     }
     @include breakpoint($a-xxlarge-up) {
       grid-column: 4 / 9;
@@ -44,9 +44,9 @@
   }
   .TextImage__images {
     grid-column: main;
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       grid-row: 1;
-      grid-column: 9 / -3;
+      grid-column: 9 / -2;
     }
     @include breakpoint($a-xxlarge-up) {
       grid-column: 10 / -4;
@@ -57,9 +57,9 @@
 .TextImage--img-left {
   .TextImage__body {
     grid-column: main;
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       grid-row: 1;
-      grid-column: 9 / -3;
+      grid-column: 9 / -2;
     }
     @include breakpoint($a-xxlarge-up) {
       grid-column: 10 / -4;
@@ -67,9 +67,9 @@
   }
   .TextImage__images {
     grid-column: main;
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       grid-row: 1;
-      grid-column: 3 / 8;
+      grid-column: 2 / 8;
     }
     @include breakpoint($a-xxlarge-up) {
       grid-column: 4 / 9;
@@ -77,6 +77,7 @@
   }
 }
 
-.TextImage__body blockquote {
+.TextImage__body blockquote,
+.TextImage__body em {
   @extend %definition-blockquote;
 }

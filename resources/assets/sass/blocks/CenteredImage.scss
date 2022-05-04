@@ -21,8 +21,8 @@
   display: block;
   width: 100%;
   grid-column: main;
-  @include breakpoint($medium-up) {
-    grid-column: 6 / 11;
+  @include breakpoint(768px) {
+    grid-column: 4 / -4;
   }
   @include breakpoint($a-xxlarge-up) {
     grid-column: 6 / 13;
@@ -51,7 +51,7 @@
     grid-column: 1 / -1;
   }
   .CenteredImage__figcaption {
-    @include breakpoint($medium-up) {
+    @include breakpoint(768px) {
       grid-column: 3 / -3;
     }
     @include breakpoint($a-xxlarge-up) {

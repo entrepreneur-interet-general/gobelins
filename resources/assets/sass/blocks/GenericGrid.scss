@@ -4,6 +4,9 @@
   z-index: 2;
 
   margin: 80px 0;
+  @include breakpoint(768px) {
+    margin: 50px 0;
+  }
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;
   }
@@ -22,6 +25,9 @@
     }
     &:nth-child(even) {
       grid-column: 9 / -3;
+    }
+    &:last-child:nth-child(2n - 1) {
+      grid-column: 6 / 11;
     }
   }
   @include breakpoint(1024px) {
@@ -50,12 +56,12 @@
 
 .GenericGrid--2-cols .GenericGrid__item {
   grid-column: main;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     &:nth-child(odd) {
-      grid-column: 3 / 8;
+      grid-column: 2 / 8;
     }
     &:nth-child(even) {
-      grid-column: 9 / -3;
+      grid-column: 9 / -2;
     }
   }
   @include breakpoint($a-xxlarge-up) {

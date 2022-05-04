@@ -14,8 +14,8 @@
 
 .DoubleColText__container {
   grid-column: main;
-  @include breakpoint($medium-up) {
-    grid-column: 3 / -3;
+  @include breakpoint(768px) {
+    grid-column: 2 / -2;
     columns: 2;
     column-gap: calc(100% / 11);
   }

@@ -5,6 +5,9 @@
   margin: 130px 0 60px;
   position: relative;
   @include breakpoint(768px) {
+    margin: 120px 0 50px;
+  }
+  @include breakpoint($medium-up) {
     margin: 200px 0 80px;
   }
   @include breakpoint($a-xxlarge-up) {
@@ -17,7 +20,7 @@
       display: none;
     }
     @include breakpoint(768px) {
-      padding-top: 200px;
+      padding-top: 120px;
     }
     @include breakpoint($a-xxlarge-up) {
       padding-top: 250px;

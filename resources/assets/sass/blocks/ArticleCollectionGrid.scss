@@ -15,19 +15,19 @@
 }
 .ArticleCollectionGrid__column:nth-child(1) {
   grid-column: first-half;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     grid-column: 3 / 6;
   }
 }
 .ArticleCollectionGrid__column:nth-child(2) {
   grid-column: second-half;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     grid-column: 7 / 10;
   }
 }
 .ArticleCollectionGrid__column:nth-child(3) {
   display: none;
-  @include breakpoint($medium-up) {
+  @include breakpoint(768px) {
     display: block;
     grid-column: 11 / 14;
   }

@@ -30,8 +30,8 @@
 
 .Definition__inner {
   grid-column: main;
-  @include breakpoint($medium-up) {
-    grid-column: 3 / 10;
+  @include breakpoint(768px) {
+    grid-column: 2 / 12;
   }
   @include breakpoint($a-xxlarge-up) {
     grid-column: 4 / 11;
