@@ -127,14 +127,16 @@
             @endif
 
 
-            <div class="Article__credits">
-                <div class="Article__vertical-label">
-                    <span>Crédits photo</span>
+            @if($item->present()->photoCredits->isNotEmpty())
+                <div class="Article__credits">
+                    <div class="Article__vertical-label">
+                        <span>Crédits photo</span>
+                    </div>
+                    <div class="Article__double-col-container">
+                        <p>{{ $item->present()->photoCredits->join(', ') }}.</p>
+                    </div>
                 </div>
-                <div class="Article__double-col-container">
-                    <p>{{ $item->present()->photoCredits->join(', ') }}.</p>
-                </div>
-            </div>
+            @endif
 
         </main>
 
