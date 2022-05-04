@@ -11,7 +11,7 @@
         <p class="Card__meta">
             <span class="Card__reading-time">
                 <img src="{{ asset('images/encyclo/reading_time.svg') }}" class="Card__reading-time-icon" alt="Temps de lecture">
-                <span class="Card__reading-time-label">20 min</span>
+                <span class="Card__reading-time-label">{{ $article->reading_time}} min</span>
             </span>
             @foreach($article->present()->tags as $tag)
                 <a href="{{ route('articles.by_tag', ['tag' => $tag->slug]) }}" class="Card__tag">{{ $tag->name }}</a>

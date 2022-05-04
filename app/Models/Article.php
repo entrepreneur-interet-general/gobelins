@@ -25,6 +25,7 @@ class Article extends Model implements Sortable
         'subtitle',
         'byline',
         'lead',
+        'reading_time',
         'footnotes',
         'bibliography',
         'section_id',

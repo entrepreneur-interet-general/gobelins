@@ -178,4 +178,10 @@ return [
         ],
     ],
 
+    // 'glide' => [
+    //     'default_params' => [
+
+    //     ]
+    // ]
+
 ];

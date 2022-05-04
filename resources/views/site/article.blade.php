@@ -37,7 +37,7 @@
                                     <path d="M1 3.55566H2.4" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                                     <path d="M19.8906 3.55566H21.0017" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
-                                <span class="Article__reading-time-label">20 min</span>
+                                <span class="Article__reading-time-label">{{ $item->reading_time}} min</span>
                             </div>
                             <svg width="20" height="27" viewBox="0 0 20 27" class="Article__arrow-down">
                                 <path d="M18.7441 18.1543L9.97363 26.5" stroke="white" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>

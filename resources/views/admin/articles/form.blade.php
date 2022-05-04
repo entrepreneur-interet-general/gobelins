@@ -37,6 +37,13 @@
         'options' => $sections,
     ])
 
+    @formField('input', [
+        'name' => 'reading_time',
+        'label' => 'Temps de lecture',
+        'type' => 'number',
+        'note' => 'Estimez le temps que prendrait la lecture de cet article, en minutes.'
+    ])
+
     @formField('wysiwyg', [
         'name' => 'lead',
         'label' => 'Introduction',
