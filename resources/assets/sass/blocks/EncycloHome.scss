@@ -605,7 +605,7 @@
     text-decoration-thickness: 1px;
 }
 
-.EncycloHome__section_stack {
+%EncycloArticleStack {
     padding: 0;
     margin: 0;
     display: flex;
@@ -614,35 +614,82 @@
     align-items: top;
     overflow: hidden;
     max-width: 100%;
-
+    
     &.flickity-enabled {
         display: block;
         overflow: visible;
         width: 100%;
     }
-}
-.EncycloHome__section_stack li {
-    width: calc((100% - 15px) / 2);
-    flex: 0 0 calc((100% - 15px) / 2);
-    margin-right: 15px;
-    margin-top: 15px; /* <- To account for the "Nouveau" badge. */
-    @include breakpoint(768px) {
-        flex: 0 0 calc((100% - (20px + 20px)) / 3);
-        width: calc((100% - (20px + 20px)) / 3);
-        margin-right: 20px;
-    }
-    @include breakpoint($large-up) {
-        flex: 0 0 calc((100vw / 20) * 4);
-        width: calc((100vw / 20) * 4);
-        margin-right: calc(100vw / 20);
-    }
-    @include breakpoint($a-xxlarge-up) {
-        flex: 0 0 calc((100vw / 22) * 4);
-        width: calc((100vw / 22) * 4);
-        margin-right: calc(100vw / 22);
-    }
 
+    & li {
+        width: calc((100% - 15px) / 2);
+        flex: 0 0 calc((100% - 15px) / 2);
+        margin-right: 15px;
+        margin-top: 15px;
+    
+        /* <- To account for the "Nouveau" badge. */
+        @include breakpoint(768px) {
+            flex: 0 0 calc((100% - (20px + 20px)) / 3);
+            width: calc((100% - (20px + 20px)) / 3);
+            margin-right: 20px;
+        }
+    
+        @include breakpoint($large-up) {
+            flex: 0 0 calc((100vw / 20) * 4);
+            width: calc((100vw / 20) * 4);
+            margin-right: calc(100vw / 20);
+        }
+    
+        @include breakpoint($a-xxlarge-up) {
+            flex: 0 0 calc((100vw / 22) * 4);
+            width: calc((100vw / 22) * 4);
+            margin-right: calc(100vw / 22);
+        }
+    
+    }
 }
+
+.EncycloHome__section_stack {
+    @extend %EncycloArticleStack;
+}
+// .EncycloHome__section_stack {
+//     padding: 0;
+//     margin: 0;
+//     display: flex;
+//     flex-flow: row;
+//     flex-wrap: nowrap;
+//     align-items: top;
+//     overflow: hidden;
+//     max-width: 100%;
+
+//     &.flickity-enabled {
+//         display: block;
+//         overflow: visible;
+//         width: 100%;
+//     }
+// }
+// .EncycloHome__section_stack li {
+//     width: calc((100% - 15px) / 2);
+//     flex: 0 0 calc((100% - 15px) / 2);
+//     margin-right: 15px;
+//     margin-top: 15px; /* <- To account for the "Nouveau" badge. */
+//     @include breakpoint(768px) {
+//         flex: 0 0 calc((100% - (20px + 20px)) / 3);
+//         width: calc((100% - (20px + 20px)) / 3);
+//         margin-right: 20px;
+//     }
+//     @include breakpoint($large-up) {
+//         flex: 0 0 calc((100vw / 20) * 4);
+//         width: calc((100vw / 20) * 4);
+//         margin-right: calc(100vw / 20);
+//     }
+//     @include breakpoint($a-xxlarge-up) {
+//         flex: 0 0 calc((100vw / 22) * 4);
+//         width: calc((100vw / 22) * 4);
+//         margin-right: calc(100vw / 22);
+//     }
+
+// }
 
 /******** Flickity carousels ****************/
 

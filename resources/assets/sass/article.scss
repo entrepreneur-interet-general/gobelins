@@ -541,57 +541,26 @@ body {
   font-weight: normal;
   font-size: rem(40px);
 }
-.Article__footer-featured {
-  text-decoration: none;
-  &:nth-of-type(odd) {
-    grid-column: first-half;
-  }
-  &:nth-of-type(even) {
-    grid-column: second-half;
-  }
+.Article__footer-featured-stack {
+  @extend %EncycloArticleStack;
+  grid-column: main;
   margin: 0 0 40px 0;
   @include breakpoint(768px) {
     margin: 60px 0;
-    &:nth-of-type(3n + 1) {
-      grid-column: 3 / 6;
-    }
-    &:nth-of-type(3n + 2) {
-      grid-column: 7 / 10;
-    }
-    &:nth-of-type(3n + 3) {
-      grid-column: 11 / 14;
-    }
+    --Card-title-font-size: 18px;
+    grid-column: 3 / -3;
   }
-  @include breakpoint($a-xxlarge-up) {
-    &:nth-of-type(3n + 1) {
-      grid-column: 4 / 7;
+  & li {
+    @include breakpoint(768px) {
+      --col-width: calc(100vw / 15);
+      width: calc(var(--col-width) *  3);
+      margin-right: var(--col-width);
     }
-    &:nth-of-type(3n + 2) {
-      grid-column: 8 / 11;
-    }
-    &:nth-of-type(3n + 3) {
-      grid-column: 12 / 15;
-    }
-  }
-}
 
-.Article__footer-featured-thumb {
-  display: block;
-  width: 100%;
-}
-.Article__footer-featured-title {
-  margin-top: 10px;
-  @include f-sans;
-  font-style: normal;
-  font-weight: normal;
-
-  font-size: rem(16px);
-  @include breakpoint($medium-up) {
-    font-size: rem(20px);
-  }
-  line-height: 140%;
-  color: #000;
-  .Article__footer-featured-subtitle {
-    opacity: 0.6;
+    &:last-child {
+      @include breakpoint(768px) {
+        margin-right: 0;
+      }
+    }
   }
 }

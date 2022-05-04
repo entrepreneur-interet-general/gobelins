@@ -28,7 +28,7 @@
     @include f-sans;
     font-style: normal;
     font-weight: 400;
-    font-size: 13px;
+    font-size: rem(13px);
     font-feature-settings: 'pnum' on, 'onum' on;
     color: #FFFFFF;
 }
@@ -47,12 +47,12 @@
     @include f-sans;
     font-style: normal;
     font-weight: 400;
-    font-size: rem(13px);
+    font-size: var(--Card-title-font-size, rem(13px));
     line-height: 150%;
     color: #000000;
     
     @include breakpoint(768px) {
-        font-size: rem(24px);
+        font-size: var(--Card-title-font-size, rem(24px));
     }
 }
 .Card__title {

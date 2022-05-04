@@ -148,17 +148,9 @@
                 <span>À lire aussi</span>
             </div>
 
-            @foreach($item->present()->featuredArticles as $article)
-                <a class="Article__footer-featured" href="{{ route('article.show',['slug' => $article->slug]) }}">
-                    <img src="{{ $article->image('cover', 'vertical') }}" alt="" class="Article__footer-featured-thumb">
-                    <div class="Article__footer-featured-title">
-                        {{ $article->title }}
-                        <div class="Article__footer-featured-subtitle">
-                            {{ $article->subtitle }}
-                        </div>
-                    </div>
-                </a>
-            @endforeach
+            <ul class="Article__footer-featured-stack" data-carousel>
+                @each('site._card', $item->present()->featuredArticles, 'article')
+            </ul>
         </footer>
 
     </article>
