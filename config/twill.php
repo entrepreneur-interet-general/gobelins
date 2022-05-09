@@ -58,7 +58,7 @@ return [
                 'component' => 'a17-block-generic_grid',
             ],
             'embed' => [
-                'title' => 'Code',
+                'title' => 'Code (embed video…)',
                 'icon' => 'text',
                 'component' => 'a17-block-embed',
             ],
