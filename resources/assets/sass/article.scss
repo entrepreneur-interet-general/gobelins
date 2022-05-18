@@ -566,3 +566,115 @@ body {
     }
   }
 }
+
+
+
+/*
+ The dotted navigation, fixed bottom right, to jump to
+ the sections of the article.
+*/
+.Article__index {
+  display: none;
+  @include breakpoint(768px) {
+    display: block;
+  }
+  position: fixed;
+  bottom: 66px;
+  right: calc(100vw / 15);
+  margin-right: -5px;
+  z-index: 9;
+
+  opacity: 0;
+  transition: opacity ease-in-out 250ms;
+
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.Article__index_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.Article__index_item {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.Article__index_link {
+  display: block;
+  position: relative;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  text-decoration: none;
+  &:focus-visible {
+    outline: 1px solid $a-or-fond-clair;
+  }
+}
+.Article__index_link:before {
+  content: '';
+  display: block;
+  height: 13px;
+  width: 13px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid transparent;
+  border-radius: 50%;
+  text-decoration: none;
+  color: $a-or-fond-clair;
+  transition: border-color ease-in-out 250ms;
+}
+.Article__index_link::after {
+  content: '';
+  display: block;
+  background-color: #b86e00;
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Article__index_label {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  height: 26px;
+  padding: 0 13px;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  background-color: $a-or-fond-clair;
+  border-radius: 13px;
+  @include f-sans;
+  font-style: normal;
+  font-weight: 400;
+  font-size: rem(13px);
+  line-height: 130%;
+  color: white;
+  opacity: 0;
+  transition: opacity ease-in-out 250ms;
+  pointer-events: none;
+}
+.Article__index_link:hover,
+.Article__index_link.active {
+  &:before {
+    border-color: $a-or-fond-clair;
+  }
+  & .Article__index_label {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+

@@ -43,12 +43,9 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
         'iframe[src*="dailymotion"]',
     ];
 
-    // Select videos
     var fitVids = document.querySelectorAll(players.join(","));
 
-    // If there are videos on the page...
     if (fitVids.length) {
-        // Loop through videos
         for (var i = 0; i < fitVids.length; i++) {
             // Get Video Information
             var fitVid = fitVids[i];
@@ -70,5 +67,111 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
             fitVid.removeAttribute("width");
         }
     }
+})(window, document);
+
+
+// Jumpnav
+(function(window, document, undefined) {
+    "use strict";
+
+    let navItems = document.querySelectorAll('*[data-js-jumpnav]');
+    if (navItems.length == 0) {
+        return;
+    }
+
+    const containerTemplate = items => `
+        <div class="Article__index" data-js-jumpnav-index>
+            <ol class="Article__index_list">
+                ${items}
+            </ol>
+        </div>`;
+    const itemTemplate = (anchor, title) => `
+        <li class="Article__index_item">
+            <a href="#${anchor}" class="Article__index_link" data-js-jumpnav-scroll>
+                <span class="Article__index_label">
+                    ${title}
+                </span>
+            </a>
+        </li>`;
+
+
+
+    // First item is the page header.
+    var items = itemTemplate('page-top', document.querySelector('*[data-js-jumpnav-article-title]').textContent);
+
+    for (let i = 0; i < navItems.length; i++) {
+        var title = navItems[i].querySelector('*[data-js-jumpnav-title]').textContent;
+        items += itemTemplate(navItems[i].id, title);
+    }
+    const container = containerTemplate(items);
+    const div = document.createElement('div');
+    document.body.append(div);
+    div.outerHTML = container;
+    
+
+    // Set up the smooth scrolling behaviour.
+    // We assume this will be only run once, at page load.
+    document.querySelectorAll('*[data-js-jumpnav-scroll]').forEach(el => {
+        el.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            var target = document.querySelector(el.getAttribute('href'));
+            var targetPosition = target.getBoundingClientRect().top;
+            var targetTopMargin = parseInt(window.getComputedStyle(target).marginTop, 10);
+            window.scrollTo({
+                top: (targetPosition + window.scrollY) - targetTopMargin,
+                left: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            if (entry.intersectionRatio === 1) {
+                document.querySelector(`a[data-js-jumpnav-scroll][href="#${id}"]`).classList.add('active');
+            } else {
+                document.querySelector(`a[data-js-jumpnav-scroll][href="#${id}"]`).classList.remove('active');
+            }
+        });
+    }, {threshold: 1});
+
+    // Track all sections that have an `id` applied
+    navItems.forEach((el) => {
+        observer.observe(el);
+    });
+
+    // Hide the component when it intersects with the header.
+    const componentPosition = document.querySelector('*[data-js-jumpnav-index]').getBoundingClientRect();
+    const topMargin = componentPosition.top - 20; // Add some extra margin.
+    const headerObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelector('*[data-js-jumpnav-index]').classList.remove('visible');
+            } else {
+                document.querySelector('*[data-js-jumpnav-index]').classList.add('visible');
+            }
+        });
+    }, {rootMargin: `-${topMargin}px 0px 0px 0px`});
+
+    headerObserver.observe(document.querySelector('#page-top'));
+
+
+    // Hide the component when it intersects with the footer.
+    const bottomMargin = componentPosition.bottom - 20;
+    const footerObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelector('*[data-js-jumpnav-index]').classList.remove('visible');
+            } else {
+                document.querySelector('*[data-js-jumpnav-index]').classList.add('visible');
+            }
+        });
+    // }, {rootMargin: `0px 0px -${bottomMargin}px 0px`});
+    }, {rootMargin: `-1116px 0px 0px 0px`});
+
+    footerObserver.observe(document.querySelector('.SiteFooter'));
+
 })(window, document);
 

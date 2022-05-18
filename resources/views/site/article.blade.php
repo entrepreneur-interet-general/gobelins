@@ -3,7 +3,7 @@
 @section('content')
     <article class="Article">
 
-        <header class="Article__header">
+        <header class="Article__header" id="page-top">
 
             <div class="Article__cover-text">
 
@@ -20,7 +20,7 @@
 
                     <h1 class="Article__h1">
                         <span class="Article__h1-inner">
-                            <span class="Article__title">
+                            <span class="Article__title" data-js-jumpnav-article-title>
                                 {{ $item->title }}
                             </span>
                             @if($item->subtitle)
