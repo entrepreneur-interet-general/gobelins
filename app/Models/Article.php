@@ -5,6 +5,7 @@ namespace App\Models;
 use A17\Twill\Models\Behaviors\HasBlocks;
 use A17\Twill\Models\Behaviors\HasMedias;
 use A17\Twill\Models\Behaviors\HasPosition;
+use A17\Twill\Models\Behaviors\HasRelated;
 use A17\Twill\Models\Behaviors\HasRevisions;
 use A17\Twill\Models\Behaviors\HasSlug;
 use A17\Twill\Models\Behaviors\Sortable;
@@ -14,7 +15,7 @@ use App\Models\Presenters\ArticlePresenter as ArticlePresenter;
 
 class Article extends Model implements Sortable
 {
-    use HasBlocks, HasSlug, HasMedias, HasRevisions, HasPosition;
+    use HasBlocks, HasSlug, HasMedias, HasRevisions, HasPosition, HasRelated;
 
     public $presenterAdmin = AdminArticlePresenter::class;
     public $presenter = ArticlePresenter::class;

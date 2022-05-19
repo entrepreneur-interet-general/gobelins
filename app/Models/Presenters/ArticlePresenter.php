@@ -26,11 +26,10 @@ class ArticlePresenter extends Presenter
     public function featuredArticles()
     {
         $related = $this->related;
-        if ($related->count() < 3) {
-            $related = $this->relatedArticles(3);
+        if ($related->count() > 0) {
             return $related;
         } else {
-            return $related;
+            return $this->relatedArticles(3);
         }
     }
 

@@ -14,6 +14,8 @@ class ArticleRepository extends ModuleRepository
 {
     use HandleBlocks, HandleSlugs, HandleMedias, HandleRevisions, HandleTags;
 
+    protected $relatedBrowsers = ['articles'];
+
     public function __construct(Article $model)
     {
         $this->model = $model;
