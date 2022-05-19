@@ -75,7 +75,6 @@
 
 @mixin f-serif {
   font-family: "Source Serif Pro", Georgia, "Times New Roman", serif;
-  font-display: swap;
 }
 .f-serif {
   @include f-serif;
