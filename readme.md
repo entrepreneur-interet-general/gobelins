@@ -6,28 +6,37 @@ collections of the Mobilier National, as described <a href="https://entrepreneur
 Documentation: coming soon :)
 
 ### Development setup
-
+First get the source by executing the command which will clone the repository :
 ```shell
-$ php artisan migrate:install
-$ php artisan migrate
-$ php artisan db:seed --class=ProductTypeSeeder
-$ php artisan es:indices:create
+composer create-project entrepreneur-interet-general/gobelins gobelins "dev-master" --repository='{"type": "vcs", "url": "git@github.com:Novactive/MN-gobelins-laravel.git"}' 
 ```
 
-Importing products from the Gobelin-datasource API
+Download the following DB dump and save it as `provisioning/dev/db/mn.lab.database.dump` directory : 
+https://docs.google.com/uc?export=download&id=1sh233rN-12w5glQPcdoqGjQM8piaVKXJ
+
+Run the following command to create the local development docker stack :
+```shell
+make create
+```
+
+Once done, the application should be accessible from the following urls :
+* http://localhost:39080/ (dev mode with debug)  
+* http://localhost:39081/ (prod mode)
+
+### Importing products from the Gobelin-datasource API
 
 ```shell
-$ php artisan gobelins:import -vvv
+php artisan gobelins:import -vvv
 ```
 
 Interrupt process with `Ctrl-C`, it will gracefully exit.
 You may then resume the import starting from a given page:
 
 ```shell
-$ php artisan gobelins:import -vvv --from=58
+php artisan gobelins:import -vvv --from=58
 ```
 
-To re-index Elasticsearch:
+### Re-indexing Elasticsearch:
 
 ```shell
 php artisan scout:flush "App\Models\Product"
