@@ -1,0 +1,20 @@
+db:
+  type: postgresql:10
+  disk: 1024
+  configuration:
+    databases:
+      - gobelins
+    endpoints:
+      gobelins:
+        privileges:
+          gobelins: admin
+
+es:
+  type: elasticsearch:6.8
+  disk: 256
+  configuration:
+    plugins:
+      - analysis-icu
+
+cache:
+  type: redis:5.0
