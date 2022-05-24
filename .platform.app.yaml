@@ -1,0 +1,96 @@
+# This file describes an application. You can have multiple applications
+# in the same project.
+
+# The name of this app. Must be unique within a project.
+name: app
+
+# The type of the application to build.
+type: php:7.4
+
+dependencies:
+  php:
+    composer/composer: '^1'
+
+build:
+  flavor: none
+
+runtime:
+  extensions:
+    - redis
+    - pdo_pgsql
+
+# The hooks that will be performed when the package is deployed.
+hooks:
+  build: |
+    set -e
+    # install a specific NodeJS version https://github.com/platformsh/snippets/
+    #   -v requested version
+    #   -y install Yarn
+    curl -fsS https://raw.githubusercontent.com/platformsh/snippets/main/src/install_node.sh | { bash /dev/fd/3 -v 16; } 3<&0
+    
+    APP_ENV=prod composer install --no-dev --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-scripts
+    npm install && npm run production
+  deploy: |
+    set -e
+    APP_ENV=prod composer run platformsh-deploy
+
+
+# The relationships of the application with services or other applications.
+# The left-hand side is the name of the relationship as it will be exposed
+# to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
+# side is in the form `<service name>:<endpoint name>`.
+relationships:
+  postgre: "db:gobelins"
+  rediscache: "cache:redis"
+  redissession: "cache:redis"
+  elasticsearch: "es:elasticsearch"
+
+# The size of the persistent disk of the application (in MB).
+disk: 1024
+
+# The mounts that will be performed when the package is deployed.
+mounts:
+  "storage/app/public":
+    source: local
+    source_path: "public"
+  "storage/framework/views":
+    source: local
+    source_path: "views"
+  "storage/framework/sessions":
+    source: local
+    source_path: "sessions"
+  "storage/framework/cache":
+    source: local
+    source_path: "cache"
+  "storage/logs":
+    source: local
+    source_path: "logs"
+  "bootstrap/cache":
+    source: local
+    source_path: "cache"
+  "/.config":
+    source: local
+    source_path: "config"
+
+# The configuration of app when it is exposed to the web.
+web:
+  locations:
+    "/":
+      root: "public"
+      index:
+        - index.php
+      allow: true
+      passthru: "/index.php"
+    "/storage":
+      root: "storage/app/public"
+      scripts: false
+
+variables:
+  env:
+    N_PREFIX: /app/.global
+
+crons:
+  # Run Laravel's scheduler every 5 minutes, which is often as crons can run on Professional plans.
+  scheduler:
+    spec: '*/5 * * * *'
+    cmd: 'php artisan schedule:run'
