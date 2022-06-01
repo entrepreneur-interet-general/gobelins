@@ -45,7 +45,7 @@ ateliers</a><span class="EncycloHome__comma">,</span></span>
                     <span class="EncycloHome__line5">ou <a href="#">créateurs</a></span>
                 </p>
                 <p class="EncycloHome__layus">
-                    Le Mobilier national vous propose son encyclopédie des savoir-faire. Cette institution nationale fait vivre 14 ateliers de créations et de restaurations. Dans ceux-ci se transmettent des savoir-faire sur les tapisserie, ébénisterie, teinture… Ici vous retrouverez un aperçu de ces métiers d’arts, leur technique, leur inovations.
+                    Le Mobilier national vous propose son encyclopédie des savoir-faire. Cette institution nationale fait vivre 14 ateliers de création et de restauration. S'y transmettent des savoir-faire sur les tapisseries, l’ébénisterie, la teinture… Vous trouverez ici un aperçu de ces métiers d’art, leurs techniques, leurs innovations.
                 </p>
             </div>
         </section>
