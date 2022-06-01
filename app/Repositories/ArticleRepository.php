@@ -52,4 +52,24 @@ class ArticleRepository extends ModuleRepository
         $fields['browsers']['related'] = $this->getFormFieldsForBrowser($object, 'related', 'encyclopedie', 'title', 'articles');
         return $fields;
     }
+
+    /**
+     * Override the tags listing query, so we may order alphabetically.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function getTagsQuery()
+    {
+        return $this->model->allTags()->orderBy('name', 'asc');
+    }
+
+    /**
+     * List of tags, used in the Twill back office listings.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getTagsListForFilter()
+    {
+        return $this->getTagsQuery()->where('count', '>', 0)->select('name', 'id')->get()->pluck('name', 'id');
+    }
 }

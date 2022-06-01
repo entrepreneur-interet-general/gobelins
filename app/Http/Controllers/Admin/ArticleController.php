@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use A17\Twill\Http\Controllers\Admin\ModuleController;
+use App\Repositories\ArticleRepository;
 use App\Repositories\SectionRepository;
 
 class ArticleController extends ModuleController
@@ -65,6 +66,7 @@ class ArticleController extends ModuleController
 
     protected $filters = [
         'sections' => 'section_id',
+        'tags' => 'tag_id',
     ];
 
     /*
@@ -74,6 +76,7 @@ class ArticleController extends ModuleController
     {
         return [
             'sectionsList' => app(SectionRepository::class)->listAll(),
+            'tagsList' => app(ArticleRepository::class)->getTagsListForFilter(),
         ];
     }
 
@@ -81,6 +84,7 @@ class ArticleController extends ModuleController
     {
         return [
             'sections' => app(SectionRepository::class)->listAll(),
+            'tags' => app(ArticleRepository::class)->getTagsListForFilter(),
         ];
     }
 }

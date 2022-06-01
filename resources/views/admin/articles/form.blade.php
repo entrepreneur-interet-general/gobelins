@@ -27,7 +27,8 @@
 
 
     @formField('tags', [
-        'label' => "Étiquettes"
+        'label' => "Étiquettes",
+        'note' => "Mettre une majuscule au premier mot, rester concis.",
     ])
 
     @formField('select', [
