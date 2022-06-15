@@ -5,6 +5,8 @@ import classNames from "classnames";
 import Heart from "../icons/Heart";
 import RemoveButton from "../ui/RemoveButton";
 
+import { CustomPlaceholder } from "react-placeholder-image"
+
 export default function CollectionGridItem({
   onObjectClick,
   onSelectionClick,
@@ -58,15 +60,18 @@ export default function CollectionGridItem({
             "--aspect-ratio": datum.images[0].width / datum.images[0].height
           }}
         >
-          <img
-            sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),
-                       (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),
-                       (min-width: 1440px) and (max-width: 1599px) calc((100vw - 288px - (40px * 4)) / 4),
-                       (min-width: 1025px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),
-                       (min-width: 800px) and (max-width: 1024px) calc((100vw - (40px * 4)) / 3),
-                       calc(100vw - (3 * 15px) / 2)"
-            srcSet={`${img330} 330w, ${img600} 600w`}
-          />
+          {/*<img*/}
+          {/*  sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),*/}
+          {/*             (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),*/}
+          {/*             (min-width: 1440px) and (max-width: 1599px) calc((100vw - 288px - (40px * 4)) / 4),*/}
+          {/*             (min-width: 1025px) and (max-width: 1439px) calc((100vw - 288px - (40px * 3)) / 3),*/}
+          {/*             (min-width: 800px) and (max-width: 1024px) calc((100vw - (40px * 4)) / 3),*/}
+          {/*             calc(100vw - (3 * 15px) / 2)"*/}
+          {/*  srcSet={`${img330} 330w, ${img600} 600w`}*/}
+          {/*/>*/}
+
+          <CustomPlaceholder width={datum.images[0].width} height={datum.images[0].height}/>
+
           {/* <img
                 sizes="(min-width: 1800px) calc((100vw - 288px - (40px * 6)) / 6),
                        (min-width: 1600px) and (max-width: 1799px) calc((100vw - 288px - (40px * 5)) / 5),

@@ -7,6 +7,8 @@ import Download from "../icons/Download";
 import Heart from "../icons/Heart";
 import Loader from "../Loader";
 
+import { CustomPlaceholder } from "react-placeholder-image"
+
 class MainImage extends Component {
   constructor(props) {
     super(props);
@@ -36,18 +38,18 @@ class MainImage extends Component {
       <section className="DetailMainImage">
         {this.props.image ? (
           <figure className="DetailMainImage__fig">
-            <ImageLoader
-              src={imgUrl}
-              alt=""
-              image={props => (
-                <Link to={`${this.props.match.url}/zoom`}>
-                  <img src={imgUrl} alt="" className="DetailMainImage__img" />
-                </Link>
-              )}
-              loading={() => <Loader className="DetailMainImage__spinner" />}
-              error={() => <div>Error</div>}
-              className="DetailMainImage__img"
-            />
+            {/*<ImageLoader*/}
+            {/*  src={imgUrl}*/}
+            {/*  alt=""*/}
+            {/*  image={props => (*/}
+            {/*    <Link to={`${this.props.match.url}/zoom`}>*/}
+            {/*      <img src={imgUrl} alt="" className="DetailMainImage__img" />*/}
+            {/*    </Link>*/}
+            {/*  )}*/}
+            {/*  loading={() => <Loader className="DetailMainImage__spinner" />}*/}
+            {/*  error={() => <div>Error</div>}*/}
+            {/*  className="DetailMainImage__img"*/}
+            {/*/>*/}
 
             {this.props.onSelectionClick && (
               <div
@@ -58,6 +60,8 @@ class MainImage extends Component {
                 }}
               >
                 <div>
+                  <CustomPlaceholder width={this.props.image.width} height={this.props.image.height} className="DetailMainImage__img"/>
+
                   <button
                     type="button"
                     className="DetailMainImage__button DetailMainImage__button--selection"
