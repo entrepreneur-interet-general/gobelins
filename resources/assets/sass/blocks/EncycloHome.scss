@@ -601,8 +601,11 @@
     line-height: 23px;
     color: #AE6E0D;
     text-decoration: underline;
-    text-underline-offset: 8px;
+    text-underline-offset: 5px;
     text-decoration-thickness: 1px;
+    // Align section title with underline of section link.
+    position: relative;
+    top: -4px;
 }
 
 %EncycloArticleStack {
