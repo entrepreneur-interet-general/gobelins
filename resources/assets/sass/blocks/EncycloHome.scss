@@ -313,6 +313,16 @@
     @include breakpoint($a-xxlarge-up) {
         margin-top: 239px;
     }
+    background-image: url(/images/encyclo/bg/bg_DC6767.svg);
+    background-position: top 0 left -222px;
+    background-size: 444px 444px;
+    background-repeat: no-repeat;
+    
+    // Breakpoint not in design file, inventing.
+    @include breakpoint(768px) {
+        background-position: top 50px right -277px;
+        background-size: 555px 555px;
+    }
 }
 .EncycloHome__section_title {
     margin: 0;
@@ -446,6 +456,7 @@
 }
 .EncycloHome__latest_title {
     @extend %EncycloHome__aside;
+    position: relative;
 
     &::before {
         content: '';
@@ -586,6 +597,46 @@
         margin-top: 160px;
         padding-top: 70px;
         margin-bottom: 70px;
+    }
+}
+// First section
+.EncycloHome__section.is-nth-section-0 {
+    background-image: url(/images/encyclo/bg/bg_B86E00.svg);
+    background-position: top 0 right -171px;
+    background-size: 342px 342px;
+    background-repeat: no-repeat;
+    @include breakpoint(768px) {
+        background-position: top 50px right -314px;
+        background-size: 628px 628px;
+    }
+
+}
+// Third section
+.EncycloHome__section.is-nth-section-2 {
+    background-image: url(/images/encyclo/bg/bg_FF8989.svg);
+    background-position: top 0 left -369px;
+    background-size: 540px 540px;
+    background-repeat: no-repeat;
+    @include breakpoint(768px) {
+        background-position: top 0 left -280px;
+        background-size: 628px 628px;
+    }
+    @include breakpoint($large-up) {
+        background-position: top 0 left -340px;
+    }
+}
+// Fourth section
+.EncycloHome__section.is-nth-section-3 {
+    background-image: url(/images/encyclo/bg/bg_6167FF.svg);
+    background-position: top 0 right -369px;
+    background-size: 499px 499px;
+    background-repeat: no-repeat;
+    @include breakpoint(768px) {
+        background-position: top 0 right -400px;
+        background-size: 705px 705px;
+    }
+    @include breakpoint($large-up) {
+        background-position: top 0 right -450px;
     }
 }
 .EncycloHome__section_title {
@@ -746,13 +797,36 @@
     @include breakpoint($large-up) {
         margin-top: 150px;
     }
+
+    &:after {
+        content: '';
+        display: block;
+        width: 703px;
+        height: 703px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translate(-50%, 0%);
+        
+        background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #BC31A4;
+        mix-blend-mode: multiply;
+        opacity: 0.4;
+        box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+        @include breakpoint(768px) {
+            transform: translate(-50%, -25%);
+        }
+        @include breakpoint($large-up) {
+            transform: translate(0%, -60%);
+        }
+    }
 }
 .EncycloHome__prefoot_aside {
     @extend %EncycloHome__aside;
+    position: relative;
     @include breakpoint($large-up) {
         margin-top: 150px;
     }
-
+    
     & a {
         color: inherit;
         text-decoration: underline;
@@ -764,6 +838,21 @@
             }
         }
     }
+}
+.EncycloHome__prefoot_aside::after {
+    content: '';
+    display: block;
+    width: 330px;
+    height: 330px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #3338BA;
+    mix-blend-mode: multiply;
+    opacity: 0.2;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
 }
 .EncycloHome_aside_sig {
     display: block;

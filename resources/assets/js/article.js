@@ -16,6 +16,16 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
 
 // function positionBackgroundImages() {
 
+
+
+// Iterate through anchor nodes
+// for each one,
+// get the position of it
+// set the CSS custom prop value on root element
+// …like --halo-A-1-offset-top = 1250px
+
+
+
 //     // Iterate through anchor nodes
 //     // for each one,
 //     // get the position of it

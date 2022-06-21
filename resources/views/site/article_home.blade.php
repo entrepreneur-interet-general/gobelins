@@ -74,7 +74,7 @@ ateliers</a><span class="EncycloHome__comma">,</span></span>
     
 
         @foreach($sections as $s)
-            <section class="EncycloHome__section">
+            <section class="EncycloHome__section is-nth-section-{{ $loop->index }}">
                 <div class="EncycloHome__section-inner">
                     <div class="EncycloHome__section_top">
                         <h2 class="EncycloHome__section_title">
