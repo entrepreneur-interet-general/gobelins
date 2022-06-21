@@ -360,7 +360,7 @@
         font-size: rem(40px);
     }
     @include breakpoint($a-xxlarge-up) {
-        font-size: rem(60px);
+        font-size: rem(54.4px);
     }
 }
 
@@ -388,6 +388,9 @@
 
 .EncycloHome__cardstack--featured_primary li:nth-child(1) {
     grid-column: main;
+    & .Card__text {
+        max-width: 900px;
+    }
     & .Card__subtitle {
         font-size: inherit;
     }
@@ -469,7 +472,7 @@
     }
     
     @include breakpoint($a-xxlarge-up) {
-        font-size: rem(60px);
+        font-size: rem(54.4px);
         grid-column: 10 / 19;
     }
 }
