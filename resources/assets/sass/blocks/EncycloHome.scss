@@ -1,9 +1,23 @@
 .EncycloHome {
-        background-image: url(/images/encyclo/bg/art_s_1.svg),
-                          url(/images/encyclo/bg/art_s_2.svg);
-        background-position: top 406px right 0px, 
-                             top 887px left 0;
+        background-image: url(/images/encyclo/bg/bg_FF8989.svg),
+                          url(/images/encyclo/bg/bg_6167FF.svg);
+        background-position: top -100% right -100%, // hidden on mobile
+                             top calc(100vh - 209px) right -209px;
+        background-size: 628px 628px,
+                         419px 419px;
         background-repeat: no-repeat;
+        @include breakpoint(768px) {
+            background-position: top -314px right -314px,
+                                 top 497px left -314px;
+            background-size: 628px 628px,
+                             628px 628px;
+        }
+        @include breakpoint($large-up) {
+            background-position: top -314px right 50%,
+                                 top calc(100vh - 314px) left -314px;
+            background-size: 628px 628px,
+                             628px 628px;
+        }
 }
 
 
@@ -11,53 +25,6 @@
     @extend %encyclo-grid;
     @include breakpoint($large-up) {
         grid-template-rows: 50vh 50vh auto;
-    }
-}
-/* Blue background halo */
-.EncycloHome__header:before {
-    //content: '';
-    // display: block;
-    // position: absolute;
-    // z-index: -1;
-    // width: 419px;
-    // height: 419px;
-    // right: 0;
-    // top: 406px;
-    
-    // background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%),
-    // #6167FF;
-    // mix-blend-mode: multiply;
-    // opacity: 0.6;
-    // box-shadow: inset 0px 0px 200px 20px #FFFFFF;
-    
-    // @include breakpoint(768px) {
-    //     width: 628px;
-    //     height: 628px;
-    //     left: -346px;
-    //     top: 262px;
-        
-    //     opacity: 0.7;
-    // }
-}
-
-.EncycloHome__header:after {
-    @include breakpoint($large-up) {
-        content: '';
-        display: block;
-        position: absolute;
-        z-index: -1;
-        width: 628px;
-        height: 628px;
-        left: calc(50vw - 628px / 2);
-        // right: 27.71%;
-        top: -262px;
-        // bottom: 96.34%;
-        
-        background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%),
-        #FF8989;
-        mix-blend-mode: multiply;
-        opacity: 0.5;
-        box-shadow: inset 0px 0px 200px 20px #FFFFFF;
     }
 }
 
@@ -479,6 +446,25 @@
 }
 .EncycloHome__latest_title {
     @extend %EncycloHome__aside;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: -1;
+        width: 339px;
+        height: 339px;
+        left: 0;
+        top: 0;
+        transform: translate(-50%, -50%);
+        user-select: none;
+        pointer-events: none;
+    
+        background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #B7ABFF;
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+        box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    }
 }
 .EncycloHome__latest_link {
     display: block;
