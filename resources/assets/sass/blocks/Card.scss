@@ -111,6 +111,7 @@
     height: 23px;
     margin: 0 5px 0 0;
     position: relative;
+    top: -3px;
     border: 1px solid #000;
     border-radius: 11.5px;
     align-items: center;
@@ -143,12 +144,15 @@
         display: inline-flex;
         margin-right: 4px;
     }
+    max-width: calc(100% - 40px);
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px 7px 10px;
+    padding: 5px 10px 4px 10px;
     background: #EDEDED;
     border-radius: 50px;
+    // To match the reading time capsule, we add a border.
+    border: 1px solid #EDEDED;
     user-select: none;
     text-decoration: none;
     @include f-sans;
@@ -159,11 +163,21 @@
     font-feature-settings: 'pnum' on, 'onum' on;
     color: #000000;
     text-transform: lowercase;
+    position: relative;
+    top: -3px;
+    z-index: 1;
     @media (hover: hover) {
         &:hover {
             background-color: #E8E7E7;
+            border-color: #E8E7E7;
         }
     }
+}
+.Card__tag-inner {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-bottom: 1px;
 }
 
 .Card__fig {
