@@ -5,6 +5,7 @@
     justify-items: start;
     align-items: flex-start;
     position: relative;
+    cursor: pointer;
 
     &.flickity-cell {
         position: absolute;
@@ -31,6 +32,16 @@
     font-size: rem(13px);
     font-feature-settings: 'pnum' on, 'onum' on;
     color: #FFFFFF;
+}
+@media (hover: hover) {
+    .Card.is-new:hover::before {
+        // Color value of opacity: 0.87, becaus we don't want the transparency.
+        background-color: #4e52c3;
+    }
+    .Card:hover .Card__img,
+    .Card:hover .Card__title {
+        opacity: 0.87;
+    }
 }
 
 .Card__text {
@@ -73,6 +84,17 @@
 .Card__link {
     text-decoration: none;
     color: inherit;
+    // Make the whold card clickable.
+    // Downside: user can't select text properly.
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 }
 
 .Card__meta {
@@ -93,6 +115,11 @@
     border-radius: 11.5px;
     align-items: center;
     user-select: none;
+    @media (hover: hover) {
+        .Card:hover & {
+            opacity: 0.87;
+        }
+    }
 }
 
 .Card__reading-time-icon {
@@ -132,6 +159,11 @@
     font-feature-settings: 'pnum' on, 'onum' on;
     color: #000000;
     text-transform: lowercase;
+    @media (hover: hover) {
+        &:hover {
+            background-color: #E8E7E7;
+        }
+    }
 }
 
 .Card__fig {
@@ -146,4 +178,5 @@
     width: 100%;
     aspect-ratio: auto;
     object-fit: cover;
+    transition: opacity 250ms ease-in-out;
 }

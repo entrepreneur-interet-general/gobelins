@@ -256,6 +256,11 @@
     text-decoration-skip-ink: auto;
     color: inherit;
 }
+@media (hover: hover) {
+    .EncycloHome__intro_lines a:hover {
+        opacity: 0.87;
+    }
+}
 .EncycloHome__line1 {
     @include breakpoint(768px) {
         padding-left: 117px;
@@ -606,6 +611,11 @@
     // Align section title with underline of section link.
     position: relative;
     top: -4px;
+    @media (hover: hover) {
+        &:hover {
+            opacity: 0.87;
+        }
+    }
 }
 
 %EncycloArticleStack {
@@ -747,6 +757,11 @@
         text-decoration: underline;
         text-underline-offset: 8px;
         text-decoration-thickness: 1px;
+        @media (hover: hover) {
+            &:hover {
+                opacity: 0.87;
+            }
+        }
     }
 }
 .EncycloHome_aside_sig {
