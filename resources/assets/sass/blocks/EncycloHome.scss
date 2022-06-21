@@ -220,6 +220,7 @@
         order: 1;
         grid-column: 1 / 11;
         grid-row: 1 / -1;
+        margin-top: 160px;
     }
     @include breakpoint($a-xxlarge-up) {
         grid-column: 1 / 12;
@@ -409,7 +410,7 @@
     margin-top: 101px;
     @include breakpoint(768px) {
         grid-column: 2 / 5;
-        margin-top: 181px;
+        margin-top: 241px;
     }
     @include breakpoint($large-up) {
         grid-column: 4 / 10;
@@ -595,6 +596,11 @@
     margin: 80px 0 calc(44px - 15px);;
     border-top: 1px solid #AE6E0D;
     padding-top: 44px;
+    @include breakpoint($large-up) {
+        margin-top: 160px;
+        padding-top: 70px;
+        margin-bottom: 70px;
+    }
 }
 .EncycloHome__section_title {
     flex: 1 0 auto;
@@ -751,9 +757,15 @@
 .EncycloHome__prefoot {
     @extend %encyclo-grid;
     margin-top: 80px;
+    @include breakpoint($large-up) {
+        margin-top: 150px;
+    }
 }
 .EncycloHome__prefoot_aside {
     @extend %EncycloHome__aside;
+    @include breakpoint($large-up) {
+        margin-top: 150px;
+    }
 
     & a {
         color: inherit;
