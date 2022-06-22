@@ -1,6 +1,7 @@
 .TextImage {
   @extend %article-grid;
   position: relative;
+  z-index: 4; // Above has-decorative-bg gradients
   margin: 80px 0;
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;

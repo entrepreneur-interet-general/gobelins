@@ -140,10 +140,6 @@
 
         </main>
 
-        <div class="Article__footer-decoration">
-            <div class="Article__footer-decoration-inner"></div>
-        </div>
-
         <footer class="Article__footer">
 
             <div class="Article__footer-label">
