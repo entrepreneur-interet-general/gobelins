@@ -1,4 +1,4 @@
-<li class="Card is-new">
+<li class="Card @if($article->present()->isNew()) is-new @endif">
     <div class="Card__text">
         <h3 class="Card__title">
             <a href="{{ route('article.show', ['slug' => $article->slug]) }}" class="Card__link">

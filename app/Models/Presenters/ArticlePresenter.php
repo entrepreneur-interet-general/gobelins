@@ -42,4 +42,15 @@ class ArticlePresenter extends Presenter
     {
         return $this->blocks->pluck('medias')->reject(function ($c) {return $c->isEmpty();})->flatten()->pluck('credit')->filter()->unique();
     }
+
+    /**
+     * Should the article be displayed as "new" for users ?
+     * Only if it's been published in the last 3 months.
+     *
+     * @return boolean
+     */
+    public function isNew()
+    {
+        return ($this->publish_start_date->diffInMonths() < 4);
+    }
 }
