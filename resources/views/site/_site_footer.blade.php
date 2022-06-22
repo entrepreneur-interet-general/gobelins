@@ -9,6 +9,7 @@
         <a href="{{ route('static_info') }}#contact">Contact</a>
         <a href="{{ route('static_info') }}#project">Le projet</a>
         <a href="{{ route('static_info') }}#credits">Mentions légales</a>
+        <a href="{{ route('static_info') }}#credits-photo">Crédits</a>
     </nav>
     <nav class="SiteFooter__nav SiteFooter__nav2">
         <a href="{{ route('search') }}">Les collections</a>
