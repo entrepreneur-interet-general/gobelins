@@ -8,10 +8,11 @@
 
             <div class="EncyloHome__header_illu">
                 <video
-                    src="/images/encyclo/encyclo_header_illu.m4v"
-                    autoplay playsinline muted loop preload="auto"
+                    src="/images/encyclo/encyclo_header_illu_smaller.m4v"
+                    poster="/images/encyclo/video_poster.jpg"
+                    autoplay playsinline muted preload="auto"
                     alt="Les savoir-faire du Mobilier National"
-                    class="EncycloHome__vid"></video>
+                    class="EncycloHome__vid" id="homepage_static_video"></video>
             </div>
 
             <div class="EncycloHome__corp">

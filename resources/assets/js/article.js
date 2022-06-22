@@ -14,6 +14,24 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
     });
 });
 
+let homepage_video = document.querySelector('#homepage_static_video');
+let homepage_video_loop_count = 0;
+if (homepage_video) {
+    console.log("addin event listener");
+    homepage_video.addEventListener('ended', (event) => {
+        console.log("ok, we ended loop ", homepage_video_loop_count);
+        homepage_video_loop_count++;
+        if(homepage_video_loop_count <= 3) {
+            console.log("looping ! !");
+            homepage_video.play();
+        } else {
+            console.log("Done looping");
+        }
+    });
+} else {
+    console.log("what the hell ?");
+}
+
 // function positionBackgroundImages() {
 
 

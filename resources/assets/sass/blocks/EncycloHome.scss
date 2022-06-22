@@ -75,6 +75,7 @@
 .EncycloHome__vid {
     width: 100%;
     display: block;
+    background-color: #000;
 
     @include breakpoint($large-up) {
         height: 100%;
