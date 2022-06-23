@@ -34,13 +34,12 @@
     color: #FFFFFF;
 }
 @media (hover: hover) {
-    .Card.is-new:hover::before {
-        // Color value of opacity: 0.87, becaus we don't want the transparency.
-        background-color: #4e52c3;
+    .Card:hover .Card__title,
+    .Card:hover .Card__subtitle {
+        color: #3338BA;
     }
-    .Card:hover .Card__img,
-    .Card:hover .Card__title {
-        opacity: 0.87;
+    .Card:hover .Card__img {
+        transform: scale(102%);
     }
 }
 
@@ -185,6 +184,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow: hidden;
 }
 
 .Card__img {
@@ -192,5 +192,5 @@
     width: 100%;
     aspect-ratio: auto;
     object-fit: cover;
-    transition: opacity 250ms ease-in-out;
+    transition: transform 150ms ease-in-out;
 }
