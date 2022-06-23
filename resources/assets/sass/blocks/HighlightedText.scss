@@ -27,7 +27,7 @@
 .HighlightedText__inner {
   grid-column: main;
   @include breakpoint(768px) {
-    grid-column: 2 / 12;
+    grid-column: 3 / 12;
   }
   @include breakpoint($a-xxlarge-up) {
     grid-column: 4 / 11;
