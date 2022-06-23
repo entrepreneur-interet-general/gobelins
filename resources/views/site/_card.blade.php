@@ -20,6 +20,6 @@
 
     </div>
     <figure class="Card__fig">
-        <img src="{{ $article->image('cover', ($orientation ?? 'vertical')) }}" alt="{{ $article->imageAltText('cover') }}" class="Card__img">
+        <img src="{{ $article->image('cover', ($orientation ?? 'recirculation')) }}" alt="{{ $article->imageAltText('cover') }}" class="Card__img">
     </figure>
 </li>

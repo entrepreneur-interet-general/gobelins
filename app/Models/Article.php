@@ -58,6 +58,12 @@ class Article extends Model implements Sortable
                     'ratio' => 16 / 9,
                 ],
             ],
+            'recirculation' => [
+                [
+                    'name' => 'Recirculation',
+                    'ratio' => 3 / 4,
+                ],
+            ],
         ],
     ];
 
