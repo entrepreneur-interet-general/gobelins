@@ -190,7 +190,7 @@
 .Card__img {
     display: block;
     width: 100%;
-    aspect-ratio: auto;
+    aspect-ratio: calc(3 / 4);
     object-fit: cover;
     transition: transform 150ms ease-in-out;
 }

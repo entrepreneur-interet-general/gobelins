@@ -378,6 +378,9 @@
     & .Card__subtitle {
         font-size: inherit;
     }
+    & .Card__img {
+        aspect-ratio: auto;
+    }
     @include breakpoint(768px) {
         grid-column: main;
     }
