@@ -766,6 +766,8 @@
     width: 46px;
     border-radius: 50%;
     background-color: #B86E00;
+    // The 15px are the top margin of the .Card nodes.
+    top: calc(var(--carousel-arrow-vertical-offset, 50%) + 15px);
 
     &:hover .flickity-button-icon {
         stroke: #B86E00;

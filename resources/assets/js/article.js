@@ -10,7 +10,27 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
         contain: true,
         groupCells: true,
         pageDots: false,
-        arrowShape: 'M57 64.3985L43 50.2226M56.7495 35.0762L43.1518 49.8269'
+        arrowShape: 'M57 64.3985L43 50.2226M56.7495 35.0762L43.1518 49.8269',
+        on: {
+            ready: function() {
+                function debounce(func){
+                    var timer;
+                    return function(event){
+                        if(timer) clearTimeout(timer);
+                        timer = setTimeout(func,100,event);
+                    };
+                };
+                // We want to position the Prev/Next arrows depending on the
+                // height of the image, not the card itself. And because height
+                // is variable, we must handle in JS.
+                function verticalOffset() {
+                    let height = node.querySelector('.Card__img').getBoundingClientRect().height;
+                    node.style.setProperty('--carousel-arrow-vertical-offset', Math.floor(height / 2) + 'px');
+                }
+                verticalOffset();
+                window.addEventListener('resize', debounce(verticalOffset), {passive: true});
+            },
+        }
     });
 });
 
