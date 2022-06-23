@@ -40,7 +40,7 @@ savoir-faire</h1>
                 <p class="EncycloHome__intro_lines">
                     <span class="EncycloHome__line1">Découvrez</span>
                     <span class="EncycloHome__line2">nos <a href="#">
-ateliers</a><span class="EncycloHome__comma">,</span></span>
+métiers</a><span class="EncycloHome__comma">,</span></span>
                     <span class="EncycloHome__line3"><a href="#">techniques</a><span class="EncycloHome__comma">,</span></span>
                     <span class="EncycloHome__line4"><a href="#">histoires d’objets</a></span>
                     <span class="EncycloHome__line5">ou <a href="#">créateurs</a></span>

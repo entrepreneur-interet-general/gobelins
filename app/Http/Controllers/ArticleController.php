@@ -25,7 +25,7 @@ class ArticleController extends Controller
     {
         $featured_primary = Feature::forBucket('home_primary_features');
         $featured_secondary = Feature::forBucket('home_secondary_features');
-        $sections = Section::published()->get();
+        $sections = Section::published()->orderBy('position')->get();
         $section_articles = [];
         $sections->each(function ($s) use (&$section_articles) {
             $section_articles[$s->slug] = $this->repository->inSection($s);
