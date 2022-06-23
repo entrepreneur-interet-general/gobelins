@@ -17,9 +17,9 @@ class ArticlePresenter extends Presenter
     public function relatedArticles($qty = 3)
     {
         if ($this->section) {
-            return Article::where('section_id', '=', $this->section->id)->limit($qty)->get();
+            return Article::published()->where('section_id', '=', $this->section->id)->limit($qty)->get();
         } else {
-            return Article::orderBy('updated_at', 'DESC')->limit($qty)->get();
+            return Article::published()->orderBy('updated_at', 'DESC')->limit($qty)->get();
         }
     }
 
