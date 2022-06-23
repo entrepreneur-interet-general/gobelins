@@ -1,4 +1,9 @@
 <li class="Card @if($article->present()->isNew()) is-new @endif">
+
+    <figure class="Card__fig">
+        <img src="{{ $article->image('cover', ($orientation ?? 'recirculation')) }}" alt="{{ $article->imageAltText('cover') }}" class="Card__img">
+    </figure>
+
     <div class="Card__text">
         <h3 class="Card__title">
             <a href="{{ route('article.show', ['slug' => $article->slug]) }}" class="Card__link">
@@ -17,9 +22,6 @@
                 <a href="{{ route('articles.by_tag', ['tag' => $tag->slug]) }}" class="Card__tag"><span class="Card__tag-inner">{{ $tag->name }}</span></a>
             @endforeach
         </p>
-
     </div>
-    <figure class="Card__fig">
-        <img src="{{ $article->image('cover', ($orientation ?? 'recirculation')) }}" alt="{{ $article->imageAltText('cover') }}" class="Card__img">
-    </figure>
+
 </li>
