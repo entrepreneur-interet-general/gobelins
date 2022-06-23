@@ -72,16 +72,21 @@
 
 
 
-.EncycloHome__vid {
+.EncycloHome__vid,
+.EncycloHome__poster {
     width: 100%;
     display: block;
     background-color: #000;
-
+    
     @include breakpoint($large-up) {
         height: 100%;
         object-fit: cover;
     }
 }
+.EncycloHome__poster {
+    object-fit: cover;
+}
+
 
 .EncycloHome__title {
     margin: 0;

@@ -14,49 +14,37 @@ document.querySelectorAll('[data-carousel]').forEach(function(node){
     });
 });
 
-let homepage_video = document.querySelector('#homepage_static_video');
-let homepage_video_loop_count = 0;
-if (homepage_video) {
-    console.log("addin event listener");
-    homepage_video.addEventListener('ended', (event) => {
-        console.log("ok, we ended loop ", homepage_video_loop_count);
-        homepage_video_loop_count++;
-        if(homepage_video_loop_count <= 3) {
-            console.log("looping ! !");
-            homepage_video.play();
-        } else {
-            console.log("Done looping");
-        }
-    });
-} else {
-    console.log("what the hell ?");
-}
-
-// function positionBackgroundImages() {
-
-
-
-// Iterate through anchor nodes
-// for each one,
-// get the position of it
-// set the CSS custom prop value on root element
-// …like --halo-A-1-offset-top = 1250px
-
-
-
-//     // Iterate through anchor nodes
-//     // for each one,
-//     // get the position of it
-//     // find the bg image name in the attribute, and offet 
-//     // lookup that bg image name in the config object
-//     // set the bg image, with offettted position, on the document background.
-
-//     images = {
-//         art_
-//     };
-// }
-
-// let ev = document.addEventListener('resize', positionBackgroundImages);
+/**
+ * Handle Savoir Faire homepage video.
+ * It loops 3 times, then reverts to displaying poster image.
+ */
+(function(){
+    let homepage_video = document.querySelector('#homepage_static_video');
+    let homepage_video_loop_count = 0;
+    if (homepage_video) {
+        homepage_video.addEventListener('ended', (event) => {
+            homepage_video_loop_count++;
+            if(homepage_video_loop_count <= 3) {
+                homepage_video.play();
+            } else {
+                // When the loops have been played,
+                // we replace the video by it's poster image.
+                let img = new Image();
+                img.src = homepage_video.poster;
+                img.className = 'EncycloHome__poster';
+                let video_dimensions = homepage_video.getBoundingClientRect();
+                img.height = video_dimensions.height;
+                img.width = video_dimensions.width;
+                homepage_video.parentElement.appendChild(img);
+                homepage_video.remove();
+                // When viewport ratio changes, let the intrinsic size of the image take over.
+                document.addEventListener('resize', ev => {
+                    img.removeAttribute('height');
+                }, {passive: true, once: true});
+            }
+        });
+    }
+})();
 
 
 // Vanilla version of FitVids
