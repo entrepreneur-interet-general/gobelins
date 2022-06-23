@@ -67,7 +67,7 @@ ateliers</a><span class="EncycloHome__comma">,</span></span>
                 </p>
                 <a href="#" class="EncycloHome__latest_link">Tout voir</a>
             </div>
-            <ul class="EncycloHome__cardstack EncycloHome__cardstack--featured_secondary">
+            <ul class="StepStack EncycloHome__cardstack--featured_secondary">
                 @each('site._card', $featured_secondary, 'article')
             </ul>
         </section>

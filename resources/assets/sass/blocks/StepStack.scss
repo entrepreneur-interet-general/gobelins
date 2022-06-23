@@ -1,0 +1,66 @@
+.StepStack {
+    list-style: none;
+    // margin: 0;
+    padding: 0;
+    @extend %encyclo-grid;
+    grid-row-gap: 20px;
+}
+
+.StepStack li:nth-child(odd) {
+    @include breakpoint(0px 767px) {
+        grid-column: first-half;
+    }
+}
+
+.StepStack li:nth-child(even) {
+    @include breakpoint(0px 767px) {
+        grid-column: second-half;
+        margin-top: 60px;
+    }
+}
+
+.StepStack li:nth-child(3n+1) {
+    @include breakpoint(768px) {
+        grid-column: 2 / 4;
+    }
+
+    @include breakpoint($large-up) {
+        grid-column: 4 / 8;
+    }
+
+    @include breakpoint($a-xxlarge-up) {
+        grid-column: 5 / 9;
+    }
+}
+
+.StepStack li:nth-child(3n+2) {
+    @include breakpoint(768px) {
+        grid-column: 4 / 6;
+        margin-top: 75px;
+    }
+
+    @include breakpoint($large-up) {
+        grid-column: 9 / 13;
+    }
+
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: 90px;
+        grid-column: 10 / 14;
+    }
+}
+
+.StepStack li:nth-child(3n+3) {
+    @include breakpoint(768px) {
+        grid-column: 6 / 8;
+        margin-top: calc(75px + 75px);
+    }
+
+    @include breakpoint($large-up) {
+        grid-column: 14 / 18;
+    }
+
+    @include breakpoint($a-xxlarge-up) {
+        margin-top: calc(90px + 90px);
+        grid-column: 15 / 19;
+    }
+}
