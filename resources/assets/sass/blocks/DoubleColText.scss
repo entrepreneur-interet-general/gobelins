@@ -12,6 +12,9 @@
     padding-bottom: 80px;
   }
 }
+:not(.on-dark-bg)+.DoubleColText.on-dark-bg {
+  z-index: initial;
+}
 
 .DoubleColText__container {
   grid-column: main;

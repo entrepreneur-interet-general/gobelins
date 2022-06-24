@@ -17,6 +17,11 @@
       @include dark-margin-bottom(100px);
     }
   }
+
+
+}
+:not(.on-dark-bg) + .TextImage.on-dark-bg {
+  z-index: initial;
 }
 
 .TextImage__figure {
