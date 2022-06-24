@@ -9,7 +9,7 @@
   "type": "project",
   "require": {
     "php": "^7.4.5",
-    "area17/twill": "^2.0",
+    "area17/twill": "^2.8",
     "artesaos/seotools": "^0.18.0",
     "basemkhirat/elasticsearch": "dev-dev-scout-engine",
     "fideloper/proxy": "^4.4.0",

@@ -45,6 +45,15 @@
       color: #4f4f4f;
     }
   }
+  .on-dark-bg & a,
+  &.on-dark-bg a {
+    color: #acacac;
+  }
+
+  .on-dark-bg & span[style='color: rgb(124, 124, 124);'],
+  &.on-dark-bg span[style='color: rgb(124, 124, 124);'] {
+    color: #acacac !important;
+  }
 
   & h3 {
     @include f-serif;
