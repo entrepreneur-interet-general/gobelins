@@ -411,13 +411,13 @@ body {
     z-index: 2;
     grid-column: main;
     padding: 0 0 15px;
+    border-bottom: 0.5px solid $a-bleu-fonce;
     @include breakpoint(768px) {
       padding: 50px 0 35px;
       min-height: 110px;
       grid-column: 3 / -3;
       columns: 2;
       column-gap: calc(100% / 11);
-      border-top: 0.5px solid $a-bleu-fonce;
     }
     @include breakpoint($a-xxlarge-up) {
       grid-column: 4 / -4;
@@ -432,6 +432,13 @@ body {
     p {
       orphans: 3;
     }
+  }
+}
+@include breakpoint(768px) {
+  // :is(:not(.Article__footnotes), :not(.Article__bibliography), :not(.Article__credits)) +
+  :not(:is(.Article__footnotes, .Article__bibliography, .Article__credits)) +
+  :is(.Article__footnotes, .Article__bibliography, .Article__credits) .Article__double-col-container {
+    border-top: 0.5px solid $a-bleu-fonce;
   }
 }
 .Article__footnotes {
