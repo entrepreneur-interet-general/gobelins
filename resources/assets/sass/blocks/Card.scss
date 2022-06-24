@@ -62,6 +62,9 @@
     color: #000000;
     
     @include breakpoint(768px) {
+        font-size: var(--Card-title-font-size, rem(18px));
+    }
+    @include breakpoint($a-xxlarge-up) {
         font-size: var(--Card-title-font-size, rem(24px));
     }
 }

@@ -299,6 +299,7 @@
     @include breakpoint($large-up) {
         max-width: 432px;
         margin-top: 102px;
+        font-size: rem(18px);
     }
     @include breakpoint($a-xxlarge-up) {
         max-width: 574px;
