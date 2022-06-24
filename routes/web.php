@@ -43,13 +43,20 @@ Route::get('/selections/{selection_id}/invitation', 'SelectionsController@invita
 
 Route::get('/invitations/{token}', 'InvitationController@accept')->name('invitation');
 
-Route::get('/encyclopedie/{slug}', 'ArticleController@show')
-    ->name('article.show')
-    ->where('slug', '.*');
-
 Route::get('/encyclopedie/tag/{tag}', 'ArticleController@list')
     ->name('articles.by_tag')
     ->where('tag', '.*');
+
+Route::get('/encyclopedie/rubrique/{section}', 'ArticleController@list')
+    ->name('articles.by_section')
+    ->where('section', '.*');
+
+Route::get('/encyclopedie/recent', 'ArticleController@recent')
+    ->name('articles.by_recent');
+
+Route::get('/encyclopedie/{slug}', 'ArticleController@show')
+    ->name('article.show')
+    ->where('slug', '.*');
 
 Route::get('/encyclopedie', 'ArticleController@home')
     ->name('article.home');

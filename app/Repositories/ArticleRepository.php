@@ -9,12 +9,14 @@ use A17\Twill\Repositories\Behaviors\HandleSlugs;
 use A17\Twill\Repositories\Behaviors\HandleTags;
 use A17\Twill\Repositories\ModuleRepository;
 use App\Models\Article;
+use App\Models\Section;
 
 class ArticleRepository extends ModuleRepository
 {
     use HandleBlocks, HandleSlugs, HandleMedias, HandleRevisions, HandleTags;
 
     protected $relatedBrowsers = ['articles'];
+    protected $listingPaginationAmount = 3;
 
     public function __construct(Article $model)
     {
@@ -72,4 +74,23 @@ class ArticleRepository extends ModuleRepository
     {
         return $this->getTagsQuery()->where('count', '>', 0)->select('name', 'id')->get()->pluck('name', 'id');
     }
+
+    public function byTag($tag)
+    {
+        return $this->published()->whereTag($tag)->paginate($this->listingPaginationAmount);
+    }
+
+    public function bySection($section)
+    {
+        $section = Section::published()->forSlug($section)->first();
+        abort_unless($section, 404, "Rubrique indisponible");
+        return $this->published()->where('section_id', '=', $section->id)->paginate($this->listingPaginationAmount);
+    }
+
+    public function byRecent()
+    {
+        return $this->published()->orderBy('publish_start_date', 'DESC')->paginate($this->listingPaginationAmount);
+
+    }
+
 }

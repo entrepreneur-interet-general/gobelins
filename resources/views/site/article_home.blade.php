@@ -65,7 +65,7 @@ métiers</a><span class="EncycloHome__comma">,</span></span>
                 <p class="EncycloHome__latest_title">
                     Artisans d’art, conservateurs, archivistes… du Mobilier national, vous proposent de nouvelles histoires :
                 </p>
-                <a href="#" class="EncycloHome__latest_link">Tout voir</a>
+                <a href="{{ route('articles.by_recent') }}" class="EncycloHome__latest_link">Tout voir</a>
             </div>
             <ul class="StepStack EncycloHome__cardstack--featured_secondary">
                 @each('site._card', $featured_secondary, 'article')
@@ -81,7 +81,7 @@ métiers</a><span class="EncycloHome__comma">,</span></span>
                         <h2 class="EncycloHome__section_title">
                             {{ $s->title }}
                         </h2>
-                        <a href="#" class="EncycloHome__section_link">Tout voir</a>
+                        <a href="{{ route('articles.by_section', ['section' => $s->slug]) }}" class="EncycloHome__section_link">Tout voir</a>
                     </div>
                     <ul class="EncycloHome__section_stack" data-carousel>
                         @each('site._card', $section_articles[$s->slug], 'article')

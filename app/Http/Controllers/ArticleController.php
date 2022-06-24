@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use A17\Twill\Models\Feature;
 use App\Models\Section;
 use App\Repositories\ArticleRepository;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -36,6 +37,29 @@ class ArticleController extends Controller
             'featured_secondary' => $featured_secondary,
             'sections' => $sections,
             'section_articles' => $section_articles,
+        ]);
+    }
+
+    public function recent(Request $request)
+    {
+        $articles = $this->repository->byRecent();
+        abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
+        return view('site.article_listing', [
+            'articles' => $articles,
+        ]);
+    }
+
+    function list(Request $request, $slug) {
+        if ($request->route()->named('articles.by_tag')) {
+            $articles = $this->repository->byTag($slug);
+        } elseif ($request->route()->named('articles.by_section')) {
+            $articles = $this->repository->bySection($slug);
+        } else {
+            $articles = Article::published()->search($slug)->get();
+        }
+        abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
+        return view('site.article_listing', [
+            'articles' => $articles,
         ]);
     }
 }
