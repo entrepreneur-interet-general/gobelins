@@ -154,7 +154,9 @@ class JumpNavComponent {
             <li class="Article__index_item">
                 <a href="#${anchor}" class="Article__index_link" data-js-jumpnav-scroll>
                     <span class="Article__index_label">
-                        ${title}
+                        <span class="Article__index_label-inner">
+                            ${title}
+                        </span>
                     </span>
                 </a>
             </li>`;

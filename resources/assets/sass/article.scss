@@ -630,6 +630,7 @@ body {
   flex-flow: row;
   align-items: center;
   height: 26px;
+  max-width: 300px;
   padding: 0 13px;
   position: absolute;
   right: 30px;
@@ -647,6 +648,11 @@ body {
   opacity: 0;
   transition: opacity ease-in-out 250ms;
   pointer-events: none;
+}
+.Article__index_label-inner {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .Article__index_link:hover,
 .Article__index_link.active {
