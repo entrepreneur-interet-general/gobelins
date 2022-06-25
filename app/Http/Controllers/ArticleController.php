@@ -40,10 +40,20 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $articles = $this->searchFor($request->input('q'));
+        return view('site.article_listing', [
+            'articles' => $articles,
+            'request_type' => 'search',
+            'slug' => $request->input('q'),
+        ]);
+    }
+
     public function recent(Request $request)
     {
         $articles = $this->repository->byRecent();
-        abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
+        // abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
         return view('site.article_listing', [
             'articles' => $articles,
             'request_type' => 'recent',

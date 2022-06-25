@@ -1,7 +1,195 @@
 .ArticleList {
-
-
+    position: relative;
 }
 
+.ArticleList__halos {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+.ArticleList__halo1 {
+    position: absolute;
+    
+    left: -79.38%;
+    right: 55%;
+    top: 22.03%;
+    bottom: 57.52%;
+    
+    @include breakpoint(768px) {
+        width: 628px;
+        height: 628px;
+        left: -346px;
+        top: 262px;
+        right: initial;
+        bottom: initial;
+    }
+
+    @include breakpoint($large-up) {
+        left: -29.72%;
+        // right: 86.11%;
+        top: 16.24%;
+        // bottom: 65.16%;
+    }
+    
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #6167FF;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+}
+.ArticleList__halo2 {
+    position: absolute;
+    left: 19.06%;
+    top: -146px;
+    height: 544px;
+    width: 544px;
+
+    @include breakpoint(768px) {
+        width: 628px;
+        height: 628px;
+        left: 428px;
+        top: -258px;
+        right: initial;
+        bottom: initial;
+    }
+
+    @include breakpoint($large-up) {
+        width: unset;
+        height: unset;
+        left: 50.83%;
+        right: 2.08%;
+        top: -10.55%;
+        bottom: 90.46%;
+    }
+
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #FF8989;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+}
+.ArticleList__halo3 {
+    position: absolute;
+    left: 26.25%;
+    right: 5%;
+    top: 2.82%;
+    bottom: 85.88%;
+    aspect-ratio: 1;
+
+    @include breakpoint(768px) {
+        left: 56.38%;
+        right: 14.97%;
+        top: 5.54%;
+        bottom: 85.75%;
+    }
+    
+    @include breakpoint($large-up) {
+        left: 54.17%;
+        right: 26.32%;
+        top: 2.07%;
+        bottom: 89.6%;
+    }
+
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #B86E00;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+}
+.ArticleList__halo4 {
+    position: absolute;
+    left: 71.32%;
+    right: -18.4%;
+    top: 45.81%;
+    bottom: 34.1%;
+
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #FF8989;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+}
+
+.ArticleList__header {
+    @extend %encyclo-grid;
+    position: relative;
+    z-index: 1;
+}
+
+.ArticleList__page-title {
+    grid-column: 2 / 3;
+    margin: 90px 0 0 0;
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(18px);
+    line-height: 140%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #000;
+    @include breakpoint(768px) {
+        grid-column: 2 / 5;
+        margin-top: 45px;
+    }
+    @include breakpoint($large-up) {
+        grid-column: 4/10;
+        margin-top: 57px;
+    }
+    & a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+.ArticleList__result-head {
+    grid-column: 2 / -2;
+    padding-left: calc(25% + 7.5px); // We don't have a half-column in the grid system, sorry.
+    margin: 26px 0 0 0;
+    
+    @include f-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: rem(22px);
+    line-height: 163.41%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    
+    @include breakpoint(768px) {
+        grid-column: 4 / -1;
+        margin-top: 85px;
+        padding-left: 0;
+        font-size: rem(35px);
+    }
+    @include breakpoint($large-up) {
+        margin-top: 75px;
+        grid-column: 9/-1;
+    }
+}
+.ArticleList__br-large {
+    display: none;
+    @include breakpoint($large-up) {
+        display: initial;
+    }
+}
 .ArticleList__cardstack {
+    position: relative;
+    z-index: 1;
+    grid-column: main;
+    margin: 52px 0 0 0;
+    @include breakpoint(768px) {
+        margin-top: 85px;
+    }
+    @include breakpoint($large-up) {
+        margin-top: 105px;
+    }
 }
+
+.ArticleList__pagination {
+    position: relative;
+    z-index: 1;
+    margin: 80px 0;
+    @include breakpoint(768px) {
+        margin: 125px 0;
+    }
+    @include breakpoint($large-up) {
+        margin: 60px 0;
+    }
+}
+

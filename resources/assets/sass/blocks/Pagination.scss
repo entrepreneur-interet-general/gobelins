@@ -1,0 +1,43 @@
+.Pagination {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.Pagination__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.Pagination__list > li {
+    list-style: none;
+}
+.Pagination__list > li > a,
+.Pagination__list > li > span {
+    height: 40px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(20px);
+    line-height: 170%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    color: #3338BA;
+
+    text-decoration: none;
+}
+.Pagination__list > li.active > span {
+    font-weight: 700;
+}
+
+.Pagination__prev,
+.Pagination__next {
+    margin: 0 25px;
+}

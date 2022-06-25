@@ -51,6 +51,9 @@ Route::get('/encyclopedie/rubrique/{section}', 'ArticleController@list')
     ->name('articles.by_section')
     ->where('section', '.*');
 
+Route::get('/encyclopedie/recherche', 'ArticleController@search')
+    ->name('articles.search');
+
 Route::get('/encyclopedie/recent', 'ArticleController@recent')
     ->name('articles.by_recent');
 
