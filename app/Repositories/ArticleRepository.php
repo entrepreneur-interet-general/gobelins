@@ -16,7 +16,7 @@ class ArticleRepository extends ModuleRepository
     use HandleBlocks, HandleSlugs, HandleMedias, HandleRevisions, HandleTags;
 
     protected $relatedBrowsers = ['articles'];
-    protected $listingPaginationAmount = 3;
+    protected $listingPaginationAmount = 9;
 
     public function __construct(Article $model)
     {
@@ -89,7 +89,7 @@ class ArticleRepository extends ModuleRepository
 
     public function byRecent()
     {
-        return $this->published()->orderBy('publish_start_date', 'DESC')->paginate($this->listingPaginationAmount);
+        return $this->published()->whereDate('publish_start_date', '>', now()->subMonths(3))->orderBy('publish_start_date', 'DESC')->paginate($this->listingPaginationAmount);
 
     }
 

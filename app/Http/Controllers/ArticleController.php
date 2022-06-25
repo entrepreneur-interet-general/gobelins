@@ -46,20 +46,26 @@ class ArticleController extends Controller
         abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
         return view('site.article_listing', [
             'articles' => $articles,
+            'request_type' => 'recent',
         ]);
     }
 
     function list(Request $request, $slug) {
         if ($request->route()->named('articles.by_tag')) {
             $articles = $this->repository->byTag($slug);
+            $resquest_type = 'tag';
         } elseif ($request->route()->named('articles.by_section')) {
             $articles = $this->repository->bySection($slug);
+            $resquest_type = 'section';
         } else {
             $articles = Article::published()->search($slug)->get();
+            $resquest_type = 'search';
         }
-        abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
+        //abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
         return view('site.article_listing', [
             'articles' => $articles,
+            'request_type' => $resquest_type,
+            'slug' => $slug,
         ]);
     }
 }
