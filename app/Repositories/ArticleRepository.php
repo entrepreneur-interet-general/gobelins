@@ -93,4 +93,9 @@ class ArticleRepository extends ModuleRepository
 
     }
 
+    public function searchFor($q)
+    {
+        return $this->published()->where('title', 'LIKE', '%' . $q . '%')->paginate($this->listingPaginationAmount);
+    }
+
 }

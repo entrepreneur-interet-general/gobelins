@@ -42,7 +42,7 @@ class ArticleController extends Controller
 
     public function search(Request $request)
     {
-        $articles = $this->searchFor($request->input('q'));
+        $articles = $this->repository->searchFor($request->input('q'));
         return view('site.article_listing', [
             'articles' => $articles,
             'request_type' => 'search',
