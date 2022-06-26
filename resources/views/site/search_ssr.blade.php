@@ -1,6 +1,8 @@
 @extends('layouts.default')
 
 @section('content')
+
+    @include('site._nav')
     
     <form action="{{ route('search') }}" method="get">
         <p>

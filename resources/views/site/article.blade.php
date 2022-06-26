@@ -1,6 +1,9 @@
 @extends('site.layouts.article')
 
 @section('content')
+
+    @include('site._nav')
+    
     <article class="Article">
 
         <header class="Article__header" id="page-top">

@@ -2,6 +2,9 @@
 
 @section('content')
 
+    @include('site._nav')
+    @include('site._search')
+
     <div class="EncycloHome">
 
         <section class="EncycloHome__header">

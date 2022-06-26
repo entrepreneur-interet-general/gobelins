@@ -1,7 +1,13 @@
 import Colcade from "colcade";
 import Flickity from "flickity";
+import A11yDialog from 'a11y-dialog'
+
 
 window.Colcade = Colcade;
+
+// Handle Search dialog
+
+const search_dialog = new A11yDialog(document.querySelector('#search_dialog'));
 
 document.querySelectorAll('[data-carousel]').forEach(function(node){
     new Flickity(node, {

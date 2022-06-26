@@ -2,6 +2,8 @@
 @extends('layouts.default')
 
 @section('content')
+
+    @include('site._nav')
     
     <article class="Detail">
 

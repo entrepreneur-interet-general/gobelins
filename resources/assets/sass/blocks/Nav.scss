@@ -1,0 +1,47 @@
+.Nav {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 5;
+
+    @include breakpoint(768px) {
+        top: 30px;
+        right: 27px;
+    }
+    @include breakpoint($large-up) {
+        top: 40px;
+        right: 44px;
+    }
+    @include breakpoint($a-xxlarge-up) {
+        right: 50px;
+    }
+}
+
+.Nav__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 54px;
+    width: 125px;
+    background-color: #3338BA;
+    border-radius: 50px;
+    border: 0;
+    color: white;
+    @include f-sans;
+    font-style: normal;
+    font-weight: 400;
+    font-size: rem(18px);
+    line-height: 163.41%;
+    font-feature-settings: 'pnum' on, 'onum' on;
+    cursor: pointer;
+}
+
+.Nav__button img {
+    margin-right: 5px;
+    display: block;
+    position: relative;
+    top: 2px;
+}
+
+
+.Nav__panel {}
