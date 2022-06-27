@@ -6,8 +6,14 @@ import A11yDialog from 'a11y-dialog'
 window.Colcade = Colcade;
 
 // Handle Search dialog
+const search_dialog_el = document.querySelector('#search_dialog');
+const search_dialog = new A11yDialog(search_dialog_el);
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+search_dialog
+  .on('show', () => (disableBodyScroll(search_dialog_el)))
+  .on('hide', () => (enableBodyScroll(search_dialog_el)));
 
-const search_dialog = new A11yDialog(document.querySelector('#search_dialog'));
+
 
 document.querySelectorAll('[data-carousel]').forEach(function(node){
     new Flickity(node, {
