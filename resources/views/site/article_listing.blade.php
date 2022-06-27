@@ -3,6 +3,7 @@
 @section('content')
 
     @include('site._nav')
+    @include('site._search')
 
     <div class="ArticleList">
         <div class="ArticleList__halos">

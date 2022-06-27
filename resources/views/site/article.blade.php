@@ -3,6 +3,7 @@
 @section('content')
 
     @include('site._nav')
+    @include('site._search')
     
     <article class="Article">
 

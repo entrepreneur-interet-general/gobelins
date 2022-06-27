@@ -7,7 +7,13 @@
 </div>
 
 <div id="search_dialog" aria-labelledby="search-dialog-id" aria-hidden="true" class="Search__container">
-    <div data-a11y-dialog-hide></div>
+    <div data-a11y-dialog-hide class="Search__backdrop">
+        <div class="Search__halos">
+            <div class="Search__halo1"></div>
+            <div class="Search__halo2"></div>
+            <div class="Search__halo3"></div>
+        </div>
+    </div>
     <div role="document" class="Search__content">
         <button type="button" data-a11y-dialog-hide aria-label="Fermer"  class="Search__close">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -33,9 +39,9 @@
             <div class="Search__suggestions">
                 <div class="Search__suggest-themes">
                     <span class="Search__suggest-themes-label">thèmes : </span>
-                    <a href="{{ route('articles.search', ['q' => 'textile']) }}">textile</a>
-                    <a href="{{ route('articles.search', ['q' => 'bois']) }}">bois</a>
-                    <a href="{{ route('articles.search', ['q' => 'métal']) }}">métal</a>
+                    <a href="{{ route('articles.search', ['q' => 'textile']) }}"><img src="/images/search/textile.png" alt="">textile</a>
+                    <a href="{{ route('articles.search', ['q' => 'bois']) }}" ><img src="/images/search/bois.png" alt="">bois</a>
+                    <a href="{{ route('articles.search', ['q' => 'métal']) }}"><img src="/images/search/metal.png" alt="">métal</a>
                 </div>
                 <div class="Search__suggest-tags">
                     <a href="{{ route('articles.search', ['q' => 'contemporain']) }}">contemporain</a>

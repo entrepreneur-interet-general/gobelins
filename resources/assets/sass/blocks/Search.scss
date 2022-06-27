@@ -15,18 +15,13 @@
         right: 193px;
     }
 }
-
-.Search__button {
-    display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 54px;
-        width: 54px;
-        background-color: white;
-        border-radius: 50px;
-        border: 1px solid #3338BA;
-        color: #3338BA;
-        cursor: pointer;
+.Search__backdrop{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 .Search__container {
@@ -42,14 +37,108 @@
     border: 0;
     margin: 0;
     padding: 0;
-    transition: opacity 0.2s linear;
+    transition: opacity 150ms ease-in;
     opacity: 1;
     pointer-events: all;
     background-color: white;
 }
+
 .Search__container[aria-hidden='true'] {
     opacity: 0;
     pointer-events: none;
+}
+
+.Search__halos {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.Search__halo1,
+.Search__halo2,
+.Search__halo3 {
+    position: absolute;
+}
+.Search__halo1 {
+    right: -284px;
+    top: -382px;
+    height: 544px;
+    width: 544px;
+    
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #FF8989;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    @include breakpoint(768px) {
+        width: 678px;
+        height: 678px;
+        top: -371px;
+        right: -284px;
+    }
+    @include breakpoint($large-up) {
+        top: -356px;
+        right: 31px;
+    }
+
+}
+.Search__halo2 {
+    right: 85px;
+    top: 54px;
+    width: 220px;
+    height: 220px;
+    display: none;
+    
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #B86E00;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    
+    @include breakpoint(768px) {
+        width: 281px;
+        height: 281px;
+        display: block;
+        right: -98px;
+        bottom: -145px;
+        top: unset;
+    }
+    @include breakpoint($large-up) {
+        right: 462px;
+        bottom: -153px;
+    }
+}
+.Search__halo3 {
+    left: -254px;
+    bottom: -250px;
+    width: 398px;
+    height: 398px;
+    
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%), #6167FF;
+    mix-blend-mode: multiply;
+    opacity: 0.7;
+    box-shadow: inset 0px 0px 200px 20px #FFFFFF;
+    @include breakpoint(768px) {
+        width: 628px;
+        height: 628px;
+        bottom: -268px;
+        left: -343px;
+    }
+    @include breakpoint($large-up) {
+        left: -231px;
+        bottom: -276px;
+    }
+}
+
+
+.Search__button {
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 54px;
+        width: 54px;
+        background-color: white;
+        border-radius: 50px;
+        border: 1px solid #3338BA;
+        color: #3338BA;
+        cursor: pointer;
 }
 
 .Search__close {
@@ -83,6 +172,7 @@
 .Search__content {
     @extend %article-grid;
     width: 100%;
+    z-index: 2;
 }
 .Search__form {
     grid-column: main;
@@ -145,12 +235,6 @@
 
 }
 
-.Search__suggest-themes {
-    margin-top: 30px;
-}
-.Search__suggest-tags {
-    margin-top: 15px;
-}
 .Search__suggest-themes,
 .Search__suggest-tags {
     @include f-sans;
@@ -164,14 +248,38 @@
         justify-content: center;
         align-items: center;
         margin-right: 5px;
+        margin-bottom: 15px;
         padding: 0 11px;
         border: 1px solid #000;
         height: 24px;
         border-radius: 13px;
         text-decoration: none;
         color: inherit;
+        background-color: white;
     }
+}
+.Search__suggest-themes {
+    margin-top: 30px;
+    a {
+        padding-left: 0;
+        img {
+            display: inline-block;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+    }
+}
+
+.Search__suggest-tags {
+    margin-top: 0;
 }
 .Search__suggest-themes-label {
     margin-right: 5px;
+}
+
+.Search__halos {
+    position: absolute;
+    z-index: 1;
 }
