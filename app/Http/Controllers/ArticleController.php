@@ -52,8 +52,7 @@ class ArticleController extends Controller
 
     public function recent(Request $request)
     {
-        $articles = $this->repository->byRecent();
-        // abort_if($articles->isEmpty(), 404, "Aucun contenu disponible");
+        $articles = $this->repository->byRecentOrder();
         return view('site.article_listing', [
             'articles' => $articles,
             'request_type' => 'recent',

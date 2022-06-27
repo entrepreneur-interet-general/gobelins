@@ -107,7 +107,16 @@ class ArticleRepository extends ModuleRepository
     public function byRecent()
     {
         return $this->published()->whereDate('publish_start_date', '>', now()->subMonths(3))->orderBy('publish_start_date', 'DESC')->paginate($this->listingPaginationAmount);
+    }
 
+    /**
+     * List 4 pages of articles ordered by most recent.
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
+    public function byRecentOrder()
+    {
+        return $this->published()->orderBy('publish_start_date', 'DESC')->limit(4 * $this->listingPaginationAmount)->paginate($this->listingPaginationAmount);
     }
 
     /**
