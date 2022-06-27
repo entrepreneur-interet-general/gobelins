@@ -81,7 +81,7 @@
                 @if($item->tags)
                     <nav class="Article__tags">
                         @foreach($item->tags as $tag)
-                            <a href="#TODO" class="Article__tag">{{ $tag->name }}</a>
+                            <a href="{{ route('articles.by_tag', ['tag' => $tag->slug]) }}" class="Article__tag">{{ $tag->name }}</a>
                         @endforeach
                     </nav>
                 @endif
