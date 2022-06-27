@@ -75,11 +75,23 @@ class ArticleRepository extends ModuleRepository
         return $this->getTagsQuery()->where('count', '>', 0)->select('name', 'id')->get()->pluck('name', 'id');
     }
 
+    /**
+     * List articles by tag
+     *
+     * @param [String] $tag
+     * @return Illuminate\Pagination\Paginator
+     */
     public function byTag($tag)
     {
         return $this->published()->whereTag($tag)->paginate($this->listingPaginationAmount);
     }
 
+    /**
+     * List articles by section
+     *
+     * @param [String] $section
+     * @return Illuminate\Pagination\Paginator
+     */
     public function bySection($section)
     {
         $section = Section::published()->forSlug($section)->first();
@@ -87,15 +99,34 @@ class ArticleRepository extends ModuleRepository
         return $this->published()->where('section_id', '=', $section->id)->paginate($this->listingPaginationAmount);
     }
 
+    /**
+     * List articles published in the last 3 months
+     *
+     * @return Illuminate\Pagination\Paginator
+     */
     public function byRecent()
     {
         return $this->published()->whereDate('publish_start_date', '>', now()->subMonths(3))->orderBy('publish_start_date', 'DESC')->paginate($this->listingPaginationAmount);
 
     }
 
+    /**
+     * Search the articles for a string
+     * Ideally, this should be implemented with proper full-text
+     * search, but I'm not sure which version of Postgres is in
+     * production, so skipping for now. Maybe index in ES?
+     *
+     * @param [String] $q
+     * @return Illuminate\Pagination\Paginator
+     */
     public function searchFor($q)
     {
-        return $this->published()->where('title', 'LIKE', '%' . $q . '%')->paginate($this->listingPaginationAmount);
+        return $this->published()
+            ->where('title', 'ILIKE', '%' . $q . '%')
+            ->orWhere('subtitle', 'ILIKE', '%' . $q . '%')
+            ->orWhere('lead', 'ILIKE', '%' . $q . '%')
+            ->orWhere('byline', 'ILIKE', '%' . $q . '%')
+            ->paginate($this->listingPaginationAmount);
     }
 
 }
