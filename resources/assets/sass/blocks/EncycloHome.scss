@@ -769,9 +769,15 @@
     background-color: #B86E00;
     // The 15px are the top margin of the .Card nodes.
     top: calc(var(--carousel-arrow-vertical-offset, 50%) + 15px);
-
-    &:hover .flickity-button-icon {
-        stroke: #B86E00;
+    opacity: 1;
+    transition: opacity 150mx ease-in-out;
+}
+@media(hover: hover) {
+    .flickity-button:hover {
+        background-color: #B86E00;
+    }
+    .flickity-prev-next-button:hover .flickity-button-icon {
+        opacity: 0.87;
     }
 }
 .flickity-prev-next-button .flickity-button-icon {
