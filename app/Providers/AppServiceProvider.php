@@ -4,9 +4,11 @@ namespace App\Providers;
 
 use App\Mail\EmailVerification;
 use App\Observers\UserObserver;
+use App\Repositories\SectionRepository;
 use App\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(SectionRepository $sectionRepository)
     {
         User::observe(UserObserver::class);
 
@@ -32,9 +34,15 @@ class AppServiceProvider extends ServiceProvider
             'App\Http\View\Composers\FiltersComposer'
         );
 
+        View::share('nav', $sectionRepository->cachedNavSections());
+
         Relation::morphMap([
             'articles' => 'App\Models\Article',
         ]);
+
+        Blade::if('route', function ($route) {
+            return request()->route()->named($route);
+        });
 
     }
 

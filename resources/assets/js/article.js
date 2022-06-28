@@ -1,50 +1,54 @@
 import Colcade from "colcade";
 import Flickity from "flickity";
-import A11yDialog from 'a11y-dialog'
+//import A11yDialog from 'a11y-dialog'
+import { setupDialogs } from "./dialogs.js";
 
+setupDialogs();
 
 window.Colcade = Colcade;
 
 // Handle Search dialog
-const search_dialog_el = document.querySelector('#search_dialog');
-const search_dialog = new A11yDialog(search_dialog_el);
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
-search_dialog
-  .on('show', () => (disableBodyScroll(search_dialog_el)))
-  .on('hide', () => (enableBodyScroll(search_dialog_el)));
+// const search_dialog_el = document.querySelector('#search_dialog');
+// const search_dialog = new A11yDialog(search_dialog_el);
+// import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+// search_dialog
+//   .on('show', () => (disableBodyScroll(search_dialog_el)))
+//   .on('hide', () => (enableBodyScroll(search_dialog_el)));
 
 
+if (document.querySelectorAll('[data-carousel]')) {
 
-document.querySelectorAll('[data-carousel]').forEach(function(node){
-    new Flickity(node, {
-        imagesLoaded: true,
-        cellAlign: 'left',
-        contain: true,
-        groupCells: true,
-        pageDots: false,
-        arrowShape: 'M57 64.3985L43 50.2226M56.7495 35.0762L43.1518 49.8269',
-        on: {
-            ready: function() {
-                function debounce(func){
-                    var timer;
-                    return function(event){
-                        if(timer) clearTimeout(timer);
-                        timer = setTimeout(func,100,event);
+    document.querySelectorAll('[data-carousel]').forEach((node) => {
+        new Flickity(node, {
+            imagesLoaded: true,
+            cellAlign: 'left',
+            contain: true,
+            groupCells: true,
+            pageDots: false,
+            arrowShape: 'M57 64.3985L43 50.2226M56.7495 35.0762L43.1518 49.8269',
+            on: {
+                ready: function() {
+                    function debounce(func){
+                        var timer;
+                        return function(event){
+                            if(timer) clearTimeout(timer);
+                            timer = setTimeout(func,100,event);
+                        };
                     };
-                };
-                // We want to position the Prev/Next arrows depending on the
-                // height of the image, not the card itself. And because height
-                // is variable, we must handle in JS.
-                function verticalOffset() {
-                    let height = node.querySelector('.Card__img').getBoundingClientRect().height;
-                    node.style.setProperty('--carousel-arrow-vertical-offset', Math.floor(height / 2) + 'px');
-                }
-                verticalOffset();
-                window.addEventListener('resize', debounce(verticalOffset), {passive: true});
-            },
-        }
+                    // We want to position the Prev/Next arrows depending on the
+                    // height of the image, not the card itself. And because height
+                    // is variable, we must handle in JS.
+                    let verticalOffset = () => {
+                        let height = node.querySelector('.Card__img').getBoundingClientRect().height;
+                        node.style.setProperty('--carousel-arrow-vertical-offset', Math.floor(height / 2) + 'px');
+                    }
+                    verticalOffset();
+                    window.addEventListener('resize', debounce(verticalOffset), {passive: true});
+                },
+            }
+        });
     });
-});
+}
 
 /**
  * Handle Savoir Faire homepage video.
