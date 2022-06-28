@@ -10,7 +10,7 @@
     }
     @include breakpoint($large-up) {
         top: 40px;
-        right: 44px;
+        right: 40px;
     }
     @include breakpoint($a-xxlarge-up) {
         right: 50px;
@@ -132,12 +132,12 @@
 
     @include breakpoint(756px) {
         top: 30px;
-        right: 33px;
+        right: 27px;
     }
 
     @include breakpoint($large-up) {
         top: 40px;
-        right: 185px;
+        right: 40px;
     }
 }
 .Nav__layout {
