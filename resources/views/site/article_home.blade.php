@@ -42,11 +42,11 @@ savoir-faire</h1>
             <div class="EncycloHome__intro" data->
                 <p class="EncycloHome__intro_lines">
                     <span class="EncycloHome__line1">Découvrez</span>
-                    <span class="EncycloHome__line2">nos <a href="#">
+                    <span class="EncycloHome__line2">nos <a href="#rubrique-metier" onclick="document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'}); return false;">
 métiers</a><span class="EncycloHome__comma">,</span></span>
-                    <span class="EncycloHome__line3"><a href="#">techniques</a><span class="EncycloHome__comma">,</span></span>
-                    <span class="EncycloHome__line4"><a href="#">histoires d’objets</a></span>
-                    <span class="EncycloHome__line5">ou <a href="#">créateurs</a></span>
+                    <span class="EncycloHome__line3"><a href="#rubrique-outils-techniques" onclick="document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'}); return false;">techniques</a><span class="EncycloHome__comma">,</span></span>
+                    <span class="EncycloHome__line4"><a href="#rubrique-histoires-dobjet" onclick="document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'}); return false;">histoires d’objets</a></span>
+                    <span class="EncycloHome__line5">ou <a href="#rubrique-createur" onclick="document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'}); return false;">créateurs</a></span>
                 </p>
                 <p class="EncycloHome__layus">
                     Le Mobilier national vous propose son encyclopédie des savoir-faire. Cette institution nationale fait vivre 14 ateliers de création et de restauration. S'y transmettent des savoir-faire sur les tapisseries, l’ébénisterie, la teinture… Vous trouverez ici un aperçu de ces métiers d’art, leurs techniques, leurs innovations.
@@ -80,7 +80,7 @@ métiers</a><span class="EncycloHome__comma">,</span></span>
         @foreach($sections as $s)
             <section class="EncycloHome__section is-nth-section-{{ $loop->index }}">
                 <div class="EncycloHome__section-inner">
-                    <div class="EncycloHome__section_top">
+                    <div class="EncycloHome__section_top" id="rubrique-{{ $s->slug }}">
                         <h2 class="EncycloHome__section_title">
                             {{ $s->title }}
                         </h2>
