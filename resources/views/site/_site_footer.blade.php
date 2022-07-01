@@ -13,7 +13,7 @@
     </nav>
     <nav class="SiteFooter__nav SiteFooter__nav2">
         <a href="{{ route('search') }}">Les collections</a>
-        <a href="{{ route('article.home') }}">L’encyclopédie</a>
+        <a href="{{ route('articles.home') }}">L’encyclopédie</a>
         <a href="http://www.mobiliernational.culture.gouv.fr/">L’institution</a>
     </nav>
     <nav class="SiteFooter__social">

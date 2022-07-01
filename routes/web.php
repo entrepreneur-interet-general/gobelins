@@ -62,7 +62,7 @@ Route::get('/encyclopedie/{slug}', 'ArticleController@show')
     ->where('slug', '.*');
 
 Route::get('/encyclopedie', 'ArticleController@home')
-    ->name('article.home');
+    ->name('articles.home');
 
 /* Internal routes */
 Route::get('/ui', 'SearchController@index')

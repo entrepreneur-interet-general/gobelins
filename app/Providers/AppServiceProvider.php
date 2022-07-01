@@ -40,8 +40,25 @@ class AppServiceProvider extends ServiceProvider
             'articles' => 'App\Models\Article',
         ]);
 
-        Blade::if('route', function ($route) {
-            return request()->route()->named($route);
+        // Blade directive to set "is-current" CSS classes, infered from
+        // the current route and params.
+        Blade::if('route', function ($route, $params = array()) {
+            // Check if we are currently using the given named route.
+            if (request()->route()->named($route)) {
+                // Check if we are using the required params for that route.
+                if (count($params)) {
+                    $params_used = array_intersect($params, request()->route()->parameters());
+                    if (!empty($params_used)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
         });
 
     }

@@ -14,7 +14,7 @@
                 <div class="Article__cover-primary">
 
                     <div class="Article__logo-container">
-                        <a href="{{ route('article.home') }}" class="Article__logo-encyclo">
+                        <a href="{{ route('articles.home') }}" class="Article__logo-encyclo">
                             Encyclopédie des savoir-faire
                         </a>
                         <div class="Article__logo-mobnat">

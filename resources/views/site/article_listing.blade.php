@@ -14,7 +14,7 @@
         </div>
         <header class="ArticleList__header">
             <h1 class="ArticleList__page-title">
-                <a href="{{ route('article.home') }}">Encyclopédie des savoir-faire</a>
+                <a href="{{ route('articles.home') }}">Encyclopédie des savoir-faire</a>
             </h1>
             <div class="ArticleList__result-head">
 
@@ -41,7 +41,7 @@
 
                     <p class="ArticleList__no-result-layus">
                         Vous ne trouvez pas le sujet qui vous intéresse ?<br>
-                        <a href="mailto:documentation.mobilier@culture.gouv.fr">Contactez-nous</a> pour le soumettre. En attendant nous vous invitons à explorer la <a href="{{ route('article.home') }}">page d’accueil</a>.
+                        <a href="mailto:documentation.mobilier@culture.gouv.fr">Contactez-nous</a> pour le soumettre. En attendant nous vous invitons à explorer la <a href="{{ route('articles.home') }}">page d’accueil</a>.
                     </p>
 
                 @else

@@ -32,10 +32,10 @@
                     </div>
 
                     <div class="Nav__destination">
-                        <a href="" class="Nav__destination-title">Encyclopédie des<br> savoir-faire</a>
+                        <a href="{{ route('articles.home') }}" class="Nav__destination-title @route('articles.*') is-active @endroute">Encyclopédie des<br> savoir-faire</a>
                         <div class="Nav__destination-sections">
                             @foreach($nav as $section)
-                                <a href="{{ route('articles.by_section', ['section' => $section['slug']]) }}" class="Nav__destination-section @route('articles.by_section') is-active @endroute">
+                                <a href="{{ route('articles.by_section', ['section' => $section['slug']]) }}" class="Nav__destination-section @route('articles.by_section', ['section' => $section['slug']]) is-active @endroute">
                                     {{ $section['title'] }}
                                 </a>
                                 @if($loop->even && !$loop->last)

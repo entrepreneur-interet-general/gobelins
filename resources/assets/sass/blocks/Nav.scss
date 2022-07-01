@@ -219,6 +219,10 @@
         position: relative;
         left: -10px;
     }
+
+    &.is-active {
+        color: white;
+    }
 }
 .Nav__destination-sections {
     margin: 8px 15px 0;
@@ -263,6 +267,9 @@
         &.is-full-width {
             grid-column: 1 / -1;
         }
+    }
+    &.is-active {
+        color: white;
     }
 }
 
