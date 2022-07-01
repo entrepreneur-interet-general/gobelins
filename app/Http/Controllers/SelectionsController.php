@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use \App\Models\Selection;
-use \App\Models\Invitation;
-use \App\Models\Product;
-use \App\User;
 use \App\Http\Resources\ListedSelection;
 use \App\Http\Resources\Selection as SelectionResource;
+use \App\Models\Invitation;
+use \App\Models\Product;
+use \App\Models\Selection;
+use \App\User;
 
 class SelectionsController extends Controller
 {
@@ -33,24 +33,24 @@ class SelectionsController extends Controller
 
         if ($user) {
             $selections = $user->selections()
-                               ->orderBy('updated_at', 'DESC')
-                               ->with(['users:id,name'])
-                               ->paginate(4);
+                ->orderBy('updated_at', 'DESC')
+                ->with(['users:id,name'])
+                ->paginate(4);
             return ListedSelection::collection($selections);
         } else {
             return ListedSelection::collection([]);
         }
     }
-    
+
     public function listMobNatSelections()
     {
         $mn_user = User::where('identity_code', User::IDENTITY_MOBILIER_NATIONAL)->first();
 
         $selections = $mn_user->selections()
-                              ->public()
-                              ->orderBy('updated_at', 'DESC')
-                              ->with('users:id,name,email')
-                              ->paginate(4);
+            ->public()
+            ->orderBy('updated_at', 'DESC')
+            ->with('users:id,name,email')
+            ->paginate(4);
 
         return ListedSelection::collection($selections);
     }
@@ -58,20 +58,18 @@ class SelectionsController extends Controller
     public function listUserSelections(Request $request)
     {
         $selections = Selection::with('users:id,name,email')
-                        ->public()
-                        ->whereDoesntHave('users', function ($q) {
-                            $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
-                        })
-                        ->orderBy('selections.updated_at', 'DESC')
-                        ->paginate(4);
+            ->public()
+            ->whereDoesntHave('users', function ($q) {
+                $q->where('identity_code', User::IDENTITY_MOBILIER_NATIONAL);
+            })
+            ->orderBy('selections.updated_at', 'DESC')
+            ->paginate(4);
         return ListedSelection::collection($selections);
     }
 
-
-
     public function mine(Request $request)
     {
-        return ['mySelections' =>$this->listMySelections()];
+        return ['mySelections' => $this->listMySelections()];
     }
 
     public function mineShort()
@@ -81,8 +79,6 @@ class SelectionsController extends Controller
         $user->selections()->select('id', 'name', 'public')->orderBy('updated_at', 'DESC')->get()->all() : [];
         return ['mySelectionsShort' => $mySelections];
     }
-
-
 
     /**
      * Create a selection.
@@ -102,7 +98,7 @@ class SelectionsController extends Controller
             'product_ids' => 'nullable|array',
             'product_ids.*' => 'integer',
         ]);
-        
+
         $selection = new Selection;
         $selection->name = $request->selection['name'];
         $selection->save();
@@ -132,7 +128,7 @@ class SelectionsController extends Controller
         $product = Product::findOrFail($product_id);
 
         $this->authorize('update', $selection);
-        
+
         $selection->products()->syncWithoutDetaching([$product->id]);
 
         $selection->refreshPosterImages();
@@ -141,13 +137,12 @@ class SelectionsController extends Controller
         return ['status' => 'ok'];
     }
 
-
     public function update(Request $request, $selection_id)
     {
         $selection = Selection::findOrFail($selection_id);
 
         $this->authorize('update', $selection);
-        
+
         $selection->name = $request->name;
         $selection->description = $request->description;
         $selection->public = $request->public;
@@ -157,20 +152,18 @@ class SelectionsController extends Controller
         return new SelectionResource($selection);
     }
 
-
     public function destroy(Request $request, $selection_id)
     {
         $selection = Selection::findOrFail($selection_id);
 
         $this->authorize('update', $selection);
-        
+
         $selection->users()->detach();
         $selection->products()->detach();
         $selection->delete();
 
         return ['mySelections' => $this->listMySelections()];
     }
-
 
     /**
      * Remove a product from a given selection.
@@ -188,7 +181,7 @@ class SelectionsController extends Controller
         $product = Product::byInventory($inventory_id)->firstOrFail();
 
         $this->authorize('update', $selection);
-        
+
         $selection->products()->detach($product->id);
 
         $selection->refreshPosterImages();
@@ -197,12 +190,10 @@ class SelectionsController extends Controller
         return ['status' => 'ok'];
     }
 
-
     public function show(Request $request, $id)
     {
         $selection = Selection::findOrFail($id);
 
-        
         if (!$selection->public) {
             $user = $request->user('api') ?: $request->user('web');
             if ($user && $user->can('view', $selection)) {
@@ -212,14 +203,14 @@ class SelectionsController extends Controller
             }
         }
 
-        $resource =new SelectionResource($selection);
+        $resource = new SelectionResource($selection);
 
         if ($request->expectsJson()) {
             return $resource;
         } else {
             return view('site.selection', [
                 'selection' => $selection,
-                'selection_resource' => $resource
+                'selection_resource' => $resource,
             ]);
         }
     }
@@ -230,9 +221,9 @@ class SelectionsController extends Controller
     public function detachUser(Request $request, $selection_id, $user_id)
     {
         $selection = Selection::findOrFail($selection_id);
-        
+
         $this->authorize('uninvite', $selection);
-        
+
         $selection->users()->detach($user_id);
 
         return response()->json(['status' => 'ok']);
@@ -252,7 +243,7 @@ class SelectionsController extends Controller
 
             // Add the user as a collaborator on the selection.
             $selection = $invitation->selection;
-            if (! $selection->users->contains($request->user()->id)) {
+            if (!$selection->users->contains($request->user()->id)) {
                 $selection->users()->attach($request->user()->id);
             }
 
@@ -262,7 +253,6 @@ class SelectionsController extends Controller
                 $request->user()->name .
                 ' ! Vous pouvez désormais participer à cette sélection.'
             );
-
 
             $invitation->delete();
 
@@ -292,24 +282,24 @@ class SelectionsController extends Controller
         // check if there is cached sitemap and build new only if is not
         if (!$sitemap->isCached()) {
             \App\Models\Selection::with('images')
-            ->public()
-            ->orderBy('updated_at', 'asc')
-            ->chunk(100, function ($selections) use (&$sitemap) {
-                foreach ($selections as $s) {
-                    $images = [];
-                    if ($s->images) {
-                        $images = $s->images->map(function ($i) {
-                            return [
-                                'url' => secure_url('/media/orig/' . $i->path),
-                            ];
-                        })->all();
+                ->public()
+                ->orderBy('updated_at', 'asc')
+                ->chunk(100, function ($selections) use (&$sitemap) {
+                    foreach ($selections as $s) {
+                        $images = [];
+                        if ($s->images) {
+                            $images = $s->images->map(function ($i) {
+                                return [
+                                    'url' => secure_url('/media/orig/' . $i->path),
+                                ];
+                            })->all();
+                        }
+
+                        $timestamp = $s->updated_at;
+                        $permalink = route('selection_detail', $s->id);
+                        $sitemap->add($permalink, $timestamp, null, null, $images);
                     }
-                    
-                    $timestamp = $s->updated_at;
-                    $permalink = route('selection_detail', $s->id);
-                    $sitemap->add($permalink, $timestamp, null, null, $images);
-                }
-            });
+                });
         }
 
         return $sitemap->render('xml');

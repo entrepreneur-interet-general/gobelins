@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\User;
 use App\Models\Image;
 use App\Models\Product;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class Selection extends Model
 {
@@ -20,7 +20,7 @@ class Selection extends Model
     // protected $with = ['products'];
 
     protected $attributes = [
-        'public' => true, // Default value.
+        'public' => false, // Default value.
     ];
 
     public function users()
@@ -42,7 +42,7 @@ class Selection extends Model
     {
         return $this->belongsToMany(Product::class);
     }
-    
+
     /**
      * A selection has between 0 and 4 images of products
      * used to represent it in listing views.
@@ -56,7 +56,7 @@ class Selection extends Model
     {
         $ids = [];
         $this->products
-            // ->sortByDesc('image_quality_score')
+        // ->sortByDesc('image_quality_score')
             ->each(function ($p) use (&$ids) {
                 if (sizeof($ids) < 4) {
                     $image = $p->posterImage;
@@ -88,9 +88,9 @@ class Selection extends Model
     public function getPosterImagesAttribute()
     {
         return $this->images()
-                    ->where('images.is_published', true)
-                    ->orderBy('images.is_prime_quality')
-                    ->limit(4)->get();
+            ->where('images.is_published', true)
+            ->orderBy('images.is_prime_quality')
+            ->limit(4)->get();
     }
 
     public function toSearchableArray()
