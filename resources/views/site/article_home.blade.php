@@ -66,7 +66,7 @@ métiers</a><span class="EncycloHome__comma">,</span></span>
         <section class="EncycloHome__latest">
             <div class="EncycloHome__latest_top">
                 <p class="EncycloHome__latest_title">
-                    Artisans d’art, conservateurs, archivistes… du Mobilier national, vous proposent de nouvelles histoires :
+                    Techniciens d’art, conservateurs, archivistes… du Mobilier national, vous proposent de nouvelles histoires :
                 </p>
                 <a href="{{ route('articles.by_recent') }}" class="EncycloHome__latest_link">Tout voir</a>
             </div>
