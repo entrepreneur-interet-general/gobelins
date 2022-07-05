@@ -2,11 +2,11 @@
   position: relative;
   background-color: #fff;
   color: #000;
-  padding: 60px 0;
+  padding: 110px 0;
   box-sizing: border-box;
   min-height: 100vh;
   @include breakpoint(760px) {
-    padding-top: 90px;
+    padding-top: 120px;
   }
   &.SelectionDetail--is-mine {
     background-color: #141414;
@@ -21,6 +21,7 @@
 }
 
 .SelectionDetail__cross-nav-bar {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;

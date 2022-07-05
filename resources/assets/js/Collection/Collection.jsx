@@ -5,7 +5,7 @@ import CollectionList from "./CollectionList.jsx";
 import CollectionGrid from "./CollectionGrid.jsx";
 import ScrollToTop from "./ScrollToTop.jsx";
 import Filters from "./Filters/Filters.jsx";
-import SelectionsNav from "../Selection/SelectionsNav.jsx";
+// import SelectionsNav from "../Selection/SelectionsNav.jsx";
 // import Settings from "./Settings/Settings.jsx";
 
 class Collection extends Component {
@@ -54,7 +54,7 @@ class Collection extends Component {
                 <div className="Collection__scrollToTop">
                   <ScrollToTop />
                 </div>
-                <SelectionsNav />
+                {/* <SelectionsNav /> */}
               </Fragment>
             ) : null
           }

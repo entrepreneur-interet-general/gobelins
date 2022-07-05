@@ -15,7 +15,7 @@ class FiltersMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMode: "default"
+      currentMode: "default",
     };
 
     this.activateSearchMode = this.activateSearchMode.bind(this);
@@ -28,19 +28,19 @@ class FiltersMobile extends Component {
 
   activateSearchMode() {
     this.setState({
-      currentMode: "search"
+      currentMode: "search",
     });
   }
 
   activateFilterMode() {
     this.setState({
-      currentMode: "filter"
+      currentMode: "filter",
     });
   }
 
   handleCloseSearch() {
     this.setState({
-      currentMode: "default"
+      currentMode: "default",
     });
     if (this.props.totalHits === 0) {
       this.props.onFilterRemoveAll();
@@ -48,7 +48,7 @@ class FiltersMobile extends Component {
   }
   handleCloseFilterPanel() {
     this.setState({
-      currentMode: "default"
+      currentMode: "default",
     });
   }
 
@@ -71,33 +71,40 @@ class FiltersMobile extends Component {
   }
 
   render() {
+    const css = `
+      :root {
+        --Nav-position-top: 15px;
+        --Nav-position-right: 15px;
+      }
+      @media (min-width: 800px) {
+        :root {
+          --Nav-position-top: 17px;
+          --Nav-position-right: 40px;
+        }
+      }
+      @media (min-width: 1024px) {
+        :root {
+          --Nav-position-top: 35px;
+          --Nav-position-right: 40px;
+        }
+      }
+    `;
+
     return (
       <div className="FiltersMobile">
         <Headroom disableInlineStyles>
           <div className="FiltersMobile__header">
-            <div className="FiltersMobile__firstline">
+            <h1 className="FiltersMobile__maintitle">
               <a
-                href="http://www.mobiliernational.culture.gouv.fr/"
-                className="FiltersMobile__logo-link"
+                href="{{ route('search') }}"
+                className="FiltersMobile__maintitle-link"
                 title="Mobilier national"
               >
-                <MnLogo
-                  width={43}
-                  height={13}
-                  className="FiltersMobile__logo"
-                />
+                Collection
+                <br className="FiltersMobile__maintitle-br" /> du Mobilier
+                national
               </a>
-              <h1 className="FiltersMobile__maintitle">
-                Collection du Mobilier national
-              </h1>
-              <a
-                href="/info"
-                title="information"
-                className="FiltersMobile__info-link"
-              >
-                <span>i</span>
-              </a>
-            </div>
+            </h1>
             <div className="FiltersMobile__active-filters-container">
               <CriteriaPhrase
                 asPhrase={false}
@@ -108,6 +115,7 @@ class FiltersMobile extends Component {
             </div>
           </div>
         </Headroom>
+        <style>{css}</style>
 
         {this.state.currentMode === "search" ? (
           <MobileSearch
@@ -155,9 +163,9 @@ class FiltersMobile extends Component {
           <div className="FiltersMobile__toggleholder FiltersMobile__toggleholder--center">
             <SelectionsNav />
           </div>
-          <div className="FiltersMobile__toggleholder FiltersMobile__toggleholder--right">
+          {/* <div className="FiltersMobile__toggleholder FiltersMobile__toggleholder--right">
             <ScrollToTop />
-          </div>
+          </div> */}
         </div>
       </div>
     );

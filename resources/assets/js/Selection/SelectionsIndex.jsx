@@ -17,16 +17,16 @@ function SelectionsIndex(props) {
   }, []);
 
   const [ref, inView] = useInView({
-    threshold: 0.1
+    threshold: 0.1,
   });
 
   return (
     <div className="Selections">
-      <Link className="Selections__close" to="/recherche">
+      {/* <Link className="Selections__close" to="/recherche">
         <CrossSimple
           className={inView ? "is-light-on-dark" : "is-dark-on-light"}
         />
-      </Link>
+      </Link> */}
 
       <div className="Selections__scroll-to-top">
         <ScrollToTop />
@@ -69,7 +69,7 @@ function MobNatSelections(props) {
               <br />
               du Mobilier national
             </h1>
-            {selectionsContext.mobNatSelections.map(sel => (
+            {selectionsContext.mobNatSelections.map((sel) => (
               <SelectionsListItem
                 selection={sel}
                 key={sel.id}
@@ -135,7 +135,7 @@ function UserSelections(props) {
             <h1 className="Selections__inset-header SelectionsList__masonry-item">
               Dernières sélections des utilisateurs
             </h1>
-            {selectionsContext.userSelections.map(sel => (
+            {selectionsContext.userSelections.map((sel) => (
               <SelectionsListItem
                 selection={sel}
                 key={sel.id}

@@ -11,9 +11,7 @@
   overflow: visible;
 
   @include breakpoint(1025px) {
-    position: fixed;
-    top: 38px;
-    right: 12px;
+    width: auto;
   }
 
   .SelectionsNav__icon {
@@ -21,7 +19,9 @@
     width: 50px;
     padding: 0;
     margin: 0;
-    border: 1px solid #f0f0f0;
+    @include breakpoint(1024px) {
+      border: 1px solid #f0f0f0;
+    }
     background-color: #fff;
     border-radius: 25px;
 
@@ -34,7 +34,13 @@
   }
 
   .SelectionsNav__label {
-    display: flex;
+    display: none;
+    border: 0;
+    @include breakpoint(1024px) {
+      display: flex;
+      border: 1px solid #f0f0f0;
+      border-right: 0;
+    }
     flex: 1 0 auto;
     height: 50px;
     margin-right: -25px;
@@ -44,16 +50,14 @@
     flex-flow: column;
     justify-content: center;
     background: #fff;
-    border: 1px solid #f0f0f0;
     border-radius: 25px 0 0 25px;
-    border-right: 0;
     white-space: nowrap;
     @include f-sans;
     font-size: rem(15px);
     line-height: rem(21px);
-    transition: opacity 400ms linear;
-    opacity: 0;
-    pointer-events: none;
+    // transition: opacity 400ms linear;
+    // opacity: 0;
+    // pointer-events: none;
   }
 
   .SelectionsNav__heart {
@@ -74,9 +78,9 @@
       fill: #f24747;
     }
     .SelectionsNav__label {
-      transition: none;
-      opacity: 1;
-      pointer-events: auto;
+      // transition: none;
+      // opacity: 1;
+      // pointer-events: auto;
     }
   }
 }

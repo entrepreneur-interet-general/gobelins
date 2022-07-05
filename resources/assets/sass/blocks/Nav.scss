@@ -1,19 +1,19 @@
 .Nav {
     position: fixed;
-    top: 15px;
-    right: 15px;
+    top: var(--Nav-position-top, 15px);
+    right: var(--Nav-position-right, 15px);
     z-index: 5;
 
     @include breakpoint(768px) {
-        top: 30px;
-        right: 27px;
+        top: var(--Nav-position-top, 30px);
+        right: var(--Nav-position-right, 27px);
     }
     @include breakpoint($large-up) {
-        top: 40px;
-        right: 40px;
+        top: var(--Nav-position-top, 40px);
+        right: var(--Nav-position-right, 40px);
     }
     @include breakpoint($a-xxlarge-up) {
-        right: 50px;
+        right: var(--Nav-position-right, 50px);
     }
 }
 

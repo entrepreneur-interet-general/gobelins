@@ -5,6 +5,9 @@ import AppRouter from "./AppRouter";
 import "focus-visible";
 import * as Sentry from "@sentry/browser";
 import Bricks from "bricks.js";
+import { setupDialogs } from "./dialogs.js";
+
+setupDialogs();
 
 /**
  * Expose a global instance of Bricks,

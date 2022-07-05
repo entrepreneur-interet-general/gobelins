@@ -26,32 +26,38 @@
   transform: translateY(0%);
 }
 
-.FiltersMobile__firstline {
+.FiltersMobile__maintitle {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
+  height: calc(85px - 14px);
+  width: auto;
+  flex-flow: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
   padding: 0 15px;
-  @include breakpoint($small-up) {
-    padding-left: 40px;
-    padding-right: 40px;
+  @include f-serif;
+  font-weight: 400;
+  font-size: rem(15px);
+  line-height: rem(21px);
+  text-align: left;
+  color: #000;
+  @include breakpoint(768px) {
+    padding: 0 40px;
   }
 }
-.FiltersMobile__maintitle {
-  flex: 0 1 auto;
-  height: 50px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  @include f-serif;
-  font-weight: normal;
-  font-size: rem(15px);
-  line-height: rem(20px);
-  text-align: center;
+.FiltersMobile__maintitle-link {
+  display: block;
+  padding: 10px;
+  margin-left: -10px;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  top: 6px;
+}
+.FiltersMobile__maintitle-br {
+  @include breakpoint(500px) {
+    display: none;
+  }
 }
 
 .FiltersMobile__active-filters-container {
@@ -59,67 +65,36 @@
   padding: 0 15px 14px;
 }
 
-.FiltersMobile__logo-link {
-  padding: 10px;
-  margin-left: -10px;
-}
-.FiltersMobile__logo {
-  display: block;
-  margin-right: 7px;
-  flex: 0 0 auto;
-}
-.FiltersMobile__info-link {
-  flex: 0 0 30px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  text-decoration: none;
-  background-color: white;
-  border: 1px solid $lines;
-  @include f-sans;
-  font-size: rem(13px);
-  line-height: 1;
-  position: relative;
-  margin-left: 20px;
-
-  & > span {
-    display: block;
-  }
-}
-
 .FiltersMobile__toggles {
   width: 100%;
   position: fixed;
-  bottom: 30px;
+  bottom: 0;
   left: 0;
   right: 0;
+  height: 60px;
   z-index: 1;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   color: $quasi-black;
+  background-color: #fff;
 }
 
 .FiltersMobile__toggleholder {
-  flex: 0 0 50px;
+  flex: 0 0 18%;
 
   &.FiltersMobile__toggleholder--center {
-    margin: 0 15px;
+    display: flex;
+    justify-content: center;
     & + .FiltersMobile__toggleholder--center {
       margin-left: 0;
     }
   }
   &.FiltersMobile__toggleholder--left {
     display: flex;
-    flex: 0 0 auto;
     flex-flow: row nowrap;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
   }
 }
@@ -130,7 +105,7 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
-  border: 1px solid $lines;
+  border: 0;
   color: $quasi-black;
   cursor: pointer;
   background-color: #fff;
@@ -145,17 +120,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 60px;
   width: auto;
-  padding: 0 25px;
+  padding: 0;
   border-radius: 25px;
-  border: 1px solid $lines;
+  border: 0;
   color: $quasi-black;
   cursor: pointer;
   background-color: #fff;
 
   @include f-sans;
-  font-size: rem(16px);
+  // font-size: rem(16px);
+  font-size: rem(20px);
 
   &:hover,
   &:active {

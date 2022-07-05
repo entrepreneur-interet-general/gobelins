@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('site._nav')
+
 <div id="root">
 
     @isset($product)
