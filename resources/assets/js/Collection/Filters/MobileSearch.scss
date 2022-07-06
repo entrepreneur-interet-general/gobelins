@@ -54,6 +54,8 @@
     height: 35px;
     background-color: transparent;
     border: 0;
+    // I don't like the rounded search input on iOS.
+    -webkit-appearance: none;
 
     @include f-serif;
     font-size: rem(16px);

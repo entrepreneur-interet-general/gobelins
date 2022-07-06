@@ -8,7 +8,7 @@ class MobileSearch extends Component {
     super(props);
     this.state = {
       searchFieldValue: "",
-      searchFieldPlaceholder: "Rechercher"
+      searchFieldPlaceholder: "Rechercher",
     };
     this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
     this.handleSearchFieldFocus = this.handleSearchFieldFocus.bind(this);
@@ -68,13 +68,13 @@ class MobileSearch extends Component {
                 onChange={this.handleSearchFieldChange}
                 onFocus={this.handleSearchFieldFocus}
                 onBlur={this.handleSearchFieldBlur}
-                ref={elRef => {
+                ref={(elRef) => {
                   this.searchFieldRef = elRef;
                 }}
               />
             </div>
             <div className="MobileSearch__cancel">
-              <button type="reset" onClick={this.handleReset}>
+              <button type="button" onClick={this.props.onCloseSearch}>
                 <CrossLarge />
               </button>
             </div>
