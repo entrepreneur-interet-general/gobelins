@@ -16,6 +16,9 @@
 
 .SingleColText__container {
   grid-column: main;
+  @include breakpoint(768px) {
+    grid-column: 2 / -2;
+  }
   @include breakpoint($medium-up) {
     grid-column: 6 / -4;
   }
