@@ -23,9 +23,9 @@
                     </div> --}}
 
                     <div class="Nav__destination">
-                        <a href="{{ route('search') }}" class="Nav__destination-title">Collection</a>
+                        <a href="{{ route('search') }}" class="Nav__destination-title @route('search') is-active @endroute @route('product*') is-active @endroute @route('selection*') is-active @endroute">Collection</a>
                         <div class="Nav__destination-sections">
-                            <a href="{{ route('search') }}" class="Nav__destination-section is-full-width @route('search') is-active @endroute">65 000 meubles, textiles, objets d’art</a>
+                            <a href="{{ route('search') }}" class="Nav__destination-section is-full-width">65 000 meubles, textiles, objets d’art</a>
                             <div class="Nav__destination-section-linebreak @route('selections') is-active @endroute"></div>
                             <a href="{{ route('selections') }}" class="Nav__destination-section is-full-width">Sélections d’objet</a>
                         </div>
