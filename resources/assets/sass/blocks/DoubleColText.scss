@@ -14,6 +14,7 @@
 }
 :not(.on-dark-bg)+.DoubleColText.on-dark-bg {
   z-index: initial;
+  @include dark-margin-top(80px);
 }
 
 .DoubleColText__container {
