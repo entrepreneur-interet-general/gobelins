@@ -46,13 +46,13 @@
                     </div>
 
                     <div class="Nav__destination">
-                        <a href="http://www.mobiliernational.culture.gouv.fr/" class="Nav__destination-title">L’institution</a>
+                        <a href="http://www.mobiliernational.culture.gouv.fr/" class="Nav__destination-title" target="_blank">L’institution</a>
                         <div class="Nav__destination-sections">
-                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/nous-connaitre/linstitution/presentation" class="Nav__destination-section">Nous connaître</a>
-                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/infos-pratiques?nid=25" class="Nav__destination-section">Préparer ma visite</a>
+                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/nous-connaitre/linstitution/presentation" class="Nav__destination-section" target="_blank">Nous connaître</a>
+                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/infos-pratiques?nid=25" class="Nav__destination-section" target="_blank">Préparer ma visite</a>
                             <div class="Nav__destination-section-linebreak"></div>
-                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/expositions-et-evenements/toutes-les-expositions" class="Nav__destination-section">Expositions</a>
-                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/actualites/actualites-du-mobilier-national" class="Nav__destination-section">Actualités</a>
+                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/expositions-et-evenements/toutes-les-expositions" class="Nav__destination-section" target="_blank">Expositions</a>
+                            <a href="http://www.mobiliernational.culture.gouv.fr/fr/actualites/actualites-du-mobilier-national" class="Nav__destination-section" target="_blank">Actualités</a>
                         </div>
                     </div>
 
