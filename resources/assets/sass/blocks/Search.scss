@@ -2,7 +2,7 @@
     position: fixed;
     top: 15px;
     right: 150px;
-    z-index: 3;
+    z-index: 5;
     @include breakpoint(768px) {
         top: 30px;
         right: 160px;
