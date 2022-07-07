@@ -11,3 +11,11 @@ html.prevent-scroll body {
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
+
+/*
+  Force the page to be full height, the footer should always be at the bottom.
+*/
+body {
+  display: flex;
+  flex-flow: column;
+}
