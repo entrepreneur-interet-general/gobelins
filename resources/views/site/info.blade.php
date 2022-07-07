@@ -2,20 +2,10 @@
 
 @section('content')
 
+@include('site._nav')
+
 <nav class="InfoNav">
     <ul>
-        <li>
-            <a href="{{ route('search') }}" class="InfoNav__back">
-                <svg width="19" height="19">
-                    <path d="M9 18L1 9.52236" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <path d="M9 1L1 9.47764" stroke="currentColor" stroke-miterlimit="10" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <line x1="18.5" y1="9.5" x2="1.5" y2="9.5" stroke="currentColor" stroke-linecap="round" />
-                </svg>
-                <span>Collection du Mobilier national</span>
-            </a>
-        </li>
         <li><a href="#mnlab">MN/Lab</a></li>
         <li><a href="#project">Projet</a></li>
         <li><a href="#credits">Crédits et mentions légales</a></li>
