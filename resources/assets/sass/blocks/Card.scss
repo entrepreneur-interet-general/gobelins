@@ -179,6 +179,10 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     padding-bottom: 1px;
+    &::first-letter {
+        text-transform: uppercase;
+        display: inline;
+    }
 }
 
 .Card__fig {

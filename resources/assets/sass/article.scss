@@ -378,6 +378,10 @@ body {
   margin-right: 10px;
   margin-bottom: 10px;
   padding: 0 15px;
+  &::first-letter {
+    text-transform: uppercase;
+    display: inline;
+  }
 }
 
 :root {
