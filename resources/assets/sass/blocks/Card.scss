@@ -30,6 +30,7 @@
     font-style: normal;
     font-weight: 400;
     font-size: rem(13px);
+    line-height: 100%;
     font-feature-settings: 'pnum' on, 'onum' on;
     color: #FFFFFF;
 }
@@ -151,7 +152,7 @@
     justify-content: center;
     align-items: center;
     padding: 5px 10px 4px 10px;
-    background: #EDEDED;
+    background: rgba(0, 0, 0, 0.08);
     border-radius: 50px;
     // To match the reading time capsule, we add a border.
     border: 1px solid #EDEDED;
