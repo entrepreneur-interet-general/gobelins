@@ -20,7 +20,7 @@
     padding: 0;
     margin: 0;
     @include breakpoint(1024px) {
-      border: 1px solid #f0f0f0;
+      border: 1px solid #000;
     }
     background-color: #fff;
     border-radius: 25px;
@@ -38,7 +38,7 @@
     border: 0;
     @include breakpoint(1024px) {
       display: flex;
-      border: 1px solid #f0f0f0;
+      border: 1px solid #000;
       border-right: 0;
     }
     flex: 1 0 auto;
