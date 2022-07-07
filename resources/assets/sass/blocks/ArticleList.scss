@@ -159,7 +159,7 @@
     font-style: italic;
     font-weight: 400;
     font-size: rem(22px);
-    line-height: 163.41%;
+    line-height: 140%;
     font-feature-settings: 'pnum' on, 'onum' on;
     
     @include breakpoint(768px) {
@@ -167,6 +167,7 @@
         margin-top: 85px;
         padding-left: 0;
         font-size: rem(35px);
+        line-height: 163.41%;
     }
     @include breakpoint($large-up) {
         margin-top: 75px;

@@ -139,6 +139,11 @@
     border: 1px solid #3338BA;
     color: #3338BA;
     cursor: pointer;
+
+    & > svg {
+        position: relative;
+        left: -1px;
+    }
 }
 
 .Search__close {
