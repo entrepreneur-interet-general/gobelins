@@ -2,6 +2,7 @@ import Colcade from "colcade";
 import Flickity from "flickity";
 //import A11yDialog from 'a11y-dialog'
 import { setupDialogs } from "./dialogs.js";
+import imagesLoaded from "imagesLoaded";
 
 setupDialogs();
 
@@ -255,3 +256,36 @@ class JumpNavComponent {
     }
 }
 new JumpNavComponent();
+
+
+
+
+class PositionBackgroundHalos {
+    constructor() {
+        imagesLoaded( document.body, function() {
+            console.log('all images are loaded YO');
+            let support_els = document.querySelectorAll(':not(.on-dark-bg) + .on-dark-bg');
+            if (support_els.length) {
+                support_els.forEach(el => {
+                    let pos = el.getBoundingClientRect();
+                    let halo_el = document.createElement('div');
+                    halo_el.className = 'has-halo-type-1';
+                    halo_el.style.top = (Math.floor(pos.top) - 418) + 'px';
+                    document.body.insertBefore(halo_el, document.body.firstChild);
+                });
+            }
+            support_els = document.querySelectorAll('.on-dark-bg + :not(.on-dark-bg)');
+            if (support_els.length) {
+                support_els.forEach(el => {
+                    let pos = el.getBoundingClientRect();
+                    let halo_el = document.createElement('div');
+                    halo_el.className = 'has-halo-type-2';
+                    halo_el.style.top = (Math.floor(pos.top) - 246) + 'px';
+                    document.body.insertBefore(halo_el, document.body.firstChild);
+                });
+            }
+        });
+    }
+}
+new PositionBackgroundHalos();
+

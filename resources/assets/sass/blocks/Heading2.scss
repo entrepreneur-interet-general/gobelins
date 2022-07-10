@@ -4,7 +4,7 @@
   padding: 0;
   margin: 130px 0 60px;
   position: relative;
-  z-index: 2;
+  z-index: 0;
   @include breakpoint(768px) {
     margin: 120px 0 50px;
   }

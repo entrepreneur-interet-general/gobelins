@@ -1,7 +1,7 @@
 .DoubleColText {
   @extend %article-grid;
   position: relative;
-  z-index: 2; // Because overlap with halos.
+  z-index: 0; // Because overlap with halos.
   margin: 80px 0;
   @include breakpoint($a-xxlarge-up) {
     margin: 100px 0;

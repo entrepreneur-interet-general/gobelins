@@ -102,6 +102,57 @@
   }
 }
 
+.has-halo-type-1 {
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  height: 850px;
+  width: 743px;
+  top: -418px;
+  right: 0px;
+  overflow: hidden;
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    height: 812px;
+    width: 812px;
+    top: 90px;
+    right: -70px;
+    z-index: -1;
+    background: radial-gradient(50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%),
+      #6167ff;
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+    box-shadow: inset 0px 0px 200px 20px #ffffff;
+    background-repeat: no-repeat;
+  }
+
+  &:after {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 345px;
+    height: 345px;
+    right: -16px;
+    top: 0;
+    z-index: -1;
+    background: radial-gradient(50% 50% at 50% 50%,
+        rgba(255, 255, 255, 0) 0%,
+        #ffffff 100%),
+      #ff8989;
+    mix-blend-mode: multiply;
+    opacity: 0.3;
+    box-shadow: inset 0px 0px 200px 20px #ffffff;
+  }
+}
+
+/*
 :not(.on-dark-bg) + .on-dark-bg .has-decorative-bg {
   display: block;
   user-select: none;
@@ -153,8 +204,30 @@
     box-shadow: inset 0px 0px 200px 20px #ffffff;
   }
 }
+*/
 
-.on-dark-bg + :not(.on-dark-bg) .has-decorative-bg {
+// .on-dark-bg + :not(.on-dark-bg) .has-decorative-bg {
+//   display: block;
+//   user-select: none;
+//   pointer-events: none;
+//   position: absolute;
+//   height: 802px;
+//   width: 802px;
+//   top: -246px;
+//   right: 204px;
+//   z-index: -1;
+//   background: radial-gradient(
+//       50% 50% at 50% 50%,
+//       rgba(255, 255, 255, 0) 0%,
+//       #ffffff 100%
+//     ),
+//     #b86e00;
+//   mix-blend-mode: multiply;
+//   opacity: 0.3;
+//   box-shadow: inset 0px 0px 200px 20px #ffffff;
+//   background-repeat: no-repeat;
+// }
+.has-halo-type-2 {
   display: block;
   user-select: none;
   pointer-events: none;
