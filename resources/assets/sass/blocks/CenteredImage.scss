@@ -46,7 +46,7 @@
     display: none;
   }
   &:after {
-    display: none;
+    // display: none; // what was this for ? Commenting out, because creates a white strip when followed by another block with black background.
   }
   .CenteredImage__img {
     grid-column: 1 / -1;
