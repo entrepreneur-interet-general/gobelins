@@ -2,7 +2,7 @@ import Colcade from "colcade";
 import Flickity from "flickity";
 //import A11yDialog from 'a11y-dialog'
 import { setupDialogs } from "./dialogs.js";
-import imagesLoaded from "imagesLoaded";
+import imagesLoaded from "imagesloaded";
 
 setupDialogs();
 
