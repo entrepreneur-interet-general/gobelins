@@ -271,7 +271,7 @@
     @include f-sans;
     font-style: normal;
     font-weight: 400;
-    font-size: rem(16px);
+    font-size: rem(18px);
     line-height: 140%;
     letter-spacing: 0.03em;
     font-feature-settings: 'pnum' on, 'onum' on;
@@ -363,6 +363,7 @@
 
 .EncycloHome__cardstack--featured_primary {
     margin: 76px 0 0 0;
+    --Card-title-font-size: 24px;
     @include breakpoint(768px) {
         margin: 66px 0 0 0;
     }
