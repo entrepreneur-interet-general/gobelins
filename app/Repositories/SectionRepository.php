@@ -18,9 +18,7 @@ class SectionRepository extends ModuleRepository
 
     public function afterSave($object, $fields)
     {
-        Cache::rememberForever('nav_sections', function () {
-            return Section::published()->with('slugs')->orderBy('position')->get()->map(function ($item) {return ['title' => $item->title, 'slug' => $item->slug];});
-        });
+        Cache::forget('nav_sections');
 
         parent::afterSave($object, $fields);
     }
