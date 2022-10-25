@@ -94,9 +94,9 @@ class FormatterOaiDc
     {
         $title = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:title',
-            $this->product->seoTitle
+            'dc:title'
         );
+        $title->appendChild($this->document->createTextNode($this->product->seoTitle));
         $this->root->appendChild($title);
     }
 
@@ -104,9 +104,9 @@ class FormatterOaiDc
     {
         $identifier = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:identifier',
-            $this->product->inventory_id
+            'dc:identifier'
         );
+        $identifier->appendChild($this->document->createTextNode($this->product->inventory_id));
         $this->root->appendChild($identifier);
     }
 
@@ -126,9 +126,9 @@ class FormatterOaiDc
         if ($this->product->productType) {
             $type = $this->document->createElementNS(
                 'http://purl.org/dc/elements/1.1/',
-                'dc:type',
-                $this->product->productType->mapping_key
+                'dc:type'
             );
+            $type->appendChild($this->document->createTextNode($this->product->productType->mapping_key));
             $this->root->appendChild($type);
         }
     }
@@ -137,9 +137,9 @@ class FormatterOaiDc
     {
         $publisher = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:publisher',
-            'Mobilier National'
+            'dc:publisher'
         );
+        $publisher->appendChild($this->document->createTextNode('Mobilier National'));
         $this->root->appendChild($publisher);
     }
 
@@ -165,9 +165,9 @@ class FormatterOaiDc
             $name = $author->first_name . ' ' . $author->last_name;
             $creator = $this->document->createElementNS(
                 'http://purl.org/dc/elements/1.1/',
-                'dc:creator',
-                $name
+                'dc:creator'
             );
+            $creator->appendChild($this->document->createTextNode($name));
             // if ($author->isni_uri) {
             //     $creator->setAttributeNS(
             //         'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
@@ -183,9 +183,9 @@ class FormatterOaiDc
     {
         $date = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:date',
-            $this->product->conception_year ?: $this->product->category
+            'dc:date'
         );
+        $date->appendChild($this->document->createTextNode($this->product->conception_year ?: $this->product->category));
         $this->root->appendChild($date);
     }
 
@@ -193,9 +193,10 @@ class FormatterOaiDc
     {
         $url = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:url',
-            route('product', ['inventory_id' => $this->product->inventory_id])
+            'dc:url'
         );
+        $route = route('product', ['inventory_id' => $this->product->inventory_id]);
+        $url->appendChild($this->document->createTextNode($route));
         $this->root->appendChild($url);
     }
 
@@ -204,9 +205,10 @@ class FormatterOaiDc
         if ($poster = $this->product->posterImage) {
             $related = $this->document->createElementNS(
                 'http://purl.org/dc/elements/1.1/',
-                'dc:related',
-                asset(image_url('/media/xl/' . $poster->path, 600))
+                'dc:related'
             );
+            $poster_url = asset('/media/xl/' . $poster->path);
+            $related->appendChild($this->document->createTextNode($poster_url));
             $this->root->appendChild($related);
         }
     }
@@ -221,9 +223,9 @@ class FormatterOaiDc
         }
         $rights = $this->document->createElementNS(
             'http://purl.org/dc/elements/1.1/',
-            'dc:rights',
-            $licence_txt
+            'dc:rights'
         );
+        $rights->appendChild($this->document->createTextNode($licence_txt));
         $this->root->appendChild($rights);
     }
 
