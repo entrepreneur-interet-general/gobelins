@@ -38,7 +38,7 @@
     "lodash.debounce": "^4.0.8",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.6.2",
-    "qs": "^6.5.2",
+    "qs": "^6.5.3",
     "react": "^16.8.6",
     "react-aim": "^0.2.3",
     "react-breakpoints": "^3.0.3",
